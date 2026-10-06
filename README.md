@@ -45,11 +45,13 @@ Every room is written prose. Every command is a word you type, or a button you t
 
 ## Play
 
+**Book I is free:** the whole first story, floors 1 to 20, seven side dungeons and the endless Abyss. Books II to IV, their dungeons and the raids are the **full game**: $4.99 on the web, $2.99 in the Android app. The store isn't open yet. Everyone who plays before it opens becomes a **Founder** and keeps the full game.
+
 | Where | How |
 |---|---|
 | **Any browser** | Open **https://playundervault.com/**. Your save stays on your device. |
 | **iPhone / iPad** | Open the link in Safari, then **Share → Add to Home Screen**. It runs full-screen and offline. |
-| **Android** | Open the link in Chrome, then **Install app**. Or grab the APK from the [latest release](https://github.com/A-Theme/undervault/releases/latest) and open it on your phone. |
+| **Android** | Open the link in Chrome, then **Install app**. Or download **[undervault.apk](https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk)** and open it on your phone. |
 | **Steam Deck** | One command in Desktop Mode puts it in your Steam library, controller and all. See [Steam Deck](#steam-deck) below. |
 
 Keep up to **three heroes** and switch between them from the title screen (or **Menu → Heroes**). Use **Menu → Export save** to back up a hero or move it to another device: you get a short code to paste into **Import save** there.
