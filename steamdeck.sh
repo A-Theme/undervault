@@ -2,7 +2,7 @@
 # Lanterns of the Undervault: Steam Deck (and any Linux with Flatpak) installer.
 #
 # In Desktop Mode, open Konsole and run one of these:
-#   curl -fsSL https://a-theme.github.io/undervault/steamdeck.sh | bash
+#   curl -fsSL https://playundervault.com/steamdeck.sh | bash
 #   curl -fsSL https://raw.githubusercontent.com/A-Theme/undervault/main/steamdeck.sh | bash
 #
 # It makes a "Lanterns of the Undervault" app that opens the game full-screen in a browser, with its icon and
@@ -11,7 +11,7 @@
 # run it with --uninstall to remove it. Your saves live in that browser: Menu > Export save backs a hero up.
 set -euo pipefail
 
-URL="https://a-theme.github.io/undervault/"
+URL="https://playundervault.com/"
 NAME="Lanterns of the Undervault"
 APPS="$HOME/.local/share/applications"
 ICON="$HOME/.local/share/icons/hicolor/512x512/apps/undervault.png"

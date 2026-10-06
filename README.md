@@ -5,7 +5,7 @@
 **A text dungeon crawler in the old MUD style, built for your phone.**<br>
 Fight, loot, tame beasts and descend beneath Emberfall to relight the failing seals.
 
-[![Play in your browser](https://img.shields.io/badge/%E2%96%B6%20play-in%20your%20browser-eaa94a?style=for-the-badge)](https://a-theme.github.io/undervault/)
+[![Play in your browser](https://img.shields.io/badge/%E2%96%B6%20play-in%20your%20browser-eaa94a?style=for-the-badge)](https://playundervault.com/)
 [![Latest release](https://img.shields.io/github/v/release/A-Theme/undervault?style=for-the-badge&color=7aaeff&label=release)](https://github.com/A-Theme/undervault/releases/latest)
 [![Android APK](https://img.shields.io/badge/android-APK-86d98a?style=for-the-badge&logo=android&logoColor=white)](https://github.com/A-Theme/undervault/releases/latest)
 [![License: All rights reserved](https://img.shields.io/badge/license-all%20rights%20reserved-d48cff?style=for-the-badge)](LICENSE)
@@ -37,7 +37,7 @@ Every room is written prose. Every command is a word you type, or a button you t
 
 <br>
 
-**[▶ Play now](https://a-theme.github.io/undervault/)** &nbsp;·&nbsp; [Watch the teaser](media/teaser.mp4) &nbsp;·&nbsp; [Read the lore](LORE.md) &nbsp;·&nbsp; [What's new](https://github.com/A-Theme/undervault/releases)
+**[▶ Play now](https://playundervault.com/)** &nbsp;·&nbsp; [Watch the teaser](media/teaser.mp4) &nbsp;·&nbsp; [Read the lore](LORE.md) &nbsp;·&nbsp; [What's new](https://github.com/A-Theme/undervault/releases)
 
 </td>
 </tr>
@@ -47,7 +47,7 @@ Every room is written prose. Every command is a word you type, or a button you t
 
 | Where | How |
 |---|---|
-| **Any browser** | Open **https://a-theme.github.io/undervault/**. Your save stays on your device. |
+| **Any browser** | Open **https://playundervault.com/**. Your save stays on your device. |
 | **iPhone / iPad** | Open the link in Safari, then **Share → Add to Home Screen**. It runs full-screen and offline. |
 | **Android** | Open the link in Chrome, then **Install app**. Or grab the APK from the [latest release](https://github.com/A-Theme/undervault/releases/latest) and open it on your phone. |
 | **Steam Deck** | One command in Desktop Mode puts it in your Steam library, controller and all. See [Steam Deck](#steam-deck) below. |
