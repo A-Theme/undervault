@@ -45,7 +45,7 @@ Every room is written prose. Every command is a word you type, or a button you t
 
 ## Play
 
-**Book I is free:** the whole first story, floors 1 to 20, seven side dungeons and the endless Abyss. Books II to IV, their dungeons and the raids are the **full game**: CA$6.99 (about US$5) on the web, $2.99 in the Android app. The store isn't open yet. Everyone who plays before it opens becomes a **Founder** and keeps the full game.
+**Book I is free:** the whole first story, floors 1 to 20, seven side dungeons and the endless Abyss. Books II to IV, their dungeons and the raids are the **full game**: CA$6.99 (about US$5) on the website unlocks it everywhere, every browser and the Android app; or buy it inside the Android app for that app alone. The store isn't open yet. Everyone who plays before it opens becomes a **Founder** and keeps the full game.
 
 | Where | How |
 |---|---|
