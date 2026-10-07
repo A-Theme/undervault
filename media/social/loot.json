@@ -1,0 +1,92 @@
+[
+ {
+  "slug": "oathbreaker",
+  "hero": "Bram",
+  "cls": "Warrior",
+  "label": "SET PIECE · WARDBREAKER'S OATH",
+  "name": "Oathbreaker",
+  "line": "You take Oathbreaker.",
+  "desc": "T10 Legendary set piece, Wardbreaker's Oath (0/4 worn): axe 127-219, grants the title \"Bane of the Drowned\", +126 hp, +50% dmg, +25% vs bosses, +12% crit, crits +40%. Set: 2 pieces +20% armor and +10% max health; 4 pieces Defend blocks 20% more, 30% thorns and +20% damage"
+ },
+ {
+  "slug": "grisholts-ladle",
+  "hero": "Wren",
+  "cls": "Rogue",
+  "label": "LEGENDARY",
+  "name": "Grisholt's Ladle",
+  "line": "You take Grisholt's Ladle.",
+  "desc": "T11 Legendary Dawnforged Kris: dagger 108-187, grants the title \"Breaker of Seals\", 15% extra strike, 12% freeze, +91 mp, +35% dmg, +60% against wounded foes"
+ },
+ {
+  "slug": "starfall",
+  "hero": "Isolde",
+  "cls": "Mage",
+  "label": "SET PIECE · STARFALL REGALIA",
+  "name": "Starfall",
+  "line": "You take Starfall.",
+  "desc": "T10 Legendary set piece, Starfall Regalia (0/4 worn): staff 105-181, grants the title \"Breaker of Seals\", +50% dmg, 15% extra strike, 8% lifesteal, +60% against wounded foes. Set: 2 pieces +20% skill damage and +15% max mana; 4 pieces +15% crit, crits deal +50%, +4 mana a round"
+ },
+ {
+  "slug": "vales-promise",
+  "hero": "Corvin",
+  "cls": "Ranger",
+  "label": "LEGENDARY",
+  "name": "Vale's Promise",
+  "line": "You take Vale's Promise.",
+  "desc": "T13 Legendary Rimesteel Bow: bow 169-293, +50% dmg, 8% lifesteal, 12% freeze, 25% extra strike"
+ },
+ {
+  "slug": "thirteenth-minute",
+  "hero": "Seren",
+  "cls": "Necromancer",
+  "label": "LEGENDARY",
+  "name": "Thirteenth Minute",
+  "line": "You take Thirteenth Minute.",
+  "desc": "T9 Legendary Ashglass Crescent: scythe 93-161, grants the title \"the Sunblade\", 23% lifesteal, +61 mp, 20% burn, +35% dmg"
+ },
+ {
+  "slug": "lanternheart",
+  "hero": "Mara",
+  "cls": "Cleric",
+  "label": "SET PIECE · LANTERNLIGHT",
+  "name": "Lanternheart",
+  "line": "You take Lanternheart.",
+  "desc": "T10 Legendary set piece, Lanternlight (0/4 worn): mace 121-210, grants the title \"Doorcleaver\", 12% freeze, +25% vs bosses, 20% burn, +35% dmg, +12% crit, crits +40%. Set: 2 pieces +25% healing and +10% max health; 4 pieces +25% skill damage, 3% regen a round, +30% against bosses"
+ },
+ {
+  "slug": "hellcleaver",
+  "hero": "Kael",
+  "cls": "Demon",
+  "label": "SET PIECE · INFERNAL PACT",
+  "name": "Hellcleaver",
+  "line": "You take Hellcleaver.",
+  "desc": "T10 Legendary set piece, Infernal Pact (0/4 worn): axe 127-219, grants the title \"the Ash-Handed\", 8% lifesteal, +25% vs bosses, +50% dmg, 18% chance to call lightning. Set: 2 pieces 10% lifesteal and 20% burn; 4 pieces +25% damage, +20% skill damage, and cheat death once a fight"
+ },
+ {
+  "slug": "cold-iron-crown",
+  "hero": "Ottilie",
+  "cls": "Scion",
+  "label": "BOSS DROP · KING OSRIC",
+  "name": "The Cold Iron Crown",
+  "line": "Among the spoils, something one of a kind: The Cold Iron Crown.",
+  "desc": "T14 Legendary Amber Amulet: amulet, grants the title \"Who Thawed a King\", +540 hp, +15% dmg, +20% vs bosses"
+ },
+ {
+  "slug": "lanterns-oath",
+  "hero": "Rook",
+  "cls": "Brawler",
+  "label": "LEGENDARY",
+  "name": "Lantern's Oath",
+  "line": "You take Lantern's Oath.",
+  "desc": "T11 Legendary Dawnforged Brawlers: fist 119-205, 8% lifesteal, +151 hp, 12% freeze, +35% dmg, 25% extra strike"
+ },
+ {
+  "slug": "hungerbane",
+  "hero": "Thessaly",
+  "cls": "Elementalist",
+  "label": "LEGENDARY",
+  "name": "Hungerbane",
+  "line": "You take Hungerbane.",
+  "desc": "T9 Legendary Ashglass Rodlet: wand 75-130, grants the title \"the Ash-Handed\", 15% extra strike, +10% crit, 20% burn, +35% dmg, 15% lifesteal"
+ }
+]
