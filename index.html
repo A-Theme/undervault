@@ -11,9 +11,124 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Undervault">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="A text dungeon crawler in the old MUD style, with pixel-art heroes. Twelve classes, eighty floors, loot you can see. Book I is free; plays in your browser and offline.">
+<link rel="canonical" href="https://playundervault.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lanterns of the Undervault">
+<meta property="og:title" content="Lanterns of the Undervault">
+<meta property="og:description" content="A text dungeon crawler in the old MUD style, with pixel-art heroes. Book I is free.">
+<meta property="og:url" content="https://playundervault.com/">
+<meta property="og:image" content="https://playundervault.com/media/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box;height:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
+
+<style>
+#home{position:fixed;inset:0;z-index:100;overflow-y:auto;background:#0b0d15;color:#d9dcea;font:15px/1.65 'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;-webkit-overflow-scrolling:touch}
+html.home-on,html.home-on body{overflow:hidden}
+#home *{box-sizing:border-box}   /* plain divs, not header/footer: the game styles those (header is its flex status bar) */
+#home .hm{max-width:880px;margin:0 auto;padding:max(18px,env(safe-area-inset-top,0px)) 16px max(48px,env(safe-area-inset-bottom,0px))}
+#home a{color:#62d6d6}
+#home img,#home video{display:block;max-width:100%;height:auto;image-rendering:pixelated}
+#home .hm-hero{text-align:center;padding:40px 0 6px}
+#home .hm-banner{margin:0 auto;border-radius:10px;border:1px solid #262d4d;width:100%;max-width:820px}
+#home h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}   /* the banner says it; the heading is for screen readers and search */
+#home .hm-tag{color:#c9cde0;margin:18px auto 18px;max-width:560px;font-size:15.5px}
+#home .hm-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 6px}
+#home .hm-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:10px;border:1px solid #eaa94a;background:#eaa94a;color:#1a1206;font:700 15px 'IBM Plex Mono',monospace;cursor:pointer;text-decoration:none}
+#home .hm-btn:hover{background:#ffc066}
+#home .hm-btn.ghost{background:transparent;color:#f3d36b}
+#home .hm-btn.ghost:hover{background:#eaa94a1f}
+#home .hm-btn:focus-visible{outline:2px solid #62d6d6;outline-offset:3px}
+#home .hm-free{font-size:12px;color:#8a93b8;margin:6px 0 0}
+#home h2{font-family:'Silkscreen',monospace;font-weight:400;font-size:20px;letter-spacing:.06em;color:#eaa94a;margin:44px 0 12px;text-align:center}
+#home .hm-lede{max-width:640px;margin:0 auto;text-align:center;color:#c9cde0}
+#home .hm-lede b{color:#f3d36b;font-weight:600}
+#home .hm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+#home .hm-card{background:#11152a;border:1px solid #262d4d;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
+#home .hm-card b{color:#f3d36b;font-weight:600}
+#home .hm-card p{margin:0;font-size:13.5px;color:#aab2cf}
+#home .hm-card .hm-pic{display:flex;align-items:center;justify-content:center;min-height:120px;background:#0b0d15;border-radius:8px;padding:8px;overflow:hidden}
+#home .hm-card .hm-pic img{max-height:150px;width:auto}
+#home .hm-video{max-width:340px;margin:0 auto;border:1px solid #262d4d;border-radius:10px}
+#home .hm-here{display:none;margin:0 auto 14px;max-width:560px;text-align:center;background:#11152a;border:1px solid #eaa94a;border-radius:10px;padding:14px}
+#home .hm-here.on{display:block}
+#home .hm-here b{display:block;color:#f3d36b;margin-bottom:6px}
+#home .hm-plat.mine{border-color:#eaa94a;box-shadow:0 0 0 1px #eaa94a55}
+#home .hm-plat h3{margin:0;font-size:15px;color:#f3d36b;font-weight:600}
+#home .hm-plat ol{margin:0;padding-left:20px;font-size:13.5px;color:#c9cde0}
+#home .hm-plat li{margin:0 0 4px}
+#home .hm-code{display:flex;gap:6px;align-items:stretch}
+#home .hm-code code{flex:1;min-width:0;overflow-x:auto;white-space:nowrap;background:#0b0d15;border:1px solid #262d4d;border-radius:6px;padding:8px;font-size:12px;color:#86d98a}
+#home .hm-code button{flex:none;border:1px solid #262d4d;background:#1a2040;color:#d9dcea;border-radius:6px;padding:0 10px;font:12px 'IBM Plex Mono',monospace;cursor:pointer}
+#home .hm-soon{font-size:12px;color:#8a93b8}
+#home .hm-price{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;max-width:640px;margin:0 auto}
+#home .hm-price .hm-card{text-align:center}
+#home .hm-cost{font-size:26px;color:#f6f2e4;font-weight:600}
+#home .hm-note{max-width:640px;margin:12px auto 0;text-align:center;font-size:13px;color:#8a93b8}
+#home .hm-foot{margin-top:48px;padding-top:16px;border-top:1px solid #262d4d;text-align:center;font-size:13px;color:#8a93b8}
+#home .hm-foot a{margin:0 7px;display:inline-block;padding:4px 0}
+#home .hm-close{position:sticky;top:0;display:flex;justify-content:flex-end;height:0;z-index:1}
+#home .hm-close button{margin-top:-4px;border:1px solid #262d4d;background:#11152acc;color:#d9dcea;border-radius:8px;padding:6px 12px;font:13px 'IBM Plex Mono',monospace;cursor:pointer}
+@media (prefers-reduced-motion:reduce){#home{scroll-behavior:auto}}
+</style>
+<div id="home" role="region" aria-label="Welcome to Lanterns of the Undervault">
+<div class="hm">
+<div class="hm-close"><button type="button" data-hm="play">To the game ›</button></div>
+<div class="hm-hero">
+<img class="hm-banner" src="media/banner.gif" alt="The twelve heroes of Lanterns of the Undervault beneath a guttering lantern" width="960" height="330">
+<h1>Lanterns of the Undervault</h1>
+<p class="hm-tag">A text dungeon crawler in the spirit of the old MUDs, with pixel-art heroes. Type or tap your way down eighty floors beneath a city built on a lid.</p>
+<div class="hm-cta">
+<a class="hm-btn" href="./" data-hm="play">▶ Play free now</a>
+<a class="hm-btn ghost" href="#hm-install" data-hm="install">Install the app</a>
+</div>
+<p class="hm-free">Book I is free. No account, no ads. Plays in your browser and offline.</p>
+</div>
+
+<h2>The Last Lantern is guttering</h2>
+<p class="hm-lede">Three hundred years ago the Lantern Order chained something beneath Emberfall, and five Wardstones hold the seal. Tonight the Last Lantern turned blue. Sister Maren sent for anyone who can hold a weapon. <b>You answered.</b></p>
+
+<h2>What waits below</h2>
+<div class="hm-grid">
+<div class="hm-card"><div class="hm-pic"><img src="media/classes.png" alt="The twelve classes" loading="lazy" width="765" height="350"></div><b>Twelve classes</b><p>Warrior, Mage, Rogue, Cleric, Ranger, Necromancer, Druid, Brawler, Demon, Scion, Elementalist and Worg, each with its own skills, talents and titles.</p></div>
+<div class="hm-card"><div class="hm-pic"><img src="media/bosses.gif" alt="Story bosses" loading="lazy" width="690" height="429"></div><b>A story in four books</b><p>Eighty floors, twenty story bosses, side dungeons at four tiers, and an endless Abyss. Every book ends with a choice.</p></div>
+<div class="hm-card"><div class="hm-pic"><img src="media/chests.png" alt="Chests from rusty to legendary" loading="lazy" width="1102" height="172"></div><b>Loot you can see</b><p>Every sword, staff and suit of armor shows up on your hero. Legendaries, class sets, enchantments, and chests that open with a flourish.</p></div>
+<div class="hm-card"><div class="hm-pic"><img src="media/pets.png" alt="Pets you can tame" loading="lazy" width="1030" height="506"></div><b>Friends and pets</b><p>Race the same seed, play live together or raid in a party of four. Tame and evolve 24 pets. Hardcore mode and a daily dungeon.</p></div>
+</div>
+
+<h2>See it move</h2>
+<video class="hm-video" src="media/teaser.mp4" poster="media/teaser-poster.jpg" controls preload="none" playsinline width="1080" height="1920"></video>
+
+<h2 id="hm-install">Install it</h2>
+<div class="hm-here" id="hm-here"><b>Install on this device</b><button type="button" class="hm-btn" data-hm="prompt">Install the app</button></div>
+<div class="hm-grid">
+<div class="hm-card hm-plat" data-plat="android"><h3>Android</h3><ol><li>Open playundervault.com in <b>Chrome</b>.</li><li>Tap the menu (⋮), then <b>Install app</b>.</li></ol><p>Or download the app: <a href="https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk">undervault.apk</a>.</p><p class="hm-soon">Google Play: coming soon.</p></div>
+<div class="hm-card hm-plat" data-plat="ios"><h3>iPhone and iPad</h3><ol><li>Open playundervault.com in <b>Safari</b>.</li><li>Tap <b>Share</b>, then <b>Add to Home Screen</b>.</li></ol><p>It runs full-screen and offline, like an app.</p></div>
+<div class="hm-card hm-plat" data-plat="desktop"><h3>Windows, Mac and Linux</h3><ol><li>Open playundervault.com in <b>Chrome</b> or <b>Edge</b>.</li><li>Click the install icon in the address bar.</li></ol><p>Or just play it in any browser tab. Controllers work too.</p></div>
+<div class="hm-card hm-plat" data-plat="deck"><h3>Steam Deck</h3><p>In Desktop Mode, open Konsole and run:</p><div class="hm-code"><code>curl -fsSL https://raw.githubusercontent.com/A-Theme/undervault/main/steamdeck.sh | bash</code><button type="button" data-hm="copy">Copy</button></div><p>It appears in your Steam library under Non-Steam, controller and all.</p></div>
+</div>
+
+<h2>Price</h2>
+<div class="hm-price">
+<div class="hm-card"><b>Book I</b><div class="hm-cost">Free</div><p>The whole first story, its side dungeons and the Abyss.</p></div>
+<div class="hm-card"><b>The full game</b><div class="hm-cost">CA$6.99</div><p>One-time, not a subscription. Books II to IV now, and every book still to come in the story of the seven doors.</p></div>
+</div>
+<p class="hm-note">The store opens soon. Until it does, every book is free to play, and heroes made before it opens keep Books I to IV for good. <a href="about.html">More about the game and pricing</a>.</p>
+
+<div class="hm-cta" style="margin-top:34px"><a class="hm-btn" href="./" data-hm="play">▶ Play free now</a></div>
+
+<div class="hm-foot">
+<a href="about.html">About</a><a href="https://github.com/A-Theme/undervault/blob/main/LORE.md">The lore</a><a href="https://www.instagram.com/undervaultgame/">Instagram</a><a href="terms.html">Terms</a><a href="refund.html">Refunds</a><a href="privacy.html">Privacy</a><a href="mailto:support@playundervault.com">Contact</a>
+<p style="margin:10px 0 0">© 2026 A-Theme. Lanterns of the Undervault.</p>
+</div>
+</div>
+</div>
+<script>!function(){var e=document.getElementById("home");if(e){var t=document.documentElement,o=/[?&]home=1/.test(location.search),n=/^https?:$/.test(location.protocol)&&!window.Capacitor&&"localhost"!==location.hostname,a=window.matchMedia&&matchMedia("(display-mode: standalone)").matches||!0===navigator.standalone,i=!1;try{for(var r=0;r<localStorage.length;r++)if(/^undervault-(slot-|save)/.test(localStorage.key(r)||"")){i=!0;break}}catch(e){}var d=navigator.webdriver&&!window.__forceHome;!o&&(!n||location.search||location.hash||a||i||d)?u():h(),window.homeShow=h,window.homeHide=u;var c=navigator.userAgent||"",l=/SteamOS|Steam Deck/i.test(c)?"deck":/Android/i.test(c)?"android":/iPhone|iPad|iPod/.test(c)||/Macintosh/.test(c)&&navigator.maxTouchPoints>1?"ios":"desktop",s=e.querySelector('.hm-plat[data-plat="'+l+'"]');s&&(s.classList.add("mine"),s.parentNode.insertBefore(s,s.parentNode.firstChild));var m=null;window.addEventListener("beforeinstallprompt",function(t){e.hidden||(t.preventDefault(),m=t,document.getElementById("hm-here").classList.add("on"))}),window.addEventListener("appinstalled",function(){document.getElementById("hm-here").classList.remove("on")}),e.addEventListener("click",function(e){var t=e.target.closest("[data-hm]");if(t){var o=t.getAttribute("data-hm");if("play"===o)e.preventDefault(),u();else if("install"===o){e.preventDefault();var n=document.getElementById("hm-install");n&&n.scrollIntoView({behavior:"smooth",block:"start"})}else if("prompt"===o&&m)m.prompt(),m.userChoice.then(function(){m=null,document.getElementById("hm-here").classList.remove("on")});else if("copy"===o){var a=t.parentNode.querySelector("code").textContent;try{navigator.clipboard.writeText(a).then(function(){t.textContent="Copied",setTimeout(function(){t.textContent="Copy"},1600)})}catch(e){}}}}),document.addEventListener("keydown",function(t){"Escape"!==t.key||e.hidden||u()}),n&&document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".privacy-link");if(e){var t=document.createElement("a");t.href="./?home=1",t.textContent="Home",t.addEventListener("click",function(e){e.preventDefault(),h()}),e.insertBefore(document.createTextNode(" · "),e.firstChild),e.insertBefore(t,e.firstChild)}})}function h(){e.hidden=!1,t.classList.add("home-on"),e.scrollTop=0}function u(){if(e.hidden=!0,t.classList.remove("home-on"),o)try{history.replaceState(null,"",location.pathname)}catch(e){}}}();</script>
+
 <title>Lanterns of the Undervault</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Silkscreen&display=swap">
