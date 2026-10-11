@@ -98,7 +98,7 @@ html.home-on,html.home-on body{overflow:hidden}
 <h2>Останній Ліхтар згасає</h2>
 <p class="hm-lede">Триста років тому Орден Ліхтаря закував щось під Емберфолом, і п'ять Каменів-оберегів тримають печатку. Цієї ночі Останній Ліхтар став синім. Сестра Марен покликала всіх, хто здатен тримати зброю. <b>Ти відгукнувся.</b></p>
 
-<h2>What waits below</h2>
+<h2>Що чекає внизу</h2>
 <div class="hm-grid">
 <div class="hm-card"><div class="hm-pic"><img src="../media/classes.png" alt="Дванадцять класів" loading="lazy" width="765" height="350"></div><b>Дванадцять класів</b><p>Воїн, Маг, Розбійник, Клірик, Слідопит, Некромант, Друїд, Боєць, Демон, Нащадок, Елементаліст і Ворг — кожен зі своїми вміннями, талантами й титулами.</p></div>
 <div class="hm-card"><div class="hm-pic"><img src="../media/bosses.gif" alt="Сюжетні боси" loading="lazy" width="690" height="429"></div><b>Історія в чотирьох книгах</b><p>Вісімдесят поверхів, двадцять сюжетних босів, бічні підземелля чотирьох рівнів і нескінченна Безодня. Кожна книга закінчується вибором.</p></div>
@@ -525,7 +525,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
 <div id="title" class="overlay">
   <div class="sheet">
     <div class="title-head">
-      <div class="lantern" id="lantern" role="img" aria-label="The Last Lantern" title="The Last Lantern"><canvas id="lanternCv" width="24" height="32"></canvas></div>
+      <div class="lantern" id="lantern" role="img" aria-label="Останній Ліхтар" title="Останній Ліхтар"><canvas id="lanternCv" width="24" height="32"></canvas></div>
       <h1 class="title-words"><span class="tw-big">LANTERNS</span><span class="tw-of">of the</span><span class="tw-big">UNDERVAULT</span><span class="tw-sub">чотири книги · вісімдесят поверхів<br>один рід</span></h1>
     </div>
     <p class="tag">Текстове підземелля в дусі старих MUD. Бийся, збирай здобич, приручай звірів і спускайся під Емберфол, щоб знову розпалити печатки, що згасають, а тоді рушай за темрявою через море.</p>
@@ -537,7 +537,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
     <div id="slots"></div>
     <a id="moveLink" class="link move-link" href="https://a-theme.github.io/move.html" hidden>Грав на a-theme.github.io? Перенеси своїх героїв</a>
     <div class="lbl">Новий герой</div>
-    <label for="nameIn">Your name</label>
+    <label for="nameIn">Твоє ім'я</label>
     <div class="row"><input id="nameIn" maxlength="16" value="Wanderer"><button id="nameRoll" type="button" style="padding:0 14px" aria-label="Випадкове ім'я">Випадково</button></div>
     <div class="row body-pick" id="bodyPick" role="group" aria-label="Герой"><button type="button" data-body="m" aria-pressed="true">Чоловік</button><button type="button" data-body="f" aria-pressed="false">Жінка</button></div>
     <div class="lbl">Клас</div>
@@ -584,7 +584,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
       <button id="mBigger" type="button">Більший текст</button>
       <button id="mPads" type="button">Сховати сенсорні кнопки</button>
       <button id="mLoot" type="button">Автозбір: увімк.</button>
-      <button id="mNew" type="button">Heroes</button>
+      <button id="mNew" type="button">Герої</button>
       <button id="mHelp" type="button">Довідка</button>
       <button id="mSound" type="button">Звук: увімк.</button>
       <button id="mVib" type="button">Вібрація: увімк.</button>
@@ -4641,38 +4641,38 @@ function openExpo(){if(!S)return;renderExpo();$('#expo').hidden=false;sfx('scrol
 function closeExpo(){$('#expo').hidden=true;}
 function expoRow(name,meta,status,go,cls){
   return `<div class="ex-row ${cls||''}"><div class="ex-main"><b>${esc(name)}</b><small>${esc(meta)}</small><em>${fmt(status)}</em></div>`+
-    (go?`<button type="button" class="ex-go" data-go="${esc(go)}">Go</button>`:'')+`</div>`;
+    (go?`<button type="button" class="ex-go" data-go="${esc(go)}">Рушати</button>`:'')+`</div>`;
 }
 function renderExpo(){
   const q=questNow(),queen=/^home1\d$|^b3stair$/.test(q.st.id),home=!queen&&/^home\d$|^maren$|^call2$/.test(q.st.id),acts=ACTS.map((_,a)=>a).filter(a=>a<5||(a<10&&book2On())||(a>=10&&a<15&&book3bOn())||(a>=15&&book4On())),war=/^home1[5-8]$|^b4war$|^b4south$/.test(q.st.id),herald=q.st.id==='b4herald';let h='';
   /* the story */
-  h+=`<div class="ex-sec">Story</div><div class="ex-story"><b>${esc(q.C.n)}: ${esc(q.C.t)}</b><p>${fmt(q.st.o)}${q.f?` <span class="kd">(floor ${q.f})</span>`:''}</p>`+
-    `<button type="button" class="big ex-cont" data-go="${war?'wartable':herald?'square':queen?'queen':home?'temple':'deep'}">${war?'Go to the war table':herald?'Go home to Emberfall':queen?'Go to the Queen':home?'Go to the Temple':S.deepest?'Continue: floor '+S.deepest:'Set out'}</button>`+
-    `<div class="row"><button type="button" data-go="recap">The story so far</button><button type="button" data-go="lanterns">Why the lanterns matter</button></div></div>`;
+  h+=`<div class="ex-sec">Історія</div><div class="ex-story"><b>${esc(q.C.n)}: ${esc(q.C.t)}</b><p>${fmt(q.st.o)}${q.f?` <span class="kd">(поверх ${q.f})</span>`:''}</p>`+
+    `<button type="button" class="big ex-cont" data-go="${war?'wartable':herald?'square':queen?'queen':home?'temple':'deep'}">${war?"До воєнного столу":herald?"Додому в Емберфол":queen?"До Королеви":home?"До Храму":S.deepest?"Продовжити: поверх "+S.deepest:"Вирушити"}</button>`+
+    `<div class="row"><button type="button" data-go="recap">Історія дотепер</button><button type="button" data-go="lanterns">Чому ліхтарі важливі</button></div></div>`;
   /* missions and bounties: what you have been asked to do, right under the story; tap one for its own screen */
   const mr={found:0,active:1,done:2},ms=Object.entries(MISSIONS).filter(([k])=>S.missions[k]).sort((x,y)=>mr[S.missions[x[0]]]-mr[S.missions[y[0]]]);   /* to hand in, then in progress, then done */
-  h+=`<div class="ex-sec">Missions</div>`;
-  if(!ms.length)h+=`<p class="hint">Townsfolk will ask for help as the Wardstones burn again. Talk to them.</p>`;
+  h+=`<div class="ex-sec">Місії</div>`;
+  if(!ms.length)h+=`<p class="hint">Містяни проситимуть допомоги, щойно Камені-обереги знову розгоряться. Поговори з ними.</p>`;
   ms.forEach(([k,M])=>{const st=S.missions[k],w=missionWhere(M),r=w&&st==='active'?missionRating(w):null;
     h+=`<button type="button" class="ex-mis ${st}" data-mis="${esc(k)}"><b>${st==='done'?'&#10003; ':''}${esc(M.n)}</b><small>${fmt(st==='found'?M.back:st==='done'?M.rw:M.obj)}</small>`+(r?`<em class="mis-tag">${fmt(`{${r.c}}${r.t}{n}`)} · ${esc(w.name)}</em>`:'')+`</button>`;});
-  if(S.jobs.length){h+=`<div class="ex-sec">Bounties</div>`;S.jobs.forEach(j=>{h+=`<div class="ex-mis"><b>${esc(j.label)}</b><small>${j.prog}/${j.n}  ·  ${j.gold} gold</small></div>`;});}
+  if(S.jobs.length){h+=`<div class="ex-sec">Нагороди</div>`;S.jobs.forEach(j=>{h+=`<div class="ex-mis"><b>${esc(j.label)}</b><small>${j.prog}/${j.n}  ·  ${j.gold} gold</small></div>`;});}
   /* the descent */
-  h+=`<div class="ex-sec">The descent</div>`;
-  acts.forEach(a=>{if(a===5)h+=`<div class="ex-sec">Book II: The Hunger Below</div>`;if(a===10)h+=`<div class="ex-sec">Book III: The Drowned Stair</div>`;if(a===15)h+=`<div class="ex-sec">Book IV: The Lantern War</div>`;const A_=ACTS[a],f0=actStart(a),f1=f0+FPA-1,lo=zoneLvl(f0),hi=BOSS_LVL2[a],open=a===0||S.deepest>=f0;
-    const st=bossDone(a)?(a<5?'{g}Wardstone relit{n}':'{g}silenced{n}'):S.deepest>=f0?`{y}reached floor ${Math.min(S.deepest,f1)} of ${f1}{n}`:open?'{d}not started{n}':`{d}opens when you reach floor ${f0}{n}`;
-    h+=expoRow(`${A_.num}. ${A_.name}`,`floors ${f0}-${f1}  ·  level ${lvShow(lo)}-${lvShow(hi)}`,st,open?'act:'+f0:'',S.dg==null&&S.floor>=f0&&S.floor<=f1?'here':'');});
+  h+=`<div class="ex-sec">Спуск</div>`;
+  acts.forEach(a=>{if(a===5)h+=`<div class="ex-sec">Книга II: Голод унизу</div>`;if(a===10)h+=`<div class="ex-sec">Книга III: Затоплені Сходи</div>`;if(a===15)h+=`<div class="ex-sec">Книга IV: Війна Ліхтарів</div>`;const A_=ACTS[a],f0=actStart(a),f1=f0+FPA-1,lo=zoneLvl(f0),hi=BOSS_LVL2[a],open=a===0||S.deepest>=f0;
+    const st=bossDone(a)?(a<5?"{g}Камінь-оберіг знову горить{n}":'{g}silenced{n}'):S.deepest>=f0?`{y}досягнуто поверху ${Math.min(S.deepest,f1)} з ${f1}{n}`:open?"{d}не розпочато{n}":`{d}відкривається на поверсі ${f0}{n}`;
+    h+=expoRow(`${A_.num}. ${A_.name}`,`поверхи ${f0}–${f1}  ·  рівень ${lvShow(lo)}–${lvShow(hi)}`,st,open?'act:'+f0:'',S.dg==null&&S.floor>=f0&&S.floor<=f1?'here':'');});
   /* side dungeons */
-  h+=`<div class="ex-sec">Side dungeons</div>`;
+  h+=`<div class="ex-sec">Бічні підземелля</div>`;
   Object.entries(DUNGEONS).forEach(([k,D])=>{if(D.raid)return;const open=dgOpen(D),lv=D.endless?dgLvl(D):sideRunLvl(k);
     const mk=Object.entries(MISSIONS).find(([m,M])=>M.dg===k&&S.missions[m]&&S.missions[m]!=='done');
-    const st=!open?`{d}${dgNeedTxt(D)}{n}`:D.endless?`{m}deepest floor ${S.abyssBest||0}{n}`:S.side[k]?`{g}cleared x${S.side[k]}{n}`+(dgTierBest(k)>0?`, best ${tierTag(dgTierBest(k))}`:''):'{y}not cleared{n}';
+    const st=!open?`{d}${dgNeedTxt(D)}{n}`:D.endless?`{m}найглибший поверх ${S.abyssBest||0}{n}`:S.side[k]?`{g}пройдено ×${S.side[k]}{n}`+(dgTierBest(k)>0?`, найкраще ${tierTag(dgTierBest(k))}`:''):"{y}не пройдено{n}";
     h+=`<div class="ex-row ${S.dg===k?'here':''}"><button type="button" class="ex-main ex-open" data-dg="${esc(k)}"><b>${esc(D.name)}</b>`+
-      `<small>${esc(D.endless?`endless  ·  from level ${lvShow(lv)}`:`${dgFloors(D)} floors  ·  level ${lvShow(lv)}-${lvShow(lv+dgFloors(D))}`)}</small><em>${fmt(st+(mk?`  {o}mission: ${MISSIONS[mk[0]].n}{n}`:''))}</em></button>`+
-      (open?`<button type="button" class="ex-go" data-go="dg:${esc(k)}">Go</button>`:'')+`</div>`;});
+      `<small>${esc(D.endless?`безкінечне  ·  від рівня ${lvShow(lv)}`:`поверхів: ${dgFloors(D)}  ·  рівень ${lvShow(lv)}–${lvShow(lv+dgFloors(D))}`)}</small><em>${fmt(st+(mk?`  {o}mission: ${MISSIONS[mk[0]].n}{n}`:''))}</em></button>`+
+      (open?`<button type="button" class="ex-go" data-go="dg:${esc(k)}">Рушати</button>`:'')+`</div>`;});
   /* raids */
   h+=raidRows();
   /* Trials of Legend */
-  S.trials=S.trials||{};h+=`<div class="ex-sec">Trials of Legend</div><p class="hint">${Object.keys(S.trials).length} of ${TRIALS.length} done. Each gives a legendary for certain.</p>`;
+  S.trials=S.trials||{};h+=`<div class="ex-sec">Випробування Легенди</div><p class="hint">Виконано ${Object.keys(S.trials).length} з ${TRIALS.length}. Кожне напевно дає легендарну річ.</p>`;
   TRIAL_BOOKS.forEach(([b,t])=>{h+=`<p class="hint trial-book">${t}</p>`;TRIALS.filter(T=>T.b===b).forEach(T=>{const d=!!S.trials[T.k];h+=`<div class="ex-mis ${d?'done':''}"><b>${d?'&#10003; ':''}${esc(T.n)}</b><small>${esc(T.d)}${!d&&T.prog?' ('+T.prog()+')':''}</small></div>`;});});
   $('#expo .ex-body').innerHTML=h;
 }
@@ -4680,19 +4680,19 @@ function renderExpo(){
 /* Where a mission sends you: a floor of the story ('f26'), a side dungeon at a tier, or the Abyss. lo/hi are monster levels. */
 function missionWhere(M){
   if(/^f\d+$/.test(M.dg)){const f=+M.dg.slice(1);return {name:'Floor '+f+', '+ACTS[actOf(f)].name,lo:zoneLvl(f),hi:zoneLvl(f),floor:f,go:f>40||S.deepest>=f?'act:'+f:S.deepest?'deep':'act:1',
-    why:S.deepest>=f?'':'You have not reached floor '+f+' yet: Start takes you as deep as you have been ('+(S.deepest?'floor '+S.deepest:'floor 1')+').'};}
+    why:S.deepest>=f?'':"Ти ще не дійшов до поверху "+f+" : «Почати» веде так глибоко, як ти вже був ("+(S.deepest?'floor '+S.deepest:"поверх 1")+').'};}
   const D=DUNGEONS[M.dg];if(!D)return null;
-  if(D.endless){const f=M.dg==='abyss'?10:1;return {name:D.name+', floor '+f,lo:dgLvl(D)+f-1,hi:dgLvl(D)+f-1,go:dgOpen(D)?'dg:'+M.dg:'',why:dgOpen(D)?'':'It '+dgNeedTxt(D)+'.'};}
+  if(D.endless){const f=M.dg==='abyss'?10:1;return {name:D.name+", поверх "+f,lo:dgLvl(D)+f-1,hi:dgLvl(D)+f-1,go:dgOpen(D)?'dg:'+M.dg:'',why:dgOpen(D)?'':"Він "+dgNeedTxt(D)+'.'};}
   const t=M.tier||0,lo=sideRunLvl(M.dg)+DG_TIERS[t].lv,ok=dgOpen(D)&&dgTierOpen(M.dg,t);
   return {name:D.name+(t?', '+DG_TIERS[t].n:''),tier:t,lo,hi:lo+dgFloors(D)-1,floors:dgFloors(D),go:ok?'dg:'+M.dg+':'+t:'',
-    why:!dgOpen(D)?'It '+dgNeedTxt(D)+'.':ok?'':DG_TIERS[t].n+' opens once you have cleared it at '+DG_TIERS[t-1].n+'.'};
+    why:!dgOpen(D)?"Він "+dgNeedTxt(D)+'.':ok?'':DG_TIERS[t].n+" відкривається, щойно пройдеш його на рівні "+DG_TIERS[t-1].n+'.'};
 }
 /* How hard, against your own level. */
 function missionRating(w){const d=lvShow(w.hi)-S.lvl;return d<=-4?{t:'Easy',c:'g'}:d<=0?{t:'Fair',c:'y'}:d<=4?{t:'Hard',c:'o'}:{t:'Deadly',c:'r'};}
 /* Who gave it, and where to find them. */
-const MIS_PEOPLE={brakka:['Brakka','emberfall','brakka'],tobble:['Old Tobble','emberfall','tobble'],inn:['Wenna','emberfall','inn'],gate:['Pell','emberfall','gate'],mott:['Old Mott','emberfall','mott'],
-  esk:['Madame Esk','emberfall','esk'],alchemist:['Ysolde','emberfall','alchemist'],jeweler:['Ottilie','emberfall','jeweler'],ferryman:['the ferryman','emberfall','ferryman'],captain:['Watch-Captain Hale','emberfall','captain'],
-  college:['Sabine Quell','solenne','college'],lamplighter:['Old Wick','solenne','lamplighter'],varo:['Captain Varo','solenne','varo'],bettany:['Bettany','solenne','inn'],solsmith:['Odo Fairweather','solenne','solsmith']};
+const MIS_PEOPLE={brakka:["Бракка",'emberfall','brakka'],tobble:["Старий Тоббл",'emberfall','tobble'],inn:["Венна",'emberfall','inn'],gate:["Пелл",'emberfall','gate'],mott:["Старий Мотт",'emberfall','mott'],
+  esk:["Мадам Еск",'emberfall','esk'],alchemist:['Ysolde','emberfall','alchemist'],jeweler:["Оттілія",'emberfall','jeweler'],ferryman:["перевізник",'emberfall','ferryman'],captain:['Watch-Captain Hale','emberfall','captain'],
+  college:["Сабіна Квелл",'solenne','college'],lamplighter:["Старий Вік",'solenne','lamplighter'],varo:["Капітанка Варо",'solenne','varo'],bettany:["Бетані",'solenne','inn'],solsmith:["Одо Ферветер",'solenne','solsmith']};
 let misOpen='',misTier=0;
 function openMission(k){if(/^raid:/.test(k)){openRaid(k.slice(5));return;}if(/^dg:/.test(k)){const [,d,t]=k.split(':');openDungeon(d,t==null?null:+t);return;}if(!MISSIONS[k]||!S.missions[k])return;misOpen=k;renderMission();$('#mission').hidden=false;sfx('scroll');}
 function closeMission(){$('#mission').hidden=true;misOpen='';}
@@ -4701,18 +4701,18 @@ function renderMission(){
   if(/^raid:/.test(misOpen)){renderRaid(misOpen.slice(5));return;}
   const k=misOpen,M=MISSIONS[k],st=S.missions[k],w=missionWhere(M),P=MIS_PEOPLE[M.giver],el=$('#mission .mis-body');if(!M||!el)return;
   $('#misTitle').textContent=M.n;let h='';
-  h+=`<div class="ex-story"><b>${st==='done'?'Done':st==='found'?'Found: take it home':'In progress'}</b><p>${fmt(M.offer)}</p></div>`;
-  h+=`<div class="ex-sec">${st==='found'?'Now':'What to do'}</div><p class="mis-p">${fmt(st==='found'?M.back:st==='done'?M.done:M.obj)}</p>`;
+  h+=`<div class="ex-story"><b>${st==='done'?"Виконано":st==='found'?"Знайдено: неси додому":"Триває"}</b><p>${fmt(M.offer)}</p></div>`;
+  h+=`<div class="ex-sec">${st==='found'?"Зараз":"Що робити"}</div><p class="mis-p">${fmt(st==='found'?M.back:st==='done'?M.done:M.obj)}</p>`;
   if(w&&st!=='done'){const r=missionRating(w);
-    h+=`<div class="ex-sec">Where, and how hard</div><div class="mis-facts"><div><small>Where</small><b>${esc(w.name)}</b></div>`+
-      `<div><small>Monsters</small><b>level ${lvShow(w.lo)}${w.hi>w.lo?'-'+lvShow(w.hi):''}</b></div>`+(w.floors?`<div><small>Floors</small><b>${w.floors}</b></div>`:'')+
-      (w.tier!=null?`<div><small>Tier</small><b>${fmt(tierTag(w.tier))}</b></div>`:'')+`<div><small>For you (level ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;}
-  h+=`<div class="ex-sec">Reward</div><p class="mis-p">${fmt(M.rw)}</p>`;
-  if(P)h+=`<p class="hint">Given by ${esc(P[0])}, in ${P[1]==='solenne'?'Solenne':'Emberfall'}.</p>`;
-  if(st==='found'&&P)h+=`<button type="button" class="big" data-mgo="npc:${esc(M.giver)}">Go to ${esc(P[0])}</button>`;
+    h+=`<div class="ex-sec">Де і наскільки важко</div><div class="mis-facts"><div><small>Де</small><b>${esc(w.name)}</b></div>`+
+      `<div><small>Чудовиська</small><b>рівень ${lvShow(w.lo)}${w.hi>w.lo?'-'+lvShow(w.hi):''}</b></div>`+(w.floors?`<div><small>Поверхи</small><b>${w.floors}</b></div>`:'')+
+      (w.tier!=null?`<div><small>Рівень</small><b>${fmt(tierTag(w.tier))}</b></div>`:'')+`<div><small>Для тебе (рівень ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;}
+  h+=`<div class="ex-sec">Нагорода</div><p class="mis-p">${fmt(M.rw)}</p>`;
+  if(P)h+=`<p class="hint">Доручає ${esc(P[0])}, ${P[1]==='solenne'?'Solenne':'Emberfall'}.</p>`;
+  if(st==='found'&&P)h+=`<button type="button" class="big" data-mgo="npc:${esc(M.giver)}">Іти до: ${esc(P[0])}</button>`;
   else if(st==='active'&&w){if(w.why)h+=`<p class="hint">${esc(w.why)}</p>`;
-    if(w.go)h+=`<button type="button" class="big" data-mgo="${esc(w.go)}">Start${w.tier?' at '+DG_TIERS[w.tier].n:''}</button>`;
-    if(lbReady())h+=`<button type="button" data-minv="1">Invite a friend</button><p class="hint">They get your seed, and you both play live: on the same seed, a side dungeon is the same for both of you, and you see each other in it.</p>`;}
+    if(w.go)h+=`<button type="button" class="big" data-mgo="${esc(w.go)}">Почати${w.tier?' at '+DG_TIERS[w.tier].n:''}</button>`;
+    if(lbReady())h+=`<button type="button" data-minv="1">Запросити друга</button><p class="hint">Він отримає твоє зерно, і ви обидва гратимете наживо: на тому самому зерні бічне підземелля однакове для вас обох, і ви бачите там одне одного.</p>`;}
   el.innerHTML=h;
 }
 /* ----- a side dungeon's own screen (#mission too): its story and keeper, how hard each tier is for you, the
@@ -4724,21 +4724,21 @@ function dgWhere(k,t){const D=DUNGEONS[k];if(D.endless){const lo=dgLvl(D);return
 function renderDungeon(k){
   const D=DUNGEONS[k],el=$('#mission .mis-body');if(!D||!el)return;const open=dgOpen(D),t=misTier,T=DG_TIERS[t],w=dgWhere(k,t),r=missionRating(w),B=D.boss||{};
   $('#misTitle').textContent=D.name;let h='';
-  const st=!open?'Shut':D.endless?`Deepest floor ${S.abyssBest||0}`:S.side[k]?`Cleared ${S.side[k]} time${S.side[k]>1?'s':''}`+(dgTierBest(k)>0?', best '+DG_TIERS[dgTierBest(k)].n:''):'Not cleared yet';
+  const st=!open?"Зачинено":D.endless?`Найглибший поверх: ${S.abyssBest||0}`:S.side[k]?`Пройдено разів: ${S.side[k]}`+(dgTierBest(k)>0?", найкраще "+DG_TIERS[dgTierBest(k)].n:''):"Ще не пройдено";
   h+=`<div class="dg-head"><div class="dg-boss"></div><div class="ex-story"><b>${esc(st)}</b><p>${fmt(D.intro||D.blurb||'')}</p></div></div>`;
-  if(B.n)h+=`<div class="ex-sec">${D.endless?'What waits below':'Its keeper'}</div><p class="mis-p"><b>${esc(B.n)}</b>${D.endless?': a Herald of the Hunger waits every fifth floor.':'.'}</p>`;
-  if(!D.endless&&open){h+=`<div class="ex-sec">Tier</div><div class="ex-tiers dg-tiers">`+DG_TIERS.map((X,i)=>`<button type="button" class="ex-tier t${i}${i===t?' on':''}" data-dgt="${i}"${dgTierOpen(k,i)?'':' disabled'}>${X.n}</button>`).join('')+'</div>';
-    if(t<DG_TIERS.length-1&&!dgTierOpen(k,t+1))h+=`<p class="hint">${DG_TIERS[t+1].n} opens once you have cleared it at ${T.n}.</p>`;}
-  h+=`<div class="ex-sec">How hard</div><div class="mis-facts">`+(D.endless?'<div><small>Floors</small><b>endless</b></div>':`<div><small>Floors</small><b>${dgFloors(D)}</b></div>`)+
-    `<div><small>Monsters</small><b>level ${lvShow(w.lo)}${w.hi>w.lo?'-'+lvShow(w.hi):'+'}</b></div>`+(D.endless?'':`<div><small>Tier</small><b>${fmt(tierTag(t))}</b></div>`)+
-    `<div><small>For you (level ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;
-  if(!D.endless&&t)h+=`<p class="hint">${T.n}: monsters ${Math.round((T.hp-1)*100)}% tougher and ${Math.round((T.atk-1)*100)}% harder-hitting; ${T.loot}% better loot, ${T.gold}x gold${T.leg?', and a better chance of a legendary':''}.</p>`;
-  if(D.reward)h+=`<div class="ex-sec">Reward</div><p class="mis-p">Clear it to claim <b>${esc(D.reward.name)}</b>${D.egg?', and maybe an egg':''}. Clear it again for more loot, at deeper tiers for better.</p>`;
+  if(B.n)h+=`<div class="ex-sec">${D.endless?"Що чекає внизу":"Його вартовий"}</div><p class="mis-p"><b>${esc(B.n)}</b>${D.endless?": Герольд Голоду чекає на кожному п'ятому поверсі.":'.'}</p>`;
+  if(!D.endless&&open){h+=`<div class="ex-sec">Рівень</div><div class="ex-tiers dg-tiers">`+DG_TIERS.map((X,i)=>`<button type="button" class="ex-tier t${i}${i===t?' on':''}" data-dgt="${i}"${dgTierOpen(k,i)?'':' disabled'}>${X.n}</button>`).join('')+'</div>';
+    if(t<DG_TIERS.length-1&&!dgTierOpen(k,t+1))h+=`<p class="hint">${DG_TIERS[t+1].n} відкривається, щойно пройдеш на рівні ${T.n}.</p>`;}
+  h+=`<div class="ex-sec">Складність</div><div class="mis-facts">`+(D.endless?"<div><small>Поверхи</small><b>безкінечно</b></div>":`<div><small>Поверхи</small><b>${dgFloors(D)}</b></div>`)+
+    `<div><small>Чудовиська</small><b>рівень ${lvShow(w.lo)}${w.hi>w.lo?'-'+lvShow(w.hi):'+'}</b></div>`+(D.endless?'':`<div><small>Рівень</small><b>${fmt(tierTag(t))}</b></div>`)+
+    `<div><small>Для тебе (рівень ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;
+  if(!D.endless&&t)h+=`<p class="hint">${T.n}: чудовиська на ${Math.round((T.hp-1)*100)}% міцніші й б'ють на ${Math.round((T.atk-1)*100)}% сильніше; здобич на ${T.loot}% краща, золото ×${T.gold}${T.leg?", і більший шанс на легендарну річ":''}.</p>`;
+  if(D.reward)h+=`<div class="ex-sec">Нагорода</div><p class="mis-p">Пройди, щоб отримати <b>${esc(D.reward.name)}</b>${D.egg?", а може, й яйце":''}. Проходь знову — більше здобичі, а на глибших рівнях — кращої.</p>`;
   const ms=Object.entries(MISSIONS).filter(([m,M])=>M.dg===k&&S.missions[m]);
-  if(ms.length){h+='<div class="ex-sec">Missions here</div>';ms.forEach(([m,M])=>{const s=S.missions[m];h+=`<button type="button" class="ex-mis ${s}" data-mis="${esc(m)}"><b>${s==='done'?'&#10003; ':''}${esc(M.n)}</b><small>${fmt(s==='found'?M.back:s==='done'?M.rw:M.obj)}</small></button>`;});}
-  if(!open)h+=`<p class="hint">It ${esc(dgNeedTxt(D))}.</p>`;
-  else{h+=`<button type="button" class="big" data-mgo="dg:${esc(k)}${t?':'+t:''}">${S.dg===k?'Start again':'Start'}${t?' at '+T.n:''}</button>`;
-    if(lbReady())h+=`<button type="button" data-minv="1">Invite a friend</button><p class="hint">They get your seed, and you both play live: on the same seed, ${esc(D.name)} is the same for both of you, and you see each other in it.</p>`;}
+  if(ms.length){h+="<div class=\"ex-sec\">Місії тут</div>";ms.forEach(([m,M])=>{const s=S.missions[m];h+=`<button type="button" class="ex-mis ${s}" data-mis="${esc(m)}"><b>${s==='done'?'&#10003; ':''}${esc(M.n)}</b><small>${fmt(s==='found'?M.back:s==='done'?M.rw:M.obj)}</small></button>`;});}
+  if(!open)h+=`<p class="hint">${esc(dgNeedTxt(D))}.</p>`;
+  else{h+=`<button type="button" class="big" data-mgo="dg:${esc(k)}${t?':'+t:''}">${S.dg===k?"Почати знову":"Почати"}${t?' at '+T.n:''}</button>`;
+    if(lbReady())h+=`<button type="button" data-minv="1">Запросити друга</button><p class="hint">Він отримає твоє зерно, і ви обидва гратимете наживо: на тому самому зерні ${esc(D.name)} однакове для вас обох, і ви бачите там одне одного.</p>`;}
   el.innerHTML=h;
   const b=el.querySelector('.dg-boss');if(b&&typeof bossSprite==='function')b.appendChild(bossSprite(bossKey({dg:k}),2));
 }
@@ -4746,42 +4746,42 @@ function renderDungeon(k){
 function expoNpc(g){
   const P=MIS_PEOPLE[g];if(!P)return;const sol=P[1]==='solenne',rooms=sol?SOLENNE:TOWN,room=(rooms.find(r=>r.npc===P[2])||{}).id||0;
   const solSide=S.floor===0?S.town==='solenne':belowSolenne();
-  if(sol&&!solSide){if(!(S.voy&&S.voy.anchored)){out('{d}Solenne is a sea away, and you have not reached it yet.');return;}
-    const c=S.flags.gateFree?0:b3Cost(B3.gateBack);if(S.gold<c){out(`{d}Solenne is a sea away. The Lantern Gate costs ${c} gold, and you have ${S.gold}.`);return;}
-    S.gold-=c;if(c)sfx('coinsBuy');out(`{g}You step through the Lantern Gate to Solenne${c?` (${c} gold)`:''}.{n}`);}
-  else if(S.floor>0){out('{b}You tug the Lantern-thread, and you are back in town.');if(!queueScene(sceneRecall()))sfx('recall');}
+  if(sol&&!solSide){if(!(S.voy&&S.voy.anchored)){out("{d}Соленна за морем, і ти ще туди не дістався.");return;}
+    const c=S.flags.gateFree?0:b3Cost(B3.gateBack);if(S.gold<c){out(`{d}Соленна за морем. Ліхтарна брама коштує ${c} золота, а в тебе ${S.gold}.`);return;}
+    S.gold-=c;if(c)sfx('coinsBuy');out(`{g}Ти проходиш Ліхтарною брамою до Соленни${c?` (${c} золота)`:''}.{n}`);}
+  else if(S.floor>0){out("{b}Ти смикаєш нитку Ліхтаря — і ти знову в місті.");if(!queueScene(sceneRecall()))sfx('recall');}
   if(sol){if(S.floor>0||S.town!=='solenne')toSolenne(room);else{S.room=room;enterRoom();}}
   else{if(S.floor>0||S.town==='solenne')toTown(room);else{S.room=room;enterRoom();}}
 }
 /* Travel. In a dungeon you are recalled first; in a fight you can't leave. */
 function expoGo(go){
   if(go==='recap'){taleRecap(false);return;}if(go==='lanterns'){taleLanterns(true);return;}
-  if(S.fight){out('{r}Not in the middle of a fight!');return;}
+  if(S.fight){out("{r}Не посеред бою!");return;}
   if(S.flags.choosing){out('{y}The choice is in front of you. There is no walking away from it now.');return;}
-  if(S.dg==='underside'){out('{m}The thread does not reach this far down.{n} {d}Find the Anchor.');return;}
+  if(S.dg==='underside'){out("{m}Нитка не сягає так глибоко.{n} {d}Знайди Якір.");return;}
   if(S.floor>0&&petHold())return;
   /* Solenne's side of the sea: the Queen, and the Drowned Stair (floors 41-60). From Emberfall's side that means the Lantern Gate, at its price. */
   const [kind,arg]=go.split(':'),f=go==='deep'?S.deepest:kind==='act'?+arg:0;
   /* the war (Book IV): the war table in the Watchtower, the herald in the Square, and the front (61-80) */
-  if(go==='wartable'||go==='square'){const room=go==='square'?1:10;if(S.floor>0||S.town==='solenne'){out('{b}You tug the Lantern-thread. The dark folds, and you are home.');toTown(room);if(!queueScene(sceneRecall()))sfx('recall');}else{S.room=room;enterRoom();}return;}
-  if(f>60){if(!book4On()){out('There is no war. Yet.');return;}if(f!==61&&S.deepest<f){out('The front has not got that far yet.');return;}
-    if(S.floor>0||S.town==='solenne'){out('{b}You tug the Lantern-thread and come home to the war table.');toTown(10);if(!queueScene(sceneRecall()))sfx('recall');}
-    S.dg=null;out(`{c}You march out to the front: floor ${f}.`);gotoFloor(f,'start');return;}
+  if(go==='wartable'||go==='square'){const room=go==='square'?1:10;if(S.floor>0||S.town==='solenne'){out("{b}Ти смикаєш нитку Ліхтаря. Темрява згортається — і ти вдома.");toTown(room);if(!queueScene(sceneRecall()))sfx('recall');}else{S.room=room;enterRoom();}return;}
+  if(f>60){if(!book4On()){out("Війни немає. Поки що.");return;}if(f!==61&&S.deepest<f){out("Фронт ще не дійшов так далеко.");return;}
+    if(S.floor>0||S.town==='solenne'){out("{b}Ти смикаєш нитку Ліхтаря й повертаєшся до воєнного столу.");toTown(10);if(!queueScene(sceneRecall()))sfx('recall');}
+    S.dg=null;out(`{c}Ти виступаєш на фронт: поверх ${f}.`);gotoFloor(f,'start');return;}
   if(go==='queen'||f>40){
-    if(f>40&&f!==41&&S.deepest<f){out('You have not reached that far yet.');return;}
+    if(f>40&&f!==41&&S.deepest<f){out("Ти ще не заходив так далеко.");return;}
     const solSide=S.floor===0?S.town==='solenne':belowSolenne();
-    if(!solSide){const c=S.flags.gateFree?0:b3Cost(B3.gateBack);if(S.gold<c){out(`{d}Solenne is a sea away. The Lantern Gate costs ${c} gold, and you have ${S.gold}.`);return;}
-      S.gold-=c;if(c)sfx('coinsBuy');out(`{g}You step through the Lantern Gate to Solenne${c?` (${c} gold)`:''}.{n}`);}
-    else if(S.floor>0){out('{g}The thread pulls you up into the Glass College.{n}');if(!queueScene(sceneRecall()))sfx('recall');}
+    if(!solSide){const c=S.flags.gateFree?0:b3Cost(B3.gateBack);if(S.gold<c){out(`{d}Соленна за морем. Ліхтарна брама коштує ${c} золота, а в тебе ${S.gold}.`);return;}
+      S.gold-=c;if(c)sfx('coinsBuy');out(`{g}Ти проходиш Ліхтарною брамою до Соленни${c?` (${c} золота)`:''}.{n}`);}
+    else if(S.floor>0){out("{g}Нитка витягає тебе нагору, до Скляної Колегії.{n}");if(!queueScene(sceneRecall()))sfx('recall');}
     if(go==='queen'){if(S.floor>0||S.town!=='solenne')toSolenne(0);else{S.room=0;enterRoom();}return;}
     if(S.floor>0||S.town!=='solenne')toSolenne(7);
-    S.dg=null;out(`{c}You walk down the Drowned Stair to floor ${f}.`);gotoFloor(f,'start');return;}
+    S.dg=null;out(`{c}Ти спускаєшся Затопленими Сходами на поверх ${f}.`);gotoFloor(f,'start');return;}
   if(kind==='npc'){expoNpc(arg);return;}
-  if(go==='temple'){if(S.floor>0||S.town==='solenne'){out('{b}You tug the Lantern-thread. The dark folds, and you are home.');toTown(0);if(!queueScene(sceneRecall()))sfx('recall');}else{S.room=0;enterRoom();}return;}
-  if(S.floor>0){out('{b}You tug the Lantern-thread and come home to set out again.');toTown(5);if(!queueScene(sceneRecall()))sfx('recall');}
-  if(go==='deep'){if(!S.deepest){S.room=5;out('{d}You walk to the Gate.');gotoFloor(1,'start');return;}S.dg=null;out(`{c}Pell lowers you to floor ${S.deepest}.`);gotoFloor(S.deepest,'start');return;}
-  if(kind==='act'){const f=+arg;if(f!==1&&S.deepest<f){out('You have not reached that far yet.');return;}S.dg=null;out(`{c}Pell lowers you to floor ${f}.`);gotoFloor(f,'start');return;}
-  if(kind==='dg'){const D=DUNGEONS[arg],t=+(go.split(':')[2]||0);if(!D||!dgOpen(D)||!dgTierOpen(arg,t)){out('That passage is still shut.');return;}out(D.story?`{g}You take the long road south, past Solenne and the Sunward Road, until the air turns warm and smells of honey.{n}`:`{c}Pell unlocks the way to ${D.name}${t?', '+DG_TIERS[t].n:''}.`);enterDungeon(arg,0,t);return;}
+  if(go==='temple'){if(S.floor>0||S.town==='solenne'){out("{b}Ти смикаєш нитку Ліхтаря. Темрява згортається — і ти вдома.");toTown(0);if(!queueScene(sceneRecall()))sfx('recall');}else{S.room=0;enterRoom();}return;}
+  if(S.floor>0){out("{b}Ти смикаєш нитку Ліхтаря й повертаєшся додому, щоб вирушити знову.");toTown(5);if(!queueScene(sceneRecall()))sfx('recall');}
+  if(go==='deep'){if(!S.deepest){S.room=5;out("{d}Ти йдеш до Брами.");gotoFloor(1,'start');return;}S.dg=null;out(`{c}Пелл спускає тебе на поверх ${S.deepest}.`);gotoFloor(S.deepest,'start');return;}
+  if(kind==='act'){const f=+arg;if(f!==1&&S.deepest<f){out("Ти ще не заходив так далеко.");return;}S.dg=null;out(`{c}Пелл спускає тебе на поверх ${f}.`);gotoFloor(f,'start');return;}
+  if(kind==='dg'){const D=DUNGEONS[arg],t=+(go.split(':')[2]||0);if(!D||!dgOpen(D)||!dgTierOpen(arg,t)){out("Той прохід досі зачинений.");return;}out(D.story?`{g}Ти рушаєш довгою дорогою на південь, повз Соленну й Сонячний шлях, аж поки повітря не стає теплим і не пахне медом.{n}`:`{c}Пелл відмикає шлях до ${D.name}${t?', '+DG_TIERS[t].n:''}.`);enterDungeon(arg,0,t);return;}
   if(kind==='raid')raidGo(arg);
 }
 
@@ -4840,7 +4840,7 @@ function openMapView(){
   const span=Math.max(F_.W||7,F_.H||7),px=Math.min(window.innerWidth-40,520),dpr=Math.min(3,window.devicePixelRatio||1);
   cv.style.width=cv.style.height=px+'px';cv.width=cv.height=Math.round(px*dpr);
   paintMap(cv.getContext('2d'),cv.width,0,0,span,cv.width/span);
-  el.querySelector('.mv-title').textContent=town?townName():(S.dg?theme().name+', floor '+floorLabel():'Floor '+S.floor+': '+theme().name);
+  el.querySelector('.mv-title').textContent=town?townName():(S.dg?theme().name+", поверх "+floorLabel():'Floor '+S.floor+': '+theme().name);
   el.hidden=false;sfx('scroll');
 }
 
@@ -4870,7 +4870,7 @@ function chal(kind,o,done){
   if(navigator.webdriver&&!window.__chalPlay){done({ok:window.__chalOk!==false,auto:1});return;}
   const el=chalEl();CH={kind,o,done,t0:performance.now(),last:performance.now(),over:false};
   el.querySelector('.ch-kicker').textContent=o.kicker||'';el.querySelector('.ch-title').textContent=o.title||'';
-  el.querySelector('.ch-hint').textContent=o.hint||{pick:'Tap (or Space / A) when the pin is in the gold.',slide:'Watch, then slide the same way: swipe, arrows or D-pad.',mash:'TAP! TAP! TAP! (Space / A)',choice:'Choose an answer.'}[kind];
+  el.querySelector('.ch-hint').textContent=o.hint||{pick:"Торкнися (або Пробіл / A), коли шпилька в золотому.",slide:"Дивись, а тоді веди так само: свайп, стрілки або хрестовина.",mash:"ТИСНИ! ТИСНИ! ТИСНИ! (Пробіл / A)",choice:"Обери відповідь."}[kind];
   el.className='chal ch-'+kind;el.hidden=false;
   ({pick:chPickStart,slide:chSlideStart,mash:chMashStart,choice:chChoiceStart})[kind]();
   CH.raf=requestAnimationFrame(chTick);
@@ -4878,7 +4878,7 @@ function chal(kind,o,done){
 function chEnd(ok,msg){
   if(!CH||CH.over)return;CH.over=true;cancelAnimationFrame(CH.raf);clearTimeout(CH.timer);
   const el=chalEl(),c=CH;sfx(ok?'chime':'fail');
-  el.querySelector('.ch-hint').textContent='';el.querySelector('.ch-body').insertAdjacentHTML('beforeend',`<div class="ch-res ${ok?'ok':'no'}">${esc(msg||(ok?'Done!':'Failed.'))}</div>`);
+  el.querySelector('.ch-hint').textContent='';el.querySelector('.ch-body').insertAdjacentHTML('beforeend',`<div class="ch-res ${ok?'ok':'no'}">${esc(msg||(ok?"Готово!":"Невдача."))}</div>`);
   setTimeout(()=>{el.hidden=true;CH=null;c.done({ok});promptLine();render();scrollDown();save(true);},reducedMotion()?200:750);
 }
 function chTick(now){
@@ -4896,13 +4896,13 @@ function chPickStart(){
   body.innerHTML='<div class="ch-pins"></div><div class="ch-track"><div class="ch-zone"></div><div class="ch-pin"></div></div><div class="ch-picks"></div>';
   const newZone=()=>{CH.zc=0.15+MR()*0.7;};newZone();
   const draw=()=>{body.querySelector('.ch-pins').textContent=Array.from({length:CH.pins},(_,i)=>i<CH.set?'●':'○').join(' ');
-    body.querySelector('.ch-picks').textContent='Picks '+'▮'.repeat(CH.picks)+'▯'.repeat(Math.max(0,(o.picks||3)-CH.picks));
+    body.querySelector('.ch-picks').textContent="Відмички "+'▮'.repeat(CH.picks)+'▯'.repeat(Math.max(0,(o.picks||3)-CH.picks));
     const z=body.querySelector('.ch-zone');z.style.left=((CH.zc-CH.w/2)*100)+'%';z.style.width=(CH.w*100)+'%';};
   draw();
   CH.tick=dt=>{CH.pos+=CH.dir*CH.speed*dt;if(CH.pos>1){CH.pos=1;CH.dir=-1;}if(CH.pos<0){CH.pos=0;CH.dir=1;}body.querySelector('.ch-pin').style.left=(CH.pos*100)+'%';};
   CH.input=x=>{if(x!=='tap')return;
-    if(Math.abs(CH.pos-CH.zc)<=CH.w/2){CH.set++;sfx('block');if(CH.set>=CH.pins){draw();return chEnd(true,'Click. The lock gives.');}CH.speed*=1.18;CH.w*=0.86;newZone();draw();}
-    else{CH.picks--;sfx('fail');const tr=body.querySelector('.ch-track');tr.classList.remove('shake');void tr.offsetWidth;tr.classList.add('shake');draw();if(CH.picks<=0)chEnd(false,'Your last pick snaps.');}};
+    if(Math.abs(CH.pos-CH.zc)<=CH.w/2){CH.set++;sfx('block');if(CH.set>=CH.pins){draw();return chEnd(true,"Клац. Замок піддається.");}CH.speed*=1.18;CH.w*=0.86;newZone();draw();}
+    else{CH.picks--;sfx('fail');const tr=body.querySelector('.ch-track');tr.classList.remove('shake');void tr.offsetWidth;tr.classList.add('shake');draw();if(CH.picks<=0)chEnd(false,"Твоя остання відмичка ламається.");}};
 }
 /* ---- slide: repeat the glyphs ---- */
 function chSlideStart(){
@@ -4911,24 +4911,24 @@ function chSlideStart(){
   body.innerHTML='<div class="ch-seq"></div><div class="ch-pad">'+ds.map(d=>`<button type="button" class="ch-dir" data-d="${d}">${CH_SVG(d)}</button>`).join('')+'</div>';
   const pads={};body.querySelectorAll('.ch-dir').forEach(b=>{pads[b.dataset.d]=b;b.addEventListener('click',e=>{e.stopPropagation();chalInput(b.dataset.d);});});
   const lit=(d,on)=>pads[d].classList.toggle('lit',on);
-  const seqBox=body.querySelector('.ch-seq');seqBox.textContent='Watch...';
+  const seqBox=body.querySelector('.ch-seq');seqBox.textContent="Дивись...";
   const step=o.step||620;
   CH.seq.forEach((d,k)=>{setTimeout(()=>{if(!CH||CH.over)return;lit(d,true);sfx('glyph'+d);},400+k*step);setTimeout(()=>{if(!CH||CH.over)return;lit(d,false);},400+k*step+step*0.6);});
-  CH.timer=setTimeout(()=>{if(!CH||CH.over)return;CH.showing=false;seqBox.textContent='Your turn: '+'·'.repeat(len);},400+len*step);
+  CH.timer=setTimeout(()=>{if(!CH||CH.over)return;CH.showing=false;seqBox.textContent="Твоя черга: "+'·'.repeat(len);},400+len*step);
   CH.input=x=>{if(CH.showing||!CH_ARROW[x])return;lit(x,true);setTimeout(()=>lit(x,false),160);
-    if(x!==CH.seq[CH.i]){return chEnd(false,'The glyphs flare red.');}
-    sfx('glyph'+x);CH.i++;seqBox.innerHTML='Your turn: '+CH.seq.slice(0,CH.i).map(CH_SVG).join('')+'·'.repeat(len-CH.i);
-    if(CH.i>=len)chEnd(true,'The glyphs burn gold.');};
+    if(x!==CH.seq[CH.i]){return chEnd(false,"Гліфи спалахують червоним.");}
+    sfx('glyph'+x);CH.i++;seqBox.innerHTML="Твоя черга: "+CH.seq.slice(0,CH.i).map(CH_SVG).join('')+'·'.repeat(len-CH.i);
+    if(CH.i>=len)chEnd(true,"Гліфи горять золотом.");};
 }
 /* ---- mash: run! ---- */
 function chMashStart(){
   const o=CH.o,body=chalEl().querySelector('.ch-body');
   Object.assign(CH,{fill:0,need:o.need||24,time:o.time||5,left:o.time||5});
-  body.innerHTML='<div class="ch-meter"><div class="ch-fill"></div></div><div class="ch-clock"><div class="ch-left"></div></div><button type="button" class="ch-run">RUN!</button>';
+  body.innerHTML="<div class=\"ch-meter\"><div class=\"ch-fill\"></div></div><div class=\"ch-clock\"><div class=\"ch-left\"></div></div><button type=\"button\" class=\"ch-run\">БІЖИ!</button>";
   body.querySelector('.ch-run').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();chalInput('tap');});
   CH.tick=dt=>{CH.left-=dt;CH.fill=Math.max(0,CH.fill-dt*0.09);body.querySelector('.ch-fill').style.width=Math.min(100,CH.fill*100)+'%';body.querySelector('.ch-left').style.width=Math.max(0,CH.left/CH.time*100)+'%';
-    if(CH.left<=0)chEnd(false,'Too slow!');};
-  CH.input=x=>{if(x!=='tap')return;CH.fill+=1/CH.need;const b=body.querySelector('.ch-run');b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit');if(CH.fill>=1)chEnd(true,'You made it!');};
+    if(CH.left<=0)chEnd(false,"Надто повільно!");};
+  CH.input=x=>{if(x!=='tap')return;CH.fill+=1/CH.need;const b=body.querySelector('.ch-run');b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit');if(CH.fill>=1)chEnd(true,"Ти встиг!");};
 }
 /* ---- choice: riddles and puzzles ---- */
 function chChoiceStart(){
@@ -4936,8 +4936,8 @@ function chChoiceStart(){
   body.innerHTML=`<p class="ch-q">${fmt(o.q)}</p><div class="ch-opts">${o.opts.map((t,i)=>`<button type="button" class="ch-opt" data-i="${i}"><b>${i+1}</b> ${esc(t)}</button>`).join('')}</div>`+(o.time?'<div class="ch-clock"><div class="ch-left"></div></div>':'');
   body.querySelectorAll('.ch-opt').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();chalInput(+b.dataset.i+1);}));
   CH.left=o.time||0;
-  CH.tick=dt=>{if(!o.time)return;CH.left-=dt;body.querySelector('.ch-left').style.width=Math.max(0,CH.left/o.time*100)+'%';if(CH.left<=0)chEnd(false,'Time is up.');};
-  CH.input=x=>{const i=+x-1;if(!(i>=0&&i<o.opts.length))return;chEnd(i===o.ans,i===o.ans?(o.right||'Correct.'):(o.wrong||'Wrong.'));};
+  CH.tick=dt=>{if(!o.time)return;CH.left-=dt;body.querySelector('.ch-left').style.width=Math.max(0,CH.left/o.time*100)+'%';if(CH.left<=0)chEnd(false,"Час вийшов.");};
+  CH.input=x=>{const i=+x-1;if(!(i>=0&&i<o.opts.length))return;chEnd(i===o.ans,i===o.ans?(o.right||"Правильно."):(o.wrong||"Неправильно."));};
 }
 
 /* Keyboard, taps and swipes while a challenge is up (captured, so nothing reaches the command line). */
@@ -4956,42 +4956,42 @@ document.addEventListener('keydown',e=>{
 
 /* ---- the riddles: classic and of the Undervault. Each has its answer first; the order is shuffled when asked. ---- */
 const RIDDLES=[
- ['The more of me you take, the more you leave behind.','Footsteps','Breath','Coins','Years'],
- ['Feed me and I live. Give me a drink and I die.','Fire','A lantern-moth','A seed','A thirst'],
- ['What belongs to you, but others say it more often than you do?','Your name','Your shadow','Your coin','Your blade'],
- ['What can fill a whole room, yet takes up no space at all?','Light','Smoke','Silence','Water'],
- ['The more there is of me, the less you see.','Darkness','Fog','Ash','Distance'],
- ['I have a mouth but never eat, a bed but never sleep.','A river','A cave','A well','A drum'],
- ['I have cities but no houses, forests but no trees, and water but no fish.','A map','A dream','A painting','A ghost'],
- ['What has hands, but cannot clap?','A clock','A statue','A glove','A scarecrow'],
- ['What has a head and a tail, but no body?','A coin','A comet','A rope','A key'],
- ['What has one eye, but cannot see?','A needle','A storm','A potato','A cyclops'],
- ['Say my name and you break me.','Silence','A vow','Glass','A spell'],
- ['The one who makes it sells it. The one who buys it never uses it. The one who uses it never knows.','A coffin','A crown','A wish','A key'],
- ['I am always ahead of you, but you can never see me.','Tomorrow','Your shadow','The road','The wind'],
- ['What gets wetter the more it dries?','A towel','A sponge','The sea','Bread'],
- ['What runs all day and never walks, often murmurs but never talks?','A stream','A rumour','A clock','A dog'],
- ['Who drinks the cistern so the wells stay clean?','Warden Grisholt','Mother Mycelia','Sister Maren','Mag Ratchet'],
- ['What does the Hunger Below eat?','Light, names and memory','Bone and stone','Gold and greed','Fire and ash'],
- ['Who holds the door from the far side, one more day?','Arden Vale','Caius Vale','Archivist Venn','Pell'],
- ['How many Wardstones hold the seal?','Five','Three','Seven','Nine']
+ ["Що більше мене береш, то більше лишаєш позаду.","Кроки","Подих","Монети","Роки"],
+ ["Нагодуй мене — і я живу. Дай мені напитися — і я помру.","Вогонь","Ліхтарний метелик","Насінина","Спрага"],
+ ["Що належить тобі, але інші вимовляють це частіше за тебе?","Твоє ім'я","Твоя тінь","Твоя монета","Твій клинок"],
+ ["Що може заповнити цілу кімнату, не займаючи місця?","Світло","Дим","Тиша","Вода"],
+ ["Що більше мене, то менше ти бачиш.","Темрява","Туман",'Ash',"Відстань"],
+ ["Маю гирло, та ніколи не їм; маю ложе, та ніколи не сплю.","Ріка","Печера","Криниця","Барабан"],
+ ["Маю міста, та не маю будинків; ліси — та без дерев; воду — та без риби.","Мапа","Сон","Картина","Привид"],
+ ["Що має стрілки, але ніколи не стріляє?","Годинник","Статуя","Рукавиця","Опудало"],
+ ["Що має герб і решку, але не має тіла?","Монета","Комета","Мотузка","Ключ"],
+ ["Що має вушко, але не чує?","Голка","Буря","Картоплина","Циклоп"],
+ ["Назви мене — і ти мене порушиш.","Тиша","Обітниця","Скло","Закляття"],
+ ["Хто робить — продає. Хто купує — не користується. Хто користується — ніколи не знає.","Труна","Корона","Бажання","Ключ"],
+ ["Я завжди попереду тебе, але ти ніколи мене не бачиш.","Завтра","Твоя тінь","Дорога","Вітер"],
+ ["Що мокріше, що більше сушить?","Рушник","Губка","Море","Хліб"],
+ ["Що біжить цілий день, але ніколи не ходить, часто жебонить, але ніколи не говорить?","Струмок","Чутка","Годинник","Собака"],
+ ["Хто п'є з цистерни, щоб криниці лишалися чистими?","Наглядач Грізгольт",'Mother Mycelia',"Сестра Марен",'Mag Ratchet'],
+ ["Чим живиться Голод унизу?","Світлом, іменами й пам'яттю","Кістками й каменем","Золотом і жадібністю","Вогнем і попелом"],
+ ["Хто тримає двері з того боку — ще один день?","Арден Вейл","Кай Вейл","Архіваріус Венн","Пелл"],
+ ["Скільки Каменів-оберегів тримають печатку?","П'ять","Три","Сім","Дев'ять"]
 ];
 function riddleOpts(){const R=pick(MR,RIDDLES),opts=shuffle(MR,R.slice(1));return {q:R[0],opts,ans:opts.indexOf(R[1])};}
 /* ---- number puzzles, harder deeper ---- */
 function puzzleOpts(L){
   const hard=L>=20,r=(a,b)=>ri(MR,a,b),kinds=['add','mul','sq','fib','runes'];const k=pick(MR,hard?kinds:kinds.slice(0,4).concat(['add']));let q,a;
-  if(k==='add'){const s=r(2,20),d=r(2,hard?17:9);q=`The stones read: ${s}, ${s+d}, ${s+2*d}, ${s+3*d}, ?`;a=s+4*d;}
-  else if(k==='mul'){const s=r(1,4),m=r(2,3);q=`The stones read: ${s}, ${s*m}, ${s*m*m}, ${s*m**3}, ?`;a=s*m**4;}
-  else if(k==='sq'){const s=r(1,hard?9:5);q=`The stones read: ${s*s}, ${(s+1)**2}, ${(s+2)**2}, ${(s+3)**2}, ?`;a=(s+4)**2;}
-  else if(k==='fib'){let x=r(1,5),y=r(2,7);const v=[x,y];for(let i=0;i<4;i++)v.push(v[v.length-1]+v[v.length-2]);q=`The stones read: ${v.slice(0,5).join(', ')}, ?`;a=v[5];}
-  else{const l=r(3,12),s=r(2,15);q=`Two lanterns weigh ${2*l}. A lantern and a stone weigh ${l+s}. What does a stone weigh?`;a=s;}
+  if(k==='add'){const s=r(2,20),d=r(2,hard?17:9);q=`На каменях: ${s}, ${s+d}, ${s+2*d}, ${s+3*d}, ?`;a=s+4*d;}
+  else if(k==='mul'){const s=r(1,4),m=r(2,3);q=`На каменях: ${s}, ${s*m}, ${s*m*m}, ${s*m**3}, ?`;a=s*m**4;}
+  else if(k==='sq'){const s=r(1,hard?9:5);q=`На каменях: ${s*s}, ${(s+1)**2}, ${(s+2)**2}, ${(s+3)**2}, ?`;a=(s+4)**2;}
+  else if(k==='fib'){let x=r(1,5),y=r(2,7);const v=[x,y];for(let i=0;i<4;i++)v.push(v[v.length-1]+v[v.length-2]);q=`На каменях: ${v.slice(0,5).join(', ')}, ?`;a=v[5];}
+  else{const l=r(3,12),s=r(2,15);q=`Два ліхтарі важать ${2*l}. Ліхтар і камінь важать ${l+s}. Скільки важить камінь?`;a=s;}
   const set=new Set([a]);while(set.size<4){const off=r(1,Math.max(3,Math.round(a*0.25)))*(MR()<0.5?-1:1);if(a+off>0)set.add(a+off);}
   const opts=shuffle(MR,[...set]).map(String);return {q,opts,ans:opts.indexOf(String(a)),time:hard?12:18};
 }
 
 /* ================= DUNGEON EVENTS THAT USE THEM =================
    Placed by genFloor with the other room events (EVENTS in data.js). Each one scales with depth. */
-const THIEF={n:'cutpurse',hp:26,atk:7,sp:'pilfer',v:'stabs',d:'eyes your pack, fingers twitching.'};
+const THIEF={n:'cutpurse',hp:26,atk:7,sp:'pilfer',v:'stabs',d:"зиркає на твою торбу, пальці аж сіпаються."};
 /* Something from your pack a thief can take: not what you wear, not story items. Potions go half a stack at a time. */
 function stealable(){return S.inv.filter(it=>!it.unique&&it.kind!=='scroll'&&it.kind!=='egg');}
 function takeFromPack(){
@@ -5002,71 +5002,71 @@ function takeFromPack(){
 /* The thief runs off to another room of this floor with what it took; kill it there to get it back. */
 function thiefHides(m,from){
   const fl=S.floor>0&&F();if(!fl)return;const rooms=fl.rooms.filter(x=>x!==from&&(x.type==='normal'||x.type==='treasure'));const to=pick(MR,rooms)||from;
-  m.aggro=false;m.d=`clutches ${iname(m.loot)} to its chest, counting its luck.`;m.hp=m.mhp;m.eff={};to.mobs.push(m);
+  m.aggro=false;m.d=`притискає ${iname(m.loot)} до грудей і рахує свою удачу.`;m.hp=m.mhp;m.eff={};to.mobs.push(m);
 }
 function eventThief(r){
-  const L=depth();out('{y}Someone darts out of the dark, straight for your pack!{n}','heavy');sfx('alert');
-  chal('pick',{kicker:'A CUTPURSE',title:'GRAB THEM!',pins:1,picks:1,speed:1.25+L*0.02,zone:Math.max(0.12,0.26-L*0.003),hint:'Tap when the hand is in the gold!'},res=>{
-    if(res.ok){const g=rnd(5,12)*L;S.gold+=g;sfx('coins');out(`{g}You catch a wrist in the dark. The cutpurse yelps, drops a purse and runs.{n} {y}(+${g}g){n}`);return;}
+  const L=depth();out("{y}Хтось вискакує з темряви — просто до твоєї торби!{n}",'heavy');sfx('alert');
+  chal('pick',{kicker:"КИШЕНЬКОВИЙ ЗЛОДІЙ",title:"ХАПАЙ!",pins:1,picks:1,speed:1.25+L*0.02,zone:Math.max(0.12,0.26-L*0.003),hint:"Торкнися, коли рука в золотому!"},res=>{
+    if(res.ok){const g=rnd(5,12)*L;S.gold+=g;sfx('coins');out(`{g}Ти хапаєш зап'ясток у темряві. Злодій верещить, кидає гаманець і тікає.{n} {y}(+${g} зол.){n}`);return;}
     const it=takeFromPack();
-    if(!it){const g=Math.min(S.gold,Math.round(S.gold*0.1)+5);S.gold-=g;sfx('coins');out(`{r}A hand in your purse, and gone.{n} {y}(-${g}g){n}`);return;}
+    if(!it){const g=Math.min(S.gold,Math.round(S.gold*0.1)+5);S.gold-=g;sfx('coins');out(`{r}Рука в гаманці — і нема.{n} {y}(-${g} зол.){n}`);return;}
     const m=makeMob(MR,L+1,THIEF,theme());m.loot=it;thiefHides(m,r);sfx('fail');
-    out(`{r}A hand in your pack, and gone: the cutpurse took ${iname(it)}!{n} {d}It can't have gone far. Hunt it down somewhere on this floor.`);
+    out(`{r}Рука в торбі — і нема: злодій поцупив ${iname(it)}!{n} {d}Далеко втекти не міг. Вистеж його десь на цьому поверсі.`);
   });
 }
 function eventCollapse(r){
-  const L=depth();out('{r}The floor lurches. Dust pours from above. The ceiling is coming down!{n}','heavy');sfx('trap');flashTerm('hit');
-  chal('mash',{kicker:'TRAP',title:'RUN!',need:Math.round(16+L*0.45),time:5},res=>{
-    if(res.ok){out('{g}You dive clear as the ceiling comes down behind you in a roar of stone!{n}');if(chance(0.4)){const g=rnd(3,8)*L;S.gold+=g;sfx('gold');out(`{y}Something glints in the rubble: ${g} gold.{n}`);}return;}
-    const d=Math.min(S.hp-1,Math.round(stats().mhp*0.28));if(d>0)S.hp-=d;sfx('hitBig');flashTerm('hit');out(`{r}The ceiling buries you to the chest.{n} {d}(-${Math.max(0,d)}) You dig yourself out, coughing.`,'heavy');
+  const L=depth();out("{r}Підлога хитається. Згори сиплеться пил. Стеля падає!{n}",'heavy');sfx('trap');flashTerm('hit');
+  chal('mash',{kicker:"ПАСТКА",title:"БІЖИ!",need:Math.round(16+L*0.45),time:5},res=>{
+    if(res.ok){out("{g}Ти відстрибуєш, а позаду з гуркотом каміння обвалюється стеля!{n}");if(chance(0.4)){const g=rnd(3,8)*L;S.gold+=g;sfx('gold');out(`{y}Щось блищить у завалі: ${g} золота.{n}`);}return;}
+    const d=Math.min(S.hp-1,Math.round(stats().mhp*0.28));if(d>0)S.hp-=d;sfx('hitBig');flashTerm('hit');out(`{r}Стеля засипає тебе по груди.{n} {d}(-${Math.max(0,d)}) Ти відкопуєшся, кашляючи.`,'heavy');
   });
 }
 /* A strongbox: pick it for loot; break every pick and it jams, or wakes its guards. */
 function eventLockbox(r,ev){
   const L=depth(),pins=Math.min(6,3+Math.floor(L/12));
-  chal('pick',{kicker:'A STRONGBOX',title:'PICK THE LOCK',pins,picks:3,speed:0.8+L*0.014,zone:Math.max(0.1,0.24-L*0.0025)},res=>{
+  chal('pick',{kicker:"СКРИНЬКА",title:"ВІДІМКНИ ЗАМОК",pins,picks:3,speed:0.8+L*0.014,zone:Math.max(0.1,0.24-L*0.0025)},res=>{
     ev.used=true;jobProgress('event');
-    if(res.ok){const g=rnd(15,30)*L;S.gold+=g;sfx('coins');out(`{y}The lid springs open.{n} {y}(+${g}g){n}`);
+    if(res.ok){const g=rnd(15,30)*L;S.gold+=g;sfx('coins');out(`{y}Кришка відскакує.{n} {y}(+${g} зол.){n}`);
       const loot=[];if(chance(0.75))loot.push(randomGear(MR,L+1,25));if(chance(0.6))loot.push({kind:'potion',key:chance(0.7)?'hp':'mp',qty:rnd(1,2)});if(chance(0.06))loot.push({kind:'egg',sp:pick(MR,['raven','salamander','wisp','ferret','coinmoth'])});
-      loot.forEach(it=>{if(addItem(it,true))out(`You take ${iname(it)}. {d}${idesc(it)}`+(slotOf(it)?cmpTag(it):''));else r.items.push(it);});return;}
+      loot.forEach(it=>{if(addItem(it,true))out(`Ти береш ${iname(it)}. {d}${idesc(it)}`+(slotOf(it)?cmpTag(it):''));else r.items.push(it);});return;}
     if(chance(0.45)){const n=chance(0.4)?2:1;for(let i=0;i<n;i++){const m=makeMob(MR,L+1,null,theme());m.aggro=true;r.mobs.push(m);}
-      sfx('alert');out(`{r}The last pick snaps, and a bell inside the box goes off. ${n>1?'Two guards come':'Something comes'} running.{n}`,'heavy');engage(r.mobs.length-n,true);}
-    else out('{d}The last pick snaps. The lock seizes for good.');
+      sfx('alert');out(`{r}Остання відмичка ламається, і в скриньці дзеленчить дзвіночок. ${n>1?"Прибігають двоє вартових":"Щось наближається"}.{n}`,'heavy');engage(r.mobs.length-n,true);}
+    else out("{d}Остання відмичка ламається. Замок заклинює назавжди.");
   });
 }
 /* A glyph door: repeat the sequence and a chest is yours; get it wrong and the glyphs bite. */
 function eventGlyphs(r,ev){
   const L=depth();
-  chal('slide',{kicker:'A SEALED ALCOVE',title:'TRACE THE GLYPHS',len:Math.min(8,4+Math.floor(L/10)),step:Math.max(360,650-L*6)},res=>{
+  chal('slide',{kicker:"ЗАПЕЧАТАНА НІША",title:"ОБВЕДИ ГЛІФИ",len:Math.min(8,4+Math.floor(L/10)),step:Math.max(360,650-L*6)},res=>{
     ev.used=true;jobProgress('event');
     if(res.ok){const ks=['rusty','iron','gold','epic','legend'],t=ks[Math.min(3,ks.indexOf(chestTier(MR,L))+1)];r.type='treasure';r.chest={opened:false,mimic:false,tier:t};
-      sfx('relit');out(`{c}The glyphs burn gold and the alcove grinds open.{n} ${CHESTS[t].look} {@open|open it}`);return;}
-    const d=Math.min(S.hp-1,Math.round(stats().mhp*0.18));if(d>0)S.hp-=d;sfx('hitBig');out(`{r}The glyphs flare red and a jolt throws you across the room.{n} {d}(-${Math.max(0,d)}) The alcove stays shut.`,'heavy');
+      sfx('relit');out(`{c}Гліфи горять золотом, і ніша з рипінням відчиняється.{n} ${CHESTS[t].look} {@open|відчинити}`);return;}
+    const d=Math.min(S.hp-1,Math.round(stats().mhp*0.18));if(d>0)S.hp-=d;sfx('hitBig');out(`{r}Гліфи спалахують червоним, і поштовх відкидає тебе через кімнату.{n} {d}(-${Math.max(0,d)}) Ніша лишається зачиненою.`,'heavy');
   });
 }
 /* A stone face with a riddle: answer well for a blessing; badly, and it takes its price. */
 function eventRiddler(r,ev){
   const o=riddleOpts();
-  chal('choice',Object.assign(o,{kicker:'THE STONE FACE',title:'"ANSWER ME THIS"',right:'"Well answered."',wrong:'"No."'}),res=>{
+  chal('choice',Object.assign(o,{kicker:"КАМ'ЯНЕ ОБЛИЧЧЯ",title:"«ВІДПОВІДАЙ МЕНІ»",right:"«Гарна відповідь».",wrong:'"No."'}),res=>{
     ev.used=true;jobProgress('event');
     if(res.ok){const x=MR(),L=depth();
-      if(x<0.4){gainXp(Math.round(need(S.lvl)*0.12));out('{m}"Knowledge is a kind of light,"{n} the face says, and some of it is yours now.');}
-      else if(x<0.62&&!S.wellRested){S.wellRested=true;sfx('chime');out(`{m}"Rest well, clever one."{n} {g}Well-Rested: +${restPct()}% experience until you return to town.`);}
-      else if(x<0.85){const g=rnd(12,24)*L;S.gold+=g;sfx('coins');out(`{m}The face spits out a coin, then another, then a stream of them.{n} {y}(+${g}g){n}`);}
-      else{const k=pick(MR,['str','agi','int','hp']);S.bonus[k]+=k==='hp'?8:1;sfx('legend');out(`{m}"Few answer me. Take this."{n} {o}Permanent +${k==='hp'?8:1} ${k}.`,'gold');}
+      if(x<0.4){gainXp(Math.round(need(S.lvl)*0.12));out("{m}«Знання — це різновид світла»,{n} — каже обличчя, і частина його тепер твоя.");}
+      else if(x<0.62&&!S.wellRested){S.wellRested=true;sfx('chime');out(`{m}«Відпочивай добре, розумнику»,{n} {g}Добре відпочилий: +${restPct()}% досвіду до повернення в місто.`);}
+      else if(x<0.85){const g=rnd(12,24)*L;S.gold+=g;sfx('coins');out(`{m}Обличчя випльовує монету, потім ще одну, потім цілий струмінь.{n} {y}(+${g} зол.){n}`);}
+      else{const k=pick(MR,['str','agi','int','hp']);S.bonus[k]+=k==='hp'?8:1;sfx('legend');out(`{m}«Мало хто мені відповідає. Візьми це»,{n} {o}Назавжди +${k==='hp'?8:1} ${k}.`,'gold');}
       return;}
-    const g=Math.min(S.gold,Math.round(S.gold*0.12)+10);S.gold-=g;sfx('fail');out(`{m}The face laughs, and its eyes close.{n} Your purse feels lighter. {y}(-${g}g){n}`);
+    const g=Math.min(S.gold,Math.round(S.gold*0.12)+10);S.gold-=g;sfx('fail');out(`{m}Обличчя сміється й заплющує очі.{n} Гаманець легшає. {y}(-${g} зол.){n}`);
   });
 }
 /* An Order mechanism: a number puzzle against the clock. */
 function eventMechanism(r,ev){
   const L=depth(),o=puzzleOpts(L);
-  chal('choice',Object.assign(o,{kicker:'THE MECHANISM',title:'FILL THE BLANK STONE',right:'The stone slides home.',wrong:'The stone grinds wrong.'}),res=>{
+  chal('choice',Object.assign(o,{kicker:"МЕХАНІЗМ",title:"ЗАПОВНИ ЧИСТИЙ КАМІНЬ",right:"Камінь стає на місце.",wrong:"Камінь скрегоче не так."}),res=>{
     ev.used=true;jobProgress('event');
-    if(res.ok){const g=rnd(12,24)*L;S.gold+=g;sfx('coins');out(`{w}A drawer slides out of the wall.{n} {y}(+${g}g){n}`);
-      const loot=[{kind:'potion',key:'hp',qty:1}];if(chance(0.5))loot.push(randomGear(MR,L+1,15));loot.forEach(it=>{if(addItem(it,true))out(`You take ${iname(it)}.`+(slotOf(it)?' '+cmpTag(it):''));else r.items.push(it);});return;}
+    if(res.ok){const g=rnd(12,24)*L;S.gold+=g;sfx('coins');out(`{w}Зі стіни висувається шухляда.{n} {y}(+${g} зол.){n}`);
+      const loot=[{kind:'potion',key:'hp',qty:1}];if(chance(0.5))loot.push(randomGear(MR,L+1,15));loot.forEach(it=>{if(addItem(it,true))out(`Ти береш ${iname(it)}.`+(slotOf(it)?' '+cmpTag(it):''));else r.items.push(it);});return;}
     const st=stats(),d=Math.min(S.hp-1,Math.round(st.mhp*0.15));if(d>0)S.hp-=d;S.fx.poison={n:3,d:Math.max(1,Math.round(st.mhp*0.02))};sfx('trap');sfx('poison');
-    out(`{r}Darts hiss out of the dial.{n} {d}(-${Math.max(0,d)}){n} {g}You are poisoned.`,'heavy');
+    out(`{r}З циферблата зі свистом вилітають дротики.{n} {d}(-${Math.max(0,d)}){n} {g}Тебе отруєно.`,'heavy');
   });
 }
 
@@ -5174,7 +5174,7 @@ function townTalk(n){
   if(n==='mott'){out(`Старий Мотт відкушує яблуко й довго жує. {w}«Більшість сам викопав»,{n} — каже він. {w}«Порожні здебільшого. Храм любить мати камінь, навіть коли все інше лишає собі Брама».`+(S.flags.ended?` {w}«Останнім часом каменів менше. Не скаржитимусь».`:'')+((S.graves||[]).length?`{n} Він киває на ряд маленьких каменів під стіною. {w}«Ті — твої. Витесав маленькими, для маленьких»,{n} {d}${S.graves.slice(-8).map(x=>`${x.n} (${x.f}, рівень ${x.l}), ${x.at}`).join('; ')}.`:'')+`{n} {@pray|запалити свічку біля пам'ятника}`);return true;}
   if(n==='esk'){out(`Мадам Еск розкладає карти віялом, не дивлячись на них. {m}«Сідай, сідай. Глибини щоразу інші, коли туди спускаєшся. Дай-но скажу, які знайдеш ти»,{n} {@fortune|поворожити}`);return true;}
   if(n==='jeweler'){out(`Оттілія роздивляється твої руки крізь лупу. {y}«Персні, амулети, медальйони. А якщо якийсь твій оберіг потьмянів, можу вдихнути в нього нове життя поліруванням — за плату»,{n} {@list|подивитися обереги}  {d}або «polish <оберіг>»`);return true;}
-  if(n==='alchemist'){out(`Ізольда витирає руки об фартух, увесь у дрібних опіках. {r}«Відвари для сили, для шкіри мов камінь, для прудких ніг і швидкої голови. Кожен на ${elixFights()===8?"вісім":'Five'} боїв, і не пий усе разом. Хоча. Пий, як хочеш. Я тобі не мама»,{n} {@list|подивитися еліксири}`);return true;}
+  if(n==='alchemist'){out(`Ізольда витирає руки об фартух, увесь у дрібних опіках. {r}«Відвари для сили, для шкіри мов камінь, для прудких ніг і швидкої голови. Кожен на ${elixFights()===8?"вісім":"П'ять"} боїв, і не пий усе разом. Хоча. Пий, як хочеш. Я тобі не мама»,{n} {@list|подивитися еліксири}`);return true;}
   if(n==='captain'){out(`Капітан Гейл оглядає тебе так само, як читає оголошення: двічі. {w}«Брама під усіма нами, а варта ледве тягне. Я плачу за важку роботу, зроблену добре»,{n} {@contract|подивитися контракти}`);return true;}
   if(n==='ferryman'){out(`Перевізник не відводить очей від сітки. {c}«Кораблів нема»,{n} — каже він. {c}«Відколи Ліхтар посинів. Морські шляхи до далеких королівств згасли тієї ж ночі. Може, колись»,{n}`+(S.flags.ended?` Він зиркає на обрій. {c}«Дивно. Відколи Трон замовк, присягнуся, бачив там вогні».`:''));return true;}
   return false;
@@ -5395,7 +5395,7 @@ function voyLook(r){
   const D=DUNGEONS[S.dg],sea=D.voyage==='sea',L=sea?'lane':'road';
   if(S.dg!=='underside'){
     if(r.lane){const off=['n','e','s','w'].filter(d=>typeof r.exits[d]==='number'&&!F().rooms[r.exits[d]].lane);
-      out(`{y}${sea?'The charted lane':'The road'} runs on${r.fwd?' '+DN[r.fwd]:' to its end'}.{n}`+(off.length?` {d}(${off.map(d=>DN[d]).join(' and ')} ${off.length>1?'leave':'leaves'} the ${L}: unsafe.)`:''));}
+      out(`{y}${sea?'The charted lane':"Дорога"} runs on${r.fwd?' '+DN[r.fwd]:' to its end'}.{n}`+(off.length?` {d}(${off.map(d=>DN[d]).join(' and ')} ${off.length>1?'leave':'leaves'} the ${L}: unsafe.)`:''));}
     else out(`{r}Off the ${L}.{n} {d}${['','One leg','Two legs','Three legs'][Math.min(3,r.wd||1)]||'Far'} from the ${L}. Out here the monsters are stronger, and so is everything else.`);}
   if(r.type==='vstart')out(S.floor>1?`{c}The way back to the last leg lies behind you.{n} {@u|go back}`:`{c}${sea?'Emberfall is a smudge on the horizon behind you.':'The North Gate is a speck on the hill behind you.'}{n}`);
   if(r.type==='vend')out(`{o}${sea?'The lane runs on toward':'The road runs on toward'} ${D.stages[S.floor]}.{n} {@d|go on}`);
@@ -5429,7 +5429,7 @@ function riftOpen(r,ev){
 function evStorm(r,ev){
   ev.used=true;const sea=voySea();
   out(sea?'{r}The sky goes black in a heartbeat. A storm comes down on the Dawnwake like a fist!{n}':'{r}The slope above you shifts. Stones, then boulders: a rockslide!{n}','heavy');sfx('trap');flashTerm('hit');
-  chal('mash',{kicker:sea?'STORM':'ROCKSLIDE',title:sea?'HOLD THE LINES!':'RUN!',need:20,time:5},res=>{
+  chal('mash',{kicker:sea?'STORM':'ROCKSLIDE',title:sea?'HOLD THE LINES!':"БІЖИ!",need:20,time:5},res=>{
     const V=S.voy;
     if(res.ok){const n=Math.min(V.sup,rnd(1,2));V.sup-=n;out(sea?`{g}You and the crew hold the lines until the worst is past.{n} {d}(${n} supplies washed overboard)`:`{g}You run, and the slide roars past behind you.{n} {d}(${n} supplies lost)`);return;}
     const n=Math.min(V.sup,rnd(3,6)),d=Math.min(S.hp-1,Math.round(stats().mhp*0.12));V.sup-=n;if(d>0)S.hp-=d;sfx('hitBig');
@@ -5538,7 +5538,7 @@ function cmdWalk(arg){
 }
 /* Where supplies are sold, and for how much. */
 function provSource(r){
-  if(S.floor===0&&S.town!=='solenne'&&book3On()){if(r.npc==='ferryman'&&S.flags.ship)return{route:'sea',mult:1,who:'Captain Varo',what:"ship's stores"};if(r.npc==='wayfinder')return{route:'road',mult:1,who:'Teodora',what:'trail rations'};}
+  if(S.floor===0&&S.town!=='solenne'&&book3On()){if(r.npc==='ferryman'&&S.flags.ship)return{route:'sea',mult:1,who:"Капітанка Варо",what:"ship's stores"};if(r.npc==='wayfinder')return{route:'road',mult:1,who:'Teodora',what:'trail rations'};}
   if(voyOn()&&r.prov)return{route:DUNGEONS[S.dg].voyage,mult:1.25,who:r.npc==='trader'?(voySea()?'The trader':'The pedlar'):cap(r.portName),what:'supplies'};
   return null;
 }
@@ -5625,7 +5625,7 @@ const SOLENNE=[
  {id:1,x:1,y:1,title:'Sunfall Square',exits:{n:0,w:2,e:3,s:5},desc:`A wide square paved in pale stone, around a fountain of a hundred little brass lanterns. Water should run through them. Instead each holds a small violet flame that gives no warmth. Children dare each other to touch them. Nobody does.`},
  {id:2,x:0,y:1,title:'The Glass College',npc:'college',exits:{e:1,n:6,s:4},desc:`A tower of green glass and old brass, where Solenne's scholars study light the way Emberfall's priests prayed to it. Lenses the size of cartwheels hang from the ceiling, all turned toward the floor, toward something far below. A gate-arch like Magister Quell's stands in the hall, humming.`},
  {id:3,x:2,y:1,title:'Hammerhall',npc:'solsmith',exits:{w:1,n:7,s:8},desc:`A forge as long as a ship, roaring. Solenne's smiths work in teams of six, singing in rhythm, and the blades on their racks are etched with little suns. The master of the hall, Odo Fairweather, has forearms like hams and a voice like a bell.`},
- {id:4,x:0,y:2,title:'The Salt Lamp',npc:'inn',keeper:'Bettany',exits:{n:2,e:5},desc:`A harbour inn of salt-white plaster and blue shutters, crowded with sailors who all talk at once. A brass lamp hangs over the bar: the only lantern in Solenne still burning gold. Bettany, the innkeeper, says it is because she talks to it.`},
+ {id:4,x:0,y:2,title:'The Salt Lamp',npc:'inn',keeper:"Бетані",exits:{n:2,e:5},desc:`A harbour inn of salt-white plaster and blue shutters, crowded with sailors who all talk at once. A brass lamp hangs over the bar: the only lantern in Solenne still burning gold. Bettany, the innkeeper, says it is because she talks to it.`},
  {id:5,x:1,y:2,title:'The Sunward Quay',npc:'varo',exits:{n:1,w:4,e:8},desc:`Long white piers reach out into the harbour, crowded with ships that have not sailed in months. The Dawnwake is moored at the end, Captain Varo on her deck mending a sail. Beyond the breakwater the sea is grey all the way to the edge of the world.`},
  {id:6,x:0,y:0,title:"The Lamplighters' Row",npc:'lamplighter',exits:{s:2,e:0},desc:`A narrow street of chandlers and wick-makers, every doorway hung with lanterns for sale. Old Wick, the last guild-master of Solenne's lamplighters, sits outside his shop with a pole across his knees, watching the violet lights the way you would watch a fever.`},
  {id:7,x:2,y:0,title:'The Drowned Stair',npc:'stair',exits:{s:3,w:0},desc:`Behind the palace a great stair goes down into the rock beneath Solenne, wide enough for a procession. Seawater laps at the twentieth step, and below that the stair goes on under the water, lit violet from somewhere very deep. The Queen's guard has barred it with a chain and a sergeant who does not smile.`},
@@ -6061,8 +6061,8 @@ Object.assign(MISSIONS,{
   rw:'Old Wick shares the rest: your potions restore 25% more.',reward:()=>{S.flags.wickOil=1;}}
 });
 /* ----- harder requests: for every side dungeon, one per tier, once its first mission is done ----- */
-const DG_GIVER={warren:['brakka','brakka','o','Brakka'],rime:['tobble','tobble','g','Tobble'],market:['inn','wenna','y','Wenna'],orchard:['mott','mott','w','Old Mott'],belfry:['esk','esk','m','Madame Esk'],
- inkwells:['alchemist','ysolde','r','Ysolde'],nursery:['jeweler','ottilie','y','Ottilie'],stacks:['ferryman','ferry','c','The ferryman'],wall:['captain','hale','w','Hale'],catacombs:['college','sabine','g','Sabine Quell'],saltmines:['lamplighter','wick','y','Old Wick']};
+const DG_GIVER={warren:['brakka','brakka','o',"Бракка"],rime:['tobble','tobble','g','Tobble'],market:['inn','wenna','y',"Венна"],orchard:['mott','mott','w',"Старий Мотт"],belfry:['esk','esk','m',"Мадам Еск"],
+ inkwells:['alchemist','ysolde','r','Ysolde'],nursery:['jeweler','ottilie','y',"Оттілія"],stacks:['ferryman','ferry','c','The ferryman'],wall:['captain','hale','w','Hale'],catacombs:['college','sabine','g',"Сабіна Квелл"],saltmines:['lamplighter','wick','y',"Старий Вік"]};
 const DG_ASK=[null,
  (D,n,c,tr)=>`${n} looks up. {${c}}"${D.boss.short} is back. They always come back. Go down at Veteran, and this time bring me ${tr}."`,
  (D,n,c,tr)=>`${n} speaks low. {${c}}"It's worse down there now. Heroic, they're calling it at the Gate. I need ${tr}, and I need it from the very bottom."`,
@@ -7537,7 +7537,7 @@ function raidRows(){
   let h=`<div class="ex-sec">Рейди</div><p class="hint">Для групи з 2–4 друзів, що грають водночас; розраховано на 4. Здоров'я боса спільне, а б'є він кожного окремо.</p>`;
   if(!raidReady())return h+`<p class="hint">Рейди потребують онлайн-гри.</p>`;
   Object.entries(RAIDS).forEach(([k,R_])=>{const ok=raidOk(k);
-    h+=`<div class="ex-row"><button type="button" class="ex-main ex-open" data-raid="${esc(k)}"><b>${esc(R_.n)}</b><small>рівень ${lvShow(R_.lvl)}  ·  герої ${R_.minLv||RAID_MIN_LV}+  ·  група з 2–4</small><em>${fmt(ok?(S.raids[k]?`{g}cleared x${S.raids[k]}{n}`:'{y}open{n}'):`{d}${raidWhy(k)}{n}`)}</em></button>`+
+    h+=`<div class="ex-row"><button type="button" class="ex-main ex-open" data-raid="${esc(k)}"><b>${esc(R_.n)}</b><small>рівень ${lvShow(R_.lvl)}  ·  герої ${R_.minLv||RAID_MIN_LV}+  ·  група з 2–4</small><em>${fmt(ok?(S.raids[k]?`{g}пройдено ×${S.raids[k]}{n}`:'{y}open{n}'):`{d}${raidWhy(k)}{n}`)}</em></button>`+
       (ok&&!PARTY.code?`<button type="button" class="ex-go" data-go="raid:form ${esc(k)}">Рушати</button>`:'')+`</div>`;});
   if(PARTY.code){const ps=Object.values(PARTY.peers),ready=1+ps.filter(p=>p.ok&&p.st==='lobby').length;
     h+=`<div class="ex-story"><b>Група ${esc(PARTY.code)}${PARTY.raid?' · '+esc(RAIDS[PARTY.raid].n):''}</b><p>${esc(clean(S.name))} (ти${PARTY.lead?", ватажок":''})`+ps.map(p=>`<br>${esc(p.n)}, ${esc(CLASSES[p.c].n)}, рівень ${p.l}${p.lead?' (leader)':''}${p.ok?'':" (не відкрито)"}`).join('')+`</p>`+
@@ -7583,14 +7583,14 @@ function openRaid(k){if(!RAIDS[k])return;misOpen='raid:'+k;renderMission();$('#m
 function renderRaid(k){
   const R_=RAIDS[k],T=RAID_TALES[k]||{},el=$('#mission .mis-body');if(!R_||!el)return;const ok=raidOk(k),n=(S.raids||{})[k]||0,r=missionRating({hi:R_.lvl});
   $('#misTitle').textContent=R_.n;let h='';
-  h+=`<div class="dg-head"><div class="dg-boss"></div><div class="ex-story"><b>${!ok?'Shut':n?`Cleared ${n} time${n>1?'s':''}`:"Відкрито"}</b><p>${fmt(R_.blurb)}</p></div></div>`;
+  h+=`<div class="dg-head"><div class="dg-boss"></div><div class="ex-story"><b>${!ok?"Зачинено":n?`Пройдено разів: ${n}`:"Відкрито"}</b><p>${fmt(R_.blurb)}</p></div></div>`;
   h+=`<div class="ex-sec">Історія</div>`+(T.story||[]).map(p=>`<p class="mis-p">${fmt(p)}</p>`).join('');
   if(n&&T.after)h+=`<div class="ex-sec">Потім</div><p class="mis-p">${fmt(T.after)}</p>`;
   h+=`<div class="ex-sec">Бій</div><p class="mis-p">${fmt(T.fight||'')}</p><p class="hint">Для 2–4 друзів, що грають водночас; розраховано на 4. Здоров'я ${esc(R_.boss.short)} спільне, а б'є він кожного окремо. На 80%, 55% і 30% здоров'я він вивільняє катаклізм: захищайся. Його помічники з'являються на 60% і 30%. Через десять хвилин він більше не стримується. Кожен, хто його поранив, отримує власну частку, коли він упаде.</p>`;
   h+=`<div class="ex-sec">Складність</div><div class="mis-facts"><div><small>Рівень рейду</small><b>${lvShow(R_.lvl)}</b></div><div><small>Герої</small><b>рівень ${R_.minLv||RAID_MIN_LV}+</b></div><div><small>Група</small><b>2–4</b></div><div><small>Для тебе (рівень ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;
   h+=`<div class="ex-sec">Твоя частка</div><p class="mis-p">${R_.lvl*80} золота, дуже багато досвіду, епічна річ спорядження (часом легендарна), ще одна на додачу та три цілющі зілля.</p>`;
   if(!raidReady())h+="<p class=\"hint\">Рейди потребують онлайн-гри.</p>";
-  else if(!ok)h+=`<p class="hint">It ${esc(raidWhy(k))}.</p>`;
+  else if(!ok)h+=`<p class="hint">${esc(raidWhy(k))}.</p>`;
   else if(!PARTY.code)h+=`<button type="button" class="big" data-mgo="raid:form ${esc(k)}">Зібрати групу</button><button type="button" data-minv="1">Запросити друга</button><p class="hint">Або приєднайся до групи друга за кодом на екрані «Експедиції».</p>`;
   else{const ps=Object.values(PARTY.peers),mine=PARTY.raid===k;
     h+=`<div class="ex-story"><b>Твоя група: ${esc(PARTY.code)}${PARTY.raid?' · '+esc(RAIDS[PARTY.raid].n):''}</b><p>${esc(clean(S.name))} (ти)`+ps.map(p=>`, ${esc(p.n)}`).join('')+`</p></div>`;
@@ -7953,13 +7953,13 @@ function book4Talk(){
 /* `march`: from the war table to the start of any act you have reached at the front, or your deepest floor there. */
 function warStarts(){return [61,65,69,73,77].filter(f=>f<=mainFloors()&&(f===61||S.deepest>=f));}
 function cmdMarch(arg){
-  if(!book4On()){if(typeof cmdWalk==='function'&&S.floor===0&&cur().npc==='wayfinder'){cmdWalk(arg);return;}out('There is no war. Yet.');return;}
+  if(!book4On()){if(typeof cmdWalk==='function'&&S.floor===0&&cur().npc==='wayfinder'){cmdWalk(arg);return;}out("Війни немає. Поки що.");return;}
   if(!(S.floor===0&&S.town!=='solenne'&&cur().npc==='captain')){if(S.floor===0&&cur().npc==='wayfinder'){cmdWalk(arg);return;}out('The war table is in the Watchtower, at the east end of the Arcade.');return;}   /* (march also still means walk, at the North Gate) */
   if(petHold())return;
   const opts=warStarts(),f=arg==='deep'||arg==='deepest'?Math.max(61,S.deepest>60?S.deepest:61):parseInt(arg);
   if(!arg){out('{c}The front: the start of any act you have reached, or your deepest floor:');
     out(opts.map(x=>`{@march ${x}|Floor ${x}}{d} ${ACTS[actOf(x)].name}{n}`).join('\n')+(S.deepest>61&&S.deepest<=80&&!opts.includes(S.deepest)?`\n{@march deep|Floor ${S.deepest}}{d} your deepest{n}`:''));return;}
-  if(!(f>=61&&f<=mainFloors()&&(f===61||S.deepest>=f))){out('The front has not got that far yet.');return;}
+  if(!(f>=61&&f<=mainFloors()&&(f===61||S.deepest>=f))){out("Фронт ще не дійшов так далеко.");return;}
   S.dg=null;out(`{c}You march out with ${warSquadName(f)}${f>61?', a long way':''}.{n}`);gotoFloor(f,'start');
 }
 /* A Book IV boss falls: what follows, and the way on, or the last choice. */
@@ -8543,7 +8543,7 @@ function accSaveProfile(now){
 
 /* ----- cloud saves ----- */
 /* What a hero looks like on the list, without its whole save. */
-const accMeta=o=>({name:clean(o.name||'').slice(0,16)||"Мандрівник",cls:o.cls,lvl:Number(o.lvl)||1,where:o.floor?(o.dg&&DUNGEONS[o.dg]?DUNGEONS[o.dg].name+', floor '+o.floor:'Floor '+o.floor):o.town==='solenne'?'Solenne':'Emberfall'});
+const accMeta=o=>({name:clean(o.name||'').slice(0,16)||"Мандрівник",cls:o.cls,lvl:Number(o.lvl)||1,where:o.floor?(o.dg&&DUNGEONS[o.dg]?DUNGEONS[o.dg].name+", поверх "+o.floor:'Floor '+o.floor):o.town==='solenne'?'Solenne':'Emberfall'});
 async function accList(){
   try{const r=await accFetch('/rest/v1/saves?select=hero,name,cls,lvl,place,saved_at&order=saved_at.desc');ACC.noCloud=r.status===404;ACC.cloud=r.ok?await r.json():ACC.cloud;}catch(e){}   /* 404: the server has no saves table yet (tools/supabase.sql) */
   return ACC.cloud||[];
@@ -8746,7 +8746,7 @@ function storeBoot(){storeBack();if(playApi())playRefresh().then(()=>{storeUi();
 
 /* ----- the store screen ----- */
 const STORE_BOOKS=[
-  ['o','Book II: The Hunger Below',"Поверхи 21–40: Неосвітлені Сходи, Зала Нагодованих, Архів Попелу, Варта Ардена й Серце Голоду."],
+  ['o','Book II: The Hunger Below',"Поверхи 21–40: Неосвітлені Сходи, Зала Згодованих, Архів Попелу, Варта Ардена й Серце Голоду."],
   ['c','Book III: Across the Ashen Sea',"Переправа до Соленни, Виворіт і поверхи 41–60 Затопленими Сходами."],
   ['r','Book IV: The Lantern War',"Поверхи 61–80: залізний король Кальдмарку воює з Емберфолом, і Вічне Літо Лілі."]];
 function openStore(){$('#menu').hidden=true;renderStore();$('#store').hidden=false;sfx('scroll');if(playApi())playRefresh().then(renderStore);if(accIn()&&!storeWait)storeRefresh().then(renderStore);}
@@ -9063,7 +9063,7 @@ $('#news').addEventListener('click',e=>{if(e.target.closest('[data-close]'))news
    It shows only what your hero has reached: what lies ahead is locked, as a dark shape or ???. In a game it reads as
    the hero you are playing; on the home screen as your furthest hero (lbWith swaps S while it draws). */
 const LB={tab:'story'};
-const LB_TABS=[['story','Story'],['people','People'],['winston','Winston'],['keepers','Keepers'],['places','Places'],['heroes','Heroes'],['lanterns','Lanterns'],['scrolls','Finds'],['legends',"Легенди"]];
+const LB_TABS=[['story',"Історія"],['people',"Люди"],['winston','Winston'],['keepers',"Вартові"],['places',"Місця"],['heroes',"Герої"],['lanterns',"Ліхтарі"],['scrolls',"Знахідки"],['legends',"Легенди"]];
 const lbShip=()=>!!(S.flags.ship||(S.voy&&S.voy.arrived));
 const lbArrived=()=>!!(S.voy&&S.voy.arrived);
 const lbReached=a=>S.deepest>=actStart(a)||bossDone(a);
@@ -9071,52 +9071,52 @@ const lbReached=a=>S.deepest>=actStart(a)||bossDone(a);
 /* ----- the people (pic: npc id, boss sprite key, or a lantern for those too small or strange to draw) ----- */
 const LB_PEOPLE=[
  {sec:'Emberfall'},
- {id:'maren',n:'Sister Maren',pic:'npc:maren',x:'Last of the Lantern Order, younger than her voice, her robes scorched at the hem. She ties the thread of blue light around your wrist that pulls you home when you fall.',
-  more:[[()=>bossDone(3),'For thirty years she adopted the Temple\'s orphans into the Vale line and sent them down the Gate with lanterns, because the seal would only take a Vale. She has been sorry every day.']]},
- {id:'brakka',n:'Brakka Ironjaw',pic:'npc:brakka',x:'The smith, broad as a door. Her racks are sorted by the depth of the dark each blade was made to cut.',q:'Go deeper and I forge deeper.'},
- {id:'tobble',n:'Old Tobble',pic:'npc:tobble',x:'Keeps the Menagerie: mostly beard and pockets, and several of the pockets are moving. He tends the beasts that come back from below.'},
- {id:'wenna',n:'Wenna',pic:'npc:wenna',x:'Runs the Guttered Candle, a smoky inn full of people who do not ask what you do for work. Her husband once sold one of their summers to the Auctioneer.'},
- {id:'pell',n:'Pell',pic:'npc:pell',x:'Guards the Undervault Gate.',q:'Down\'s down. The thread\'ll pull you back if it goes bad. Mostly.',
-  more:[[()=>bossDone(6),'His little sister Lissa went down the Gate years ago with a blue ribbon in her hair. You found her in the Hall of the Fed.']]},
- {id:'quillon',n:'Quillon the Peddler',pic:'npc:quillon',x:'Turns up on the floors below with sacks of goods and too many teeth.',q:'Everything\'s for sale, friend. Even the things that aren\'t mine.'},
- {id:'mott',n:'Old Mott',pic:'npc:mott',x:'Digs the graves in the Keepers\' Cemetery, most of them empty.',q:'The Temple likes a stone even when the Gate keeps the rest.',
-  more:[[()=>!!(S.side||{}).orchard,'His wife Ada went down to the Sunken Orchard long ago, and became its oldest tree.']]},
- {id:'esk',n:'Madame Esk',pic:'npc:esk',x:'Reads cards on Lantern Hill that are not quite cards. The deep is a different place every time you go down it, and she can tell you how.'},
- {id:'ottilie',n:'Ottilie',pic:'npc:ottilie',x:'Keeps the Jewelers\' Arcade: rings, amulets, lockets, and polish for a charm gone dull.'},
- {id:'ysolde',n:'Ysolde',pic:'npc:ysolde',x:'An alchemist on Market Street, forever arguing with her cauldron.',q:'I\'m not your mother.'},
- {id:'hale',n:'Watch-Captain Hale',pic:'npc:hale',x:'Keeps the Watchtower. Reads every notice twice, and pays for hard work done well.'},
- {id:'ferryman',n:'The ferryman',pic:'npc:ferryman',x:'Keeps the Old Docks. No ship has come since the Lantern went blue: the sea-lanes to the far kingdoms went dark the same night.'},
- {id:'winston',n:'Winston the Wanderer',pic:'npc:winston',on:()=>!!(S.win&&S.win.met),x:'A boy of about seven in a coat of a hundred patches, far too big for him, with a walking stick taller than he is and a little lantern that burns a different colour every time you meet him. He talks like an old man. His title tells you what he is about to do.',
-  more:[[()=>(S.win.beat||0)>=1,'Winston is a name he borrowed off a gravestone.'],[()=>(S.win.beat||0)>=7,'He is Aster Vale\'s twin, Caius\'s son: the fed child who walked back up the stair, and stopped growing the moment he came out. He is three hundred years old.']]},
- {sec:'Below'},
- {id:'tobias',n:'Tobias',pic:'lantern',on:()=>bossDone(1),x:'A boy Sister Ilse hid from the seal in a secret garden. He is the one who kept chalking WHO FEEDS THE LIGHT? on the fountain.'},
- {id:'tick',n:'Tick',pic:'lantern',on:()=>bossDone(2),x:'The Order\'s recording engine. It keeps a card for every keeper there ever was, and every card says VALE. It copies everything twice, because the Hunger cannot eat what is written twice.'},
- {id:'arden',n:'Arden Vale',pic:'boss:arden',on:()=>bossDone(2),x:'Knight-Commander of the Lantern Order. The histories say he founded it.',
-  more:[[()=>bossDone(8),'He did not. He sealed his brother below, then went through the door after him and kept a watch inside the Hunger, alone, one more day at a time, for three hundred years. You gave him back his name.']]},
- {id:'caius',n:'Caius Vale',pic:'boss:sovereign',on:()=>bossDone(4),x:'The Ashen Sovereign: Arden\'s brother, and your blood. He went down to fight the Hunger, and his brother sealed him in to hold its door shut.',q:'Brother, if you seal me down here, at least seal me facing the right direction.'},
- {id:'lissa',n:'Lissa',pic:'lantern',on:()=>bossDone(6),x:'Pell\'s little sister, sent down the Gate with a lantern and a blue ribbon. She lost the lantern on the way down, and waited.'},
- {id:'aster',n:'Aster Vale',pic:'boss:fed',on:()=>bossDone(6),x:'The First Fed: Caius\'s daughter, six years old, given to the seal at its making so it would know its keeper\'s blood. She grew vast and hungry in the dark, waiting for her father. Now she sleeps.'},
+ {id:'maren',n:"Сестра Марен",pic:'npc:maren',x:"Остання з Ордену Ліхтаря, молодша за свій голос, з обпаленими полами ряси. Вона пов'язує тобі на зап'ясток нитку синього світла, що повертає тебе додому, коли ти падаєш.",
+  more:[[()=>bossDone(3),"Тридцять років вона приймала храмових сиріт у рід Вейлів і посилала їх у Браму з ліхтарями, бо печатка прийняла б лише Вейла. Їй було шкода щодня."]]},
+ {id:'brakka',n:"Бракка Залізна Щелепа",pic:'npc:brakka',x:"Ковалиха, широка, мов двері. Її стояки впорядковано за глибиною темряви, яку мав різати кожен клинок.",q:"Спускайся глибше — і я кутиму краще."},
+ {id:'tobble',n:"Старий Тоббл",pic:'npc:tobble',x:"Тримає Звіринець: здебільшого борода й кишені, і деякі кишені ворушаться. Доглядає звірів, що повертаються знизу."},
+ {id:'wenna',n:"Венна",pic:'npc:wenna',x:"Тримає Догорілу Свічку — задимлену корчму, повну людей, які не питають, чим ти заробляєш. Її чоловік колись продав Аукціоністові одне з їхніх літ."},
+ {id:'pell',n:"Пелл",pic:'npc:pell',x:"Охороняє Браму Андерволту.",q:"Унизу — то внизу. Нитка витягне, якщо стане зле. Здебільшого.",
+  more:[[()=>bossDone(6),"Його молодша сестричка Ліса спустилася в Браму багато років тому з синьою стрічкою у волоссі. Ти знайшов її в Залі Згодованих."]]},
+ {id:'quillon',n:"Квіллон-торговець",pic:'npc:quillon',x:"З'являється на нижніх поверхах із мішками крамниці та забагатьма зубами.",q:"Усе продається, друже. Навіть те, що не моє."},
+ {id:'mott',n:"Старий Мотт",pic:'npc:mott',x:"Копає могили на Цвинтарі вартових, здебільшого порожні.",q:"Храм любить мати камінь, навіть коли все інше лишає собі Брама.",
+  more:[[()=>!!(S.side||{}).orchard,"Його дружина Ада давно спустилася до Затонулого Саду й стала найстарішим деревом у ньому."]]},
+ {id:'esk',n:"Мадам Еск",pic:'npc:esk',x:"Ворожить на Ліхтарному пагорбі на картах, що не зовсім карти. Глибини щоразу інші, коли туди спускаєшся, і вона може сказати, які саме."},
+ {id:'ottilie',n:"Оттілія",pic:'npc:ottilie',x:"Тримає Ювелірну аркаду: персні, амулети, медальйони — і полірування для потьмянілого оберега."},
+ {id:'ysolde',n:'Ysolde',pic:'npc:ysolde',x:"Алхімічка з Ринкової вулиці, що вічно свариться зі своїм казаном.",q:"Я тобі не мама."},
+ {id:'hale',n:'Watch-Captain Hale',pic:'npc:hale',x:"Тримає Вартову вежу. Читає кожне оголошення двічі й платить за важку роботу, зроблену добре."},
+ {id:'ferryman',n:'The ferryman',pic:'npc:ferryman',x:"Доглядає Старі доки. Жоден корабель не приходив, відколи Ліхтар посинів: морські шляхи до далеких королівств згасли тієї ж ночі."},
+ {id:'winston',n:"Вінстон Мандрівник",pic:'npc:winston',on:()=>!!(S.win&&S.win.met),x:"Хлопчик років семи в пальті зі ста латок, завеликому для нього, з ціпком, вищим за нього самого, і маленьким ліхтарем, що щоразу горить іншим кольором. Говорить, як старий. Його титул підказує, що він збирається зробити.",
+  more:[[()=>(S.win.beat||0)>=1,"Вінстон — ім'я, яке він позичив у надгробка."],[()=>(S.win.beat||0)>=7,"Він близнюк Астер Вейл, син Кая: згодована дитина, що піднялася сходами назад і перестала рости тієї миті, як вийшла. Йому триста років."]]},
+ {sec:"Унизу"},
+ {id:'tobias',n:"Тобіас",pic:'lantern',on:()=>bossDone(1),x:"Хлопчик, якого сестра Ільза сховала від печатки в таємному саду. Це він крейдою писав на фонтані ХТО ГОДУЄ СВІТЛО?"},
+ {id:'tick',n:"Тік",pic:'lantern',on:()=>bossDone(2),x:"Записувальна машина Ордену. Вона тримає картку на кожного вартового, який будь-коли існував, і на кожній написано ВЕЙЛ. Вона все копіює двічі, бо Голод не може з'їсти написане двічі."},
+ {id:'arden',n:"Арден Вейл",pic:'boss:arden',on:()=>bossDone(2),x:"Лицар-командор Ордену Ліхтаря. Літописи кажуть, що він його заснував.",
+  more:[[()=>bossDone(8),"Ні. Він запечатав брата внизу, а тоді пройшов за ним у двері й чатував усередині Голоду — сам, щоразу ще один день, триста років. Ти повернув йому ім'я."]]},
+ {id:'caius',n:"Кай Вейл",pic:'boss:sovereign',on:()=>bossDone(4),x:"Попелястий Володар: брат Ардена і твоя кров. Він спустився битися з Голодом, а брат запечатав його всередині, щоб тримати двері зачиненими.",q:"Брате, якщо вже запечатуєш мене тут, то хоч обличчям у правильний бік."},
+ {id:'lissa',n:"Ліса",pic:'lantern',on:()=>bossDone(6),x:"Молодша сестричка Пелла, яку послали в Браму з ліхтарем і синьою стрічкою. Дорогою вниз вона загубила ліхтар — і чекала."},
+ {id:'aster',n:"Астер Вейл",pic:'boss:fed',on:()=>bossDone(6),x:"Перша Згодована: дочка Кая, шести років, віддана печатці під час її створення, щоб та знала кров свого вартового. Вона виросла величезною й голодною в темряві, чекаючи на батька. Тепер вона спить."},
  {sec:'Solenne'},
- {id:'aurelie',n:'Queen Aurelie',pic:'npc:aurelie',on:lbShip,x:'Queen of Solenne: young, ink on her fingers, a plain silver circlet pushed back in her hair. She stands when you come in, which queens are not supposed to do.'},
- {id:'varo',n:'Captain Ines Varo',pic:'npc:varo',on:lbShip,x:'Captain of the Dawnwake, the first ship to reach Emberfall in years.',q:'Stay in the lane and I\'ll get you there. Make me leave it and I make no promises.'},
- {id:'teodora',n:'Teodora Brisk',pic:'npc:teodora',on:lbShip,x:'The wayfinder at the North Gate, who knows the long road to Solenne.',q:'The road remembers people. The Greywold doesn\'t.'},
- {id:'oriel',n:'Magister Oriel Quell',pic:'npc:oriel',on:lbShip,x:'Of Solenne\'s Glass College, with a gate of brass and green glass at the Harbour Light.',q:'The chance it puts you somewhere else is very small. Smallish.'},
- {id:'sabine',n:'Archivist Sabine Quell',pic:'npc:sabine',on:lbArrived,x:'Oriel\'s sister, at the Glass College, with none of her patience.'},
- {id:'odo',n:'Odo Fairweather',pic:'npc:odo',on:lbArrived,x:'Master of Hammerhall, where the smiths sing in teams of six.'},
- {id:'wick',n:'Old Wick',pic:'npc:wick',on:lbArrived,x:'Last guild-master of Solenne\'s lamplighters. He has lit the lamps by hand for forty years.',q:'It\'s not the lamps, delver. It\'s what they\'re burning.'},
- {id:'bettany',n:'Bettany',pic:'npc:bettany',on:lbArrived,x:'Keeps the Salt Lamp, the only lantern in Solenne still burning gold. She talks to it.'},
- {id:'tam',n:'Tam',pic:'npc:tam',on:()=>bossDone(10),x:'A lamplighter\'s apprentice who walked down the Drowned Stair in her sleep. You woke her and sent her home.'},
- {id:'ysmay',n:'Queen Ysmay',pic:'boss:ysmay',on:()=>bossDone(13),x:'Aurelie\'s mother, who went down to stop the Undertow and held it back with her own light for three years.',q:'It was never the lamps. It was the door.'},
- {sec:'The Lantern War'},
- {id:'osric',n:'King Osric of Kaldmark',pic:'boss:osric',on:()=>!!S.flags.herald,x:'The Iron Claimant, who claims Emberfall, the Last Lantern and the Vale blood by a charter three hundred years old. He wears a crown of cold iron, and he has not been warm in fifty years.',
-  more:[[()=>bossDone(19),'He opened the third door under his mountain to get warm, and it asked for everything. He fed it his kingdom\'s hearths, and then wanted Emberfall\'s Lantern, because he could not think of anything else.']]},
- {id:'corva',n:'Lady Corva Thane',pic:'npc:corva',on:()=>!!S.flags.herald,x:'Herald to King Osric. She read the Ember Writ from the rim of Emberfall\'s dry fountain, and frost formed where she stood.'},
- {id:'hollis',n:'Sister Hollis',pic:'npc:hollis',on:()=>!!S.flags.war,x:'Of the Temple. She keeps a field hospital at the front, at the stairs of every floor, and treats both sides in the order they come in.',q:'Their fingers are all frostbitten. Every one of them.'},
- {id:'pip',n:'Pip Kettle',pic:'npc:pip',on:()=>!!S.story.prisoner,x:'A Kaldmark soldier of seventeen who stopped fighting in Emberfall\'s streets because it was warm. His little sister is six, and has never been warm.'},
- {id:'vey',n:'Engineer-Captain Marta Vey',pic:'npc:vey',on:()=>bossDone(16),x:'Captain of the Breaker, the iron king\'s great siege engine. She had never once missed, until she did.'},
- {id:'rhyne',n:'Isolde Rhyne',pic:'boss:frostmarshal',on:()=>bossDone(17),x:'The Frost Marshal, Kaldmark\'s champion for thirty years. She went to the third door and the cold went into her. She was warm at the end, and wanted the king to know.'},
- {id:'lily',n:'Lily the Sweethang',pic:'boss:lily',on:()=>!!S.flags.south,x:'A lady in a wide sunhat who bought one summer from every village in Kaldmark, fifty years ago, very politely, and took them south to her garden.',
-  more:[[()=>!!S.flags.lily,'She fell out of the sky, out of the seventh door, the one nobody counts, and tried to live in this world. Everything she loves she keeps, and everything she keeps she plants, and she has never once been warm enough. She let the summers go. Her garden is growing back.']]}
+ {id:'aurelie',n:"Королева Орелі",pic:'npc:aurelie',on:lbShip,x:"Королева Соленни: молода, з чорнилом на пальцях і простим срібним обручем, засунутим у волосся. Вона встає, коли ти заходиш, а королевам так робити не годиться."},
+ {id:'varo',n:"Капітанка Інес Варо",pic:'npc:varo',on:lbShip,x:"Капітанка «Світанкової Хвилі», першого за роки корабля, що дістався Емберфолу.",q:"Тримайся фарватеру — і я тебе доправлю. Змусиш зійти з нього — нічого не обіцяю."},
+ {id:'teodora',n:"Теодора Бріск",pic:'npc:teodora',on:lbShip,x:"Провідниця біля Північної брами, що знає довгу дорогу до Соленни.",q:"Дорога пам'ятає людей. Ґрейволд — ні."},
+ {id:'oriel',n:"Магістерка Оріель Квелл",pic:'npc:oriel',on:lbShip,x:"Зі Скляної Колегії Соленни, з брамою з латуні й зеленого скла біля Портового маяка.",q:"Шанс, що вона закине тебе деінде, дуже малий. Малуватий."},
+ {id:'sabine',n:"Архіваріус Сабіна Квелл",pic:'npc:sabine',on:lbArrived,x:"Сестра Оріель зі Скляної Колегії — без краплі її терпіння."},
+ {id:'odo',n:"Одо Ферветер",pic:'npc:odo',on:lbArrived,x:"Майстер Гаммергола, де ковалі співають шістками."},
+ {id:'wick',n:"Старий Вік",pic:'npc:wick',on:lbArrived,x:"Останній майстер цеху ліхтарників Соленни. Сорок років він запалює лампи власноруч.",q:"Справа не в лампах, шукачу. А в тому, що вони спалюють."},
+ {id:'bettany',n:"Бетані",pic:'npc:bettany',on:lbArrived,x:"Тримає Соляну Лампу, єдиний ліхтар у Соленні, що досі горить золотом. Вона з ним розмовляє."},
+ {id:'tam',n:"Тем",pic:'npc:tam',on:()=>bossDone(10),x:"Учениця ліхтарника, що спустилася Затопленими Сходами уві сні. Ти розбудив її й відіслав додому."},
+ {id:'ysmay',n:'Queen Ysmay',pic:'boss:ysmay',on:()=>bossDone(13),x:"Мати Орелі, що спустилася зупинити Відплив і три роки стримувала його власним світлом.",q:"Справа ніколи не була в лампах. Справа була в дверях."},
+ {sec:"Війна Ліхтарів"},
+ {id:'osric',n:"Король Озрік Кальдмаркський",pic:'boss:osric',on:()=>!!S.flags.herald,x:"Залізний Претендент, що домагається Емберфолу, Останнього Ліхтаря й крові Вейлів за статутом трьохсотрічної давності. Він носить корону з холодного заліза і вже п'ятдесят років не знає тепла.",
+  more:[[()=>bossDone(19),"Він відчинив треті двері під своєю горою, щоб зігрітися, а вони попросили все. Він віддав їм вогнища свого королівства, а тоді захотів Ліхтаря Емберфолу, бо ні до чого іншого не міг додуматися."]]},
+ {id:'corva',n:"Леді Корва Тейн",pic:'npc:corva',on:()=>!!S.flags.herald,x:"Герольдка короля Озріка. Вона прочитала Жаристий Указ з краю висохлого фонтана Емберфолу, і там, де вона стояла, взявся іній."},
+ {id:'hollis',n:"Сестра Голліс",pic:'npc:hollis',on:()=>!!S.flags.war,x:"З Храму. Вона тримає польовий шпиталь на фронті, біля сходів кожного поверху, і лікує обидві сторони в тому порядку, в якому вони надходять.",q:"У них усіх відморожені пальці. В усіх до одного."},
+ {id:'pip',n:"Піп Кеттл",pic:'npc:pip',on:()=>!!S.story.prisoner,x:"Сімнадцятирічний кальдмаркський вояк, що перестав битися на вулицях Емберфолу, бо там було тепло. Його сестричці шість, і їй ніколи не було тепло."},
+ {id:'vey',n:"Капітанка-інженерка Марта Вей",pic:'npc:vey',on:()=>bossDone(16),x:"Капітанка Трощителя, великої облогової машини залізного короля. Вона жодного разу не схибила — аж доки не схибила."},
+ {id:'rhyne',n:"Ізольда Райн",pic:'boss:frostmarshal',on:()=>bossDone(17),x:"Маршалка Морозу, чемпіонка Кальдмарку тридцять років. Вона пішла до третіх дверей, і холод увійшов у неї. Наприкінці їй було тепло, і вона хотіла, щоб король про це знав."},
+ {id:'lily',n:'Lily the Sweethang',pic:'boss:lily',on:()=>!!S.flags.south,x:"Пані в широкому капелюсі від сонця, що п'ятдесят років тому дуже чемно купила по одному літу в кожного села Кальдмарку й забрала їх на південь, до свого саду.",
+  more:[[()=>!!S.flags.lily,"Вона впала з неба, через сьомі двері, ті, яких ніхто не лічить, і спробувала жити в цьому світі. Усе, що любить, вона береже, а все, що береже, садить, і їй ніколи не буває досить тепло. Вона відпустила літа. Її сад відростає."]]}
 ];
 
 /* ----- which hero the book reads as ----- */
@@ -9137,9 +9137,9 @@ function renderLore(){
   const el=$('#lore .lb-body'),tabs=$('#lore .lb-tabs');if(!el)return;
   tabs.innerHTML=LB_TABS.map(([k,n])=>`<button type="button" class="lb-tab${LB.tab===k?' on':''}" data-lb="${k}" role="tab" aria-selected="${LB.tab===k}">${n}</button>`).join('');
   const o=lbHero();
-  const who=o?`<p class="hint lb-who">Reading as ${esc(o.name)}, ${esc(CHAPTERS[lbWith(o,()=>{try{return chapterNow();}catch(e){return 0;}})].n)}. What lies ahead stays locked until you get there.</p>`:
-    '<p class="hint lb-who">Start a hero to read the story as you play it. What lies ahead stays locked until you get there.</p>';
-  let h;try{h=o?lbWith(o,()=>LB_RENDER[LB.tab](true)):LB_RENDER[LB.tab](false);}catch(e){h='<p class="hint">This page could not be read.</p>';}
+  const who=o?`<p class="hint lb-who">Читаєш як ${esc(o.name)}, ${esc(CHAPTERS[lbWith(o,()=>{try{return chapterNow();}catch(e){return 0;}})].n)}. Те, що попереду, лишається замкненим, доки туди не дійдеш.</p>`:
+    "<p class=\"hint lb-who\">Створи героя, щоб читати історію під час гри. Те, що попереду, лишається замкненим, доки туди не дійдеш.</p>";
+  let h;try{h=o?lbWith(o,()=>LB_RENDER[LB.tab](true)):LB_RENDER[LB.tab](false);}catch(e){h="<p class=\"hint\">Цю сторінку не вдалося прочитати.</p>";}
   el.innerHTML=who+h;$('#lore').scrollTop=0;
   el.querySelectorAll('.lb-pic').forEach(p=>{const v=p.dataset.pic;if(!v)return;const [kind,k]=v.split(':');let c=null;
     try{if(kind==='npc')c=npcSprite(k,2);else if(kind==='boss')c=bossSprite(k,2);else if(kind==='hero')c=heroSprite(k,starterEq(k.split('/')[0],6,3),2);else if(kind==='lantern')c=lanternCanvas(4);}catch(e){}
@@ -9148,108 +9148,108 @@ function renderLore(){
 const LB_RENDER={
  /* the story, chapter by chapter */
  story(has){
-  let h='<div class="ex-sec">Prologue: The Last Lantern</div>'+lbP('Emberfall was built on a lid. Three hundred years ago the Lantern Order chained the Ashen Sovereign beneath the city and set five Wardstones on the seal, one below another. Above them, in the Temple, hangs the Last Lantern. Tonight it burns blue, and one by one the Wardstones are going dark. Sister Maren, the last of the Order, sent for anyone who can hold a weapon. You came.');
-  if(!has)return h+'<p class="hint">The rest of the story opens as you play it.</p>';
+  let h="<div class=\"ex-sec\">Пролог: Останній Ліхтар</div>"+lbP("Емберфол збудовано на кришці. Триста років тому Орден Ліхтаря закував Попелястого Володаря під містом і поставив на печатку п'ять Каменів-оберегів, один під одним. Над ними, у Храмі, висить Останній Ліхтар. Цієї ночі він горить синім, і Камені-обереги гаснуть один за одним. Сестра Марен, остання з Ордену, покликала всіх, хто здатен тримати зброю. Ти прийшов.");
+  if(!has)return h+"<p class=\"hint\">Решта історії відкривається під час гри.</p>";
   const ch=a=>{const C=CHAPTERS[chapterOfAct(a)],T=TALE_START[a];
-    if(!lbReached(a))return `<div class="lb-ch lb-locked"><b>${esc(C.n)}: ${esc(C.t)}</b><p>Not yet. Reach floor ${actStart(a)} to read on.</p></div>`;
+    if(!lbReached(a))return `<div class="lb-ch lb-locked"><b>${esc(C.n)}: ${esc(C.t)}</b><p>Ще ні. Дійди до поверху ${actStart(a)}, щоб читати далі.</p></div>`;
     let s=`<div class="lb-ch"><b>${esc(C.n)}: ${esc(C.t)}</b><small>${esc(ACTS[a].name)}</small>${lbP(taleTxt(T.ahead))}`;
     if(bossDone(a))s+=TALE_FALL[a].map(([t,x])=>`<p><i>${esc(t)}.</i> ${fmt(x)}</p>`).join('');
     return s+'</div>';};
   const book=(n,t)=>`<div class="ex-sec">${n}: ${t}</div>`;
-  h+=book('Book I','The Last Lantern');for(let a=0;a<5;a++)h+=ch(a);
-  if(S.flags.ended)h+=`<div class="lb-ch lb-end"><b>How Book I ended</b>${lbP(END1[S.flags.ended]||'')}</div>`;
+  h+=book("Книга I","Останній Ліхтар");for(let a=0;a<5;a++)h+=ch(a);
+  if(S.flags.ended)h+=`<div class="lb-ch lb-end"><b>Як закінчилася Книга I</b>${lbP(END1[S.flags.ended]||'')}</div>`;
   if(!S.flags.ended)return h;
-  h+=book('Book II','The Hunger Below');for(let a=5;a<10;a++)h+=ch(a);
-  if(S.flags.ended2)h+=`<div class="lb-ch lb-end"><b>How Book II ended</b>${lbP(END2[S.flags.ended2]||'')}</div>`;
+  h+=book("Книга II",'The Hunger Below');for(let a=5;a<10;a++)h+=ch(a);
+  if(S.flags.ended2)h+=`<div class="lb-ch lb-end"><b>Як закінчилася Книга II</b>${lbP(END2[S.flags.ended2]||'')}</div>`;
   if(!S.flags.ended2)return h;
-  h+=book('Book III','Across the Ashen Sea');
-  h+=lbShip()?`<div class="lb-ch"><b>The Dawnwake</b>${lbP(taleTxt(TALE_START.xi.ahead))}</div>`:'<div class="lb-ch lb-locked"><b>A ship</b><p>Not yet.</p></div>';
-  if(lbArrived())h+=`<div class="lb-ch"><b>Solenne</b>${TALE_SOLENNE.map(([t,x])=>`<p><i>${esc(t)}.</i> ${fmt(x)}</p>`).join('')}</div>`;
+  h+=book("Книга III","За Попелястим морем");
+  h+=lbShip()?`<div class="lb-ch"><b>«Світанкова Хвиля»</b>${lbP(taleTxt(TALE_START.xi.ahead))}</div>`:"<div class=\"lb-ch lb-locked\"><b>Корабель</b><p>Ще ні.</p></div>";
+  if(lbArrived())h+=`<div class="lb-ch"><b>Соленна</b>${TALE_SOLENNE.map(([t,x])=>`<p><i>${esc(t)}.</i> ${fmt(x)}</p>`).join('')}</div>`;
   for(let a=10;a<15;a++)h+=ch(a);
-  if(S.flags.ended3)h+=`<div class="lb-ch lb-end"><b>How Book III ended</b>${lbP(taleTxt(TALE_START.end.so))}${lbP(taleTxt(TALE_START.end.ahead))}</div>`;
+  if(S.flags.ended3)h+=`<div class="lb-ch lb-end"><b>Як закінчилася Книга III</b>${lbP(taleTxt(TALE_START.end.so))}${lbP(taleTxt(TALE_START.end.ahead))}</div>`;
   if(!S.flags.ended3)return h;
-  h+=book('Book IV','The Lantern War');
-  h+=S.flags.herald?`<div class="lb-ch"><b>The Ember Writ</b>${lbP(taleTxt(TALE_START.war.ahead))}</div>`:'<div class="lb-ch lb-locked"><b>A rider from the north</b><p>Not yet. Go home to Emberfall.</p></div>';
+  h+=book("Книга IV","Війна Ліхтарів");
+  h+=S.flags.herald?`<div class="lb-ch"><b>Жаристий Указ</b>${lbP(taleTxt(TALE_START.war.ahead))}</div>`:"<div class=\"lb-ch lb-locked\"><b>Вершник із півночі</b><p>Ще ні. Повертайся до Емберфолу.</p></div>";
   for(let a=15;a<20;a++)h+=ch(a);
-  if(S.flags.ended4)h+=`<div class="lb-ch lb-end"><b>How the war ended</b>${lbP(END4[S.flags.ended4]||'')}</div>`;
-  if(S.flags.south)h+=`<div class="lb-ch"><b>Chapter XXII: Everlasting Summer</b>${lbP(taleTxt(TALE_START.summer.ahead))}</div>`;
-  if(S.flags.lily)h+=`<div class="lb-ch lb-end"><b>The summers go home</b>${lbP(taleTxt(TALE_START.fin4.so))}${lbP(taleTxt(TALE_START.fin4.ahead))}</div>`;
+  if(S.flags.ended4)h+=`<div class="lb-ch lb-end"><b>Як закінчилася війна</b>${lbP(END4[S.flags.ended4]||'')}</div>`;
+  if(S.flags.south)h+=`<div class="lb-ch"><b>Розділ XXII: Вічне Літо</b>${lbP(taleTxt(TALE_START.summer.ahead))}</div>`;
+  if(S.flags.lily)h+=`<div class="lb-ch lb-end"><b>Літа повертаються додому</b>${lbP(taleTxt(TALE_START.fin4.so))}${lbP(taleTxt(TALE_START.fin4.ahead))}</div>`;
   return h;},
  /* the people, with their portraits */
  people(has){
   let h='';LB_PEOPLE.forEach(P=>{if(P.sec){h+=`<div class="ex-sec">${P.sec}</div>`;return;}
     const open=!P.on||(has&&P.on());
-    if(!open){h+=lbCard(P.pic,'???','<p>Not yet met.</p>',true);return;}
+    if(!open){h+=lbCard(P.pic,'???',"<p>Ще не зустрічався.</p>",true);return;}
     const more=has?(P.more||[]).filter(([c])=>c()).map(([,t])=>lbP(t)).join(''):'';
     h+=lbCard(P.pic,P.n,lbP(P.x)+(P.q?`<p class="lb-q">"${esc(P.q)}"</p>`:'')+more);});
   return h;},
  /* Winston the Wanderer: his own story so far, the tales he has told you, and the titles you have seen him wear */
  winston(has){
-  const W=has&&S.win;if(!W||!W.met)return lbCard('npc:winston','???','<p>Not yet met. Someone wanders the Undervault, they say, with a lantern that is never the same colour twice.</p>',true);
-  let h=lbCard('npc:winston','Winston the Wanderer',lbP(`You have met him ${W.met} time${W.met>1?'s':''}, as ${Object.keys(W.seen).map(k=>'Winston '+WIN_MOODS[k].t).join(', ')}.`)+(W.errand?lbP('You are running an errand for him: '+WIN_ERRANDS.find(x=>x.k===W.errand.k).n+'.'):''));
-  h+='<div class="ex-sec">His story</div>';
-  WIN_STORY.forEach((B,i)=>{h+=i<W.beat?`<div class="lb-ch"><b>${esc(B.t)}</b>${B.x.map(lbP).join('')}</div>`:`<div class="lb-ch lb-locked"><b>???</b><p>${i===W.beat?'He will tell you when he is ready.':'Not yet.'}</p></div>`;});
-  h+=`<div class="ex-sec">His tales</div><p class="mis-p">${W.tales.length} of ${WIN_TALES.length} heard.</p>`;
-  WIN_TALES.forEach(T=>{h+=W.tales.includes(T.k)?`<div class="lb-ch"><b>${esc(T.t)}</b>${T.x.map(lbP).join('')}</div>`:'<div class="lb-ch lb-locked"><b>???</b><p>Not yet told.</p></div>';});
+  const W=has&&S.win;if(!W||!W.met)return lbCard('npc:winston','???',"<p>Ще не зустрічався. Кажуть, хтось блукає Андерволтом із ліхтарем, що ніколи двічі не буває одного кольору.</p>",true);
+  let h=lbCard('npc:winston',"Вінстон Мандрівник",lbP(`Ти зустрічав його ${W.met} раз(и): ${Object.keys(W.seen).map(k=>"Вінстон "+WIN_MOODS[k].t).join(', ')}.`)+(W.errand?lbP("Ти виконуєш його доручення: "+WIN_ERRANDS.find(x=>x.k===W.errand.k).n+'.'):''));
+  h+="<div class=\"ex-sec\">Його історія</div>";
+  WIN_STORY.forEach((B,i)=>{h+=i<W.beat?`<div class="lb-ch"><b>${esc(B.t)}</b>${B.x.map(lbP).join('')}</div>`:`<div class="lb-ch lb-locked"><b>???</b><p>${i===W.beat?"Він розповість, коли буде готовий.":"Ще ні."}</p></div>`;});
+  h+=`<div class="ex-sec">Його оповідки</div><p class="mis-p">Почуто ${W.tales.length} з ${WIN_TALES.length}.</p>`;
+  WIN_TALES.forEach(T=>{h+=W.tales.includes(T.k)?`<div class="lb-ch"><b>${esc(T.t)}</b>${T.x.map(lbP).join('')}</div>`:"<div class=\"lb-ch lb-locked\"><b>???</b><p>Ще не розказано.</p></div>";});
   return h;},
  /* every keeper, with its picture; the ones you have not beaten are dark shapes */
  keepers(has){
   const card=(key,B,done,met)=>{const q=B.intro&&B.intro[1]?plainTxt(B.intro[1]):'',d=B.death&&B.death.length?plainTxt(B.death[B.death.length-1]):'';
-    return done?lbCard('boss:'+key,B.n,(q?`<p class="lb-q">${esc(q)}</p>`:'')+(d?`<p><i>As it fell:</i> ${esc(d)}</p>`:'')):lbCard('boss:'+key,met?B.n:'???',`<p>${met?'Not yet beaten.':'Somewhere below.'}</p>`,true);};
-  let h='';const secs=[['Book I: the keepers of the Wardstones',0,5],['Book II: below the Throne',5,10],['Book III: under the sea',10,15],['Book IV: the Lantern War',15,20]];
+    return done?lbCard('boss:'+key,B.n,(q?`<p class="lb-q">${esc(q)}</p>`:'')+(d?`<p><i>Падаючи:</i> ${esc(d)}</p>`:'')):lbCard('boss:'+key,met?B.n:'???',`<p>${met?"Ще не переможено.":"Десь унизу."}</p>`,true);};
+  let h='';const secs=[["Книга I: вартові Каменів-оберегів",0,5],["Книга II: під Троном",5,10],["Книга III: під морем",10,15],["Книга IV: Війна Ліхтарів",15,20]];
   secs.forEach(([t,a,b])=>{if(a>=5&&!(has&&(a<10?S.flags.ended:a<15?S.flags.ended2:S.flags.ended3)))return;h+=`<div class="ex-sec">${t}</div>`;
     for(let i=a;i<b;i++)h+=card(BOSS_SPR[i]||'herald',BOSSES[i],has&&bossDone(i),has&&lbReached(i));});
-  h+='<div class="ex-sec">Side dungeons and the crossing</div>';
+  h+="<div class=\"ex-sec\">Бічні підземелля й переправа</div>";
   Object.entries(DUNGEONS).forEach(([k,D])=>{if(D.raid||!D.boss)return;if(D.voyage&&!(has&&lbShip()))return;if(D.story&&!(has&&S.flags.south))return;
     const done=has&&!!((S.side||{})[k]||(D.voyage&&S.voy&&S.voy.won&&S.voy.won[D.voyage])||(k==='abyss'&&S.abyssBest>=5));h+=card(bossKey({dg:k}),D.boss,done,has&&dgOpen(D));});
-  h+='<div class="ex-sec">Raids</div>';
+  h+="<div class=\"ex-sec\">Рейди</div>";
   Object.entries(RAIDS).forEach(([k,R_])=>{if(R_.need&&!(has&&R_.need()))return;h+=card(bossKey({raid:1,dg:'raid_'+k}),R_.boss,has&&!!(S.raids||{})[k],has&&(R_.need?R_.need():!!S.bosses[R_.req]));});
   return h;},
  /* the places */
  places(has){
-  let h='<div class="ex-sec">Emberfall</div>';
+  let h="<div class=\"ex-sec\">Емберфол</div>";
   TOWN.forEach(r=>{h+=`<div class="lb-ch"><b>${esc(r.title)}</b>${lbP(r.desc)}</div>`;});
-  if(has&&lbArrived()){h+='<div class="ex-sec">Solenne</div>';SOLENNE.forEach(r=>{h+=`<div class="lb-ch"><b>${esc(r.title)}</b>${lbP(r.desc)}</div>`;});}
-  h+='<div class="ex-sec">The descent</div>';
+  if(has&&lbArrived()){h+="<div class=\"ex-sec\">Соленна</div>";SOLENNE.forEach(r=>{h+=`<div class="lb-ch"><b>${esc(r.title)}</b>${lbP(r.desc)}</div>`;});}
+  h+="<div class=\"ex-sec\">Спуск</div>";
   ACTS.forEach((A_,a)=>{if(a>=5&&!(has&&(a<10?S.flags.ended:a<15?S.flags.ended2:S.flags.ended3)))return;
-    h+=has&&lbReached(a)?`<div class="lb-ch"><b>${esc(A_.num)}. ${esc(A_.name)}</b><small>floors ${actStart(a)}-${actStart(a)+FPA-1}</small>${lbP(A_.intro)}</div>`:`<div class="lb-ch lb-locked"><b>${esc(A_.num)}. ???</b><p>Floors ${actStart(a)}-${actStart(a)+FPA-1}. Not yet reached.</p></div>`;});
-  h+='<div class="ex-sec">Side dungeons</div>';
+    h+=has&&lbReached(a)?`<div class="lb-ch"><b>${esc(A_.num)}. ${esc(A_.name)}</b><small>поверхи ${actStart(a)}–${actStart(a)+FPA-1}</small>${lbP(A_.intro)}</div>`:`<div class="lb-ch lb-locked"><b>${esc(A_.num)}. ???</b><p>Поверхи ${actStart(a)}–${actStart(a)+FPA-1}. Ще не досягнуто.</p></div>`;});
+  h+="<div class=\"ex-sec\">Бічні підземелля</div>";
   Object.entries(DUNGEONS).forEach(([k,D])=>{if(D.raid)return;if(D.voyage&&!(has&&lbShip()))return;if(D.story&&!(has&&S.flags.south))return;
-    h+=has&&dgOpen(D)?`<div class="lb-ch"><b>${esc(D.name)}</b>${lbP(D.intro||D.blurb||'')}</div>`:`<div class="lb-ch lb-locked"><b>???</b><p>${esc(has?'It '+dgNeedTxt(D)+'.':'Not yet found.')}</p></div>`;});
+    h+=has&&dgOpen(D)?`<div class="lb-ch"><b>${esc(D.name)}</b>${lbP(D.intro||D.blurb||'')}</div>`:`<div class="lb-ch lb-locked"><b>???</b><p>${esc(has?"Він "+dgNeedTxt(D)+'.':"Ще не знайдено.")}</p></div>`;});
   return h;},
  /* the twelve heroes */
  heroes(){
-  let h='<p class="mis-p">Twelve answered Maren\'s call. Whoever you are, the dark will learn your name, and give you a title for it.</p>';
-  Object.entries(CLASSES).forEach(([k,C])=>{h+=`<div class="lb-card lb-hero"><div class="lb-pic" data-pic="hero:${k}"></div><div class="lb-pic" data-pic="hero:${k}/f"></div><div class="lb-txt"><b>${esc(C.n)}</b>${lbP(C.blurb)}<small>Weapons: ${C.wp.join(', ')}  ·  ${esc(C.res)}</small></div></div>`;});
+  let h="<p class=\"mis-p\">Дванадцятеро відгукнулися на поклик Марен. Хоч би ким ти був, темрява вивчить твоє ім'я — і дасть тобі за нього титул.</p>";
+  Object.entries(CLASSES).forEach(([k,C])=>{h+=`<div class="lb-card lb-hero"><div class="lb-pic" data-pic="hero:${k}"></div><div class="lb-pic" data-pic="hero:${k}/f"></div><div class="lb-txt"><b>${esc(C.n)}</b>${lbP(C.blurb)}<small>Зброя: ${C.wp.join(', ')}  ·  ${esc(C.res)}</small></div></div>`;});
   return h;},
  /* why the lanterns matter */
  lanterns(has){
   const L=has?lanternsKnown():TALE_LANTERNS.filter(x=>!x.on);let h=L.map(x=>`<div class="lb-ch"><b>${esc(x.t)}</b>${lbP(x.x)}</div>`).join('');
-  const more=TALE_LANTERNS.length-L.length;if(more)h+=`<p class="hint">${more} more, as the story tells you what the lanterns burn.</p>`;return h;},
+  const more=TALE_LANTERNS.length-L.length;if(more)h+=`<p class="hint">Ще ${more} — у міру того, як історія розповідає, що спалюють ліхтарі.</p>`;return h;},
  /* the lore scrolls */
  scrolls(has){   /* each book's own collectible: scrolls, embers, shells, dispatches (LORE_KINDS), fifteen a book as the books open */
-  const max=has?loreMax():15,got=has?S.lore:[];let h=`<p class="mis-p">Every book hides its own kind of find, one on most floors of its descent. ${got.length} of ${max} found.</p>`;
+  const max=has?loreMax():15,got=has?S.lore:[];let h=`<p class="mis-p">Кожна книга ховає власний вид знахідок — по одній майже на кожному поверсі її спуску. Знайдено ${got.length} з ${max}.</p>`;
   LORE_KINDS.filter(K=>K.from<=max).forEach(K=>{const mine=got.filter(n=>loreKind(n)===K).length;
-   h+=`<div class="ex-sec lb-find-${K.key}">Book ${K.book}: ${esc(K.many)} <small>${mine}/15</small></div>`;
+   h+=`<div class="ex-sec lb-find-${K.key}">Книга ${K.book}: ${esc(K.many)} <small>${mine}/15</small></div>`;
    for(let n=K.from;n<K.from+15;n++)h+=got.includes(n)?`<div class="lb-ch lb-find-${K.key}"><b>${K.one} ${n-K.from+1}</b><p class="lb-q">${esc(LORE[n])}</p></div>`:`<div class="lb-ch lb-locked"><b>${K.one} ${n-K.from+1}</b><p>???</p></div>`;});
   return h;},
  /* the legends of the sets and the one-of-a-kind things (legends.js): each opens as you find it */
  legends(has){
-  let h=`<p class="mis-p">Every legendary set and every one-of-a-kind thing has a story. Find a piece and its legend opens here; each piece you find adds to it.</p>`;
-  if(!has)return h+'<p class="hint">Start a hero to begin finding them.</p>';
+  let h=`<p class="mis-p">Кожен легендарний комплект і кожна унікальна річ мають історію. Знайди частину — і легенда відкриється тут; кожна нова частина доповнює її.</p>`;
+  if(!has)return h+"<p class=\"hint\">Створи героя, щоб почати їх знаходити.</p>";
   legendBackfill();const L=legendState(),SL=['weapon','armor','amulet','ring'],SN={weapon:'Weapon',armor:'Armor',amulet:'Amulet',ring:'Ring'};
   const card=k=>{const T=SETS[k],G=LEGEND_SETS[k],got=L.s[k]||{},n=Object.keys(got).length;
-    if(!n)return `<div class="lb-ch lb-locked"><b>A legend of the ${esc(CLASSES[T.cls].n)}</b><small>a set of four</small><p>???</p><p class="hint">Find one of its pieces to read it.</p></div>`;
-    return `<div class="lb-ch lb-set lb-set-${T.col}"><b>${esc(T.n)}</b><small>${esc(CLASSES[T.cls].n)} set · ${n}/4 found${n>=4?' · wear all four to be called '+esc(T.title):''}</small>${lbP(G.tale)}`+
+    if(!n)return `<div class="lb-ch lb-locked"><b>Легенда класу «${esc(CLASSES[T.cls].n)}»</b><small>комплект із чотирьох</small><p>???</p><p class="hint">Знайди одну з його частин, щоб прочитати.</p></div>`;
+    return `<div class="lb-ch lb-set lb-set-${T.col}"><b>${esc(T.n)}</b><small>комплект: ${esc(CLASSES[T.cls].n)} · знайдено ${n}/4${n>=4?" · вдягни всі чотири, щоб тебе звали "+esc(T.title):''}</small>${lbP(G.tale)}`+
       SL.map(sl=>got[sl]?`<p><i>${esc(T.pieces[sl][0])}.</i> ${esc(G[sl])}</p>`:`<p class="lb-dim">${SN[sl]}: ???</p>`).join('')+'</div>';};
   const mine=[CLASS_SET[S.cls],typeof CLASS_SET4!=='undefined'&&CLASS_SET4[S.cls]].filter(k=>k&&SETS[k]);
-  h+=`<div class="ex-sec">Your class's sets</div>`+mine.map(card).join('');
+  h+=`<div class="ex-sec">Комплекти твого класу</div>`+mine.map(card).join('');
   const others=Object.keys(SETS).filter(k=>!mine.includes(k)&&LEGEND_SETS[k]),seen=others.filter(k=>L.s[k]&&Object.keys(L.s[k]).length);
-  h+=`<div class="ex-sec">Other legends <small>${seen.length}/${others.length}</small></div>`+seen.map(card).join('');
-  if(others.length>seen.length)h+=`<p class="hint">${others.length-seen.length} more sets belong to other classes. Their pieces turn up now and then.</p>`;
+  h+=`<div class="ex-sec">Інші легенди <small>${seen.length}/${others.length}</small></div>`+seen.map(card).join('');
+  if(others.length>seen.length)h+=`<p class="hint">Ще ${others.length-seen.length} комплектів належать іншим класам. Їхні частини трапляються час від часу.</p>`;
   const names=Object.keys(LEGEND_UNIQ),found=names.filter(n=>L.u[n]);
-  h+=`<div class="ex-sec">One of a kind <small>${found.length}/${names.length}</small></div>`+found.map(n=>`<div class="lb-ch lb-uniq"><b>${esc(n)}</b>${lbP(LEGEND_UNIQ[n])}</div>`).join('');
-  if(found.length<names.length)h+=`<p class="hint">${names.length-found.length} more are out there: in the deep places, at the ends of the story, from bosses, and from a small man in a large coat.</p>`;
+  h+=`<div class="ex-sec">Унікальні речі <small>${found.length}/${names.length}</small></div>`+found.map(n=>`<div class="lb-ch lb-uniq"><b>${esc(n)}</b>${lbP(LEGEND_UNIQ[n])}</div>`).join('');
+  if(found.length<names.length)h+=`<p class="hint">Ще ${names.length-found.length} десь є: у глибоких місцях, у фіналах історії, у босів і в маленького чоловічка у великому пальті.</p>`;
   return h;}
 };
 
@@ -9292,14 +9292,14 @@ function getShop(){
     if(r.npc==='brakka')return{name:"Brakka's Forge",list:smithStock(),sells:true};
     if(r.npc==='maren')return{name:"Комора Храму",list:[{pot:'hp'},{pot:'mp'},{pot:'fury'}]};
     if(r.npc==='tobble')return{name:"Tobble's Menagerie",list:[{pet:'wolf'},{pet:'raven'},{pet:'salamander'},{pet:'wisp'},{pot:'treat'}]};
-  }else if(r.stock)return{name:r.npc==='quillon'?'Quillon the Peddler':r.npc==='port'?cap(r.portName):r.title,list:r.stock,sells:true};
+  }else if(r.stock)return{name:r.npc==='quillon'?"Квіллон-торговець":r.npc==='port'?cap(r.portName):r.title,list:r.stock,sells:true};
   return null;
 }
 /* A bought pet comes trained to your level, so it costs about what Tobble charges to train one more level. */
 function petPrice(k){return PETPRICE[k]+Math.round(25*Math.pow(Math.max(0,S.lvl-1),1.5));}
 function price(e){return disc(e.pot?potPrice(e.pot):e.pet?petPrice(e.pet):e.item.value);}
 /* The inn you are at: Emberfall's Guttered Candle, or the Salt Lamp in Solenne. Well-Rested pays 15%, or 25% after Wenna's summer. */
-function innOf(){const r=S.floor===0&&cur();return S.town==='solenne'?{n:"Соляна Лампа",k:(r&&r.keeper)||'Bettany'}:{n:"Догоряла Свічка",k:'Wenna'};}
+function innOf(){const r=S.floor===0&&cur();return S.town==='solenne'?{n:"Соляна Лампа",k:(r&&r.keeper)||"Бетані"}:{n:"Догоряла Свічка",k:'Wenna'};}
 function restPct(){return S.flags.summer?25:15;}
 function listShop(){
   const sh=getShop();if(!sh){out("Тут ніхто нічого не продає.");return;}
@@ -9678,7 +9678,7 @@ function cmdPreview(arg){
   const sl=slotFor(it),eq2=Object.assign({},S.eq,{[sl]:it});
   const a=stats();const real=S.eq;S.eq=eq2;let b;try{b=stats();}finally{S.eq=real;}
   out(`{o}Приміряння:{n} ${iname(it)} {d}(${SLOTNAME[sl].toLowerCase()}${S.eq[sl]?", замість "+plainName(S.eq[sl]).trim():''}){n}`,'rt');
-  outDolls([heroFigure(heroKey(S.cls,S.body),S.eq,'Now',3),heroFigure(heroKey(S.cls,S.body),eq2,"З цим",3)]);
+  outDolls([heroFigure(heroKey(S.cls,S.body),S.eq,"Зараз",3),heroFigure(heroKey(S.cls,S.body),eq2,"З цим",3)]);
   const rows=[["Макс. ОЗ",a.mhp,b.mhp],[CLASSES[S.cls].res,a.mmp,b.mmp],['Armor',a.def,b.def],["Крит %",a.crit,b.crit],["Ухилення %",a.dodge,b.dodge],["СИЛ",a.str,b.str],["СПР",a.agi,b.agi],["ІНТ",a.int,b.int]];
   if(sl==='weapon')rows.unshift(["Шкода зброї",+avgDmg(S.eq.weapon).toFixed(1),+avgDmg(it).toFixed(1)]);
   const ch=rows.filter(r=>r[1]!==r[2]).map(([n,x,y])=>`${n} ${x} -> ${y} ${y>x?'{g}(+'+(+(y-x).toFixed(1))+'){n}':'{r}('+(+(y-x).toFixed(1))+'){n}'}`);
@@ -9723,9 +9723,9 @@ function cmdRest(){
   if(S.floor===0){if(r.npc!=='inn'){if(S.town==='solenne'){out("Відпочити можна в {@help inn|Соляній Лампі}, на пристані.");return;}out(`Відпочити можна в {@help inn|Догорілій Свічці}, на південний захід від площі.`);return;}
     const c=innCost(),res=CLASSES[S.cls].res.toLowerCase();S.fx={};
     if(S.gold>=c){S.gold-=c;S.hp=st.mhp;S.mp=st.mmp;healPets(1);S.wellRested=true;sfx('coinsBuy');sfx('rest');
-      out(`{y}Ти платиш ${r.keeper||'Wenna'} ${c} золота й міцно спиш. Здоров'я, ${res} та улюбленці повністю відновлені.{n} {g}Добре відпочилий: +${restPct()}% досвіду до наступного повернення в місто.{n} {d}Гру збережено.`);storyDream();save(true);return;}
+      out(`{y}Ти платиш ${r.keeper||"Венна"} ${c} золота й міцно спиш. Здоров'я, ${res} та улюбленці повністю відновлені.{n} {g}Добре відпочилий: +${restPct()}% досвіду до наступного повернення в місто.{n} {d}Гру збережено.`);storyDream();save(true);return;}
     S.hp=Math.max(S.hp,Math.round(st.mhp*0.5));S.mp=Math.max(S.mp,Math.round(st.mmp*0.5));S.pets.forEach(p=>{p.hp=Math.max(p.hp,Math.ceil(petStats(p).mhp*0.5));});sfx('rest');
-    out(`{y}Ліжко коштує ${c} золота, а в тебе ${S.gold}. ${r.keeper||'Wenna'} дозволяє тобі подрімати біля вогнища.{n} {d}(Здоров'я, ${res} та улюбленці — щонайменше наполовину.)`);save(true);return;}
+    out(`{y}Ліжко коштує ${c} золота, а в тебе ${S.gold}. ${r.keeper||"Венна"} дозволяє тобі подрімати біля вогнища.{n} {d}(Здоров'я, ${res} та улюбленці — щонайменше наполовину.)`);save(true);return;}
   if(r.rested){out("Ти вже тут відпочивав. Темрява стає цікавою.");return;}
   r.rested=true;
   if(!r.safe&&chance(0.2)){const m=makeMob(MR,depth(),null,theme());r.mobs.push(m);sfx('alert');out(`{r}Щойно ти заплющуєш очі, з темряви вилазить ${A(m)}!`);engage(r.mobs.length-1,true);return;}
@@ -9778,7 +9778,7 @@ function cmdDelve(arg){
     if(t)out(`{${DG_TIERS[t].col}}${D.name}, ${DG_TIERS[t].n}.{n} {d}Чудовиська сильніші на ${DG_TIERS[t].lv} рівнів, більше чемпіонів, краща здобич.`);
     enterDungeon(ak,0,t);return;}
   const opts=ACTS.map((_,a)=>actStart(a)).filter(f=>f<=Math.min(40,mainFloors())&&(f===1||S.deepest>=f||(f===21&&book2On())));
-  if(arg==='deep'||arg==='deepest'){if(!S.deepest){out("{c}Ти ще не спускався.");return;}const d=Math.min(S.deepest,40);S.dg=null;out(`{c}Pell lowers you to floor ${d}.`+(S.deepest>40?" {d}(Нижче дорога веде Затопленими Сходами в Соленні.)":''));gotoFloor(d,'start');return;}
+  if(arg==='deep'||arg==='deepest'){if(!S.deepest){out("{c}Ти ще не спускався.");return;}const d=Math.min(S.deepest,40);S.dg=null;out(`{c}Пелл спускає тебе на поверх ${d}.`+(S.deepest>40?" {d}(Нижче дорога веде Затопленими Сходами в Соленні.)":''));gotoFloor(d,'start');return;}
   const f=parseInt(arg);
   if(opts.includes(f)){S.dg=null;gotoFloor(f,'start');return;}
   out("{c}Пелл може спустити тебе на початок будь-якої дії, до якої ти дійшов, або на твій найглибший поверх:");
@@ -9957,7 +9957,7 @@ defc('enter',()=>cmdEvent('enter'));defc('pay',()=>cmdEvent('pay'));defc('hail',
 defc('descend',a=>{if(!cmdDescend(a))out("Тут немає сходів униз.");});
 defc('open',cmdOpen);defc('pray',cmdPray);
 defc('rest sleep',cmdRest);
-defc('recall home',()=>{if(S.fight){out("Нитка не витягне тебе з бою. Спершу {@flee|тікай}.");return;}if(S.flags.choosing){out("Не зараз. Обирай.");return;}if(S.floor===0){out(`Ти вже в місті: ${townName()}.`+(S.town==='solenne'?" Нитку прив'язано до Ліхтаря Емберфолу, що за морем; щоб повернутися додому, скористайся Ліхтарною брамою, кораблем або дорогою.":''));return;}if(S.dg==='underside'){out("{m}Ти смикаєш нитку Ліхтаря. Вона натягується, потім слабне. Так глибоко вона не сягає.{n} {d}Знайди Якір.");return;}if(petHold())return;if(belowSolenne()){toSolenneFromBelow();if(!queueScene(sceneRecall()))sfx('recall');return;}out('{b}You tug the Lantern-thread. The dark folds, and you are home.');toTown(1);if(!queueScene(sceneRecall()))sfx('recall');});
+defc('recall home',()=>{if(S.fight){out("Нитка не витягне тебе з бою. Спершу {@flee|тікай}.");return;}if(S.flags.choosing){out("Не зараз. Обирай.");return;}if(S.floor===0){out(`Ти вже в місті: ${townName()}.`+(S.town==='solenne'?" Нитку прив'язано до Ліхтаря Емберфолу, що за морем; щоб повернутися додому, скористайся Ліхтарною брамою, кораблем або дорогою.":''));return;}if(S.dg==='underside'){out("{m}Ти смикаєш нитку Ліхтаря. Вона натягується, потім слабне. Так глибоко вона не сягає.{n} {d}Знайди Якір.");return;}if(petHold())return;if(belowSolenne()){toSolenneFromBelow();if(!queueScene(sceneRecall()))sfx('recall');return;}out("{b}Ти смикаєш нитку Ліхтаря. Темрява згортається — і ти вдома.");toTown(1);if(!queueScene(sceneRecall()))sfx('recall');});
 defc('sc score stats st',score);
 defc('pet pets',cmdPet);
 defc('talk greet ask',talk);
@@ -10296,7 +10296,7 @@ function renderSlots(){
   const el=$('#slots');el.innerHTML='';let any=false;
   HERO_SLOTS.forEach(n=>{
     const sv=loadSave(n),d=document.createElement('div');d.className='slot'+(sv?'':' empty');
-    if(sv){any=true;const where=sv.floor?(sv.dg&&DUNGEONS[sv.dg]?DUNGEONS[sv.dg].name+', floor '+sv.floor:'Floor '+sv.floor):sv.town==='solenne'?'Solenne':'Emberfall',nb=(sv.bosses||[]).concat(sv.b2||[],sv.b3||[]).filter(Boolean).length;
+    if(sv){any=true;const where=sv.floor?(sv.dg&&DUNGEONS[sv.dg]?DUNGEONS[sv.dg].name+", поверх "+sv.floor:'Floor '+sv.floor):sv.town==='solenne'?'Solenne':'Emberfall',nb=(sv.bosses||[]).concat(sv.b2||[],sv.b3||[]).filter(Boolean).length;
       d.innerHTML=`<div class="slot-txt"><b>${esc(sv.name)} ${esc(sv.title||sv.lastTitle||'')}</b><small>Рівень ${Number(sv.lvl)||1} ${CLASSES[sv.cls].n} · ${esc(where)} · босів: ${nb}${sv.hard?" · <span class=\"hc\">Хардкор</span>":''}${sv.ng?' · NG+'+(Number(sv.ng)||0):''}</small>`+(accIn()?`<small class="cloud">${sv.hard?"лишається на цьому пристрої (Хардкор)":accState(sv)==='newer'?"<b>у хмарі є новіше збереження</b>":accState(sv)==='synced'?"у хмарі":"вирушає в хмару"}</small>`:'')+`</div>`
         +`<div class="slot-btns">`+(accIn()&&accState(sv)==='newer'?`<button type="button" class="slot-pull" data-slot="${n}" data-hero="${esc(sv.cid||'')}">Завантажити новіше збереження</button>`:'')+`<button type="button" class="slot-go" data-slot="${n}">Продовжити</button><button type="button" class="slot-del link" data-slot="${n}">Видалити</button></div>`;
       try{d.prepend(heroCanvas(heroKey(sv.cls,sv.body),sv.eq||{},1));}catch(e){}}
@@ -10397,7 +10397,7 @@ function resume(sv){
 /* ----- menu ----- */
 let fs=parseFloat(pref('fs'))||13;document.documentElement.style.setProperty('--fs',fs+'px');
 if(pref('pads')==='0')$('#pads').hidden=true;
-function syncMenu(){$('#mPads').textContent=$('#pads').hidden?"Показати сенсорні кнопки":"Сховати сенсорні кнопки";$('#mLoot').textContent="Автозбір: "+(S&&S.autoloot===false?'off':'on');$('#menuInfo').textContent=S?`${fullName()}, рівень ${S.lvl} ${CLASSES[S.cls].n}. Зерно ${S.seed}.`:'';$('#mNew').textContent='Heroes';$('#mExport').disabled=!S;$('#mLbSend').textContent="Надсилати результати: "+(lbOn()?'on':'off');$('#mLbSend').hidden=!lbReady();$('#mSound').textContent="Звук: "+(soundOn()?'on':'off');$('#mScenes').textContent="Заставки: "+(pref('scenes')==='0'?'off':'on');$('#mTale').textContent="Слайди історії: "+(pref('tale')==='0'?'off':'on');$('#mTale').disabled=pref('scenes')==='0';$('#mMini').textContent="Міні-мапа: "+(miniOn()?'on':'off');$('#mMusic').textContent="Музика: "+(musicOn()?'on':'off');$('#mLive').textContent="Наживо: "+(S&&S.live?'on':'off');$('#mLive').hidden=$('#mRace').hidden=!lbReady();$('#mLive').disabled=$('#mShare').disabled=$('#mRace').disabled=!S;$('#mVib').textContent=canVibrate()?"Вібрація: "+(vibOn()?'on':'off'):"Вібрація: недоступна";$('#mVib').disabled=!canVibrate();}
+function syncMenu(){$('#mPads').textContent=$('#pads').hidden?"Показати сенсорні кнопки":"Сховати сенсорні кнопки";$('#mLoot').textContent="Автозбір: "+(S&&S.autoloot===false?'off':'on');$('#menuInfo').textContent=S?`${fullName()}, рівень ${S.lvl} ${CLASSES[S.cls].n}. Зерно ${S.seed}.`:'';$('#mNew').textContent="Герої";$('#mExport').disabled=!S;$('#mLbSend').textContent="Надсилати результати: "+(lbOn()?'on':'off');$('#mLbSend').hidden=!lbReady();$('#mSound').textContent="Звук: "+(soundOn()?'on':'off');$('#mScenes').textContent="Заставки: "+(pref('scenes')==='0'?'off':'on');$('#mTale').textContent="Слайди історії: "+(pref('tale')==='0'?'off':'on');$('#mTale').disabled=pref('scenes')==='0';$('#mMini').textContent="Міні-мапа: "+(miniOn()?'on':'off');$('#mMusic').textContent="Музика: "+(musicOn()?'on':'off');$('#mLive').textContent="Наживо: "+(S&&S.live?'on':'off');$('#mLive').hidden=$('#mRace').hidden=!lbReady();$('#mLive').disabled=$('#mShare').disabled=$('#mRace').disabled=!S;$('#mVib').textContent=canVibrate()?"Вібрація: "+(vibOn()?'on':'off'):"Вібрація: недоступна";$('#mVib').disabled=!canVibrate();}
 $('#menuBtn').addEventListener('click',()=>{syncMenu();$('#menu').hidden=false;});
 $('#mResume').addEventListener('click',()=>{$('#menu').hidden=true;});
 $('#mSave').addEventListener('click',()=>{if(S){save(false);scrollDown();}$('#menu').hidden=true;});

@@ -98,7 +98,7 @@ html.home-on,html.home-on body{overflow:hidden}
 <h2>La Dernière Lanterne vacille</h2>
 <p class="hm-lede">Il y a trois cents ans, l'Ordre de la Lanterne a enchaîné quelque chose sous Emberfall, et cinq Pierres de garde tiennent le sceau. Ce soir, la Dernière Lanterne est devenue bleue. Sœur Maren a fait appeler quiconque sait tenir une arme. <b>Vous avez répondu.</b></p>
 
-<h2>What waits below</h2>
+<h2>Ce qui attend en bas</h2>
 <div class="hm-grid">
 <div class="hm-card"><div class="hm-pic"><img src="../media/classes.png" alt="Les douze classes" loading="lazy" width="765" height="350"></div><b>Douze classes</b><p>Guerrier, Mage, Voleur, Clerc, Rôdeur, Nécromancien, Druide, Bagarreur, Démon, Héritier, Élémentaliste et Worg, chacun avec ses compétences, ses talents et ses titres.</p></div>
 <div class="hm-card"><div class="hm-pic"><img src="../media/bosses.gif" alt="Les boss de l'histoire" loading="lazy" width="690" height="429"></div><b>Une histoire en quatre livres</b><p>Quatre-vingts étages, vingt boss d'histoire, des donjons annexes en quatre rangs et un Abîme sans fin. Chaque livre s'achève sur un choix.</p></div>
@@ -525,7 +525,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
 <div id="title" class="overlay">
   <div class="sheet">
     <div class="title-head">
-      <div class="lantern" id="lantern" role="img" aria-label="The Last Lantern" title="The Last Lantern"><canvas id="lanternCv" width="24" height="32"></canvas></div>
+      <div class="lantern" id="lantern" role="img" aria-label="La Dernière Lanterne" title="La Dernière Lanterne"><canvas id="lanternCv" width="24" height="32"></canvas></div>
       <h1 class="title-words"><span class="tw-big">LANTERNS</span><span class="tw-of">of the</span><span class="tw-big">UNDERVAULT</span><span class="tw-sub">quatre livres · quatre-vingts étages<br>une lignée</span></h1>
     </div>
     <p class="tag">Un donjon textuel à l'ancienne, façon MUD. Combattez, pillez, apprivoisez des bêtes et descendez sous Emberfall pour raviver les sceaux qui faiblissent, puis suivez les ténèbres de l'autre côté de la mer.</p>
@@ -537,7 +537,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
     <div id="slots"></div>
     <a id="moveLink" class="link move-link" href="https://a-theme.github.io/move.html" hidden>Vous avez joué sur a-theme.github.io ? Ramenez vos héros</a>
     <div class="lbl">Nouveau héros</div>
-    <label for="nameIn">Your name</label>
+    <label for="nameIn">Votre nom</label>
     <div class="row"><input id="nameIn" maxlength="16" value="Wanderer"><button id="nameRoll" type="button" style="padding:0 14px" aria-label="Nom au hasard">Au hasard</button></div>
     <div class="row body-pick" id="bodyPick" role="group" aria-label="Héros"><button type="button" data-body="m" aria-pressed="true">Homme</button><button type="button" data-body="f" aria-pressed="false">Femme</button></div>
     <div class="lbl">Classe</div>
@@ -584,7 +584,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
       <button id="mBigger" type="button">Texte plus grand</button>
       <button id="mPads" type="button">Masquer les touches tactiles</button>
       <button id="mLoot" type="button">Ramassage auto : oui</button>
-      <button id="mNew" type="button">Heroes</button>
+      <button id="mNew" type="button">Héros</button>
       <button id="mHelp" type="button">Aide</button>
       <button id="mSound" type="button">Son : oui</button>
       <button id="mVib" type="button">Vibration : oui</button>
@@ -4641,38 +4641,38 @@ function openExpo(){if(!S)return;renderExpo();$('#expo').hidden=false;sfx('scrol
 function closeExpo(){$('#expo').hidden=true;}
 function expoRow(name,meta,status,go,cls){
   return `<div class="ex-row ${cls||''}"><div class="ex-main"><b>${esc(name)}</b><small>${esc(meta)}</small><em>${fmt(status)}</em></div>`+
-    (go?`<button type="button" class="ex-go" data-go="${esc(go)}">Go</button>`:'')+`</div>`;
+    (go?`<button type="button" class="ex-go" data-go="${esc(go)}">Y aller</button>`:'')+`</div>`;
 }
 function renderExpo(){
   const q=questNow(),queen=/^home1\d$|^b3stair$/.test(q.st.id),home=!queen&&/^home\d$|^maren$|^call2$/.test(q.st.id),acts=ACTS.map((_,a)=>a).filter(a=>a<5||(a<10&&book2On())||(a>=10&&a<15&&book3bOn())||(a>=15&&book4On())),war=/^home1[5-8]$|^b4war$|^b4south$/.test(q.st.id),herald=q.st.id==='b4herald';let h='';
   /* the story */
-  h+=`<div class="ex-sec">Story</div><div class="ex-story"><b>${esc(q.C.n)}: ${esc(q.C.t)}</b><p>${fmt(q.st.o)}${q.f?` <span class="kd">(floor ${q.f})</span>`:''}</p>`+
-    `<button type="button" class="big ex-cont" data-go="${war?'wartable':herald?'square':queen?'queen':home?'temple':'deep'}">${war?'Go to the war table':herald?'Go home to Emberfall':queen?'Go to the Queen':home?'Go to the Temple':S.deepest?'Continue: floor '+S.deepest:'Set out'}</button>`+
-    `<div class="row"><button type="button" data-go="recap">The story so far</button><button type="button" data-go="lanterns">Why the lanterns matter</button></div></div>`;
+  h+=`<div class="ex-sec">Histoire</div><div class="ex-story"><b>${esc(q.C.n)} : ${esc(q.C.t)}</b><p>${fmt(q.st.o)}${q.f?` <span class="kd">(étage ${q.f})</span>`:''}</p>`+
+    `<button type="button" class="big ex-cont" data-go="${war?'wartable':herald?'square':queen?'queen':home?'temple':'deep'}">${war?"Aller à la table de guerre":herald?"Rentrer à Emberfall":queen?"Aller voir la Reine":home?"Aller au Temple":S.deepest?"Continuer : étage "+S.deepest:"En route"}</button>`+
+    `<div class="row"><button type="button" data-go="recap">L'histoire jusqu'ici</button><button type="button" data-go="lanterns">Pourquoi les lanternes comptent</button></div></div>`;
   /* missions and bounties: what you have been asked to do, right under the story; tap one for its own screen */
   const mr={found:0,active:1,done:2},ms=Object.entries(MISSIONS).filter(([k])=>S.missions[k]).sort((x,y)=>mr[S.missions[x[0]]]-mr[S.missions[y[0]]]);   /* to hand in, then in progress, then done */
   h+=`<div class="ex-sec">Missions</div>`;
-  if(!ms.length)h+=`<p class="hint">Townsfolk will ask for help as the Wardstones burn again. Talk to them.</p>`;
+  if(!ms.length)h+=`<p class="hint">Les habitants demanderont de l'aide à mesure que les Pierres de garde se rallument. Parlez-leur.</p>`;
   ms.forEach(([k,M])=>{const st=S.missions[k],w=missionWhere(M),r=w&&st==='active'?missionRating(w):null;
     h+=`<button type="button" class="ex-mis ${st}" data-mis="${esc(k)}"><b>${st==='done'?'&#10003; ':''}${esc(M.n)}</b><small>${fmt(st==='found'?M.back:st==='done'?M.rw:M.obj)}</small>`+(r?`<em class="mis-tag">${fmt(`{${r.c}}${r.t}{n}`)} · ${esc(w.name)}</em>`:'')+`</button>`;});
-  if(S.jobs.length){h+=`<div class="ex-sec">Bounties</div>`;S.jobs.forEach(j=>{h+=`<div class="ex-mis"><b>${esc(j.label)}</b><small>${j.prog}/${j.n}  ·  ${j.gold} gold</small></div>`;});}
+  if(S.jobs.length){h+=`<div class="ex-sec">Primes</div>`;S.jobs.forEach(j=>{h+=`<div class="ex-mis"><b>${esc(j.label)}</b><small>${j.prog}/${j.n}  ·  ${j.gold} gold</small></div>`;});}
   /* the descent */
-  h+=`<div class="ex-sec">The descent</div>`;
-  acts.forEach(a=>{if(a===5)h+=`<div class="ex-sec">Book II: The Hunger Below</div>`;if(a===10)h+=`<div class="ex-sec">Book III: The Drowned Stair</div>`;if(a===15)h+=`<div class="ex-sec">Book IV: The Lantern War</div>`;const A_=ACTS[a],f0=actStart(a),f1=f0+FPA-1,lo=zoneLvl(f0),hi=BOSS_LVL2[a],open=a===0||S.deepest>=f0;
-    const st=bossDone(a)?(a<5?'{g}Wardstone relit{n}':'{g}silenced{n}'):S.deepest>=f0?`{y}reached floor ${Math.min(S.deepest,f1)} of ${f1}{n}`:open?'{d}not started{n}':`{d}opens when you reach floor ${f0}{n}`;
-    h+=expoRow(`${A_.num}. ${A_.name}`,`floors ${f0}-${f1}  ·  level ${lvShow(lo)}-${lvShow(hi)}`,st,open?'act:'+f0:'',S.dg==null&&S.floor>=f0&&S.floor<=f1?'here':'');});
+  h+=`<div class="ex-sec">La descente</div>`;
+  acts.forEach(a=>{if(a===5)h+=`<div class="ex-sec">Livre II : La Faim d'en bas</div>`;if(a===10)h+=`<div class="ex-sec">Livre III : L'Escalier Noyé</div>`;if(a===15)h+=`<div class="ex-sec">Livre IV : La Guerre des Lanternes</div>`;const A_=ACTS[a],f0=actStart(a),f1=f0+FPA-1,lo=zoneLvl(f0),hi=BOSS_LVL2[a],open=a===0||S.deepest>=f0;
+    const st=bossDone(a)?(a<5?"{g}Pierre de garde rallumée{n}":'{g}silenced{n}'):S.deepest>=f0?`{y}étage ${Math.min(S.deepest,f1)} atteint sur ${f1}{n}`:open?"{d}pas commencé{n}":`{d}s'ouvre quand vous atteignez l'étage ${f0}{n}`;
+    h+=expoRow(`${A_.num}. ${A_.name}`,`étages ${f0}-${f1}  ·  niveau ${lvShow(lo)}-${lvShow(hi)}`,st,open?'act:'+f0:'',S.dg==null&&S.floor>=f0&&S.floor<=f1?'here':'');});
   /* side dungeons */
-  h+=`<div class="ex-sec">Side dungeons</div>`;
+  h+=`<div class="ex-sec">Donjons annexes</div>`;
   Object.entries(DUNGEONS).forEach(([k,D])=>{if(D.raid)return;const open=dgOpen(D),lv=D.endless?dgLvl(D):sideRunLvl(k);
     const mk=Object.entries(MISSIONS).find(([m,M])=>M.dg===k&&S.missions[m]&&S.missions[m]!=='done');
-    const st=!open?`{d}${dgNeedTxt(D)}{n}`:D.endless?`{m}deepest floor ${S.abyssBest||0}{n}`:S.side[k]?`{g}cleared x${S.side[k]}{n}`+(dgTierBest(k)>0?`, best ${tierTag(dgTierBest(k))}`:''):'{y}not cleared{n}';
+    const st=!open?`{d}${dgNeedTxt(D)}{n}`:D.endless?`{m}étage le plus profond ${S.abyssBest||0}{n}`:S.side[k]?`{g}vidé ×${S.side[k]}{n}`+(dgTierBest(k)>0?`, record ${tierTag(dgTierBest(k))}`:''):"{y}pas vidé{n}";
     h+=`<div class="ex-row ${S.dg===k?'here':''}"><button type="button" class="ex-main ex-open" data-dg="${esc(k)}"><b>${esc(D.name)}</b>`+
-      `<small>${esc(D.endless?`endless  ·  from level ${lvShow(lv)}`:`${dgFloors(D)} floors  ·  level ${lvShow(lv)}-${lvShow(lv+dgFloors(D))}`)}</small><em>${fmt(st+(mk?`  {o}mission: ${MISSIONS[mk[0]].n}{n}`:''))}</em></button>`+
-      (open?`<button type="button" class="ex-go" data-go="dg:${esc(k)}">Go</button>`:'')+`</div>`;});
+      `<small>${esc(D.endless?`sans fin  ·  dès le niveau ${lvShow(lv)}`:`${dgFloors(D)} étages  ·  niveau ${lvShow(lv)}-${lvShow(lv+dgFloors(D))}`)}</small><em>${fmt(st+(mk?`  {o}mission: ${MISSIONS[mk[0]].n}{n}`:''))}</em></button>`+
+      (open?`<button type="button" class="ex-go" data-go="dg:${esc(k)}">Y aller</button>`:'')+`</div>`;});
   /* raids */
   h+=raidRows();
   /* Trials of Legend */
-  S.trials=S.trials||{};h+=`<div class="ex-sec">Trials of Legend</div><p class="hint">${Object.keys(S.trials).length} of ${TRIALS.length} done. Each gives a legendary for certain.</p>`;
+  S.trials=S.trials||{};h+=`<div class="ex-sec">Épreuves de Légende</div><p class="hint">${Object.keys(S.trials).length} sur ${TRIALS.length} accomplies. Chacune donne un légendaire à coup sûr.</p>`;
   TRIAL_BOOKS.forEach(([b,t])=>{h+=`<p class="hint trial-book">${t}</p>`;TRIALS.filter(T=>T.b===b).forEach(T=>{const d=!!S.trials[T.k];h+=`<div class="ex-mis ${d?'done':''}"><b>${d?'&#10003; ':''}${esc(T.n)}</b><small>${esc(T.d)}${!d&&T.prog?' ('+T.prog()+')':''}</small></div>`;});});
   $('#expo .ex-body').innerHTML=h;
 }
@@ -4680,19 +4680,19 @@ function renderExpo(){
 /* Where a mission sends you: a floor of the story ('f26'), a side dungeon at a tier, or the Abyss. lo/hi are monster levels. */
 function missionWhere(M){
   if(/^f\d+$/.test(M.dg)){const f=+M.dg.slice(1);return {name:'Floor '+f+', '+ACTS[actOf(f)].name,lo:zoneLvl(f),hi:zoneLvl(f),floor:f,go:f>40||S.deepest>=f?'act:'+f:S.deepest?'deep':'act:1',
-    why:S.deepest>=f?'':'You have not reached floor '+f+' yet: Start takes you as deep as you have been ('+(S.deepest?'floor '+S.deepest:'floor 1')+').'};}
+    why:S.deepest>=f?'':"Vous n'avez pas encore atteint l'étage "+f+" : Commencer vous emmène aussi bas que vous êtes allé ("+(S.deepest?'floor '+S.deepest:"étage 1")+').'};}
   const D=DUNGEONS[M.dg];if(!D)return null;
-  if(D.endless){const f=M.dg==='abyss'?10:1;return {name:D.name+', floor '+f,lo:dgLvl(D)+f-1,hi:dgLvl(D)+f-1,go:dgOpen(D)?'dg:'+M.dg:'',why:dgOpen(D)?'':'It '+dgNeedTxt(D)+'.'};}
+  if(D.endless){const f=M.dg==='abyss'?10:1;return {name:D.name+", étage "+f,lo:dgLvl(D)+f-1,hi:dgLvl(D)+f-1,go:dgOpen(D)?'dg:'+M.dg:'',why:dgOpen(D)?'':"Il "+dgNeedTxt(D)+'.'};}
   const t=M.tier||0,lo=sideRunLvl(M.dg)+DG_TIERS[t].lv,ok=dgOpen(D)&&dgTierOpen(M.dg,t);
   return {name:D.name+(t?', '+DG_TIERS[t].n:''),tier:t,lo,hi:lo+dgFloors(D)-1,floors:dgFloors(D),go:ok?'dg:'+M.dg+':'+t:'',
-    why:!dgOpen(D)?'It '+dgNeedTxt(D)+'.':ok?'':DG_TIERS[t].n+' opens once you have cleared it at '+DG_TIERS[t-1].n+'.'};
+    why:!dgOpen(D)?"Il "+dgNeedTxt(D)+'.':ok?'':DG_TIERS[t].n+" s'ouvre une fois vidé en "+DG_TIERS[t-1].n+'.'};
 }
 /* How hard, against your own level. */
 function missionRating(w){const d=lvShow(w.hi)-S.lvl;return d<=-4?{t:'Easy',c:'g'}:d<=0?{t:'Fair',c:'y'}:d<=4?{t:'Hard',c:'o'}:{t:'Deadly',c:'r'};}
 /* Who gave it, and where to find them. */
-const MIS_PEOPLE={brakka:['Brakka','emberfall','brakka'],tobble:['Old Tobble','emberfall','tobble'],inn:['Wenna','emberfall','inn'],gate:['Pell','emberfall','gate'],mott:['Old Mott','emberfall','mott'],
-  esk:['Madame Esk','emberfall','esk'],alchemist:['Ysolde','emberfall','alchemist'],jeweler:['Ottilie','emberfall','jeweler'],ferryman:['the ferryman','emberfall','ferryman'],captain:['Watch-Captain Hale','emberfall','captain'],
-  college:['Sabine Quell','solenne','college'],lamplighter:['Old Wick','solenne','lamplighter'],varo:['Captain Varo','solenne','varo'],bettany:['Bettany','solenne','inn'],solsmith:['Odo Fairweather','solenne','solsmith']};
+const MIS_PEOPLE={brakka:['Brakka','emberfall','brakka'],tobble:["Le vieux Tobble",'emberfall','tobble'],inn:['Wenna','emberfall','inn'],gate:['Pell','emberfall','gate'],mott:["Le vieux Mott",'emberfall','mott'],
+  esk:['Madame Esk','emberfall','esk'],alchemist:['Ysolde','emberfall','alchemist'],jeweler:['Ottilie','emberfall','jeweler'],ferryman:["le passeur",'emberfall','ferryman'],captain:['Watch-Captain Hale','emberfall','captain'],
+  college:['Sabine Quell','solenne','college'],lamplighter:["Le vieux Wick",'solenne','lamplighter'],varo:["La capitaine Varo",'solenne','varo'],bettany:['Bettany','solenne','inn'],solsmith:["Odo Beautemps",'solenne','solsmith']};
 let misOpen='',misTier=0;
 function openMission(k){if(/^raid:/.test(k)){openRaid(k.slice(5));return;}if(/^dg:/.test(k)){const [,d,t]=k.split(':');openDungeon(d,t==null?null:+t);return;}if(!MISSIONS[k]||!S.missions[k])return;misOpen=k;renderMission();$('#mission').hidden=false;sfx('scroll');}
 function closeMission(){$('#mission').hidden=true;misOpen='';}
@@ -4701,18 +4701,18 @@ function renderMission(){
   if(/^raid:/.test(misOpen)){renderRaid(misOpen.slice(5));return;}
   const k=misOpen,M=MISSIONS[k],st=S.missions[k],w=missionWhere(M),P=MIS_PEOPLE[M.giver],el=$('#mission .mis-body');if(!M||!el)return;
   $('#misTitle').textContent=M.n;let h='';
-  h+=`<div class="ex-story"><b>${st==='done'?'Done':st==='found'?'Found: take it home':'In progress'}</b><p>${fmt(M.offer)}</p></div>`;
-  h+=`<div class="ex-sec">${st==='found'?'Now':'What to do'}</div><p class="mis-p">${fmt(st==='found'?M.back:st==='done'?M.done:M.obj)}</p>`;
+  h+=`<div class="ex-story"><b>${st==='done'?"Fait":st==='found'?"Trouvé : à ramener":"En cours"}</b><p>${fmt(M.offer)}</p></div>`;
+  h+=`<div class="ex-sec">${st==='found'?"Maintenant":"Que faire"}</div><p class="mis-p">${fmt(st==='found'?M.back:st==='done'?M.done:M.obj)}</p>`;
   if(w&&st!=='done'){const r=missionRating(w);
-    h+=`<div class="ex-sec">Where, and how hard</div><div class="mis-facts"><div><small>Where</small><b>${esc(w.name)}</b></div>`+
-      `<div><small>Monsters</small><b>level ${lvShow(w.lo)}${w.hi>w.lo?'-'+lvShow(w.hi):''}</b></div>`+(w.floors?`<div><small>Floors</small><b>${w.floors}</b></div>`:'')+
-      (w.tier!=null?`<div><small>Tier</small><b>${fmt(tierTag(w.tier))}</b></div>`:'')+`<div><small>For you (level ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;}
-  h+=`<div class="ex-sec">Reward</div><p class="mis-p">${fmt(M.rw)}</p>`;
-  if(P)h+=`<p class="hint">Given by ${esc(P[0])}, in ${P[1]==='solenne'?'Solenne':'Emberfall'}.</p>`;
-  if(st==='found'&&P)h+=`<button type="button" class="big" data-mgo="npc:${esc(M.giver)}">Go to ${esc(P[0])}</button>`;
+    h+=`<div class="ex-sec">Où, et quelle difficulté</div><div class="mis-facts"><div><small>Où</small><b>${esc(w.name)}</b></div>`+
+      `<div><small>Monstres</small><b>niveau ${lvShow(w.lo)}${w.hi>w.lo?'-'+lvShow(w.hi):''}</b></div>`+(w.floors?`<div><small>Étages</small><b>${w.floors}</b></div>`:'')+
+      (w.tier!=null?`<div><small>Rang</small><b>${fmt(tierTag(w.tier))}</b></div>`:'')+`<div><small>Pour vous (niveau ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;}
+  h+=`<div class="ex-sec">Récompense</div><p class="mis-p">${fmt(M.rw)}</p>`;
+  if(P)h+=`<p class="hint">Confiée par ${esc(P[0])}, à ${P[1]==='solenne'?'Solenne':'Emberfall'}.</p>`;
+  if(st==='found'&&P)h+=`<button type="button" class="big" data-mgo="npc:${esc(M.giver)}">Aller voir : ${esc(P[0])}</button>`;
   else if(st==='active'&&w){if(w.why)h+=`<p class="hint">${esc(w.why)}</p>`;
-    if(w.go)h+=`<button type="button" class="big" data-mgo="${esc(w.go)}">Start${w.tier?' at '+DG_TIERS[w.tier].n:''}</button>`;
-    if(lbReady())h+=`<button type="button" data-minv="1">Invite a friend</button><p class="hint">They get your seed, and you both play live: on the same seed, a side dungeon is the same for both of you, and you see each other in it.</p>`;}
+    if(w.go)h+=`<button type="button" class="big" data-mgo="${esc(w.go)}">Commencer${w.tier?' at '+DG_TIERS[w.tier].n:''}</button>`;
+    if(lbReady())h+=`<button type="button" data-minv="1">Inviter un ami</button><p class="hint">Il reçoit votre graine, et vous jouez tous deux en direct : sur la même graine, un donjon annexe est le même pour vous deux, et vous vous y voyez.</p>`;}
   el.innerHTML=h;
 }
 /* ----- a side dungeon's own screen (#mission too): its story and keeper, how hard each tier is for you, the
@@ -4724,21 +4724,21 @@ function dgWhere(k,t){const D=DUNGEONS[k];if(D.endless){const lo=dgLvl(D);return
 function renderDungeon(k){
   const D=DUNGEONS[k],el=$('#mission .mis-body');if(!D||!el)return;const open=dgOpen(D),t=misTier,T=DG_TIERS[t],w=dgWhere(k,t),r=missionRating(w),B=D.boss||{};
   $('#misTitle').textContent=D.name;let h='';
-  const st=!open?'Shut':D.endless?`Deepest floor ${S.abyssBest||0}`:S.side[k]?`Cleared ${S.side[k]} time${S.side[k]>1?'s':''}`+(dgTierBest(k)>0?', best '+DG_TIERS[dgTierBest(k)].n:''):'Not cleared yet';
+  const st=!open?"Fermé":D.endless?`Étage le plus profond : ${S.abyssBest||0}`:S.side[k]?`Vidé ${S.side[k]} fois`+(dgTierBest(k)>0?", record "+DG_TIERS[dgTierBest(k)].n:''):"Pas encore vidé";
   h+=`<div class="dg-head"><div class="dg-boss"></div><div class="ex-story"><b>${esc(st)}</b><p>${fmt(D.intro||D.blurb||'')}</p></div></div>`;
-  if(B.n)h+=`<div class="ex-sec">${D.endless?'What waits below':'Its keeper'}</div><p class="mis-p"><b>${esc(B.n)}</b>${D.endless?': a Herald of the Hunger waits every fifth floor.':'.'}</p>`;
-  if(!D.endless&&open){h+=`<div class="ex-sec">Tier</div><div class="ex-tiers dg-tiers">`+DG_TIERS.map((X,i)=>`<button type="button" class="ex-tier t${i}${i===t?' on':''}" data-dgt="${i}"${dgTierOpen(k,i)?'':' disabled'}>${X.n}</button>`).join('')+'</div>';
-    if(t<DG_TIERS.length-1&&!dgTierOpen(k,t+1))h+=`<p class="hint">${DG_TIERS[t+1].n} opens once you have cleared it at ${T.n}.</p>`;}
-  h+=`<div class="ex-sec">How hard</div><div class="mis-facts">`+(D.endless?'<div><small>Floors</small><b>endless</b></div>':`<div><small>Floors</small><b>${dgFloors(D)}</b></div>`)+
-    `<div><small>Monsters</small><b>level ${lvShow(w.lo)}${w.hi>w.lo?'-'+lvShow(w.hi):'+'}</b></div>`+(D.endless?'':`<div><small>Tier</small><b>${fmt(tierTag(t))}</b></div>`)+
-    `<div><small>For you (level ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;
-  if(!D.endless&&t)h+=`<p class="hint">${T.n}: monsters ${Math.round((T.hp-1)*100)}% tougher and ${Math.round((T.atk-1)*100)}% harder-hitting; ${T.loot}% better loot, ${T.gold}x gold${T.leg?', and a better chance of a legendary':''}.</p>`;
-  if(D.reward)h+=`<div class="ex-sec">Reward</div><p class="mis-p">Clear it to claim <b>${esc(D.reward.name)}</b>${D.egg?', and maybe an egg':''}. Clear it again for more loot, at deeper tiers for better.</p>`;
+  if(B.n)h+=`<div class="ex-sec">${D.endless?"Ce qui attend en bas":"Son gardien"}</div><p class="mis-p"><b>${esc(B.n)}</b>${D.endless?" : un Héraut de la Faim attend tous les cinq étages.":'.'}</p>`;
+  if(!D.endless&&open){h+=`<div class="ex-sec">Rang</div><div class="ex-tiers dg-tiers">`+DG_TIERS.map((X,i)=>`<button type="button" class="ex-tier t${i}${i===t?' on':''}" data-dgt="${i}"${dgTierOpen(k,i)?'':' disabled'}>${X.n}</button>`).join('')+'</div>';
+    if(t<DG_TIERS.length-1&&!dgTierOpen(k,t+1))h+=`<p class="hint">${DG_TIERS[t+1].n} s'ouvre une fois vidé en ${T.n}.</p>`;}
+  h+=`<div class="ex-sec">Difficulté</div><div class="mis-facts">`+(D.endless?"<div><small>Étages</small><b>sans fin</b></div>":`<div><small>Étages</small><b>${dgFloors(D)}</b></div>`)+
+    `<div><small>Monstres</small><b>niveau ${lvShow(w.lo)}${w.hi>w.lo?'-'+lvShow(w.hi):'+'}</b></div>`+(D.endless?'':`<div><small>Rang</small><b>${fmt(tierTag(t))}</b></div>`)+
+    `<div><small>Pour vous (niveau ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;
+  if(!D.endless&&t)h+=`<p class="hint">${T.n} : monstres ${Math.round((T.hp-1)*100)} % plus résistants et frappant ${Math.round((T.atk-1)*100)} % plus fort ; butin ${T.loot} % meilleur, or ×${T.gold}${T.leg?", et une meilleure chance de légendaire":''}.</p>`;
+  if(D.reward)h+=`<div class="ex-sec">Récompense</div><p class="mis-p">Videz-le pour obtenir <b>${esc(D.reward.name)}</b>${D.egg?", et peut-être un œuf":''}. Revenez-y pour plus de butin, et à des rangs plus profonds pour un meilleur.</p>`;
   const ms=Object.entries(MISSIONS).filter(([m,M])=>M.dg===k&&S.missions[m]);
-  if(ms.length){h+='<div class="ex-sec">Missions here</div>';ms.forEach(([m,M])=>{const s=S.missions[m];h+=`<button type="button" class="ex-mis ${s}" data-mis="${esc(m)}"><b>${s==='done'?'&#10003; ':''}${esc(M.n)}</b><small>${fmt(s==='found'?M.back:s==='done'?M.rw:M.obj)}</small></button>`;});}
-  if(!open)h+=`<p class="hint">It ${esc(dgNeedTxt(D))}.</p>`;
-  else{h+=`<button type="button" class="big" data-mgo="dg:${esc(k)}${t?':'+t:''}">${S.dg===k?'Start again':'Start'}${t?' at '+T.n:''}</button>`;
-    if(lbReady())h+=`<button type="button" data-minv="1">Invite a friend</button><p class="hint">They get your seed, and you both play live: on the same seed, ${esc(D.name)} is the same for both of you, and you see each other in it.</p>`;}
+  if(ms.length){h+="<div class=\"ex-sec\">Missions ici</div>";ms.forEach(([m,M])=>{const s=S.missions[m];h+=`<button type="button" class="ex-mis ${s}" data-mis="${esc(m)}"><b>${s==='done'?'&#10003; ':''}${esc(M.n)}</b><small>${fmt(s==='found'?M.back:s==='done'?M.rw:M.obj)}</small></button>`;});}
+  if(!open)h+=`<p class="hint">${esc(dgNeedTxt(D))}.</p>`;
+  else{h+=`<button type="button" class="big" data-mgo="dg:${esc(k)}${t?':'+t:''}">${S.dg===k?"Recommencer":"Commencer"}${t?' at '+T.n:''}</button>`;
+    if(lbReady())h+=`<button type="button" data-minv="1">Inviter un ami</button><p class="hint">Il reçoit votre graine, et vous jouez tous deux en direct : sur la même graine, ${esc(D.name)} est le même pour vous deux, et vous vous y voyez.</p>`;}
   el.innerHTML=h;
   const b=el.querySelector('.dg-boss');if(b&&typeof bossSprite==='function')b.appendChild(bossSprite(bossKey({dg:k}),2));
 }
@@ -4746,42 +4746,42 @@ function renderDungeon(k){
 function expoNpc(g){
   const P=MIS_PEOPLE[g];if(!P)return;const sol=P[1]==='solenne',rooms=sol?SOLENNE:TOWN,room=(rooms.find(r=>r.npc===P[2])||{}).id||0;
   const solSide=S.floor===0?S.town==='solenne':belowSolenne();
-  if(sol&&!solSide){if(!(S.voy&&S.voy.anchored)){out('{d}Solenne is a sea away, and you have not reached it yet.');return;}
-    const c=S.flags.gateFree?0:b3Cost(B3.gateBack);if(S.gold<c){out(`{d}Solenne is a sea away. The Lantern Gate costs ${c} gold, and you have ${S.gold}.`);return;}
-    S.gold-=c;if(c)sfx('coinsBuy');out(`{g}You step through the Lantern Gate to Solenne${c?` (${c} gold)`:''}.{n}`);}
-  else if(S.floor>0){out('{b}You tug the Lantern-thread, and you are back in town.');if(!queueScene(sceneRecall()))sfx('recall');}
+  if(sol&&!solSide){if(!(S.voy&&S.voy.anchored)){out("{d}Solenne est de l'autre côté de la mer, et vous ne l'avez pas encore atteinte.");return;}
+    const c=S.flags.gateFree?0:b3Cost(B3.gateBack);if(S.gold<c){out(`{d}Solenne est de l'autre côté de la mer. La Porte de la Lanterne coûte ${c} or, et vous en avez ${S.gold}.`);return;}
+    S.gold-=c;if(c)sfx('coinsBuy');out(`{g}Vous franchissez la Porte de la Lanterne vers Solenne${c?` (${c} or)`:''}.{n}`);}
+  else if(S.floor>0){out("{b}Vous tirez sur le fil de la Lanterne, et vous voilà de retour en ville.");if(!queueScene(sceneRecall()))sfx('recall');}
   if(sol){if(S.floor>0||S.town!=='solenne')toSolenne(room);else{S.room=room;enterRoom();}}
   else{if(S.floor>0||S.town==='solenne')toTown(room);else{S.room=room;enterRoom();}}
 }
 /* Travel. In a dungeon you are recalled first; in a fight you can't leave. */
 function expoGo(go){
   if(go==='recap'){taleRecap(false);return;}if(go==='lanterns'){taleLanterns(true);return;}
-  if(S.fight){out('{r}Not in the middle of a fight!');return;}
+  if(S.fight){out("{r}Pas en plein combat !");return;}
   if(S.flags.choosing){out('{y}The choice is in front of you. There is no walking away from it now.');return;}
-  if(S.dg==='underside'){out('{m}The thread does not reach this far down.{n} {d}Find the Anchor.');return;}
+  if(S.dg==='underside'){out("{m}Le fil ne descend pas si bas.{n} {d}Trouvez l'Ancre.");return;}
   if(S.floor>0&&petHold())return;
   /* Solenne's side of the sea: the Queen, and the Drowned Stair (floors 41-60). From Emberfall's side that means the Lantern Gate, at its price. */
   const [kind,arg]=go.split(':'),f=go==='deep'?S.deepest:kind==='act'?+arg:0;
   /* the war (Book IV): the war table in the Watchtower, the herald in the Square, and the front (61-80) */
-  if(go==='wartable'||go==='square'){const room=go==='square'?1:10;if(S.floor>0||S.town==='solenne'){out('{b}You tug the Lantern-thread. The dark folds, and you are home.');toTown(room);if(!queueScene(sceneRecall()))sfx('recall');}else{S.room=room;enterRoom();}return;}
-  if(f>60){if(!book4On()){out('There is no war. Yet.');return;}if(f!==61&&S.deepest<f){out('The front has not got that far yet.');return;}
-    if(S.floor>0||S.town==='solenne'){out('{b}You tug the Lantern-thread and come home to the war table.');toTown(10);if(!queueScene(sceneRecall()))sfx('recall');}
-    S.dg=null;out(`{c}You march out to the front: floor ${f}.`);gotoFloor(f,'start');return;}
+  if(go==='wartable'||go==='square'){const room=go==='square'?1:10;if(S.floor>0||S.town==='solenne'){out("{b}Vous tirez sur le fil de la Lanterne. L'obscurité se replie, et vous voilà chez vous.");toTown(room);if(!queueScene(sceneRecall()))sfx('recall');}else{S.room=room;enterRoom();}return;}
+  if(f>60){if(!book4On()){out("Il n'y a pas de guerre. Pas encore.");return;}if(f!==61&&S.deepest<f){out("Le front n'est pas encore allé si loin.");return;}
+    if(S.floor>0||S.town==='solenne'){out("{b}Vous tirez sur le fil de la Lanterne et rentrez à la table de guerre.");toTown(10);if(!queueScene(sceneRecall()))sfx('recall');}
+    S.dg=null;out(`{c}Vous partez au front : étage ${f}.`);gotoFloor(f,'start');return;}
   if(go==='queen'||f>40){
-    if(f>40&&f!==41&&S.deepest<f){out('You have not reached that far yet.');return;}
+    if(f>40&&f!==41&&S.deepest<f){out("Vous n'êtes pas encore allé si loin.");return;}
     const solSide=S.floor===0?S.town==='solenne':belowSolenne();
-    if(!solSide){const c=S.flags.gateFree?0:b3Cost(B3.gateBack);if(S.gold<c){out(`{d}Solenne is a sea away. The Lantern Gate costs ${c} gold, and you have ${S.gold}.`);return;}
-      S.gold-=c;if(c)sfx('coinsBuy');out(`{g}You step through the Lantern Gate to Solenne${c?` (${c} gold)`:''}.{n}`);}
-    else if(S.floor>0){out('{g}The thread pulls you up into the Glass College.{n}');if(!queueScene(sceneRecall()))sfx('recall');}
+    if(!solSide){const c=S.flags.gateFree?0:b3Cost(B3.gateBack);if(S.gold<c){out(`{d}Solenne est de l'autre côté de la mer. La Porte de la Lanterne coûte ${c} or, et vous en avez ${S.gold}.`);return;}
+      S.gold-=c;if(c)sfx('coinsBuy');out(`{g}Vous franchissez la Porte de la Lanterne vers Solenne${c?` (${c} or)`:''}.{n}`);}
+    else if(S.floor>0){out("{g}Le fil vous tire jusqu'au Collège de Verre.{n}");if(!queueScene(sceneRecall()))sfx('recall');}
     if(go==='queen'){if(S.floor>0||S.town!=='solenne')toSolenne(0);else{S.room=0;enterRoom();}return;}
     if(S.floor>0||S.town!=='solenne')toSolenne(7);
-    S.dg=null;out(`{c}You walk down the Drowned Stair to floor ${f}.`);gotoFloor(f,'start');return;}
+    S.dg=null;out(`{c}Vous descendez l'Escalier Noyé jusqu'à l'étage ${f}.`);gotoFloor(f,'start');return;}
   if(kind==='npc'){expoNpc(arg);return;}
-  if(go==='temple'){if(S.floor>0||S.town==='solenne'){out('{b}You tug the Lantern-thread. The dark folds, and you are home.');toTown(0);if(!queueScene(sceneRecall()))sfx('recall');}else{S.room=0;enterRoom();}return;}
-  if(S.floor>0){out('{b}You tug the Lantern-thread and come home to set out again.');toTown(5);if(!queueScene(sceneRecall()))sfx('recall');}
-  if(go==='deep'){if(!S.deepest){S.room=5;out('{d}You walk to the Gate.');gotoFloor(1,'start');return;}S.dg=null;out(`{c}Pell lowers you to floor ${S.deepest}.`);gotoFloor(S.deepest,'start');return;}
-  if(kind==='act'){const f=+arg;if(f!==1&&S.deepest<f){out('You have not reached that far yet.');return;}S.dg=null;out(`{c}Pell lowers you to floor ${f}.`);gotoFloor(f,'start');return;}
-  if(kind==='dg'){const D=DUNGEONS[arg],t=+(go.split(':')[2]||0);if(!D||!dgOpen(D)||!dgTierOpen(arg,t)){out('That passage is still shut.');return;}out(D.story?`{g}You take the long road south, past Solenne and the Sunward Road, until the air turns warm and smells of honey.{n}`:`{c}Pell unlocks the way to ${D.name}${t?', '+DG_TIERS[t].n:''}.`);enterDungeon(arg,0,t);return;}
+  if(go==='temple'){if(S.floor>0||S.town==='solenne'){out("{b}Vous tirez sur le fil de la Lanterne. L'obscurité se replie, et vous voilà chez vous.");toTown(0);if(!queueScene(sceneRecall()))sfx('recall');}else{S.room=0;enterRoom();}return;}
+  if(S.floor>0){out("{b}Vous tirez sur le fil de la Lanterne et rentrez pour repartir.");toTown(5);if(!queueScene(sceneRecall()))sfx('recall');}
+  if(go==='deep'){if(!S.deepest){S.room=5;out("{d}Vous marchez jusqu'à la Porte.");gotoFloor(1,'start');return;}S.dg=null;out(`{c}Pell vous descend jusqu'à l'étage ${S.deepest}.`);gotoFloor(S.deepest,'start');return;}
+  if(kind==='act'){const f=+arg;if(f!==1&&S.deepest<f){out("Vous n'êtes pas encore allé si loin.");return;}S.dg=null;out(`{c}Pell vous descend jusqu'à l'étage ${f}.`);gotoFloor(f,'start');return;}
+  if(kind==='dg'){const D=DUNGEONS[arg],t=+(go.split(':')[2]||0);if(!D||!dgOpen(D)||!dgTierOpen(arg,t)){out("Ce passage est toujours fermé.");return;}out(D.story?`{g}Vous prenez la longue route du sud, au-delà de Solenne et de la Route du Levant, jusqu'à ce que l'air se réchauffe et sente le miel.{n}`:`{c}Pell vous ouvre le chemin vers ${D.name}${t?', '+DG_TIERS[t].n:''}.`);enterDungeon(arg,0,t);return;}
   if(kind==='raid')raidGo(arg);
 }
 
@@ -4840,7 +4840,7 @@ function openMapView(){
   const span=Math.max(F_.W||7,F_.H||7),px=Math.min(window.innerWidth-40,520),dpr=Math.min(3,window.devicePixelRatio||1);
   cv.style.width=cv.style.height=px+'px';cv.width=cv.height=Math.round(px*dpr);
   paintMap(cv.getContext('2d'),cv.width,0,0,span,cv.width/span);
-  el.querySelector('.mv-title').textContent=town?townName():(S.dg?theme().name+', floor '+floorLabel():'Floor '+S.floor+': '+theme().name);
+  el.querySelector('.mv-title').textContent=town?townName():(S.dg?theme().name+", étage "+floorLabel():'Floor '+S.floor+': '+theme().name);
   el.hidden=false;sfx('scroll');
 }
 
@@ -4870,7 +4870,7 @@ function chal(kind,o,done){
   if(navigator.webdriver&&!window.__chalPlay){done({ok:window.__chalOk!==false,auto:1});return;}
   const el=chalEl();CH={kind,o,done,t0:performance.now(),last:performance.now(),over:false};
   el.querySelector('.ch-kicker').textContent=o.kicker||'';el.querySelector('.ch-title').textContent=o.title||'';
-  el.querySelector('.ch-hint').textContent=o.hint||{pick:'Tap (or Space / A) when the pin is in the gold.',slide:'Watch, then slide the same way: swipe, arrows or D-pad.',mash:'TAP! TAP! TAP! (Space / A)',choice:'Choose an answer.'}[kind];
+  el.querySelector('.ch-hint').textContent=o.hint||{pick:"Touchez (ou Espace / A) quand l'aiguille est dans l'or.",slide:"Regardez, puis glissez dans le même sens : balayage, flèches ou croix.",mash:"TAPEZ ! TAPEZ ! TAPEZ ! (Espace / A)",choice:"Choisissez une réponse."}[kind];
   el.className='chal ch-'+kind;el.hidden=false;
   ({pick:chPickStart,slide:chSlideStart,mash:chMashStart,choice:chChoiceStart})[kind]();
   CH.raf=requestAnimationFrame(chTick);
@@ -4878,7 +4878,7 @@ function chal(kind,o,done){
 function chEnd(ok,msg){
   if(!CH||CH.over)return;CH.over=true;cancelAnimationFrame(CH.raf);clearTimeout(CH.timer);
   const el=chalEl(),c=CH;sfx(ok?'chime':'fail');
-  el.querySelector('.ch-hint').textContent='';el.querySelector('.ch-body').insertAdjacentHTML('beforeend',`<div class="ch-res ${ok?'ok':'no'}">${esc(msg||(ok?'Done!':'Failed.'))}</div>`);
+  el.querySelector('.ch-hint').textContent='';el.querySelector('.ch-body').insertAdjacentHTML('beforeend',`<div class="ch-res ${ok?'ok':'no'}">${esc(msg||(ok?"Réussi !":"Échec."))}</div>`);
   setTimeout(()=>{el.hidden=true;CH=null;c.done({ok});promptLine();render();scrollDown();save(true);},reducedMotion()?200:750);
 }
 function chTick(now){
@@ -4896,13 +4896,13 @@ function chPickStart(){
   body.innerHTML='<div class="ch-pins"></div><div class="ch-track"><div class="ch-zone"></div><div class="ch-pin"></div></div><div class="ch-picks"></div>';
   const newZone=()=>{CH.zc=0.15+MR()*0.7;};newZone();
   const draw=()=>{body.querySelector('.ch-pins').textContent=Array.from({length:CH.pins},(_,i)=>i<CH.set?'●':'○').join(' ');
-    body.querySelector('.ch-picks').textContent='Picks '+'▮'.repeat(CH.picks)+'▯'.repeat(Math.max(0,(o.picks||3)-CH.picks));
+    body.querySelector('.ch-picks').textContent="Crochets "+'▮'.repeat(CH.picks)+'▯'.repeat(Math.max(0,(o.picks||3)-CH.picks));
     const z=body.querySelector('.ch-zone');z.style.left=((CH.zc-CH.w/2)*100)+'%';z.style.width=(CH.w*100)+'%';};
   draw();
   CH.tick=dt=>{CH.pos+=CH.dir*CH.speed*dt;if(CH.pos>1){CH.pos=1;CH.dir=-1;}if(CH.pos<0){CH.pos=0;CH.dir=1;}body.querySelector('.ch-pin').style.left=(CH.pos*100)+'%';};
   CH.input=x=>{if(x!=='tap')return;
-    if(Math.abs(CH.pos-CH.zc)<=CH.w/2){CH.set++;sfx('block');if(CH.set>=CH.pins){draw();return chEnd(true,'Click. The lock gives.');}CH.speed*=1.18;CH.w*=0.86;newZone();draw();}
-    else{CH.picks--;sfx('fail');const tr=body.querySelector('.ch-track');tr.classList.remove('shake');void tr.offsetWidth;tr.classList.add('shake');draw();if(CH.picks<=0)chEnd(false,'Your last pick snaps.');}};
+    if(Math.abs(CH.pos-CH.zc)<=CH.w/2){CH.set++;sfx('block');if(CH.set>=CH.pins){draw();return chEnd(true,"Clic. La serrure cède.");}CH.speed*=1.18;CH.w*=0.86;newZone();draw();}
+    else{CH.picks--;sfx('fail');const tr=body.querySelector('.ch-track');tr.classList.remove('shake');void tr.offsetWidth;tr.classList.add('shake');draw();if(CH.picks<=0)chEnd(false,"Votre dernier crochet se brise.");}};
 }
 /* ---- slide: repeat the glyphs ---- */
 function chSlideStart(){
@@ -4911,24 +4911,24 @@ function chSlideStart(){
   body.innerHTML='<div class="ch-seq"></div><div class="ch-pad">'+ds.map(d=>`<button type="button" class="ch-dir" data-d="${d}">${CH_SVG(d)}</button>`).join('')+'</div>';
   const pads={};body.querySelectorAll('.ch-dir').forEach(b=>{pads[b.dataset.d]=b;b.addEventListener('click',e=>{e.stopPropagation();chalInput(b.dataset.d);});});
   const lit=(d,on)=>pads[d].classList.toggle('lit',on);
-  const seqBox=body.querySelector('.ch-seq');seqBox.textContent='Watch...';
+  const seqBox=body.querySelector('.ch-seq');seqBox.textContent="Regardez...";
   const step=o.step||620;
   CH.seq.forEach((d,k)=>{setTimeout(()=>{if(!CH||CH.over)return;lit(d,true);sfx('glyph'+d);},400+k*step);setTimeout(()=>{if(!CH||CH.over)return;lit(d,false);},400+k*step+step*0.6);});
-  CH.timer=setTimeout(()=>{if(!CH||CH.over)return;CH.showing=false;seqBox.textContent='Your turn: '+'·'.repeat(len);},400+len*step);
+  CH.timer=setTimeout(()=>{if(!CH||CH.over)return;CH.showing=false;seqBox.textContent="À vous : "+'·'.repeat(len);},400+len*step);
   CH.input=x=>{if(CH.showing||!CH_ARROW[x])return;lit(x,true);setTimeout(()=>lit(x,false),160);
-    if(x!==CH.seq[CH.i]){return chEnd(false,'The glyphs flare red.');}
-    sfx('glyph'+x);CH.i++;seqBox.innerHTML='Your turn: '+CH.seq.slice(0,CH.i).map(CH_SVG).join('')+'·'.repeat(len-CH.i);
-    if(CH.i>=len)chEnd(true,'The glyphs burn gold.');};
+    if(x!==CH.seq[CH.i]){return chEnd(false,"Les glyphes flamboient en rouge.");}
+    sfx('glyph'+x);CH.i++;seqBox.innerHTML="À vous : "+CH.seq.slice(0,CH.i).map(CH_SVG).join('')+'·'.repeat(len-CH.i);
+    if(CH.i>=len)chEnd(true,"Les glyphes brûlent d'or.");};
 }
 /* ---- mash: run! ---- */
 function chMashStart(){
   const o=CH.o,body=chalEl().querySelector('.ch-body');
   Object.assign(CH,{fill:0,need:o.need||24,time:o.time||5,left:o.time||5});
-  body.innerHTML='<div class="ch-meter"><div class="ch-fill"></div></div><div class="ch-clock"><div class="ch-left"></div></div><button type="button" class="ch-run">RUN!</button>';
+  body.innerHTML="<div class=\"ch-meter\"><div class=\"ch-fill\"></div></div><div class=\"ch-clock\"><div class=\"ch-left\"></div></div><button type=\"button\" class=\"ch-run\">COUREZ !</button>";
   body.querySelector('.ch-run').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();chalInput('tap');});
   CH.tick=dt=>{CH.left-=dt;CH.fill=Math.max(0,CH.fill-dt*0.09);body.querySelector('.ch-fill').style.width=Math.min(100,CH.fill*100)+'%';body.querySelector('.ch-left').style.width=Math.max(0,CH.left/CH.time*100)+'%';
-    if(CH.left<=0)chEnd(false,'Too slow!');};
-  CH.input=x=>{if(x!=='tap')return;CH.fill+=1/CH.need;const b=body.querySelector('.ch-run');b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit');if(CH.fill>=1)chEnd(true,'You made it!');};
+    if(CH.left<=0)chEnd(false,"Trop lent !");};
+  CH.input=x=>{if(x!=='tap')return;CH.fill+=1/CH.need;const b=body.querySelector('.ch-run');b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit');if(CH.fill>=1)chEnd(true,"Vous y êtes arrivé !");};
 }
 /* ---- choice: riddles and puzzles ---- */
 function chChoiceStart(){
@@ -4936,8 +4936,8 @@ function chChoiceStart(){
   body.innerHTML=`<p class="ch-q">${fmt(o.q)}</p><div class="ch-opts">${o.opts.map((t,i)=>`<button type="button" class="ch-opt" data-i="${i}"><b>${i+1}</b> ${esc(t)}</button>`).join('')}</div>`+(o.time?'<div class="ch-clock"><div class="ch-left"></div></div>':'');
   body.querySelectorAll('.ch-opt').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();chalInput(+b.dataset.i+1);}));
   CH.left=o.time||0;
-  CH.tick=dt=>{if(!o.time)return;CH.left-=dt;body.querySelector('.ch-left').style.width=Math.max(0,CH.left/o.time*100)+'%';if(CH.left<=0)chEnd(false,'Time is up.');};
-  CH.input=x=>{const i=+x-1;if(!(i>=0&&i<o.opts.length))return;chEnd(i===o.ans,i===o.ans?(o.right||'Correct.'):(o.wrong||'Wrong.'));};
+  CH.tick=dt=>{if(!o.time)return;CH.left-=dt;body.querySelector('.ch-left').style.width=Math.max(0,CH.left/o.time*100)+'%';if(CH.left<=0)chEnd(false,"Le temps est écoulé.");};
+  CH.input=x=>{const i=+x-1;if(!(i>=0&&i<o.opts.length))return;chEnd(i===o.ans,i===o.ans?(o.right||"Exact."):(o.wrong||"Faux."));};
 }
 
 /* Keyboard, taps and swipes while a challenge is up (captured, so nothing reaches the command line). */
@@ -4956,42 +4956,42 @@ document.addEventListener('keydown',e=>{
 
 /* ---- the riddles: classic and of the Undervault. Each has its answer first; the order is shuffled when asked. ---- */
 const RIDDLES=[
- ['The more of me you take, the more you leave behind.','Footsteps','Breath','Coins','Years'],
- ['Feed me and I live. Give me a drink and I die.','Fire','A lantern-moth','A seed','A thirst'],
- ['What belongs to you, but others say it more often than you do?','Your name','Your shadow','Your coin','Your blade'],
- ['What can fill a whole room, yet takes up no space at all?','Light','Smoke','Silence','Water'],
- ['The more there is of me, the less you see.','Darkness','Fog','Ash','Distance'],
- ['I have a mouth but never eat, a bed but never sleep.','A river','A cave','A well','A drum'],
- ['I have cities but no houses, forests but no trees, and water but no fish.','A map','A dream','A painting','A ghost'],
- ['What has hands, but cannot clap?','A clock','A statue','A glove','A scarecrow'],
- ['What has a head and a tail, but no body?','A coin','A comet','A rope','A key'],
- ['What has one eye, but cannot see?','A needle','A storm','A potato','A cyclops'],
- ['Say my name and you break me.','Silence','A vow','Glass','A spell'],
- ['The one who makes it sells it. The one who buys it never uses it. The one who uses it never knows.','A coffin','A crown','A wish','A key'],
- ['I am always ahead of you, but you can never see me.','Tomorrow','Your shadow','The road','The wind'],
- ['What gets wetter the more it dries?','A towel','A sponge','The sea','Bread'],
- ['What runs all day and never walks, often murmurs but never talks?','A stream','A rumour','A clock','A dog'],
- ['Who drinks the cistern so the wells stay clean?','Warden Grisholt','Mother Mycelia','Sister Maren','Mag Ratchet'],
- ['What does the Hunger Below eat?','Light, names and memory','Bone and stone','Gold and greed','Fire and ash'],
- ['Who holds the door from the far side, one more day?','Arden Vale','Caius Vale','Archivist Venn','Pell'],
- ['How many Wardstones hold the seal?','Five','Three','Seven','Nine']
+ ["Plus vous m'en prenez, plus vous en laissez derrière vous.","Des pas","Le souffle","Des pièces","Les années"],
+ ["Nourrissez-moi et je vis. Donnez-moi à boire et je meurs.","Le feu","Un papillon de lanterne","Une graine","Une soif"],
+ ["Qu'est-ce qui vous appartient, mais que les autres disent plus souvent que vous ?","Votre nom","Votre ombre","Votre pièce","Votre lame"],
+ ["Qu'est-ce qui peut remplir toute une pièce, sans y prendre la moindre place ?","La lumière","La fumée","Le silence","L'eau"],
+ ["Plus il y a de moi, moins vous voyez.","L'obscurité","Le brouillard",'Ash',"La distance"],
+ ["J'ai une embouchure mais je ne mange jamais, un lit mais je ne dors jamais.","Une rivière","Une grotte","Un puits","Un tambour"],
+ ["J'ai des villes mais pas de maisons, des forêts mais pas d'arbres, et de l'eau mais pas de poissons.","Une carte","Un rêve","Un tableau","Un fantôme"],
+ ["Qu'est-ce qui a des aiguilles mais ne coud jamais ?","Une horloge","Une statue","Un gant","Un épouvantail"],
+ ["Qu'est-ce qui a une tête et une queue, mais pas de corps ?","Une pièce","Une comète","Une corde","Une clé"],
+ ["Qu'est-ce qui a un œil, mais ne voit pas ?","Une aiguille","Une tempête","Une pomme de terre","Un cyclope"],
+ ["Dites mon nom et vous me brisez.","Le silence","Un vœu","Le verre","Un sort"],
+ ["Celui qui le fabrique le vend. Celui qui l'achète ne s'en sert jamais. Celui qui s'en sert ne le sait jamais.","Un cercueil","Une couronne","Un souhait","Une clé"],
+ ["Je suis toujours devant vous, mais vous ne me voyez jamais.","Demain","Votre ombre","La route","Le vent"],
+ ["Qu'est-ce qui est d'autant plus mouillé qu'il sèche ?","Une serviette","Une éponge","La mer","Du pain"],
+ ["Qu'est-ce qui court toute la journée sans jamais marcher, murmure souvent mais ne parle jamais ?","Un ruisseau","Une rumeur","Une horloge","Un chien"],
+ ["Qui boit la citerne pour que les puits restent propres ?","Le Gardien Grisholt",'Mother Mycelia',"Sœur Maren",'Mag Ratchet'],
+ ["De quoi se nourrit la Faim d'en bas ?","De lumière, de noms et de mémoire","D'os et de pierre","D'or et de cupidité","De feu et de cendre"],
+ ["Qui tient la porte de l'autre côté, un jour de plus ?",'Arden Vale','Caius Vale',"L'archiviste Venn",'Pell'],
+ ["Combien de Pierres de garde tiennent le sceau ?","Cinq","Trois","Sept","Neuf"]
 ];
 function riddleOpts(){const R=pick(MR,RIDDLES),opts=shuffle(MR,R.slice(1));return {q:R[0],opts,ans:opts.indexOf(R[1])};}
 /* ---- number puzzles, harder deeper ---- */
 function puzzleOpts(L){
   const hard=L>=20,r=(a,b)=>ri(MR,a,b),kinds=['add','mul','sq','fib','runes'];const k=pick(MR,hard?kinds:kinds.slice(0,4).concat(['add']));let q,a;
-  if(k==='add'){const s=r(2,20),d=r(2,hard?17:9);q=`The stones read: ${s}, ${s+d}, ${s+2*d}, ${s+3*d}, ?`;a=s+4*d;}
-  else if(k==='mul'){const s=r(1,4),m=r(2,3);q=`The stones read: ${s}, ${s*m}, ${s*m*m}, ${s*m**3}, ?`;a=s*m**4;}
-  else if(k==='sq'){const s=r(1,hard?9:5);q=`The stones read: ${s*s}, ${(s+1)**2}, ${(s+2)**2}, ${(s+3)**2}, ?`;a=(s+4)**2;}
-  else if(k==='fib'){let x=r(1,5),y=r(2,7);const v=[x,y];for(let i=0;i<4;i++)v.push(v[v.length-1]+v[v.length-2]);q=`The stones read: ${v.slice(0,5).join(', ')}, ?`;a=v[5];}
-  else{const l=r(3,12),s=r(2,15);q=`Two lanterns weigh ${2*l}. A lantern and a stone weigh ${l+s}. What does a stone weigh?`;a=s;}
+  if(k==='add'){const s=r(2,20),d=r(2,hard?17:9);q=`Les pierres indiquent : ${s}, ${s+d}, ${s+2*d}, ${s+3*d}, ?`;a=s+4*d;}
+  else if(k==='mul'){const s=r(1,4),m=r(2,3);q=`Les pierres indiquent : ${s}, ${s*m}, ${s*m*m}, ${s*m**3}, ?`;a=s*m**4;}
+  else if(k==='sq'){const s=r(1,hard?9:5);q=`Les pierres indiquent : ${s*s}, ${(s+1)**2}, ${(s+2)**2}, ${(s+3)**2}, ?`;a=(s+4)**2;}
+  else if(k==='fib'){let x=r(1,5),y=r(2,7);const v=[x,y];for(let i=0;i<4;i++)v.push(v[v.length-1]+v[v.length-2]);q=`Les pierres indiquent : ${v.slice(0,5).join(', ')}, ?`;a=v[5];}
+  else{const l=r(3,12),s=r(2,15);q=`Deux lanternes pèsent ${2*l}. Une lanterne et une pierre pèsent ${l+s}. Combien pèse une pierre ?`;a=s;}
   const set=new Set([a]);while(set.size<4){const off=r(1,Math.max(3,Math.round(a*0.25)))*(MR()<0.5?-1:1);if(a+off>0)set.add(a+off);}
   const opts=shuffle(MR,[...set]).map(String);return {q,opts,ans:opts.indexOf(String(a)),time:hard?12:18};
 }
 
 /* ================= DUNGEON EVENTS THAT USE THEM =================
    Placed by genFloor with the other room events (EVENTS in data.js). Each one scales with depth. */
-const THIEF={n:'cutpurse',hp:26,atk:7,sp:'pilfer',v:'stabs',d:'eyes your pack, fingers twitching.'};
+const THIEF={n:'cutpurse',hp:26,atk:7,sp:'pilfer',v:'stabs',d:"lorgne votre sac, les doigts frémissants."};
 /* Something from your pack a thief can take: not what you wear, not story items. Potions go half a stack at a time. */
 function stealable(){return S.inv.filter(it=>!it.unique&&it.kind!=='scroll'&&it.kind!=='egg');}
 function takeFromPack(){
@@ -5002,71 +5002,71 @@ function takeFromPack(){
 /* The thief runs off to another room of this floor with what it took; kill it there to get it back. */
 function thiefHides(m,from){
   const fl=S.floor>0&&F();if(!fl)return;const rooms=fl.rooms.filter(x=>x!==from&&(x.type==='normal'||x.type==='treasure'));const to=pick(MR,rooms)||from;
-  m.aggro=false;m.d=`clutches ${iname(m.loot)} to its chest, counting its luck.`;m.hp=m.mhp;m.eff={};to.mobs.push(m);
+  m.aggro=false;m.d=`serre ${iname(m.loot)} contre sa poitrine, en comptant sa chance.`;m.hp=m.mhp;m.eff={};to.mobs.push(m);
 }
 function eventThief(r){
-  const L=depth();out('{y}Someone darts out of the dark, straight for your pack!{n}','heavy');sfx('alert');
-  chal('pick',{kicker:'A CUTPURSE',title:'GRAB THEM!',pins:1,picks:1,speed:1.25+L*0.02,zone:Math.max(0.12,0.26-L*0.003),hint:'Tap when the hand is in the gold!'},res=>{
-    if(res.ok){const g=rnd(5,12)*L;S.gold+=g;sfx('coins');out(`{g}You catch a wrist in the dark. The cutpurse yelps, drops a purse and runs.{n} {y}(+${g}g){n}`);return;}
+  const L=depth();out("{y}Quelqu'un jaillit du noir, droit sur votre sac !{n}",'heavy');sfx('alert');
+  chal('pick',{kicker:"UN COUPE-BOURSE",title:"ATTRAPEZ-LE !",pins:1,picks:1,speed:1.25+L*0.02,zone:Math.max(0.12,0.26-L*0.003),hint:"Touchez quand la main est dans l'or !"},res=>{
+    if(res.ok){const g=rnd(5,12)*L;S.gold+=g;sfx('coins');out(`{g}Vous saisissez un poignet dans le noir. Le coupe-bourse glapit, lâche une bourse et détale.{n} {y}(+${g} po){n}`);return;}
     const it=takeFromPack();
-    if(!it){const g=Math.min(S.gold,Math.round(S.gold*0.1)+5);S.gold-=g;sfx('coins');out(`{r}A hand in your purse, and gone.{n} {y}(-${g}g){n}`);return;}
+    if(!it){const g=Math.min(S.gold,Math.round(S.gold*0.1)+5);S.gold-=g;sfx('coins');out(`{r}Une main dans votre bourse, et envolée.{n} {y}(-${g} po){n}`);return;}
     const m=makeMob(MR,L+1,THIEF,theme());m.loot=it;thiefHides(m,r);sfx('fail');
-    out(`{r}A hand in your pack, and gone: the cutpurse took ${iname(it)}!{n} {d}It can't have gone far. Hunt it down somewhere on this floor.`);
+    out(`{r}Une main dans votre sac, et envolée : le coupe-bourse a pris ${iname(it)} !{n} {d}Il n'a pas pu aller bien loin. Traquez-le quelque part à cet étage.`);
   });
 }
 function eventCollapse(r){
-  const L=depth();out('{r}The floor lurches. Dust pours from above. The ceiling is coming down!{n}','heavy');sfx('trap');flashTerm('hit');
-  chal('mash',{kicker:'TRAP',title:'RUN!',need:Math.round(16+L*0.45),time:5},res=>{
-    if(res.ok){out('{g}You dive clear as the ceiling comes down behind you in a roar of stone!{n}');if(chance(0.4)){const g=rnd(3,8)*L;S.gold+=g;sfx('gold');out(`{y}Something glints in the rubble: ${g} gold.{n}`);}return;}
-    const d=Math.min(S.hp-1,Math.round(stats().mhp*0.28));if(d>0)S.hp-=d;sfx('hitBig');flashTerm('hit');out(`{r}The ceiling buries you to the chest.{n} {d}(-${Math.max(0,d)}) You dig yourself out, coughing.`,'heavy');
+  const L=depth();out("{r}Le sol tangue. La poussière pleut d'en haut. Le plafond s'effondre !{n}",'heavy');sfx('trap');flashTerm('hit');
+  chal('mash',{kicker:"PIÈGE",title:"COUREZ !",need:Math.round(16+L*0.45),time:5},res=>{
+    if(res.ok){out("{g}Vous plongez à l'abri tandis que le plafond s'écroule derrière vous dans un rugissement de pierre !{n}");if(chance(0.4)){const g=rnd(3,8)*L;S.gold+=g;sfx('gold');out(`{y}Quelque chose brille dans les gravats : ${g} or.{n}`);}return;}
+    const d=Math.min(S.hp-1,Math.round(stats().mhp*0.28));if(d>0)S.hp-=d;sfx('hitBig');flashTerm('hit');out(`{r}Le plafond vous ensevelit jusqu'à la poitrine.{n} {d}(-${Math.max(0,d)}) Vous vous dégagez en toussant.`,'heavy');
   });
 }
 /* A strongbox: pick it for loot; break every pick and it jams, or wakes its guards. */
 function eventLockbox(r,ev){
   const L=depth(),pins=Math.min(6,3+Math.floor(L/12));
-  chal('pick',{kicker:'A STRONGBOX',title:'PICK THE LOCK',pins,picks:3,speed:0.8+L*0.014,zone:Math.max(0.1,0.24-L*0.0025)},res=>{
+  chal('pick',{kicker:"UN COFFRET",title:"CROCHETEZ LA SERRURE",pins,picks:3,speed:0.8+L*0.014,zone:Math.max(0.1,0.24-L*0.0025)},res=>{
     ev.used=true;jobProgress('event');
-    if(res.ok){const g=rnd(15,30)*L;S.gold+=g;sfx('coins');out(`{y}The lid springs open.{n} {y}(+${g}g){n}`);
+    if(res.ok){const g=rnd(15,30)*L;S.gold+=g;sfx('coins');out(`{y}Le couvercle s'ouvre d'un coup.{n} {y}(+${g} po){n}`);
       const loot=[];if(chance(0.75))loot.push(randomGear(MR,L+1,25));if(chance(0.6))loot.push({kind:'potion',key:chance(0.7)?'hp':'mp',qty:rnd(1,2)});if(chance(0.06))loot.push({kind:'egg',sp:pick(MR,['raven','salamander','wisp','ferret','coinmoth'])});
-      loot.forEach(it=>{if(addItem(it,true))out(`You take ${iname(it)}. {d}${idesc(it)}`+(slotOf(it)?cmpTag(it):''));else r.items.push(it);});return;}
+      loot.forEach(it=>{if(addItem(it,true))out(`Vous prenez ${iname(it)}. {d}${idesc(it)}`+(slotOf(it)?cmpTag(it):''));else r.items.push(it);});return;}
     if(chance(0.45)){const n=chance(0.4)?2:1;for(let i=0;i<n;i++){const m=makeMob(MR,L+1,null,theme());m.aggro=true;r.mobs.push(m);}
-      sfx('alert');out(`{r}The last pick snaps, and a bell inside the box goes off. ${n>1?'Two guards come':'Something comes'} running.{n}`,'heavy');engage(r.mobs.length-n,true);}
-    else out('{d}The last pick snaps. The lock seizes for good.');
+      sfx('alert');out(`{r}Le dernier crochet se brise, et une clochette sonne dans le coffret. ${n>1?"Deux gardes accourent":"Quelque chose arrive"}.{n}`,'heavy');engage(r.mobs.length-n,true);}
+    else out("{d}Le dernier crochet se brise. La serrure se bloque pour de bon.");
   });
 }
 /* A glyph door: repeat the sequence and a chest is yours; get it wrong and the glyphs bite. */
 function eventGlyphs(r,ev){
   const L=depth();
-  chal('slide',{kicker:'A SEALED ALCOVE',title:'TRACE THE GLYPHS',len:Math.min(8,4+Math.floor(L/10)),step:Math.max(360,650-L*6)},res=>{
+  chal('slide',{kicker:"UNE ALCÔVE SCELLÉE",title:"TRACEZ LES GLYPHES",len:Math.min(8,4+Math.floor(L/10)),step:Math.max(360,650-L*6)},res=>{
     ev.used=true;jobProgress('event');
     if(res.ok){const ks=['rusty','iron','gold','epic','legend'],t=ks[Math.min(3,ks.indexOf(chestTier(MR,L))+1)];r.type='treasure';r.chest={opened:false,mimic:false,tier:t};
-      sfx('relit');out(`{c}The glyphs burn gold and the alcove grinds open.{n} ${CHESTS[t].look} {@open|open it}`);return;}
-    const d=Math.min(S.hp-1,Math.round(stats().mhp*0.18));if(d>0)S.hp-=d;sfx('hitBig');out(`{r}The glyphs flare red and a jolt throws you across the room.{n} {d}(-${Math.max(0,d)}) The alcove stays shut.`,'heavy');
+      sfx('relit');out(`{c}Les glyphes brûlent d'or et l'alcôve s'ouvre en grinçant.{n} ${CHESTS[t].look} {@open|l'ouvrir}`);return;}
+    const d=Math.min(S.hp-1,Math.round(stats().mhp*0.18));if(d>0)S.hp-=d;sfx('hitBig');out(`{r}Les glyphes flamboient en rouge et une décharge vous projette à travers la salle.{n} {d}(-${Math.max(0,d)}) L'alcôve reste fermée.`,'heavy');
   });
 }
 /* A stone face with a riddle: answer well for a blessing; badly, and it takes its price. */
 function eventRiddler(r,ev){
   const o=riddleOpts();
-  chal('choice',Object.assign(o,{kicker:'THE STONE FACE',title:'"ANSWER ME THIS"',right:'"Well answered."',wrong:'"No."'}),res=>{
+  chal('choice',Object.assign(o,{kicker:"LE VISAGE DE PIERRE",title:"« RÉPONDS À CECI »",right:"« Bien répondu. »",wrong:'"No."'}),res=>{
     ev.used=true;jobProgress('event');
     if(res.ok){const x=MR(),L=depth();
-      if(x<0.4){gainXp(Math.round(need(S.lvl)*0.12));out('{m}"Knowledge is a kind of light,"{n} the face says, and some of it is yours now.');}
-      else if(x<0.62&&!S.wellRested){S.wellRested=true;sfx('chime');out(`{m}"Rest well, clever one."{n} {g}Well-Rested: +${restPct()}% experience until you return to town.`);}
-      else if(x<0.85){const g=rnd(12,24)*L;S.gold+=g;sfx('coins');out(`{m}The face spits out a coin, then another, then a stream of them.{n} {y}(+${g}g){n}`);}
-      else{const k=pick(MR,['str','agi','int','hp']);S.bonus[k]+=k==='hp'?8:1;sfx('legend');out(`{m}"Few answer me. Take this."{n} {o}Permanent +${k==='hp'?8:1} ${k}.`,'gold');}
+      if(x<0.4){gainXp(Math.round(need(S.lvl)*0.12));out("{m}« Le savoir est une sorte de lumière »,{n} dit le visage, et un peu de celle-ci est à vous désormais.");}
+      else if(x<0.62&&!S.wellRested){S.wellRested=true;sfx('chime');out(`{m}« Repose-toi bien, petit malin. »{n} {g}Bien reposé : +${restPct()} % d'expérience jusqu'à votre retour en ville.`);}
+      else if(x<0.85){const g=rnd(12,24)*L;S.gold+=g;sfx('coins');out(`{m}Le visage crache une pièce, puis une autre, puis tout un ruisseau.{n} {y}(+${g} po){n}`);}
+      else{const k=pick(MR,['str','agi','int','hp']);S.bonus[k]+=k==='hp'?8:1;sfx('legend');out(`{m}« Peu me répondent. Prends ceci. »{n} {o}+${k==='hp'?8:1} ${k} permanent.`,'gold');}
       return;}
-    const g=Math.min(S.gold,Math.round(S.gold*0.12)+10);S.gold-=g;sfx('fail');out(`{m}The face laughs, and its eyes close.{n} Your purse feels lighter. {y}(-${g}g){n}`);
+    const g=Math.min(S.gold,Math.round(S.gold*0.12)+10);S.gold-=g;sfx('fail');out(`{m}Le visage rit, et ses yeux se ferment.{n} Votre bourse s'allège. {y}(-${g} po){n}`);
   });
 }
 /* An Order mechanism: a number puzzle against the clock. */
 function eventMechanism(r,ev){
   const L=depth(),o=puzzleOpts(L);
-  chal('choice',Object.assign(o,{kicker:'THE MECHANISM',title:'FILL THE BLANK STONE',right:'The stone slides home.',wrong:'The stone grinds wrong.'}),res=>{
+  chal('choice',Object.assign(o,{kicker:"LE MÉCANISME",title:"COMPLÉTEZ LA PIERRE VIERGE",right:"La pierre se met en place.",wrong:"La pierre grince de travers."}),res=>{
     ev.used=true;jobProgress('event');
-    if(res.ok){const g=rnd(12,24)*L;S.gold+=g;sfx('coins');out(`{w}A drawer slides out of the wall.{n} {y}(+${g}g){n}`);
-      const loot=[{kind:'potion',key:'hp',qty:1}];if(chance(0.5))loot.push(randomGear(MR,L+1,15));loot.forEach(it=>{if(addItem(it,true))out(`You take ${iname(it)}.`+(slotOf(it)?' '+cmpTag(it):''));else r.items.push(it);});return;}
+    if(res.ok){const g=rnd(12,24)*L;S.gold+=g;sfx('coins');out(`{w}Un tiroir glisse hors du mur.{n} {y}(+${g} po){n}`);
+      const loot=[{kind:'potion',key:'hp',qty:1}];if(chance(0.5))loot.push(randomGear(MR,L+1,15));loot.forEach(it=>{if(addItem(it,true))out(`Vous prenez ${iname(it)}.`+(slotOf(it)?' '+cmpTag(it):''));else r.items.push(it);});return;}
     const st=stats(),d=Math.min(S.hp-1,Math.round(st.mhp*0.15));if(d>0)S.hp-=d;S.fx.poison={n:3,d:Math.max(1,Math.round(st.mhp*0.02))};sfx('trap');sfx('poison');
-    out(`{r}Darts hiss out of the dial.{n} {d}(-${Math.max(0,d)}){n} {g}You are poisoned.`,'heavy');
+    out(`{r}Des fléchettes sifflent hors du cadran.{n} {d}(-${Math.max(0,d)}){n} {g}Vous êtes empoisonné.`,'heavy');
   });
 }
 
@@ -5174,7 +5174,7 @@ function townTalk(n){
   if(n==='mott'){out(`Le vieux Mott croque dans sa pomme et mâche longtemps. {w}« J'ai creusé la plupart moi-même »,{n} dit-il. {w}« Vides, pour la plupart. Le Temple aime avoir une pierre, même quand la Porte garde le reste. »`+(S.flags.ended?` {w}« Moins de pierres ces temps-ci. Je ne m'en plaindrai pas. »`:'')+((S.graves||[]).length?`{n} Il désigne d'un signe de tête une rangée de petites pierres près du mur. {w}« Les vôtres, celles-là. Taillées petites, pour les petits. »{n} {d}${S.graves.slice(-8).map(x=>`${x.n} (${x.f}, niveau ${x.l}), ${x.at}`).join('; ')}.`:'')+`{n} {@pray|allumer une bougie au mémorial}`);return true;}
   if(n==='esk'){out(`Madame Esk déploie ses cartes en éventail sans les regarder. {m}« Asseyez-vous, asseyez-vous. Les profondeurs sont un lieu différent chaque fois qu'on y descend. Laissez-moi vous dire lequel vous trouverez. »{n} {@fortune|se faire lire l'avenir}`);return true;}
   if(n==='jeweler'){out(`Ottilie observe vos mains à travers sa loupe. {y}« Bagues, amulettes, médaillons. Et si l'un de vos charmes s'est terni, je peux lui rendre vie au polissage, contre paiement. »{n} {@list|voir ses charmes}  {d}ou « polish <charme> »`);return true;}
-  if(n==='alchemist'){out(`Ysolde s'essuie les mains sur un tablier criblé de petites brûlures. {r}« Des philtres pour la force, pour une peau de pierre, pour des pieds vifs et une tête vive. ${elixFights()===8?"Huit":'Five'} combats chacun, et ne les buvez pas tous d'un coup. Enfin. Faites-le, si ça vous chante. Je ne suis pas votre mère. »{n} {@list|voir ses élixirs}`);return true;}
+  if(n==='alchemist'){out(`Ysolde s'essuie les mains sur un tablier criblé de petites brûlures. {r}« Des philtres pour la force, pour une peau de pierre, pour des pieds vifs et une tête vive. ${elixFights()===8?"Huit":"Cinq"} combats chacun, et ne les buvez pas tous d'un coup. Enfin. Faites-le, si ça vous chante. Je ne suis pas votre mère. »{n} {@list|voir ses élixirs}`);return true;}
   if(n==='captain'){out(`Le capitaine Hale vous jauge comme il lit ses affiches : deux fois. {w}« La Porte est sous nos pieds à tous, et la garde est à bout. Je paie pour du travail dur bien fait. »{n} {@contract|voir les contrats}`);return true;}
   if(n==='ferryman'){out(`Le passeur ne lève pas les yeux de son filet. {c}« Pas de navires »,{n} dit-il. {c}« Pas depuis que la Lanterne a viré au bleu. Les routes maritimes vers les royaumes lointains se sont éteintes la même nuit. Un jour, peut-être. »{n}`+(S.flags.ended?` Il jette un œil à l'horizon. {c}« Drôle. Depuis que le Trône s'est tu, je jurerais avoir vu des lumières là-bas. »`:''));return true;}
   return false;
@@ -5395,7 +5395,7 @@ function voyLook(r){
   const D=DUNGEONS[S.dg],sea=D.voyage==='sea',L=sea?'lane':'road';
   if(S.dg!=='underside'){
     if(r.lane){const off=['n','e','s','w'].filter(d=>typeof r.exits[d]==='number'&&!F().rooms[r.exits[d]].lane);
-      out(`{y}${sea?'The charted lane':'The road'} runs on${r.fwd?' '+DN[r.fwd]:' to its end'}.{n}`+(off.length?` {d}(${off.map(d=>DN[d]).join(' and ')} ${off.length>1?'leave':'leaves'} the ${L}: unsafe.)`:''));}
+      out(`{y}${sea?'The charted lane':"La route"} runs on${r.fwd?' '+DN[r.fwd]:' to its end'}.{n}`+(off.length?` {d}(${off.map(d=>DN[d]).join(' and ')} ${off.length>1?'leave':'leaves'} the ${L}: unsafe.)`:''));}
     else out(`{r}Off the ${L}.{n} {d}${['','One leg','Two legs','Three legs'][Math.min(3,r.wd||1)]||'Far'} from the ${L}. Out here the monsters are stronger, and so is everything else.`);}
   if(r.type==='vstart')out(S.floor>1?`{c}The way back to the last leg lies behind you.{n} {@u|go back}`:`{c}${sea?'Emberfall is a smudge on the horizon behind you.':'The North Gate is a speck on the hill behind you.'}{n}`);
   if(r.type==='vend')out(`{o}${sea?'The lane runs on toward':'The road runs on toward'} ${D.stages[S.floor]}.{n} {@d|go on}`);
@@ -5429,7 +5429,7 @@ function riftOpen(r,ev){
 function evStorm(r,ev){
   ev.used=true;const sea=voySea();
   out(sea?'{r}The sky goes black in a heartbeat. A storm comes down on the Dawnwake like a fist!{n}':'{r}The slope above you shifts. Stones, then boulders: a rockslide!{n}','heavy');sfx('trap');flashTerm('hit');
-  chal('mash',{kicker:sea?'STORM':'ROCKSLIDE',title:sea?'HOLD THE LINES!':'RUN!',need:20,time:5},res=>{
+  chal('mash',{kicker:sea?'STORM':'ROCKSLIDE',title:sea?'HOLD THE LINES!':"COUREZ !",need:20,time:5},res=>{
     const V=S.voy;
     if(res.ok){const n=Math.min(V.sup,rnd(1,2));V.sup-=n;out(sea?`{g}You and the crew hold the lines until the worst is past.{n} {d}(${n} supplies washed overboard)`:`{g}You run, and the slide roars past behind you.{n} {d}(${n} supplies lost)`);return;}
     const n=Math.min(V.sup,rnd(3,6)),d=Math.min(S.hp-1,Math.round(stats().mhp*0.12));V.sup-=n;if(d>0)S.hp-=d;sfx('hitBig');
@@ -5538,7 +5538,7 @@ function cmdWalk(arg){
 }
 /* Where supplies are sold, and for how much. */
 function provSource(r){
-  if(S.floor===0&&S.town!=='solenne'&&book3On()){if(r.npc==='ferryman'&&S.flags.ship)return{route:'sea',mult:1,who:'Captain Varo',what:"ship's stores"};if(r.npc==='wayfinder')return{route:'road',mult:1,who:'Teodora',what:'trail rations'};}
+  if(S.floor===0&&S.town!=='solenne'&&book3On()){if(r.npc==='ferryman'&&S.flags.ship)return{route:'sea',mult:1,who:"La capitaine Varo",what:"ship's stores"};if(r.npc==='wayfinder')return{route:'road',mult:1,who:'Teodora',what:'trail rations'};}
   if(voyOn()&&r.prov)return{route:DUNGEONS[S.dg].voyage,mult:1.25,who:r.npc==='trader'?(voySea()?'The trader':'The pedlar'):cap(r.portName),what:'supplies'};
   return null;
 }
@@ -6061,8 +6061,8 @@ Object.assign(MISSIONS,{
   rw:'Old Wick shares the rest: your potions restore 25% more.',reward:()=>{S.flags.wickOil=1;}}
 });
 /* ----- harder requests: for every side dungeon, one per tier, once its first mission is done ----- */
-const DG_GIVER={warren:['brakka','brakka','o','Brakka'],rime:['tobble','tobble','g','Tobble'],market:['inn','wenna','y','Wenna'],orchard:['mott','mott','w','Old Mott'],belfry:['esk','esk','m','Madame Esk'],
- inkwells:['alchemist','ysolde','r','Ysolde'],nursery:['jeweler','ottilie','y','Ottilie'],stacks:['ferryman','ferry','c','The ferryman'],wall:['captain','hale','w','Hale'],catacombs:['college','sabine','g','Sabine Quell'],saltmines:['lamplighter','wick','y','Old Wick']};
+const DG_GIVER={warren:['brakka','brakka','o','Brakka'],rime:['tobble','tobble','g','Tobble'],market:['inn','wenna','y','Wenna'],orchard:['mott','mott','w',"Le vieux Mott"],belfry:['esk','esk','m','Madame Esk'],
+ inkwells:['alchemist','ysolde','r','Ysolde'],nursery:['jeweler','ottilie','y','Ottilie'],stacks:['ferryman','ferry','c','The ferryman'],wall:['captain','hale','w','Hale'],catacombs:['college','sabine','g','Sabine Quell'],saltmines:['lamplighter','wick','y',"Le vieux Wick"]};
 const DG_ASK=[null,
  (D,n,c,tr)=>`${n} looks up. {${c}}"${D.boss.short} is back. They always come back. Go down at Veteran, and this time bring me ${tr}."`,
  (D,n,c,tr)=>`${n} speaks low. {${c}}"It's worse down there now. Heroic, they're calling it at the Gate. I need ${tr}, and I need it from the very bottom."`,
@@ -7537,7 +7537,7 @@ function raidRows(){
   let h=`<div class="ex-sec">Raids</div><p class="hint">Pour un groupe de 2 à 4 amis qui jouent en même temps ; conçu pour 4. La vie du boss est partagée, et il frappe chacun de vous séparément.</p>`;
   if(!raidReady())return h+`<p class="hint">Les raids nécessitent le jeu en ligne.</p>`;
   Object.entries(RAIDS).forEach(([k,R_])=>{const ok=raidOk(k);
-    h+=`<div class="ex-row"><button type="button" class="ex-main ex-open" data-raid="${esc(k)}"><b>${esc(R_.n)}</b><small>niveau ${lvShow(R_.lvl)}  ·  héros ${R_.minLv||RAID_MIN_LV}+  ·  groupe de 2 à 4</small><em>${fmt(ok?(S.raids[k]?`{g}cleared x${S.raids[k]}{n}`:'{y}open{n}'):`{d}${raidWhy(k)}{n}`)}</em></button>`+
+    h+=`<div class="ex-row"><button type="button" class="ex-main ex-open" data-raid="${esc(k)}"><b>${esc(R_.n)}</b><small>niveau ${lvShow(R_.lvl)}  ·  héros ${R_.minLv||RAID_MIN_LV}+  ·  groupe de 2 à 4</small><em>${fmt(ok?(S.raids[k]?`{g}vidé ×${S.raids[k]}{n}`:'{y}open{n}'):`{d}${raidWhy(k)}{n}`)}</em></button>`+
       (ok&&!PARTY.code?`<button type="button" class="ex-go" data-go="raid:form ${esc(k)}">Y aller</button>`:'')+`</div>`;});
   if(PARTY.code){const ps=Object.values(PARTY.peers),ready=1+ps.filter(p=>p.ok&&p.st==='lobby').length;
     h+=`<div class="ex-story"><b>Groupe ${esc(PARTY.code)}${PARTY.raid?' · '+esc(RAIDS[PARTY.raid].n):''}</b><p>${esc(clean(S.name))} (vous${PARTY.lead?", chef":''})`+ps.map(p=>`<br>${esc(p.n)}, ${esc(CLASSES[p.c].n)} de niveau ${p.l}${p.lead?' (leader)':''}${p.ok?'':" (non débloqué)"}`).join('')+`</p>`+
@@ -7583,14 +7583,14 @@ function openRaid(k){if(!RAIDS[k])return;misOpen='raid:'+k;renderMission();$('#m
 function renderRaid(k){
   const R_=RAIDS[k],T=RAID_TALES[k]||{},el=$('#mission .mis-body');if(!R_||!el)return;const ok=raidOk(k),n=(S.raids||{})[k]||0,r=missionRating({hi:R_.lvl});
   $('#misTitle').textContent=R_.n;let h='';
-  h+=`<div class="dg-head"><div class="dg-boss"></div><div class="ex-story"><b>${!ok?'Shut':n?`Cleared ${n} time${n>1?'s':''}`:"Ouvert"}</b><p>${fmt(R_.blurb)}</p></div></div>`;
+  h+=`<div class="dg-head"><div class="dg-boss"></div><div class="ex-story"><b>${!ok?"Fermé":n?`Vidé ${n} fois`:"Ouvert"}</b><p>${fmt(R_.blurb)}</p></div></div>`;
   h+=`<div class="ex-sec">L'histoire</div>`+(T.story||[]).map(p=>`<p class="mis-p">${fmt(p)}</p>`).join('');
   if(n&&T.after)h+=`<div class="ex-sec">Après</div><p class="mis-p">${fmt(T.after)}</p>`;
   h+=`<div class="ex-sec">Le combat</div><p class="mis-p">${fmt(T.fight||'')}</p><p class="hint">Pour 2 à 4 amis qui jouent en même temps ; conçu pour 4. La vie de ${esc(R_.boss.short)} est partagée, et il frappe chacun de vous séparément. À 80 %, 55 % et 30 % de vie, il déchaîne un cataclysme : Défendez-vous. Ses acolytes arrivent à 60 % et 30 %. Au bout de dix minutes, il ne se retient plus. Tous ceux qui l'ont blessé ont leur propre part quand il tombe.</p>`;
   h+=`<div class="ex-sec">Difficulté</div><div class="mis-facts"><div><small>Niveau du raid</small><b>${lvShow(R_.lvl)}</b></div><div><small>Héros</small><b>niveau ${R_.minLv||RAID_MIN_LV}+</b></div><div><small>Groupe</small><b>2 à 4</b></div><div><small>Pour vous (niveau ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;
   h+=`<div class="ex-sec">Votre part</div><p class="mis-p">${R_.lvl*80} or, énormément d'expérience, une pièce d'équipement épique (parfois légendaire), une autre en prime, et trois Potions de soin.</p>`;
   if(!raidReady())h+="<p class=\"hint\">Les raids nécessitent le jeu en ligne.</p>";
-  else if(!ok)h+=`<p class="hint">It ${esc(raidWhy(k))}.</p>`;
+  else if(!ok)h+=`<p class="hint">${esc(raidWhy(k))}.</p>`;
   else if(!PARTY.code)h+=`<button type="button" class="big" data-mgo="raid:form ${esc(k)}">Former un groupe</button><button type="button" data-minv="1">Inviter un ami</button><p class="hint">Ou rejoignez le groupe d'un ami avec son code, dans l'écran Expéditions.</p>`;
   else{const ps=Object.values(PARTY.peers),mine=PARTY.raid===k;
     h+=`<div class="ex-story"><b>Votre groupe : ${esc(PARTY.code)}${PARTY.raid?' · '+esc(RAIDS[PARTY.raid].n):''}</b><p>${esc(clean(S.name))} (vous)`+ps.map(p=>`, ${esc(p.n)}`).join('')+`</p></div>`;
@@ -7953,13 +7953,13 @@ function book4Talk(){
 /* `march`: from the war table to the start of any act you have reached at the front, or your deepest floor there. */
 function warStarts(){return [61,65,69,73,77].filter(f=>f<=mainFloors()&&(f===61||S.deepest>=f));}
 function cmdMarch(arg){
-  if(!book4On()){if(typeof cmdWalk==='function'&&S.floor===0&&cur().npc==='wayfinder'){cmdWalk(arg);return;}out('There is no war. Yet.');return;}
+  if(!book4On()){if(typeof cmdWalk==='function'&&S.floor===0&&cur().npc==='wayfinder'){cmdWalk(arg);return;}out("Il n'y a pas de guerre. Pas encore.");return;}
   if(!(S.floor===0&&S.town!=='solenne'&&cur().npc==='captain')){if(S.floor===0&&cur().npc==='wayfinder'){cmdWalk(arg);return;}out('The war table is in the Watchtower, at the east end of the Arcade.');return;}   /* (march also still means walk, at the North Gate) */
   if(petHold())return;
   const opts=warStarts(),f=arg==='deep'||arg==='deepest'?Math.max(61,S.deepest>60?S.deepest:61):parseInt(arg);
   if(!arg){out('{c}The front: the start of any act you have reached, or your deepest floor:');
     out(opts.map(x=>`{@march ${x}|Floor ${x}}{d} ${ACTS[actOf(x)].name}{n}`).join('\n')+(S.deepest>61&&S.deepest<=80&&!opts.includes(S.deepest)?`\n{@march deep|Floor ${S.deepest}}{d} your deepest{n}`:''));return;}
-  if(!(f>=61&&f<=mainFloors()&&(f===61||S.deepest>=f))){out('The front has not got that far yet.');return;}
+  if(!(f>=61&&f<=mainFloors()&&(f===61||S.deepest>=f))){out("Le front n'est pas encore allé si loin.");return;}
   S.dg=null;out(`{c}You march out with ${warSquadName(f)}${f>61?', a long way':''}.{n}`);gotoFloor(f,'start');
 }
 /* A Book IV boss falls: what follows, and the way on, or the last choice. */
@@ -8543,7 +8543,7 @@ function accSaveProfile(now){
 
 /* ----- cloud saves ----- */
 /* What a hero looks like on the list, without its whole save. */
-const accMeta=o=>({name:clean(o.name||'').slice(0,16)||"Vagabond",cls:o.cls,lvl:Number(o.lvl)||1,where:o.floor?(o.dg&&DUNGEONS[o.dg]?DUNGEONS[o.dg].name+', floor '+o.floor:'Floor '+o.floor):o.town==='solenne'?'Solenne':'Emberfall'});
+const accMeta=o=>({name:clean(o.name||'').slice(0,16)||"Vagabond",cls:o.cls,lvl:Number(o.lvl)||1,where:o.floor?(o.dg&&DUNGEONS[o.dg]?DUNGEONS[o.dg].name+", étage "+o.floor:'Floor '+o.floor):o.town==='solenne'?'Solenne':'Emberfall'});
 async function accList(){
   try{const r=await accFetch('/rest/v1/saves?select=hero,name,cls,lvl,place,saved_at&order=saved_at.desc');ACC.noCloud=r.status===404;ACC.cloud=r.ok?await r.json():ACC.cloud;}catch(e){}   /* 404: the server has no saves table yet (tools/supabase.sql) */
   return ACC.cloud||[];
@@ -8746,7 +8746,7 @@ function storeBoot(){storeBack();if(playApi())playRefresh().then(()=>{storeUi();
 
 /* ----- the store screen ----- */
 const STORE_BOOKS=[
-  ['o','Book II: The Hunger Below',"Étages 21 à 40 : l'Escalier Sans Lumière, la Salle des Repus, l'Archive de Cendre, la Garde d'Arden et le Cœur de la Faim."],
+  ['o','Book II: The Hunger Below',"Étages 21 à 40 : l'Escalier Sans Lumière, la Salle des Offerts, l'Archive de Cendre, la Garde d'Arden et le Cœur de la Faim."],
   ['c','Book III: Across the Ashen Sea',"La traversée vers Solenne, l'Envers, et les étages 41 à 60 le long de l'Escalier Noyé."],
   ['r','Book IV: The Lantern War',"Étages 61 à 80 : le roi de fer de Kaldmark en guerre contre Emberfall, et l'Été Éternel de Lily."]];
 function openStore(){$('#menu').hidden=true;renderStore();$('#store').hidden=false;sfx('scroll');if(playApi())playRefresh().then(renderStore);if(accIn()&&!storeWait)storeRefresh().then(renderStore);}
@@ -9063,7 +9063,7 @@ $('#news').addEventListener('click',e=>{if(e.target.closest('[data-close]'))news
    It shows only what your hero has reached: what lies ahead is locked, as a dark shape or ???. In a game it reads as
    the hero you are playing; on the home screen as your furthest hero (lbWith swaps S while it draws). */
 const LB={tab:'story'};
-const LB_TABS=[['story','Story'],['people','People'],['winston','Winston'],['keepers','Keepers'],['places','Places'],['heroes','Heroes'],['lanterns','Lanterns'],['scrolls','Finds'],['legends',"Légendes"]];
+const LB_TABS=[['story',"Histoire"],['people',"Personnages"],['winston','Winston'],['keepers',"Gardiens"],['places',"Lieux"],['heroes',"Héros"],['lanterns',"Lanternes"],['scrolls',"Trouvailles"],['legends',"Légendes"]];
 const lbShip=()=>!!(S.flags.ship||(S.voy&&S.voy.arrived));
 const lbArrived=()=>!!(S.voy&&S.voy.arrived);
 const lbReached=a=>S.deepest>=actStart(a)||bossDone(a);
@@ -9071,52 +9071,52 @@ const lbReached=a=>S.deepest>=actStart(a)||bossDone(a);
 /* ----- the people (pic: npc id, boss sprite key, or a lantern for those too small or strange to draw) ----- */
 const LB_PEOPLE=[
  {sec:'Emberfall'},
- {id:'maren',n:'Sister Maren',pic:'npc:maren',x:'Last of the Lantern Order, younger than her voice, her robes scorched at the hem. She ties the thread of blue light around your wrist that pulls you home when you fall.',
-  more:[[()=>bossDone(3),'For thirty years she adopted the Temple\'s orphans into the Vale line and sent them down the Gate with lanterns, because the seal would only take a Vale. She has been sorry every day.']]},
- {id:'brakka',n:'Brakka Ironjaw',pic:'npc:brakka',x:'The smith, broad as a door. Her racks are sorted by the depth of the dark each blade was made to cut.',q:'Go deeper and I forge deeper.'},
- {id:'tobble',n:'Old Tobble',pic:'npc:tobble',x:'Keeps the Menagerie: mostly beard and pockets, and several of the pockets are moving. He tends the beasts that come back from below.'},
- {id:'wenna',n:'Wenna',pic:'npc:wenna',x:'Runs the Guttered Candle, a smoky inn full of people who do not ask what you do for work. Her husband once sold one of their summers to the Auctioneer.'},
- {id:'pell',n:'Pell',pic:'npc:pell',x:'Guards the Undervault Gate.',q:'Down\'s down. The thread\'ll pull you back if it goes bad. Mostly.',
-  more:[[()=>bossDone(6),'His little sister Lissa went down the Gate years ago with a blue ribbon in her hair. You found her in the Hall of the Fed.']]},
- {id:'quillon',n:'Quillon the Peddler',pic:'npc:quillon',x:'Turns up on the floors below with sacks of goods and too many teeth.',q:'Everything\'s for sale, friend. Even the things that aren\'t mine.'},
- {id:'mott',n:'Old Mott',pic:'npc:mott',x:'Digs the graves in the Keepers\' Cemetery, most of them empty.',q:'The Temple likes a stone even when the Gate keeps the rest.',
-  more:[[()=>!!(S.side||{}).orchard,'His wife Ada went down to the Sunken Orchard long ago, and became its oldest tree.']]},
- {id:'esk',n:'Madame Esk',pic:'npc:esk',x:'Reads cards on Lantern Hill that are not quite cards. The deep is a different place every time you go down it, and she can tell you how.'},
- {id:'ottilie',n:'Ottilie',pic:'npc:ottilie',x:'Keeps the Jewelers\' Arcade: rings, amulets, lockets, and polish for a charm gone dull.'},
- {id:'ysolde',n:'Ysolde',pic:'npc:ysolde',x:'An alchemist on Market Street, forever arguing with her cauldron.',q:'I\'m not your mother.'},
- {id:'hale',n:'Watch-Captain Hale',pic:'npc:hale',x:'Keeps the Watchtower. Reads every notice twice, and pays for hard work done well.'},
- {id:'ferryman',n:'The ferryman',pic:'npc:ferryman',x:'Keeps the Old Docks. No ship has come since the Lantern went blue: the sea-lanes to the far kingdoms went dark the same night.'},
- {id:'winston',n:'Winston the Wanderer',pic:'npc:winston',on:()=>!!(S.win&&S.win.met),x:'A boy of about seven in a coat of a hundred patches, far too big for him, with a walking stick taller than he is and a little lantern that burns a different colour every time you meet him. He talks like an old man. His title tells you what he is about to do.',
-  more:[[()=>(S.win.beat||0)>=1,'Winston is a name he borrowed off a gravestone.'],[()=>(S.win.beat||0)>=7,'He is Aster Vale\'s twin, Caius\'s son: the fed child who walked back up the stair, and stopped growing the moment he came out. He is three hundred years old.']]},
- {sec:'Below'},
- {id:'tobias',n:'Tobias',pic:'lantern',on:()=>bossDone(1),x:'A boy Sister Ilse hid from the seal in a secret garden. He is the one who kept chalking WHO FEEDS THE LIGHT? on the fountain.'},
- {id:'tick',n:'Tick',pic:'lantern',on:()=>bossDone(2),x:'The Order\'s recording engine. It keeps a card for every keeper there ever was, and every card says VALE. It copies everything twice, because the Hunger cannot eat what is written twice.'},
- {id:'arden',n:'Arden Vale',pic:'boss:arden',on:()=>bossDone(2),x:'Knight-Commander of the Lantern Order. The histories say he founded it.',
-  more:[[()=>bossDone(8),'He did not. He sealed his brother below, then went through the door after him and kept a watch inside the Hunger, alone, one more day at a time, for three hundred years. You gave him back his name.']]},
- {id:'caius',n:'Caius Vale',pic:'boss:sovereign',on:()=>bossDone(4),x:'The Ashen Sovereign: Arden\'s brother, and your blood. He went down to fight the Hunger, and his brother sealed him in to hold its door shut.',q:'Brother, if you seal me down here, at least seal me facing the right direction.'},
- {id:'lissa',n:'Lissa',pic:'lantern',on:()=>bossDone(6),x:'Pell\'s little sister, sent down the Gate with a lantern and a blue ribbon. She lost the lantern on the way down, and waited.'},
- {id:'aster',n:'Aster Vale',pic:'boss:fed',on:()=>bossDone(6),x:'The First Fed: Caius\'s daughter, six years old, given to the seal at its making so it would know its keeper\'s blood. She grew vast and hungry in the dark, waiting for her father. Now she sleeps.'},
+ {id:'maren',n:"Sœur Maren",pic:'npc:maren',x:"Dernière de l'Ordre de la Lanterne, plus jeune que sa voix, sa robe roussie à l'ourlet. Elle noue autour de votre poignet le fil de lumière bleue qui vous ramène chez vous quand vous tombez.",
+  more:[[()=>bossDone(3),"Pendant trente ans, elle a adopté les orphelins du Temple dans la lignée Vale et les a envoyés par la Porte avec des lanternes, parce que le sceau ne prendrait qu'un Vale. Elle s'en est voulu chaque jour."]]},
+ {id:'brakka',n:"Brakka Mâchoire-de-Fer",pic:'npc:brakka',x:"La forgeronne, large comme une porte. Ses râteliers sont classés selon la profondeur du noir que chaque lame devait trancher.",q:"Descendez plus bas et je forge plus fort."},
+ {id:'tobble',n:"Le vieux Tobble",pic:'npc:tobble',x:"Tient la Ménagerie : presque tout en barbe et en poches, et plusieurs poches remuent. Il soigne les bêtes qui remontent d'en bas."},
+ {id:'wenna',n:'Wenna',pic:'npc:wenna',x:"Tient la Chandelle Noyée, une auberge enfumée pleine de gens qui ne demandent pas ce que vous faites dans la vie. Son mari a un jour vendu l'un de leurs étés au Commissaire-priseur."},
+ {id:'pell',n:'Pell',pic:'npc:pell',x:"Garde la Porte de l'Undervault.",q:"En bas, c'est en bas. Le fil vous ramènera si ça tourne mal. En général.",
+  more:[[()=>bossDone(6),"Sa petite sœur Lissa est descendue par la Porte il y a des années, un ruban bleu dans les cheveux. Vous l'avez trouvée dans la Salle des Offerts."]]},
+ {id:'quillon',n:"Quillon le colporteur",pic:'npc:quillon',x:"Apparaît dans les étages inférieurs avec des sacs de marchandises et trop de dents.",q:"Tout est à vendre, l'ami. Même ce qui n'est pas à moi."},
+ {id:'mott',n:"Le vieux Mott",pic:'npc:mott',x:"Creuse les tombes du Cimetière des Gardiens, la plupart vides.",q:"Le Temple aime avoir une pierre, même quand la Porte garde le reste.",
+  more:[[()=>!!(S.side||{}).orchard,"Sa femme Ada est descendue au Verger Englouti il y a longtemps, et en est devenue le plus vieil arbre."]]},
+ {id:'esk',n:'Madame Esk',pic:'npc:esk',x:"Lit, sur la Colline de la Lanterne, des cartes qui ne sont pas tout à fait des cartes. Les profondeurs sont un lieu différent chaque fois qu'on y descend, et elle peut vous dire comment."},
+ {id:'ottilie',n:'Ottilie',pic:'npc:ottilie',x:"Tient l'Arcade des Joailliers : bagues, amulettes, médaillons, et de quoi polir un charme terni."},
+ {id:'ysolde',n:'Ysolde',pic:'npc:ysolde',x:"Une alchimiste de la Rue du Marché, toujours en train de se disputer avec son chaudron.",q:"Je ne suis pas votre mère."},
+ {id:'hale',n:'Watch-Captain Hale',pic:'npc:hale',x:"Tient la Tour de guet. Lit chaque affiche deux fois, et paie pour du travail dur bien fait."},
+ {id:'ferryman',n:'The ferryman',pic:'npc:ferryman',x:"Garde les Vieux Docks. Aucun navire n'est venu depuis que la Lanterne a viré au bleu : les routes maritimes vers les royaumes lointains se sont éteintes la même nuit."},
+ {id:'winston',n:"Winston le Vagabond",pic:'npc:winston',on:()=>!!(S.win&&S.win.met),x:"Un garçon d'environ sept ans dans un manteau aux cent pièces, bien trop grand pour lui, avec un bâton de marche plus haut que lui et une petite lanterne qui brûle d'une couleur différente à chaque rencontre. Il parle comme un vieillard. Son titre vous dit ce qu'il s'apprête à faire.",
+  more:[[()=>(S.win.beat||0)>=1,"Winston est un nom qu'il a emprunté à une pierre tombale."],[()=>(S.win.beat||0)>=7,"C'est le jumeau d'Aster Vale, le fils de Caius : l'enfant offert qui est remonté par l'escalier, et qui a cessé de grandir à l'instant où il est sorti. Il a trois cents ans."]]},
+ {sec:"En bas"},
+ {id:'tobias',n:'Tobias',pic:'lantern',on:()=>bossDone(1),x:"Un garçon que Sœur Ilse a caché du sceau dans un jardin secret. C'est lui qui écrivait à la craie QUI NOURRIT LA LUMIÈRE ? sur la fontaine."},
+ {id:'tick',n:"Tic",pic:'lantern',on:()=>bossDone(2),x:"La machine à consigner de l'Ordre. Elle garde une fiche pour chaque gardien qui ait jamais existé, et chaque fiche dit VALE. Elle copie tout deux fois, car la Faim ne peut pas manger ce qui est écrit deux fois."},
+ {id:'arden',n:'Arden Vale',pic:'boss:arden',on:()=>bossDone(2),x:"Chevalier-Commandeur de l'Ordre de la Lanterne. Les chroniques disent qu'il l'a fondé.",
+  more:[[()=>bossDone(8),"Ce n'est pas vrai. Il a scellé son frère en bas, puis a franchi la porte à sa suite et a monté la garde à l'intérieur de la Faim, seul, un jour de plus à chaque fois, pendant trois cents ans. Vous lui avez rendu son nom."]]},
+ {id:'caius',n:'Caius Vale',pic:'boss:sovereign',on:()=>bossDone(4),x:"Le Souverain de Cendre : le frère d'Arden, et votre sang. Il est descendu combattre la Faim, et son frère l'a scellé à l'intérieur pour en tenir la porte fermée.",q:"Mon frère, si tu me scelles là-dessous, scelle-moi au moins dans le bon sens."},
+ {id:'lissa',n:'Lissa',pic:'lantern',on:()=>bossDone(6),x:"La petite sœur de Pell, envoyée par la Porte avec une lanterne et un ruban bleu. Elle a perdu la lanterne en descendant, et elle a attendu."},
+ {id:'aster',n:'Aster Vale',pic:'boss:fed',on:()=>bossDone(6),x:"La Première Offerte : la fille de Caius, six ans, donnée au sceau lors de sa création pour qu'il connaisse le sang de son gardien. Elle est devenue immense et affamée dans le noir, à attendre son père. Désormais, elle dort."},
  {sec:'Solenne'},
- {id:'aurelie',n:'Queen Aurelie',pic:'npc:aurelie',on:lbShip,x:'Queen of Solenne: young, ink on her fingers, a plain silver circlet pushed back in her hair. She stands when you come in, which queens are not supposed to do.'},
- {id:'varo',n:'Captain Ines Varo',pic:'npc:varo',on:lbShip,x:'Captain of the Dawnwake, the first ship to reach Emberfall in years.',q:'Stay in the lane and I\'ll get you there. Make me leave it and I make no promises.'},
- {id:'teodora',n:'Teodora Brisk',pic:'npc:teodora',on:lbShip,x:'The wayfinder at the North Gate, who knows the long road to Solenne.',q:'The road remembers people. The Greywold doesn\'t.'},
- {id:'oriel',n:'Magister Oriel Quell',pic:'npc:oriel',on:lbShip,x:'Of Solenne\'s Glass College, with a gate of brass and green glass at the Harbour Light.',q:'The chance it puts you somewhere else is very small. Smallish.'},
- {id:'sabine',n:'Archivist Sabine Quell',pic:'npc:sabine',on:lbArrived,x:'Oriel\'s sister, at the Glass College, with none of her patience.'},
- {id:'odo',n:'Odo Fairweather',pic:'npc:odo',on:lbArrived,x:'Master of Hammerhall, where the smiths sing in teams of six.'},
- {id:'wick',n:'Old Wick',pic:'npc:wick',on:lbArrived,x:'Last guild-master of Solenne\'s lamplighters. He has lit the lamps by hand for forty years.',q:'It\'s not the lamps, delver. It\'s what they\'re burning.'},
- {id:'bettany',n:'Bettany',pic:'npc:bettany',on:lbArrived,x:'Keeps the Salt Lamp, the only lantern in Solenne still burning gold. She talks to it.'},
- {id:'tam',n:'Tam',pic:'npc:tam',on:()=>bossDone(10),x:'A lamplighter\'s apprentice who walked down the Drowned Stair in her sleep. You woke her and sent her home.'},
- {id:'ysmay',n:'Queen Ysmay',pic:'boss:ysmay',on:()=>bossDone(13),x:'Aurelie\'s mother, who went down to stop the Undertow and held it back with her own light for three years.',q:'It was never the lamps. It was the door.'},
- {sec:'The Lantern War'},
- {id:'osric',n:'King Osric of Kaldmark',pic:'boss:osric',on:()=>!!S.flags.herald,x:'The Iron Claimant, who claims Emberfall, the Last Lantern and the Vale blood by a charter three hundred years old. He wears a crown of cold iron, and he has not been warm in fifty years.',
-  more:[[()=>bossDone(19),'He opened the third door under his mountain to get warm, and it asked for everything. He fed it his kingdom\'s hearths, and then wanted Emberfall\'s Lantern, because he could not think of anything else.']]},
- {id:'corva',n:'Lady Corva Thane',pic:'npc:corva',on:()=>!!S.flags.herald,x:'Herald to King Osric. She read the Ember Writ from the rim of Emberfall\'s dry fountain, and frost formed where she stood.'},
- {id:'hollis',n:'Sister Hollis',pic:'npc:hollis',on:()=>!!S.flags.war,x:'Of the Temple. She keeps a field hospital at the front, at the stairs of every floor, and treats both sides in the order they come in.',q:'Their fingers are all frostbitten. Every one of them.'},
- {id:'pip',n:'Pip Kettle',pic:'npc:pip',on:()=>!!S.story.prisoner,x:'A Kaldmark soldier of seventeen who stopped fighting in Emberfall\'s streets because it was warm. His little sister is six, and has never been warm.'},
- {id:'vey',n:'Engineer-Captain Marta Vey',pic:'npc:vey',on:()=>bossDone(16),x:'Captain of the Breaker, the iron king\'s great siege engine. She had never once missed, until she did.'},
- {id:'rhyne',n:'Isolde Rhyne',pic:'boss:frostmarshal',on:()=>bossDone(17),x:'The Frost Marshal, Kaldmark\'s champion for thirty years. She went to the third door and the cold went into her. She was warm at the end, and wanted the king to know.'},
- {id:'lily',n:'Lily the Sweethang',pic:'boss:lily',on:()=>!!S.flags.south,x:'A lady in a wide sunhat who bought one summer from every village in Kaldmark, fifty years ago, very politely, and took them south to her garden.',
-  more:[[()=>!!S.flags.lily,'She fell out of the sky, out of the seventh door, the one nobody counts, and tried to live in this world. Everything she loves she keeps, and everything she keeps she plants, and she has never once been warm enough. She let the summers go. Her garden is growing back.']]}
+ {id:'aurelie',n:"La reine Aurélie",pic:'npc:aurelie',on:lbShip,x:"Reine de Solenne : jeune, de l'encre sur les doigts, un simple cercle d'argent repoussé dans les cheveux. Elle se lève quand vous entrez, ce que les reines ne sont pas censées faire."},
+ {id:'varo',n:"La capitaine Ines Varo",pic:'npc:varo',on:lbShip,x:"Capitaine du Sillage-de-l'Aube, le premier navire à atteindre Emberfall depuis des années.",q:"Restez dans le chenal et je vous y mènerai. Faites-m'en sortir et je ne promets rien."},
+ {id:'teodora',n:'Teodora Brisk',pic:'npc:teodora',on:lbShip,x:"L'éclaireuse de la Porte Nord, qui connaît la longue route de Solenne.",q:"La route se souvient des gens. Le Greywold, non."},
+ {id:'oriel',n:"Le magister Oriel Quell",pic:'npc:oriel',on:lbShip,x:"Du Collège de Verre de Solenne, avec une porte d'airain et de verre vert au Phare du Port.",q:"Le risque qu'elle vous dépose ailleurs est très faible. Assez faible."},
+ {id:'sabine',n:"L'archiviste Sabine Quell",pic:'npc:sabine',on:lbArrived,x:"La sœur d'Oriel, au Collège de Verre, sans une once de sa patience."},
+ {id:'odo',n:"Odo Beautemps",pic:'npc:odo',on:lbArrived,x:"Maître de Hammerhall, où les forgerons chantent par équipes de six."},
+ {id:'wick',n:"Le vieux Wick",pic:'npc:wick',on:lbArrived,x:"Dernier maître de la guilde des allumeurs de Solenne. Il allume les lampes à la main depuis quarante ans.",q:"Ce ne sont pas les lampes, l'explorateur. C'est ce qu'elles brûlent."},
+ {id:'bettany',n:'Bettany',pic:'npc:bettany',on:lbArrived,x:"Tient la Lampe de Sel, la seule lanterne de Solenne qui brûle encore d'or. Elle lui parle."},
+ {id:'tam',n:'Tam',pic:'npc:tam',on:()=>bossDone(10),x:"Une apprentie allumeuse qui a descendu l'Escalier Noyé en dormant. Vous l'avez réveillée et renvoyée chez elle."},
+ {id:'ysmay',n:'Queen Ysmay',pic:'boss:ysmay',on:()=>bossDone(13),x:"La mère d'Aurélie, descendue arrêter le Ressac, qui l'a retenu de sa propre lumière pendant trois ans.",q:"Ce n'étaient pas les lampes. C'était la porte."},
+ {sec:"La Guerre des Lanternes"},
+ {id:'osric',n:"Le roi Osric de Kaldmark",pic:'boss:osric',on:()=>!!S.flags.herald,x:"Le Prétendant de Fer, qui revendique Emberfall, la Dernière Lanterne et le sang des Vale au nom d'une charte vieille de trois cents ans. Il porte une couronne de fer froid, et n'a pas eu chaud depuis cinquante ans.",
+  more:[[()=>bossDone(19),"Il a ouvert la troisième porte sous sa montagne pour se réchauffer, et elle a tout demandé. Il lui a donné les foyers de son royaume, puis a voulu la Lanterne d'Emberfall, faute de pouvoir penser à autre chose."]]},
+ {id:'corva',n:"Dame Corva Thane",pic:'npc:corva',on:()=>!!S.flags.herald,x:"Héraut du roi Osric. Elle a lu l'Édit de Braise depuis le rebord de la fontaine à sec d'Emberfall, et le givre s'est formé là où elle se tenait."},
+ {id:'hollis',n:"Sœur Hollis",pic:'npc:hollis',on:()=>!!S.flags.war,x:"Du Temple. Elle tient un hôpital de campagne au front, au pied des escaliers de chaque étage, et soigne les deux camps dans l'ordre où ils arrivent.",q:"Ils ont tous les doigts gelés. Tous, sans exception."},
+ {id:'pip',n:'Pip Kettle',pic:'npc:pip',on:()=>!!S.story.prisoner,x:"Un soldat de Kaldmark de dix-sept ans qui a cessé de se battre dans les rues d'Emberfall parce qu'il y faisait chaud. Sa petite sœur a six ans, et n'a jamais eu chaud."},
+ {id:'vey',n:"La capitaine-ingénieure Marta Vey",pic:'npc:vey',on:()=>bossDone(16),x:"Capitaine du Briseur, le grand engin de siège du roi de fer. Elle n'avait jamais raté un tir, jusqu'au jour où elle a raté."},
+ {id:'rhyne',n:'Isolde Rhyne',pic:'boss:frostmarshal',on:()=>bossDone(17),x:"La Maréchale du Givre, championne de Kaldmark pendant trente ans. Elle est allée à la troisième porte et le froid est entré en elle. À la fin, elle avait chaud, et voulait que le roi le sache."},
+ {id:'lily',n:'Lily the Sweethang',pic:'boss:lily',on:()=>!!S.flags.south,x:"Une dame au grand chapeau de soleil qui a acheté un été à chaque village de Kaldmark, il y a cinquante ans, très poliment, et les a emportés au sud, dans son jardin.",
+  more:[[()=>!!S.flags.lily,"Elle est tombée du ciel, par la septième porte, celle que personne ne compte, et a tenté de vivre dans ce monde. Tout ce qu'elle aime, elle le garde, et tout ce qu'elle garde, elle le plante, et elle n'a jamais eu assez chaud. Elle a laissé partir les étés. Son jardin repousse."]]}
 ];
 
 /* ----- which hero the book reads as ----- */
@@ -9137,9 +9137,9 @@ function renderLore(){
   const el=$('#lore .lb-body'),tabs=$('#lore .lb-tabs');if(!el)return;
   tabs.innerHTML=LB_TABS.map(([k,n])=>`<button type="button" class="lb-tab${LB.tab===k?' on':''}" data-lb="${k}" role="tab" aria-selected="${LB.tab===k}">${n}</button>`).join('');
   const o=lbHero();
-  const who=o?`<p class="hint lb-who">Reading as ${esc(o.name)}, ${esc(CHAPTERS[lbWith(o,()=>{try{return chapterNow();}catch(e){return 0;}})].n)}. What lies ahead stays locked until you get there.</p>`:
-    '<p class="hint lb-who">Start a hero to read the story as you play it. What lies ahead stays locked until you get there.</p>';
-  let h;try{h=o?lbWith(o,()=>LB_RENDER[LB.tab](true)):LB_RENDER[LB.tab](false);}catch(e){h='<p class="hint">This page could not be read.</p>';}
+  const who=o?`<p class="hint lb-who">Lecture en tant que ${esc(o.name)}, ${esc(CHAPTERS[lbWith(o,()=>{try{return chapterNow();}catch(e){return 0;}})].n)}. Ce qui vous attend reste verrouillé jusqu'à ce que vous y arriviez.</p>`:
+    "<p class=\"hint lb-who\">Créez un héros pour lire l'histoire au fil du jeu. Ce qui vous attend reste verrouillé jusqu'à ce que vous y arriviez.</p>";
+  let h;try{h=o?lbWith(o,()=>LB_RENDER[LB.tab](true)):LB_RENDER[LB.tab](false);}catch(e){h="<p class=\"hint\">Cette page n'a pas pu être lue.</p>";}
   el.innerHTML=who+h;$('#lore').scrollTop=0;
   el.querySelectorAll('.lb-pic').forEach(p=>{const v=p.dataset.pic;if(!v)return;const [kind,k]=v.split(':');let c=null;
     try{if(kind==='npc')c=npcSprite(k,2);else if(kind==='boss')c=bossSprite(k,2);else if(kind==='hero')c=heroSprite(k,starterEq(k.split('/')[0],6,3),2);else if(kind==='lantern')c=lanternCanvas(4);}catch(e){}
@@ -9148,58 +9148,58 @@ function renderLore(){
 const LB_RENDER={
  /* the story, chapter by chapter */
  story(has){
-  let h='<div class="ex-sec">Prologue: The Last Lantern</div>'+lbP('Emberfall was built on a lid. Three hundred years ago the Lantern Order chained the Ashen Sovereign beneath the city and set five Wardstones on the seal, one below another. Above them, in the Temple, hangs the Last Lantern. Tonight it burns blue, and one by one the Wardstones are going dark. Sister Maren, the last of the Order, sent for anyone who can hold a weapon. You came.');
-  if(!has)return h+'<p class="hint">The rest of the story opens as you play it.</p>';
+  let h="<div class=\"ex-sec\">Prologue : La Dernière Lanterne</div>"+lbP("Emberfall a été bâtie sur un couvercle. Il y a trois cents ans, l'Ordre de la Lanterne a enchaîné le Souverain de Cendre sous la cité et posé cinq Pierres de garde sur le sceau, l'une sous l'autre. Au-dessus d'elles, dans le Temple, est suspendue la Dernière Lanterne. Ce soir, elle brûle bleu, et une à une les Pierres de garde s'éteignent. Sœur Maren, dernière de l'Ordre, a fait appeler quiconque sait tenir une arme. Vous êtes venu.");
+  if(!has)return h+"<p class=\"hint\">La suite de l'histoire s'ouvre au fil du jeu.</p>";
   const ch=a=>{const C=CHAPTERS[chapterOfAct(a)],T=TALE_START[a];
-    if(!lbReached(a))return `<div class="lb-ch lb-locked"><b>${esc(C.n)}: ${esc(C.t)}</b><p>Not yet. Reach floor ${actStart(a)} to read on.</p></div>`;
+    if(!lbReached(a))return `<div class="lb-ch lb-locked"><b>${esc(C.n)} : ${esc(C.t)}</b><p>Pas encore. Atteignez l'étage ${actStart(a)} pour lire la suite.</p></div>`;
     let s=`<div class="lb-ch"><b>${esc(C.n)}: ${esc(C.t)}</b><small>${esc(ACTS[a].name)}</small>${lbP(taleTxt(T.ahead))}`;
     if(bossDone(a))s+=TALE_FALL[a].map(([t,x])=>`<p><i>${esc(t)}.</i> ${fmt(x)}</p>`).join('');
     return s+'</div>';};
   const book=(n,t)=>`<div class="ex-sec">${n}: ${t}</div>`;
-  h+=book('Book I','The Last Lantern');for(let a=0;a<5;a++)h+=ch(a);
-  if(S.flags.ended)h+=`<div class="lb-ch lb-end"><b>How Book I ended</b>${lbP(END1[S.flags.ended]||'')}</div>`;
+  h+=book("Livre I","La Dernière Lanterne");for(let a=0;a<5;a++)h+=ch(a);
+  if(S.flags.ended)h+=`<div class="lb-ch lb-end"><b>Comment s'est achevé le Livre I</b>${lbP(END1[S.flags.ended]||'')}</div>`;
   if(!S.flags.ended)return h;
-  h+=book('Book II','The Hunger Below');for(let a=5;a<10;a++)h+=ch(a);
-  if(S.flags.ended2)h+=`<div class="lb-ch lb-end"><b>How Book II ended</b>${lbP(END2[S.flags.ended2]||'')}</div>`;
+  h+=book("Livre II",'The Hunger Below');for(let a=5;a<10;a++)h+=ch(a);
+  if(S.flags.ended2)h+=`<div class="lb-ch lb-end"><b>Comment s'est achevé le Livre II</b>${lbP(END2[S.flags.ended2]||'')}</div>`;
   if(!S.flags.ended2)return h;
-  h+=book('Book III','Across the Ashen Sea');
-  h+=lbShip()?`<div class="lb-ch"><b>The Dawnwake</b>${lbP(taleTxt(TALE_START.xi.ahead))}</div>`:'<div class="lb-ch lb-locked"><b>A ship</b><p>Not yet.</p></div>';
+  h+=book("Livre III","Au-delà de la Mer de Cendre");
+  h+=lbShip()?`<div class="lb-ch"><b>Le Sillage-de-l'Aube</b>${lbP(taleTxt(TALE_START.xi.ahead))}</div>`:"<div class=\"lb-ch lb-locked\"><b>Un navire</b><p>Pas encore.</p></div>";
   if(lbArrived())h+=`<div class="lb-ch"><b>Solenne</b>${TALE_SOLENNE.map(([t,x])=>`<p><i>${esc(t)}.</i> ${fmt(x)}</p>`).join('')}</div>`;
   for(let a=10;a<15;a++)h+=ch(a);
-  if(S.flags.ended3)h+=`<div class="lb-ch lb-end"><b>How Book III ended</b>${lbP(taleTxt(TALE_START.end.so))}${lbP(taleTxt(TALE_START.end.ahead))}</div>`;
+  if(S.flags.ended3)h+=`<div class="lb-ch lb-end"><b>Comment s'est achevé le Livre III</b>${lbP(taleTxt(TALE_START.end.so))}${lbP(taleTxt(TALE_START.end.ahead))}</div>`;
   if(!S.flags.ended3)return h;
-  h+=book('Book IV','The Lantern War');
-  h+=S.flags.herald?`<div class="lb-ch"><b>The Ember Writ</b>${lbP(taleTxt(TALE_START.war.ahead))}</div>`:'<div class="lb-ch lb-locked"><b>A rider from the north</b><p>Not yet. Go home to Emberfall.</p></div>';
+  h+=book("Livre IV","La Guerre des Lanternes");
+  h+=S.flags.herald?`<div class="lb-ch"><b>L'Édit de Braise</b>${lbP(taleTxt(TALE_START.war.ahead))}</div>`:"<div class=\"lb-ch lb-locked\"><b>Un cavalier venu du nord</b><p>Pas encore. Rentrez à Emberfall.</p></div>";
   for(let a=15;a<20;a++)h+=ch(a);
-  if(S.flags.ended4)h+=`<div class="lb-ch lb-end"><b>How the war ended</b>${lbP(END4[S.flags.ended4]||'')}</div>`;
-  if(S.flags.south)h+=`<div class="lb-ch"><b>Chapter XXII: Everlasting Summer</b>${lbP(taleTxt(TALE_START.summer.ahead))}</div>`;
-  if(S.flags.lily)h+=`<div class="lb-ch lb-end"><b>The summers go home</b>${lbP(taleTxt(TALE_START.fin4.so))}${lbP(taleTxt(TALE_START.fin4.ahead))}</div>`;
+  if(S.flags.ended4)h+=`<div class="lb-ch lb-end"><b>Comment s'est achevée la guerre</b>${lbP(END4[S.flags.ended4]||'')}</div>`;
+  if(S.flags.south)h+=`<div class="lb-ch"><b>Chapitre XXII : L'Été Éternel</b>${lbP(taleTxt(TALE_START.summer.ahead))}</div>`;
+  if(S.flags.lily)h+=`<div class="lb-ch lb-end"><b>Les étés rentrent chez eux</b>${lbP(taleTxt(TALE_START.fin4.so))}${lbP(taleTxt(TALE_START.fin4.ahead))}</div>`;
   return h;},
  /* the people, with their portraits */
  people(has){
   let h='';LB_PEOPLE.forEach(P=>{if(P.sec){h+=`<div class="ex-sec">${P.sec}</div>`;return;}
     const open=!P.on||(has&&P.on());
-    if(!open){h+=lbCard(P.pic,'???','<p>Not yet met.</p>',true);return;}
+    if(!open){h+=lbCard(P.pic,'???',"<p>Pas encore rencontré.</p>",true);return;}
     const more=has?(P.more||[]).filter(([c])=>c()).map(([,t])=>lbP(t)).join(''):'';
     h+=lbCard(P.pic,P.n,lbP(P.x)+(P.q?`<p class="lb-q">"${esc(P.q)}"</p>`:'')+more);});
   return h;},
  /* Winston the Wanderer: his own story so far, the tales he has told you, and the titles you have seen him wear */
  winston(has){
-  const W=has&&S.win;if(!W||!W.met)return lbCard('npc:winston','???','<p>Not yet met. Someone wanders the Undervault, they say, with a lantern that is never the same colour twice.</p>',true);
-  let h=lbCard('npc:winston','Winston the Wanderer',lbP(`You have met him ${W.met} time${W.met>1?'s':''}, as ${Object.keys(W.seen).map(k=>'Winston '+WIN_MOODS[k].t).join(', ')}.`)+(W.errand?lbP('You are running an errand for him: '+WIN_ERRANDS.find(x=>x.k===W.errand.k).n+'.'):''));
-  h+='<div class="ex-sec">His story</div>';
-  WIN_STORY.forEach((B,i)=>{h+=i<W.beat?`<div class="lb-ch"><b>${esc(B.t)}</b>${B.x.map(lbP).join('')}</div>`:`<div class="lb-ch lb-locked"><b>???</b><p>${i===W.beat?'He will tell you when he is ready.':'Not yet.'}</p></div>`;});
-  h+=`<div class="ex-sec">His tales</div><p class="mis-p">${W.tales.length} of ${WIN_TALES.length} heard.</p>`;
-  WIN_TALES.forEach(T=>{h+=W.tales.includes(T.k)?`<div class="lb-ch"><b>${esc(T.t)}</b>${T.x.map(lbP).join('')}</div>`:'<div class="lb-ch lb-locked"><b>???</b><p>Not yet told.</p></div>';});
+  const W=has&&S.win;if(!W||!W.met)return lbCard('npc:winston','???',"<p>Pas encore rencontré. Quelqu'un erre dans l'Undervault, dit-on, avec une lanterne qui n'a jamais deux fois la même couleur.</p>",true);
+  let h=lbCard('npc:winston',"Winston le Vagabond",lbP(`Vous l'avez rencontré ${W.met} fois : ${Object.keys(W.seen).map(k=>'Winston '+WIN_MOODS[k].t).join(', ')}.`)+(W.errand?lbP("Vous lui rendez un service : "+WIN_ERRANDS.find(x=>x.k===W.errand.k).n+'.'):''));
+  h+="<div class=\"ex-sec\">Son histoire</div>";
+  WIN_STORY.forEach((B,i)=>{h+=i<W.beat?`<div class="lb-ch"><b>${esc(B.t)}</b>${B.x.map(lbP).join('')}</div>`:`<div class="lb-ch lb-locked"><b>???</b><p>${i===W.beat?"Il vous la racontera quand il sera prêt.":"Pas encore."}</p></div>`;});
+  h+=`<div class="ex-sec">Ses contes</div><p class="mis-p">${W.tales.length} sur ${WIN_TALES.length} entendus.</p>`;
+  WIN_TALES.forEach(T=>{h+=W.tales.includes(T.k)?`<div class="lb-ch"><b>${esc(T.t)}</b>${T.x.map(lbP).join('')}</div>`:"<div class=\"lb-ch lb-locked\"><b>???</b><p>Pas encore raconté.</p></div>";});
   return h;},
  /* every keeper, with its picture; the ones you have not beaten are dark shapes */
  keepers(has){
   const card=(key,B,done,met)=>{const q=B.intro&&B.intro[1]?plainTxt(B.intro[1]):'',d=B.death&&B.death.length?plainTxt(B.death[B.death.length-1]):'';
-    return done?lbCard('boss:'+key,B.n,(q?`<p class="lb-q">${esc(q)}</p>`:'')+(d?`<p><i>As it fell:</i> ${esc(d)}</p>`:'')):lbCard('boss:'+key,met?B.n:'???',`<p>${met?'Not yet beaten.':'Somewhere below.'}</p>`,true);};
-  let h='';const secs=[['Book I: the keepers of the Wardstones',0,5],['Book II: below the Throne',5,10],['Book III: under the sea',10,15],['Book IV: the Lantern War',15,20]];
+    return done?lbCard('boss:'+key,B.n,(q?`<p class="lb-q">${esc(q)}</p>`:'')+(d?`<p><i>Au moment de tomber :</i> ${esc(d)}</p>`:'')):lbCard('boss:'+key,met?B.n:'???',`<p>${met?"Pas encore vaincu.":"Quelque part en bas."}</p>`,true);};
+  let h='';const secs=[["Livre I : les gardiens des Pierres de garde",0,5],["Livre II : sous le Trône",5,10],["Livre III : sous la mer",10,15],["Livre IV : la Guerre des Lanternes",15,20]];
   secs.forEach(([t,a,b])=>{if(a>=5&&!(has&&(a<10?S.flags.ended:a<15?S.flags.ended2:S.flags.ended3)))return;h+=`<div class="ex-sec">${t}</div>`;
     for(let i=a;i<b;i++)h+=card(BOSS_SPR[i]||'herald',BOSSES[i],has&&bossDone(i),has&&lbReached(i));});
-  h+='<div class="ex-sec">Side dungeons and the crossing</div>';
+  h+="<div class=\"ex-sec\">Donjons annexes et traversée</div>";
   Object.entries(DUNGEONS).forEach(([k,D])=>{if(D.raid||!D.boss)return;if(D.voyage&&!(has&&lbShip()))return;if(D.story&&!(has&&S.flags.south))return;
     const done=has&&!!((S.side||{})[k]||(D.voyage&&S.voy&&S.voy.won&&S.voy.won[D.voyage])||(k==='abyss'&&S.abyssBest>=5));h+=card(bossKey({dg:k}),D.boss,done,has&&dgOpen(D));});
   h+='<div class="ex-sec">Raids</div>';
@@ -9210,46 +9210,46 @@ const LB_RENDER={
   let h='<div class="ex-sec">Emberfall</div>';
   TOWN.forEach(r=>{h+=`<div class="lb-ch"><b>${esc(r.title)}</b>${lbP(r.desc)}</div>`;});
   if(has&&lbArrived()){h+='<div class="ex-sec">Solenne</div>';SOLENNE.forEach(r=>{h+=`<div class="lb-ch"><b>${esc(r.title)}</b>${lbP(r.desc)}</div>`;});}
-  h+='<div class="ex-sec">The descent</div>';
+  h+="<div class=\"ex-sec\">La descente</div>";
   ACTS.forEach((A_,a)=>{if(a>=5&&!(has&&(a<10?S.flags.ended:a<15?S.flags.ended2:S.flags.ended3)))return;
-    h+=has&&lbReached(a)?`<div class="lb-ch"><b>${esc(A_.num)}. ${esc(A_.name)}</b><small>floors ${actStart(a)}-${actStart(a)+FPA-1}</small>${lbP(A_.intro)}</div>`:`<div class="lb-ch lb-locked"><b>${esc(A_.num)}. ???</b><p>Floors ${actStart(a)}-${actStart(a)+FPA-1}. Not yet reached.</p></div>`;});
-  h+='<div class="ex-sec">Side dungeons</div>';
+    h+=has&&lbReached(a)?`<div class="lb-ch"><b>${esc(A_.num)}. ${esc(A_.name)}</b><small>étages ${actStart(a)}-${actStart(a)+FPA-1}</small>${lbP(A_.intro)}</div>`:`<div class="lb-ch lb-locked"><b>${esc(A_.num)}. ???</b><p>Étages ${actStart(a)}-${actStart(a)+FPA-1}. Pas encore atteints.</p></div>`;});
+  h+="<div class=\"ex-sec\">Donjons annexes</div>";
   Object.entries(DUNGEONS).forEach(([k,D])=>{if(D.raid)return;if(D.voyage&&!(has&&lbShip()))return;if(D.story&&!(has&&S.flags.south))return;
-    h+=has&&dgOpen(D)?`<div class="lb-ch"><b>${esc(D.name)}</b>${lbP(D.intro||D.blurb||'')}</div>`:`<div class="lb-ch lb-locked"><b>???</b><p>${esc(has?'It '+dgNeedTxt(D)+'.':'Not yet found.')}</p></div>`;});
+    h+=has&&dgOpen(D)?`<div class="lb-ch"><b>${esc(D.name)}</b>${lbP(D.intro||D.blurb||'')}</div>`:`<div class="lb-ch lb-locked"><b>???</b><p>${esc(has?"Il "+dgNeedTxt(D)+'.':"Pas encore trouvé.")}</p></div>`;});
   return h;},
  /* the twelve heroes */
  heroes(){
-  let h='<p class="mis-p">Twelve answered Maren\'s call. Whoever you are, the dark will learn your name, and give you a title for it.</p>';
-  Object.entries(CLASSES).forEach(([k,C])=>{h+=`<div class="lb-card lb-hero"><div class="lb-pic" data-pic="hero:${k}"></div><div class="lb-pic" data-pic="hero:${k}/f"></div><div class="lb-txt"><b>${esc(C.n)}</b>${lbP(C.blurb)}<small>Weapons: ${C.wp.join(', ')}  ·  ${esc(C.res)}</small></div></div>`;});
+  let h="<p class=\"mis-p\">Douze ont répondu à l'appel de Maren. Qui que vous soyez, le noir apprendra votre nom, et vous donnera un titre pour cela.</p>";
+  Object.entries(CLASSES).forEach(([k,C])=>{h+=`<div class="lb-card lb-hero"><div class="lb-pic" data-pic="hero:${k}"></div><div class="lb-pic" data-pic="hero:${k}/f"></div><div class="lb-txt"><b>${esc(C.n)}</b>${lbP(C.blurb)}<small>Armes : ${C.wp.join(', ')}  ·  ${esc(C.res)}</small></div></div>`;});
   return h;},
  /* why the lanterns matter */
  lanterns(has){
   const L=has?lanternsKnown():TALE_LANTERNS.filter(x=>!x.on);let h=L.map(x=>`<div class="lb-ch"><b>${esc(x.t)}</b>${lbP(x.x)}</div>`).join('');
-  const more=TALE_LANTERNS.length-L.length;if(more)h+=`<p class="hint">${more} more, as the story tells you what the lanterns burn.</p>`;return h;},
+  const more=TALE_LANTERNS.length-L.length;if(more)h+=`<p class="hint">${more} de plus, à mesure que l'histoire vous dit ce que brûlent les lanternes.</p>`;return h;},
  /* the lore scrolls */
  scrolls(has){   /* each book's own collectible: scrolls, embers, shells, dispatches (LORE_KINDS), fifteen a book as the books open */
-  const max=has?loreMax():15,got=has?S.lore:[];let h=`<p class="mis-p">Every book hides its own kind of find, one on most floors of its descent. ${got.length} of ${max} found.</p>`;
+  const max=has?loreMax():15,got=has?S.lore:[];let h=`<p class="mis-p">Chaque livre cache sa propre sorte de trouvaille, une sur la plupart des étages de sa descente. ${got.length} sur ${max} trouvées.</p>`;
   LORE_KINDS.filter(K=>K.from<=max).forEach(K=>{const mine=got.filter(n=>loreKind(n)===K).length;
-   h+=`<div class="ex-sec lb-find-${K.key}">Book ${K.book}: ${esc(K.many)} <small>${mine}/15</small></div>`;
+   h+=`<div class="ex-sec lb-find-${K.key}">Livre ${K.book} : ${esc(K.many)} <small>${mine}/15</small></div>`;
    for(let n=K.from;n<K.from+15;n++)h+=got.includes(n)?`<div class="lb-ch lb-find-${K.key}"><b>${K.one} ${n-K.from+1}</b><p class="lb-q">${esc(LORE[n])}</p></div>`:`<div class="lb-ch lb-locked"><b>${K.one} ${n-K.from+1}</b><p>???</p></div>`;});
   return h;},
  /* the legends of the sets and the one-of-a-kind things (legends.js): each opens as you find it */
  legends(has){
-  let h=`<p class="mis-p">Every legendary set and every one-of-a-kind thing has a story. Find a piece and its legend opens here; each piece you find adds to it.</p>`;
-  if(!has)return h+'<p class="hint">Start a hero to begin finding them.</p>';
+  let h=`<p class="mis-p">Chaque panoplie légendaire et chaque objet unique a une histoire. Trouvez-en une pièce et sa légende s'ouvre ici ; chaque pièce trouvée y ajoute.</p>`;
+  if(!has)return h+"<p class=\"hint\">Créez un héros pour commencer à les trouver.</p>";
   legendBackfill();const L=legendState(),SL=['weapon','armor','amulet','ring'],SN={weapon:'Weapon',armor:'Armor',amulet:'Amulet',ring:'Ring'};
   const card=k=>{const T=SETS[k],G=LEGEND_SETS[k],got=L.s[k]||{},n=Object.keys(got).length;
-    if(!n)return `<div class="lb-ch lb-locked"><b>A legend of the ${esc(CLASSES[T.cls].n)}</b><small>a set of four</small><p>???</p><p class="hint">Find one of its pieces to read it.</p></div>`;
-    return `<div class="lb-ch lb-set lb-set-${T.col}"><b>${esc(T.n)}</b><small>${esc(CLASSES[T.cls].n)} set · ${n}/4 found${n>=4?' · wear all four to be called '+esc(T.title):''}</small>${lbP(G.tale)}`+
+    if(!n)return `<div class="lb-ch lb-locked"><b>Une légende du ${esc(CLASSES[T.cls].n)}</b><small>une panoplie de quatre</small><p>???</p><p class="hint">Trouvez l'une de ses pièces pour la lire.</p></div>`;
+    return `<div class="lb-ch lb-set lb-set-${T.col}"><b>${esc(T.n)}</b><small>panoplie de ${esc(CLASSES[T.cls].n)} · ${n}/4 trouvées${n>=4?" · portez les quatre pour être appelé "+esc(T.title):''}</small>${lbP(G.tale)}`+
       SL.map(sl=>got[sl]?`<p><i>${esc(T.pieces[sl][0])}.</i> ${esc(G[sl])}</p>`:`<p class="lb-dim">${SN[sl]}: ???</p>`).join('')+'</div>';};
   const mine=[CLASS_SET[S.cls],typeof CLASS_SET4!=='undefined'&&CLASS_SET4[S.cls]].filter(k=>k&&SETS[k]);
-  h+=`<div class="ex-sec">Your class's sets</div>`+mine.map(card).join('');
+  h+=`<div class="ex-sec">Les panoplies de votre classe</div>`+mine.map(card).join('');
   const others=Object.keys(SETS).filter(k=>!mine.includes(k)&&LEGEND_SETS[k]),seen=others.filter(k=>L.s[k]&&Object.keys(L.s[k]).length);
-  h+=`<div class="ex-sec">Other legends <small>${seen.length}/${others.length}</small></div>`+seen.map(card).join('');
-  if(others.length>seen.length)h+=`<p class="hint">${others.length-seen.length} more sets belong to other classes. Their pieces turn up now and then.</p>`;
+  h+=`<div class="ex-sec">Autres légendes <small>${seen.length}/${others.length}</small></div>`+seen.map(card).join('');
+  if(others.length>seen.length)h+=`<p class="hint">${others.length-seen.length} panoplies de plus appartiennent à d'autres classes. Leurs pièces apparaissent de temps à autre.</p>`;
   const names=Object.keys(LEGEND_UNIQ),found=names.filter(n=>L.u[n]);
-  h+=`<div class="ex-sec">One of a kind <small>${found.length}/${names.length}</small></div>`+found.map(n=>`<div class="lb-ch lb-uniq"><b>${esc(n)}</b>${lbP(LEGEND_UNIQ[n])}</div>`).join('');
-  if(found.length<names.length)h+=`<p class="hint">${names.length-found.length} more are out there: in the deep places, at the ends of the story, from bosses, and from a small man in a large coat.</p>`;
+  h+=`<div class="ex-sec">Objets uniques <small>${found.length}/${names.length}</small></div>`+found.map(n=>`<div class="lb-ch lb-uniq"><b>${esc(n)}</b>${lbP(LEGEND_UNIQ[n])}</div>`).join('');
+  if(found.length<names.length)h+=`<p class="hint">${names.length-found.length} de plus sont quelque part : dans les lieux profonds, aux fins de l'histoire, sur des boss, et auprès d'un petit homme dans un grand manteau.</p>`;
   return h;}
 };
 
@@ -9292,7 +9292,7 @@ function getShop(){
     if(r.npc==='brakka')return{name:"Brakka's Forge",list:smithStock(),sells:true};
     if(r.npc==='maren')return{name:"Réserves du Temple",list:[{pot:'hp'},{pot:'mp'},{pot:'fury'}]};
     if(r.npc==='tobble')return{name:"Tobble's Menagerie",list:[{pet:'wolf'},{pet:'raven'},{pet:'salamander'},{pet:'wisp'},{pot:'treat'}]};
-  }else if(r.stock)return{name:r.npc==='quillon'?'Quillon the Peddler':r.npc==='port'?cap(r.portName):r.title,list:r.stock,sells:true};
+  }else if(r.stock)return{name:r.npc==='quillon'?"Quillon le colporteur":r.npc==='port'?cap(r.portName):r.title,list:r.stock,sells:true};
   return null;
 }
 /* A bought pet comes trained to your level, so it costs about what Tobble charges to train one more level. */
@@ -9678,7 +9678,7 @@ function cmdPreview(arg){
   const sl=slotFor(it),eq2=Object.assign({},S.eq,{[sl]:it});
   const a=stats();const real=S.eq;S.eq=eq2;let b;try{b=stats();}finally{S.eq=real;}
   out(`{o}Essai :{n} ${iname(it)} {d}(${SLOTNAME[sl].toLowerCase()}${S.eq[sl]?", à la place de "+plainName(S.eq[sl]).trim():''}){n}`,'rt');
-  outDolls([heroFigure(heroKey(S.cls,S.body),S.eq,'Now',3),heroFigure(heroKey(S.cls,S.body),eq2,"Avec",3)]);
+  outDolls([heroFigure(heroKey(S.cls,S.body),S.eq,"Maintenant",3),heroFigure(heroKey(S.cls,S.body),eq2,"Avec",3)]);
   const rows=[["Vie max.",a.mhp,b.mhp],[CLASSES[S.cls].res,a.mmp,b.mmp],['Armor',a.def,b.def],["Critique %",a.crit,b.crit],["Esquive %",a.dodge,b.dodge],["FOR",a.str,b.str],['AGI',a.agi,b.agi],['INT',a.int,b.int]];
   if(sl==='weapon')rows.unshift(["Dégâts arme",+avgDmg(S.eq.weapon).toFixed(1),+avgDmg(it).toFixed(1)]);
   const ch=rows.filter(r=>r[1]!==r[2]).map(([n,x,y])=>`${n} ${x} -> ${y} ${y>x?'{g}(+'+(+(y-x).toFixed(1))+'){n}':'{r}('+(+(y-x).toFixed(1))+'){n}'}`);
@@ -9778,7 +9778,7 @@ function cmdDelve(arg){
     if(t)out(`{${DG_TIERS[t].col}}${D.name}, ${DG_TIERS[t].n}.{n} {d}Monstres plus forts de ${DG_TIERS[t].lv} niveaux, plus de champions, un meilleur butin.`);
     enterDungeon(ak,0,t);return;}
   const opts=ACTS.map((_,a)=>actStart(a)).filter(f=>f<=Math.min(40,mainFloors())&&(f===1||S.deepest>=f||(f===21&&book2On())));
-  if(arg==='deep'||arg==='deepest'){if(!S.deepest){out("{c}Vous n'êtes pas encore descendu.");return;}const d=Math.min(S.deepest,40);S.dg=null;out(`{c}Pell lowers you to floor ${d}.`+(S.deepest>40?" {d}(Plus bas, le chemin passe par l'Escalier Noyé de Solenne.)":''));gotoFloor(d,'start');return;}
+  if(arg==='deep'||arg==='deepest'){if(!S.deepest){out("{c}Vous n'êtes pas encore descendu.");return;}const d=Math.min(S.deepest,40);S.dg=null;out(`{c}Pell vous descend jusqu'à l'étage ${d}.`+(S.deepest>40?" {d}(Plus bas, le chemin passe par l'Escalier Noyé de Solenne.)":''));gotoFloor(d,'start');return;}
   const f=parseInt(arg);
   if(opts.includes(f)){S.dg=null;gotoFloor(f,'start');return;}
   out("{c}Pell peut vous descendre au début de chaque acte atteint, ou à votre étage le plus profond :");
@@ -9957,7 +9957,7 @@ defc('enter',()=>cmdEvent('enter'));defc('pay',()=>cmdEvent('pay'));defc('hail',
 defc('descend',a=>{if(!cmdDescend(a))out("Il n'y a pas d'escalier qui descend ici.");});
 defc('open',cmdOpen);defc('pray',cmdPray);
 defc('rest sleep',cmdRest);
-defc('recall home',()=>{if(S.fight){out("Le fil ne vous tirera pas d'un combat. {@flee|Fuyez} d'abord.");return;}if(S.flags.choosing){out("Pas maintenant. Choisissez.");return;}if(S.floor===0){out(`Vous êtes déjà à ${townName()}.`+(S.town==='solenne'?" Le fil est attaché à la Lanterne d'Emberfall, à une mer d'ici ; pour rentrer, prenez la Porte de la Lanterne, un navire ou la route.":''));return;}if(S.dg==='underside'){out("{m}Vous tirez sur le fil de la Lanterne. Il se tend, puis mollit. Il ne descend pas si bas.{n} {d}Trouvez l'Ancre.");return;}if(petHold())return;if(belowSolenne()){toSolenneFromBelow();if(!queueScene(sceneRecall()))sfx('recall');return;}out('{b}You tug the Lantern-thread. The dark folds, and you are home.');toTown(1);if(!queueScene(sceneRecall()))sfx('recall');});
+defc('recall home',()=>{if(S.fight){out("Le fil ne vous tirera pas d'un combat. {@flee|Fuyez} d'abord.");return;}if(S.flags.choosing){out("Pas maintenant. Choisissez.");return;}if(S.floor===0){out(`Vous êtes déjà à ${townName()}.`+(S.town==='solenne'?" Le fil est attaché à la Lanterne d'Emberfall, à une mer d'ici ; pour rentrer, prenez la Porte de la Lanterne, un navire ou la route.":''));return;}if(S.dg==='underside'){out("{m}Vous tirez sur le fil de la Lanterne. Il se tend, puis mollit. Il ne descend pas si bas.{n} {d}Trouvez l'Ancre.");return;}if(petHold())return;if(belowSolenne()){toSolenneFromBelow();if(!queueScene(sceneRecall()))sfx('recall');return;}out("{b}Vous tirez sur le fil de la Lanterne. L'obscurité se replie, et vous voilà chez vous.");toTown(1);if(!queueScene(sceneRecall()))sfx('recall');});
 defc('sc score stats st',score);
 defc('pet pets',cmdPet);
 defc('talk greet ask',talk);
@@ -10296,7 +10296,7 @@ function renderSlots(){
   const el=$('#slots');el.innerHTML='';let any=false;
   HERO_SLOTS.forEach(n=>{
     const sv=loadSave(n),d=document.createElement('div');d.className='slot'+(sv?'':' empty');
-    if(sv){any=true;const where=sv.floor?(sv.dg&&DUNGEONS[sv.dg]?DUNGEONS[sv.dg].name+', floor '+sv.floor:'Floor '+sv.floor):sv.town==='solenne'?'Solenne':'Emberfall',nb=(sv.bosses||[]).concat(sv.b2||[],sv.b3||[]).filter(Boolean).length;
+    if(sv){any=true;const where=sv.floor?(sv.dg&&DUNGEONS[sv.dg]?DUNGEONS[sv.dg].name+", étage "+sv.floor:'Floor '+sv.floor):sv.town==='solenne'?'Solenne':'Emberfall',nb=(sv.bosses||[]).concat(sv.b2||[],sv.b3||[]).filter(Boolean).length;
       d.innerHTML=`<div class="slot-txt"><b>${esc(sv.name)} ${esc(sv.title||sv.lastTitle||'')}</b><small>Niveau ${Number(sv.lvl)||1} ${CLASSES[sv.cls].n} · ${esc(where)} · ${nb} boss${sv.hard?' · <span class="hc">Hardcore</span>':''}${sv.ng?' · NG+'+(Number(sv.ng)||0):''}</small>`+(accIn()?`<small class="cloud">${sv.hard?"reste sur cet appareil (Hardcore)":accState(sv)==='newer'?"<b>une sauvegarde plus récente est dans le cloud</b>":accState(sv)==='synced'?"dans le cloud":"en route vers le cloud"}</small>`:'')+`</div>`
         +`<div class="slot-btns">`+(accIn()&&accState(sv)==='newer'?`<button type="button" class="slot-pull" data-slot="${n}" data-hero="${esc(sv.cid||'')}">Charger la sauvegarde récente</button>`:'')+`<button type="button" class="slot-go" data-slot="${n}">Continuer</button><button type="button" class="slot-del link" data-slot="${n}">Supprimer</button></div>`;
       try{d.prepend(heroCanvas(heroKey(sv.cls,sv.body),sv.eq||{},1));}catch(e){}}
@@ -10397,7 +10397,7 @@ function resume(sv){
 /* ----- menu ----- */
 let fs=parseFloat(pref('fs'))||13;document.documentElement.style.setProperty('--fs',fs+'px');
 if(pref('pads')==='0')$('#pads').hidden=true;
-function syncMenu(){$('#mPads').textContent=$('#pads').hidden?"Afficher les touches tactiles":"Masquer les touches tactiles";$('#mLoot').textContent="Ramassage auto : "+(S&&S.autoloot===false?'off':'on');$('#menuInfo').textContent=S?`${fullName()}, niveau ${S.lvl} ${CLASSES[S.cls].n}. Graine ${S.seed}.`:'';$('#mNew').textContent='Heroes';$('#mExport').disabled=!S;$('#mLbSend').textContent="Envoyer les scores : "+(lbOn()?'on':'off');$('#mLbSend').hidden=!lbReady();$('#mSound').textContent="Son : "+(soundOn()?'on':'off');$('#mScenes').textContent="Cinématiques : "+(pref('scenes')==='0'?'off':'on');$('#mTale').textContent="Diapos de l'histoire : "+(pref('tale')==='0'?'off':'on');$('#mTale').disabled=pref('scenes')==='0';$('#mMini').textContent="Mini-carte : "+(miniOn()?'on':'off');$('#mMusic').textContent="Musique : "+(musicOn()?'on':'off');$('#mLive').textContent="En direct : "+(S&&S.live?'on':'off');$('#mLive').hidden=$('#mRace').hidden=!lbReady();$('#mLive').disabled=$('#mShare').disabled=$('#mRace').disabled=!S;$('#mVib').textContent=canVibrate()?"Vibration : "+(vibOn()?'on':'off'):"Vibration : indisponible";$('#mVib').disabled=!canVibrate();}
+function syncMenu(){$('#mPads').textContent=$('#pads').hidden?"Afficher les touches tactiles":"Masquer les touches tactiles";$('#mLoot').textContent="Ramassage auto : "+(S&&S.autoloot===false?'off':'on');$('#menuInfo').textContent=S?`${fullName()}, niveau ${S.lvl} ${CLASSES[S.cls].n}. Graine ${S.seed}.`:'';$('#mNew').textContent="Héros";$('#mExport').disabled=!S;$('#mLbSend').textContent="Envoyer les scores : "+(lbOn()?'on':'off');$('#mLbSend').hidden=!lbReady();$('#mSound').textContent="Son : "+(soundOn()?'on':'off');$('#mScenes').textContent="Cinématiques : "+(pref('scenes')==='0'?'off':'on');$('#mTale').textContent="Diapos de l'histoire : "+(pref('tale')==='0'?'off':'on');$('#mTale').disabled=pref('scenes')==='0';$('#mMini').textContent="Mini-carte : "+(miniOn()?'on':'off');$('#mMusic').textContent="Musique : "+(musicOn()?'on':'off');$('#mLive').textContent="En direct : "+(S&&S.live?'on':'off');$('#mLive').hidden=$('#mRace').hidden=!lbReady();$('#mLive').disabled=$('#mShare').disabled=$('#mRace').disabled=!S;$('#mVib').textContent=canVibrate()?"Vibration : "+(vibOn()?'on':'off'):"Vibration : indisponible";$('#mVib').disabled=!canVibrate();}
 $('#menuBtn').addEventListener('click',()=>{syncMenu();$('#menu').hidden=false;});
 $('#mResume').addEventListener('click',()=>{$('#menu').hidden=true;});
 $('#mSave').addEventListener('click',()=>{if(S){save(false);scrollDown();}$('#menu').hidden=true;});
