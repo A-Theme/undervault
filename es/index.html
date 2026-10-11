@@ -70,6 +70,16 @@ html.home-on,html.home-on body{overflow:hidden}
 #home .hm-code code{flex:1;min-width:0;overflow-x:auto;white-space:nowrap;background:#0b0d15;border:1px solid #262d4d;border-radius:6px;padding:8px;font-size:12px;color:#86d98a}
 #home .hm-code button{flex:none;border:1px solid #262d4d;background:#1a2040;color:#d9dcea;border-radius:6px;padding:0 10px;font:12px 'IBM Plex Mono',monospace;cursor:pointer}
 #home .hm-soon{font-size:12px;color:#8a93b8}
+#home .hm-books{list-style:none;margin:16px auto 0;padding:0;max-width:640px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#home .hm-books li{background:#11152a;border:1px solid #262d4d;border-radius:8px;padding:10px 6px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+#home .hm-books b{font-family:'Silkscreen',monospace;font-weight:400;font-size:18px;color:var(--c,#f3d36b)}
+#home .hm-books span{font-size:12px;line-height:1.3;color:#c9cde0;overflow-wrap:anywhere}
+#home .hm-books i{font-style:normal;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#eaa94a}
+#home .hm-books .next{border-color:#eaa94a}
+#home .hm-books .next b{color:#eaa94a}
+#home .hm-books .soon{background:transparent;border-style:dashed}
+#home .hm-books .soon b{color:#4a5378}
+#home .hm-books .soon span{color:#6d7699}
 #home .hm-price{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;max-width:640px;margin:0 auto}
 #home .hm-price .hm-card{text-align:center}
 #home .hm-cost{font-size:26px;color:#f6f2e4;font-weight:600}
@@ -101,10 +111,23 @@ html.home-on,html.home-on body{overflow:hidden}
 <h2>Lo que espera abajo</h2>
 <div class="hm-grid">
 <div class="hm-card"><div class="hm-pic"><img src="../media/classes.png" alt="Las doce clases" loading="lazy" width="765" height="350"></div><b>Doce clases</b><p>Guerrero, Mago, Pícaro, Clérigo, Explorador, Nigromante, Druida, Púgil, Demonio, Vástago, Elementalista y Huargo, cada uno con sus habilidades, talentos y títulos.</p></div>
-<div class="hm-card"><div class="hm-pic"><img src="../media/bosses.gif" alt="Jefes de la historia" loading="lazy" width="690" height="429"></div><b>Una historia en cuatro libros</b><p>Ochenta pisos, veinte jefes de historia, mazmorras secundarias en cuatro niveles y un Abismo sin fin. Cada libro termina con una elección.</p></div>
+<div class="hm-card"><div class="hm-pic"><img src="../media/bosses.gif" alt="Jefes de la historia" loading="lazy" width="690" height="429"></div><b>A story in eight books</b><p>Four are here: eighty floors, twenty story bosses, side dungeons at four tiers, and an endless Abyss. Every book ends with a choice, and four more are on the way.</p></div>
 <div class="hm-card"><div class="hm-pic"><img src="../media/chests.png" alt="Cofres, del oxidado al legendario" loading="lazy" width="1102" height="172"></div><b>Botín que se ve</b><p>Cada espada, bastón y armadura aparece en tu héroe. Legendarios, conjuntos de clase, encantamientos y cofres que se abren con estilo.</p></div>
 <div class="hm-card"><div class="hm-pic"><img src="../media/pets.png" alt="Mascotas que puedes domar" loading="lazy" width="1030" height="506"></div><b>Amigos y mascotas</b><p>Compite en la misma semilla, juega en directo con otros o forma una incursión de cuatro. Doma y haz evolucionar 24 mascotas. Modo hardcore y mazmorra diaria.</p></div>
 </div>
+
+<h2>Four more books are coming</h2>
+<p class="hm-lede">Arden's chart shows seven doors in seven kingdoms. Three are shut. The story goes on until the last one, and every book in it comes with the full game.</p>
+<ol class="hm-books">
+<li style="--c:#f3d36b"><b>I</b><span>The Last Lantern</span></li>
+<li style="--c:#d48cff"><b>II</b><span>The Hunger Below</span></li>
+<li style="--c:#62d6d6"><b>III</b><span>Across the Ashen Sea</span></li>
+<li style="--c:#ff8a5c"><b>IV</b><span>The Lantern War</span></li>
+<li class="next"><b>V</b><span>The Quiet Kingdom</span><i>next</i></li>
+<li class="soon"><b>VI</b><span>coming</span></li>
+<li class="soon"><b>VII</b><span>coming</span></li>
+<li class="soon"><b>VIII</b><span>coming</span></li>
+</ol>
 
 <h2>Míralo en movimiento</h2>
 <video class="hm-video" src="../media/teaser.mp4" poster="../media/teaser-poster.jpg" controls preload="none" playsinline width="1080" height="1920"></video>
@@ -541,7 +564,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
   <div class="sheet">
     <div class="title-head">
       <div class="lantern" id="lantern" role="img" aria-label="La Última Linterna" title="La Última Linterna"><canvas id="lanternCv" width="24" height="32"></canvas></div>
-      <h1 class="title-words"><span class="tw-big">LANTERNS</span><span class="tw-of">of the</span><span class="tw-big">UNDERVAULT</span><span class="tw-sub">cuatro libros · ochenta pisos<br>un linaje</span></h1>
+      <h1 class="title-words"><span class="tw-big">LANTERNS</span><span class="tw-of">of the</span><span class="tw-big">UNDERVAULT</span><span class="tw-sub">four books · eighty floors<br>four more coming · one bloodline</span></h1>
     </div>
     <p class="tag">Una mazmorra de texto al estilo de los viejos MUD. Lucha, saquea, doma bestias y desciende bajo Emberfall para reavivar los sellos que se apagan; después, sigue a la oscuridad al otro lado del mar.</p>
     <p class="hint abyss-top" id="abyssTop" hidden></p>
@@ -4143,6 +4166,7 @@ function questNow(){
 }
 function questLine(){
   if(!S)return '';const q=questNow(),here=q.f&&!S.dg&&S.floor===q.f;
+  if(S.flags.lily)return `{o}Book V:{n} The Quiet Kingdom is on the way. Until then: Lily's raid, the Trials and the Abyss.`;   /* the written story is done */
   return `{o}${q.C.n}:{n} ${q.st.o}`+(q.f?` {d}(${here?'on this floor':'floor '+q.f})`:'');   /* "here" read as this room */
 }
 /* Closing a chapter when you report to Maren. */
@@ -6662,7 +6686,7 @@ Object.assign(TALE_START,{
  summer:{so:()=>(END4[S.flags.ended4]||'')+' But the summers never came back to Kaldmark.',
     ahead:'South of anywhere anyone has drawn, on the last warm mountain, there is a garden where it is always summer. A lady in a sunhat keeps it, and everything in it was paid for by somebody else. Her name is Lily.'},
  fin4:{so:'You faced Lily the Sweethang in her garden at the top of the world, and she let the summers go. They flew north like birds, and every village in Kaldmark woke up warm.',
-    ahead:'Arden\'s chart shows seven doors. Three are shut now. One of the four that are not is in the sky, and something fell out of it once. Lily\'s garden is already growing back, and she is waiting for you, and your friends.'}
+    ahead:'Arden\'s chart shows seven doors. Three are shut now. One of the four that are not is in the sky, and something fell out of it once. Lily\'s garden is already growing back, and she is waiting for you, and your friends. And a ship has come in from the west, and nobody aboard will say a word.'}
 });
 
 /* ----- a story boss's fall: what you learned, and what comes next ----- */
@@ -7982,7 +8006,8 @@ function book4Talk(){
      `{w}"I don't know what's down there. I don't think it's a war. But I think you should go."`].forEach(t=>out(t,'story'));
     out(`{g}CHAPTER XXII: EVERLASTING SUMMER.{n} {d}The garden at the top of the world is open: Expeditions, under side dungeons.{n} {@quests|See the way}`,'kill');
     taleShow('summer','EVERLASTING SUMMER','#9ae67a',taleSlides('summer'));save(true);return true;}
-  if(S.flags.lily){out(`Hale has a vase on the war table now, full of flowers nobody can name, that never wilt. {w}"Arrived from the south,"{n} he says. {w}"No note. Just: For the kind captain. Sorry about the cold."`);return true;}
+  if(S.flags.lily){out(`Hale has a vase on the war table now, full of flowers nobody can name, that never wilt. {w}"Arrived from the south,"{n} he says. {w}"No note. Just: For the kind captain. Sorry about the cold."`);
+    out(`{w}"Odd thing,"{n} he adds. {w}"A ship came in from the west this morning. Nobody aboard has said a word. They talk with their hands."{n} {d}(Book V, The Quiet Kingdom, is on the way.)`);return true;}
   if(S.flags.ended4){out(`{w}"The south,"{n} Hale says. {w}"The garden. Go and see."{n} {@quests|Expeditions}`);return true;}
   const c=[15,16,17,18,19].find(k=>!bossDone(k));
   const L={15:`{w}"Sapper-General Brune,"{n} Hale says, tapping the map. {w}"She's under the cisterns. Stop her before she reaches the wells."`,16:`{w}"They've built something,"{n} Hale says. {w}"An engine. A big one. If it reaches the Gate it will put a stone through the Lantern."`,17:`{w}"They've pulled back to the Greywold,"{n} says Hale. {w}"The Frost Marshal is holding the hill. Solenne's fleet is coming up the coast. Light the beacon on the coast road when you're ready."`,18:`{w}"Over the Teeth,"{n} Hale says, very quietly. {w}"Our scouts came back. They won't talk about what they saw. Go and see for yourself."`,19:`{w}"Hollowcrown,"{n} says Hale. {w}"The king. End it."`}[c]||`{w}"The war's over,"{n} Hale says, and does not sound as if he believes it.`;
@@ -8034,7 +8059,7 @@ function book4Choose(arg){
   if(!queueScene({t:'act',kicker:'THE END OF BOOK IV',title:last,text:E.slice(0,-1).map(plainTxt).join('  '),col:'#ff8a5c',fx:'spark',art:'lantern',sound:'relit'}))sfx('relit');
   out('');E.forEach(t=>out('{w}'+t,'story'));
   out(`The war is over. On the long road home you pass village after village with yellow fires in the windows. But the summers have not come back. Fifty years ago someone bought them, one from every village, very politely, and took them south.`,'story');
-  out('');out('{y}THE END OF BOOK IV.','huge');out('{c}But not of the story.','huge');out(`{d}Seed ${S.seed}, level ${S.lvl}, ${S.kills} kills, ${S.deaths} deaths.{n} {d}Report to the war table.`);
+  out('');out('{y}THE END OF BOOK IV.','huge');out('{c}But not of the story.','huge');out('{d}The story of the seven doors runs to eight books. Book V, The Quiet Kingdom, is on the way.');out(`{d}Seed ${S.seed}, level ${S.lvl}, ${S.kills} kills, ${S.deaths} deaths.{n} {d}Report to the war table.`);
   save(true);
 }
 function book4Quick(add){add('Take his crown','choose conquer','foe');add('Shut his door','choose shutout','foe');if(book4Lore()>=15)add('Share the light','choose share','gold');}
@@ -8175,6 +8200,7 @@ DUNGEONS.summer={name:'The Everlasting Summer',col:'g',floors:1,fixed:1,story:1,
     out(`{w}The summers are going home.{n} All across the north, in villages that have been cold for fifty years, people are going to wake up tomorrow and open their windows.`,'story');
     out(`{d}Lily is still here, in her garden, smaller now. She does not look at you. She is planting something again, very slowly.{n}`,'story');
     out(`{m}LILY'S EVERLASTING SUMMER is open: the hardest raid there is.{n} {d}Lily's garden is already growing back, and this time she will not be alone in it. Bring friends.{n}`,'kill');
+    out(`{d}Three doors are shut, and four are open. Book V, The Quiet Kingdom, is on the way.{n}`);
     liveMoment('faced Lily the Sweethang in her garden, and sent the summers home.');
     if(!queueScene({t:'relit',kicker:'CHAPTER XXII',title:'THE SUMMERS GO HOME',sub:'Lily\'s Everlasting Summer is open, as a raid.',col:'#9ae67a',fx:'spark',art:'lantern',sound:'relit',auto:3600}))sfx('relit');
     taleLanterns(false);}

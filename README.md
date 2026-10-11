@@ -21,7 +21,7 @@ Fight, loot, tame beasts and descend beneath Emberfall to relight the failing se
 
 Every room is written prose. Every command is a word you type, or a button you tap. Tap any highlighted word in the text to act on it.
 
-- **A story in four books**: five chapters down to the Ember Throne, then **Book II: The Hunger Below**, five more acts beneath it, then **Book III**: the crossing to **Solenne**, a far kingdom, and five acts down the **Drowned Stair** beneath it, then **Book IV: The Lantern War**, five acts at war with the iron king of Kaldmark, and a garden at the top of the world where **Lily the Sweethang** keeps the stolen summers
+- **A story in eight books, four of them here** (Books V to VIII are on the way, starting with *The Quiet Kingdom*): five chapters down to the Ember Throne, then **Book II: The Hunger Below**, five more acts beneath it, then **Book III**: the crossing to **Solenne**, a far kingdom, and five acts down the **Drowned Stair** beneath it, then **Book IV: The Lantern War**, five acts at war with the iron king of Kaldmark, and a garden at the top of the world where **Lily the Sweethang** keeps the stolen summers
 - **80 seeded floors**, 20 story bosses, the crossing to Solenne, **11 side dungeons** with four **difficulty tiers** up to Nightmare, an endless **Abyss**, random **champions**, and **Winston the Wanderer**, who turns up when you least expect him
 - A **Lore Book** with every chapter you have reached and a portrait of everyone in it
 - **12 classes**, 60 skills, talents, and **titles** that grow from Squire to God-Slayer
