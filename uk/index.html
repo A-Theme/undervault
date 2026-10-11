@@ -701,7 +701,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
 </div>
 
 <script>
-const GAME_VERSION="1.19.0";let BUILD_CHANNEL="web";const GAME_LANG="uk",LANG_LIVE=[];
+const GAME_VERSION="1.19.0";let BUILD_CHANNEL="web";const BOOKS_IN=4;const GAME_LANG="uk",LANG_LIVE=[];
 /* ================= CONFIG =================
    Online leaderboard (Supabase). Leave both empty to play without it; the game shows "not set up".
    To enable: create a Supabase project, run tools/supabase.sql in its SQL Editor, then copy
@@ -4166,7 +4166,7 @@ function questNow(){
 }
 function questLine(){
   if(!S)return '';const q=questNow(),here=q.f&&!S.dg&&S.floor===q.f;
-  if(S.flags.lily)return `{o}Book V:{n} The Quiet Kingdom is on the way. Until then: Lily's raid, the Trials and the Abyss.`;   /* the written story is done */
+  if(S.flags.lily&&BOOKS_IN<5)return `{o}Book V:{n} The Quiet Kingdom is on the way. Until then: Lily's raid, the Trials and the Abyss.`;   /* the written story is done */
   return `{o}${q.C.n}:{n} ${q.st.o}`+(q.f?` {d}(${here?'on this floor':'floor '+q.f})`:'');   /* "here" read as this room */
 }
 /* Closing a chapter when you report to Maren. */
@@ -8007,7 +8007,7 @@ function book4Talk(){
     out(`{g}CHAPTER XXII: EVERLASTING SUMMER.{n} {d}The garden at the top of the world is open: Expeditions, under side dungeons.{n} {@quests|See the way}`,'kill');
     taleShow('summer','EVERLASTING SUMMER','#9ae67a',taleSlides('summer'));save(true);return true;}
   if(S.flags.lily){out(`Hale has a vase on the war table now, full of flowers nobody can name, that never wilt. {w}"Arrived from the south,"{n} he says. {w}"No note. Just: For the kind captain. Sorry about the cold."`);
-    out(`{w}"Odd thing,"{n} he adds. {w}"A ship came in from the west this morning. Nobody aboard has said a word. They talk with their hands."{n} {d}(Book V, The Quiet Kingdom, is on the way.)`);return true;}
+    out(`{w}"Odd thing,"{n} he adds. {w}"A ship came in from the west this morning. Nobody aboard has said a word. They talk with their hands."{n}`+(BOOKS_IN<5?' {d}(Book V, The Quiet Kingdom, is on the way.)':''));return true;}
   if(S.flags.ended4){out(`{w}"The south,"{n} Hale says. {w}"The garden. Go and see."{n} {@quests|Expeditions}`);return true;}
   const c=[15,16,17,18,19].find(k=>!bossDone(k));
   const L={15:`{w}"Sapper-General Brune,"{n} Hale says, tapping the map. {w}"She's under the cisterns. Stop her before she reaches the wells."`,16:`{w}"They've built something,"{n} Hale says. {w}"An engine. A big one. If it reaches the Gate it will put a stone through the Lantern."`,17:`{w}"They've pulled back to the Greywold,"{n} says Hale. {w}"The Frost Marshal is holding the hill. Solenne's fleet is coming up the coast. Light the beacon on the coast road when you're ready."`,18:`{w}"Over the Teeth,"{n} Hale says, very quietly. {w}"Our scouts came back. They won't talk about what they saw. Go and see for yourself."`,19:`{w}"Hollowcrown,"{n} says Hale. {w}"The king. End it."`}[c]||`{w}"The war's over,"{n} Hale says, and does not sound as if he believes it.`;
@@ -8059,7 +8059,7 @@ function book4Choose(arg){
   if(!queueScene({t:'act',kicker:'THE END OF BOOK IV',title:last,text:E.slice(0,-1).map(plainTxt).join('  '),col:'#ff8a5c',fx:'spark',art:'lantern',sound:'relit'}))sfx('relit');
   out('');E.forEach(t=>out('{w}'+t,'story'));
   out(`The war is over. On the long road home you pass village after village with yellow fires in the windows. But the summers have not come back. Fifty years ago someone bought them, one from every village, very politely, and took them south.`,'story');
-  out('');out('{y}THE END OF BOOK IV.','huge');out('{c}But not of the story.','huge');out('{d}The story of the seven doors runs to eight books. Book V, The Quiet Kingdom, is on the way.');out(`{d}Seed ${S.seed}, level ${S.lvl}, ${S.kills} kills, ${S.deaths} deaths.{n} {d}Report to the war table.`);
+  out('');out('{y}THE END OF BOOK IV.','huge');out('{c}But not of the story.','huge');if(BOOKS_IN<5)out('{d}The story of the seven doors runs to eight books. Book V, The Quiet Kingdom, is on the way.');out(`{d}Seed ${S.seed}, level ${S.lvl}, ${S.kills} kills, ${S.deaths} deaths.{n} {d}Report to the war table.`);
   save(true);
 }
 function book4Quick(add){add('Take his crown','choose conquer','foe');add('Shut his door','choose shutout','foe');if(book4Lore()>=15)add('Share the light','choose share','gold');}
@@ -8200,7 +8200,7 @@ DUNGEONS.summer={name:'The Everlasting Summer',col:'g',floors:1,fixed:1,story:1,
     out(`{w}The summers are going home.{n} All across the north, in villages that have been cold for fifty years, people are going to wake up tomorrow and open their windows.`,'story');
     out(`{d}Lily is still here, in her garden, smaller now. She does not look at you. She is planting something again, very slowly.{n}`,'story');
     out(`{m}LILY'S EVERLASTING SUMMER is open: the hardest raid there is.{n} {d}Lily's garden is already growing back, and this time she will not be alone in it. Bring friends.{n}`,'kill');
-    out(`{d}Three doors are shut, and four are open. Book V, The Quiet Kingdom, is on the way.{n}`);
+    if(BOOKS_IN<5)out(`{d}Three doors are shut, and four are open. Book V, The Quiet Kingdom, is on the way.{n}`);
     liveMoment('faced Lily the Sweethang in her garden, and sent the summers home.');
     if(!queueScene({t:'relit',kicker:'CHAPTER XXII',title:'THE SUMMERS GO HOME',sub:'Lily\'s Everlasting Summer is open, as a raid.',col:'#9ae67a',fx:'spark',art:'lantern',sound:'relit',auto:3600}))sfx('relit');
     taleLanterns(false);}
