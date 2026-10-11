@@ -710,6 +710,9 @@ const GAME_VERSION="1.19.0";let BUILD_CHANNEL="web";const BOOKS_IN=4;const GAME_
    add new ones, never change or delete them. */
 /* Where share links point (`share`, and the title screen's "Share this seed"). */
 const SITE_URL='https://playundervault.com/';
+/* Books written ahead but held back (release.json) bring their own legends here, since legends.js loads after them:
+   each adds {uniq:{name:story}, sets:{key:{...}}}, and legends.js takes them in. */
+const LATER_LEGENDS=[];
 const LEADERBOARD={url:'https://uxlkammmhdtsizylsahc.supabase.co',key:'sb_publishable_yNyx9DKntsGXJ0_cSCB1NQ_y0lAsp6E'};
 
 'use strict';
@@ -9066,6 +9069,8 @@ function legendSee(it,quiet){
     if(!quiet)out(`{o}${it.name} has a story.{n} {d}It is in your {@codex legends|Lore Book}.{n}`);return true;}
   return false;
 }
+/* the held-back books' own legends (config.js), in a build that has them */
+LATER_LEGENDS.forEach(L=>{Object.assign(LEGEND_UNIQ,L.uniq||{});Object.assign(LEGEND_SETS,L.sets||{});});
 /* Heroes from before Legends already carry some: count what is in the pack, worn and in the stash. */
 function legendBackfill(){if(!S)return;[...(S.inv||[]),...Object.values(S.eq||{}),...(S.stash||[])].forEach(it=>legendSee(it,true));}
 {const prev=addItem;addItem=function(it,silent){const ok=prev(it,silent);if(ok&&it&&(it.set||it.unique))legendSee(it);return ok;};}
