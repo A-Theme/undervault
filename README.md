@@ -58,13 +58,18 @@ Keep up to **three heroes** and switch between them from the title screen (or **
 
 ### Steam Deck
 
-In Desktop Mode, open **Konsole** and paste:
+1. Press the **Steam** button, then **Power → Switch to Desktop**.
+2. Open the app menu at the bottom left, then **System → Konsole**.
+3. Paste this and press Enter (**Steam + X** brings up the keyboard):
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/A-Theme/undervault/main/steamdeck.sh | bash
-```
+   ```bash
+   curl -fsSL https://playundervault.com/steamdeck.sh | bash
+   ```
 
-It makes a *Lanterns of the Undervault* app that opens the game full-screen, with its icon, and adds it to your Steam library. It uses Chrome, Chromium, Edge, Brave or Firefox if you have one, and otherwise installs Chromium from Flathub for your user only (no sudo). Then switch to Game Mode and play it from your library under Non-Steam.
+4. When it says **Done**, double-click **Return to Gaming Mode** on the desktop.
+5. In your Library, open the **Non-Steam** tab and start **Lanterns of the Undervault**.
+
+The command makes a *Lanterns of the Undervault* app that opens the game full-screen, with its icon, and adds it to your Steam library. It uses Chrome, Chromium, Edge, Brave or Firefox if you have one, and otherwise installs Chromium from Flathub for your user only (no sudo).
 
 - **Controller**: the game plays with the Deck's controls (and any Xbox, PlayStation or Switch Pro controller in a browser). If the buttons do nothing, open the game's controller settings in Steam and pick the **Gamepad** layout.
 - **Artwork**: the installer saves Steam library art to `~/.local/share/undervault/art`. On the game's page, choose Properties > Customization (or Manage > Set custom artwork) to use it.
