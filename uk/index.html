@@ -4806,6 +4806,9 @@ function expoGo(go){
   const [kind,arg]=go.split(':'),f=go==='deep'?S.deepest:kind==='act'?+arg:0;
   /* the war (Book IV): the war table in the Watchtower, the herald in the Square, and the front (61-80) */
   if(go==='wartable'||go==='square'){const room=go==='square'?1:10;if(S.floor>0||S.town==='solenne'){out("{b}Ти смикаєш нитку Ліхтаря. Темрява згортається — і ти вдома.");toTown(room);if(!queueScene(sceneRecall()))sfx('recall');}else{S.room=room;enterRoom();}return;}
+  /* Book V (book5.js, only in a build that has it): west to Marrowgate (81-100) */
+  if(f>80&&typeof cmdWestward==='function'){if(f!==81&&S.deepest<f){out("Ти ще не заходив так далеко.");return;}
+    S.dg=null;out(`{c}Captain Varo takes you west again, to Marrowgate: floor ${f}.`);gotoFloor(f,'start');return;}
   if(f>60){if(!book4On()){out("Війни немає. Поки що.");return;}if(f!==61&&S.deepest<f){out("Фронт ще не дійшов так далеко.");return;}
     if(S.floor>0||S.town==='solenne'){out("{b}Ти смикаєш нитку Ліхтаря й повертаєшся до воєнного столу.");toTown(10);if(!queueScene(sceneRecall()))sfx('recall');}
     S.dg=null;out(`{c}Ти виступаєш на фронт: поверх ${f}.`);gotoFloor(f,'start');return;}
@@ -7687,7 +7690,7 @@ function renderParty(){if(!$('#expo').hidden)renderExpo();if(S)render();}
    (book4On), at the war table in the Watchtower, after the herald in the Square. `march` sends you to the front. */
 
 const book4On=()=>!!(S&&S.flags&&S.flags.war);
-const warFloor=()=>!!(S&&S.floor>60&&!S.dg);
+const warFloor=()=>!!(S&&S.floor>60&&S.floor<=80&&!S.dg);   /* the front: Book IV's floors only */
 const book4Lore=()=>S.lore.filter(n=>n>45).length;
 ZONE2.push(104,105,106,107, 108,109,110,111, 112,113,114,115, 116,117,118,119, 120,121,122,123);   /* the cap is 80 (power 111.6): the war stays about as far ahead of you as the Drowned Stair did */
 BOSS_LVL2.push(108,112,116,120,124);
@@ -8099,7 +8102,7 @@ function cmdTriage(){
 }
 /* Objectives: two rooms on every war floor (placed when the floor is made). */
 const WAR_OBJ=['war_hold','war_engine','war_captives','war_banner'];
-{const prev=genFloor;genFloor=function(f){const fl=prev(f);if(f>60&&!S.dg&&fl&&fl.rooms)warObjectives(fl,f);return fl;};}
+{const prev=genFloor;genFloor=function(f){const fl=prev(f);if(f>60&&f<=80&&!S.dg&&fl&&fl.rooms)warObjectives(fl,f);return fl;};}
 function warObjectives(fl,f){
   const r=rngFor(S.seed+'#WAR'+f+'#NG'+S.ng),ok=fl.rooms.filter(x=>x.type==='normal'&&!x.story&&x.id!==0&&!x.ev&&x.id!==fl.exitRoom);
   shuffle(r,ok);const ks=WAR_OBJ.slice();shuffle(r,ks);
