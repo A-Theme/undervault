@@ -299,6 +299,20 @@ button.ex-mis.done{border-left-color:var(--kg)}button.ex-mis::after{content:'\20
 .cl{color:var(--kc);text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
 span .cl{color:inherit}
 #quick{display:flex;flex-wrap:wrap;gap:5px;max-height:82px;overflow-y:auto}
+/* the guided first steps (tutorial.js): a card above the buttons, and a glow on the one to press */
+#tut{background:var(--panel2);border:1px solid var(--accent);border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.45;display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+#tut .tut-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#tut .tut-top b{font-family:var(--disp);color:var(--accent);font-size:11px;font-weight:normal;letter-spacing:.08em;text-transform:uppercase}
+#tut .tut-x{background:none;border:0;color:var(--dim);font-size:20px;line-height:1;padding:0 4px}
+#tut p{margin:0}
+#tut .tut-btns{display:flex;gap:6px;flex-wrap:wrap}
+#tut .tut-btns button{padding:7px 12px;font-size:13px}
+#tut .tut-go{background:var(--accent);color:#1a1205;border-color:var(--accent);font-weight:bold}
+#tut .tut-alt{color:var(--dim)}
+.tut-hi{outline:2px solid var(--accent);outline-offset:1px;animation:tutGlow 1.4s ease-in-out infinite}
+#quick .tut-hi{outline-offset:-2px}   /* #quick scrolls, so a glow outside its buttons would be cut off */
+@keyframes tutGlow{0%,100%{box-shadow:0 0 0 0 rgba(234,169,74,0)}50%{box-shadow:0 0 12px 3px rgba(234,169,74,.55)}}
+@media (prefers-reduced-motion:reduce){.tut-hi{animation:none}}
 #quick:empty{display:none}
 .qb{padding:7px 9px;font-size:12px;min-height:34px}
 .qb.foe{border-color:#7a2e3a;color:#ffb3b3}
@@ -514,6 +528,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
   <div id="quest" data-cmd="quests" role="button" tabindex="0"></div>
   </div><canvas id="mini" width="88" height="88" role="button" tabindex="0" aria-label="Mini-carte. Touchez pour voir tout l'étage." hidden></canvas></div>
   <div id="term" role="log" aria-live="polite"></div>
+  <div id="tut" hidden aria-live="polite"></div>
   <div id="quick"></div>
   <div id="pads">
     <div class="pad" id="dpad"></div>
@@ -4841,7 +4856,7 @@ function openMapView(){
   cv.style.width=cv.style.height=px+'px';cv.width=cv.height=Math.round(px*dpr);
   paintMap(cv.getContext('2d'),cv.width,0,0,span,cv.width/span);
   el.querySelector('.mv-title').textContent=town?townName():(S.dg?theme().name+", étage "+floorLabel():'Floor '+S.floor+': '+theme().name);
-  el.hidden=false;sfx('scroll');
+  el.hidden=false;sfx('scroll');tutEv('map');
 }
 
 /* ================= CHALLENGES =================
@@ -9294,6 +9309,72 @@ function langPick(){
 }
 if($('#langPick')){$('#langPick').addEventListener('click',e=>{const a=e.target.closest('[data-lang]');if(a)pref('lang',a.dataset.lang);});langPick();}
 
+/* ================= FIRST STEPS =================
+   A guided start for players who have never played a text adventure (a MUD): a small card above the buttons
+   (#tut) says what to do next, the button to press glows (.tut-hi), and the card moves on by itself when you do it.
+   It is offered to the first hero made on a device (pref 'tut' remembers the answer), and `tutorial` starts it again
+   at any time. S.tut is where you are: {i: the step, b: your kills when it began, map: you have opened the map};
+   null when it is off. A step with done() moves on when it comes true (and is skipped if it already is);
+   one with next waits for its button. */
+const TUT=[
+ {t:()=>`{w}New to games like this?{n} This is a text adventure: you read what happens, then choose what to do. A short guide can walk you through your first steps.`,
+  btn:[['Show me how to play','go'],['I know how to play','off']]},
+ {hi:['#term'],next:1,
+  t:()=>`The story is written in the big box above, newest at the bottom. Scroll up to read anything you missed. Cyan words with a dotted line under them, like {@look|this one}, can be tapped, and so can the buttons below. Or type a command in the box at the very bottom.`},
+ {hi:['#mini','#dpad [data-cmd="map"]'],done:T=>!!T.map,
+  t:()=>miniOn()?`This little map follows you. The gold square is you, and the lines are the ways out of each room. Tap it to see the whole place, then tap anywhere to close it.`
+   :`Tap {w}Map{n} to see where you are. The gold square is you, and the lines are the ways out of each room.`},
+ {hi:['#dpad [data-cmd="n"]'],done:()=>(S.floor===0&&cur().npc==='maren')||!!S.flags.gift,
+  t:()=>`To move, tap {w}N{n}, {w}E{n}, {w}S{n} or {w}W{n} (north, east, south, west), or type n, e, s or w. Every room lists its exits under it. Sister Maren is in the Temple, north of the Square: go and find her.`},
+ {hi:['#quick [data-cmd="talk"]','#apad [data-cmd="talk"]'],done:()=>!!S.flags.gift,
+  t:()=>`Someone is here. Tap {w}Talk{n}. Talking is how you find out what to do: people give you directions, quests, gifts and warnings. Talk to everyone you meet, and come back later, because what they say changes.`},
+ {hi:['#quest'],next:1,
+  t:()=>`Your next goal is always written here, at the top. Stuck? Read it, tap it for the whole list of quests, or go back and talk to Maren.`},
+ {hi:()=>[tutAtGate()?'#dpad [data-cmd="d"]':'#dpad [data-cmd="s"]'],done:()=>S.floor>0,
+  t:()=>tutAtGate()?`This is the Gate. Tap {w}Down{n} (or type d) to go down into the Undervault.`
+   :`The way down is the Undervault Gate, south of the Square. Walk there, then tap {w}Down{n}.`},
+ {hi:['#mini'],done:T=>S.fight||S.kills>T.b||!!(S.floor&&(cur().mobs||[]).length),
+  t:()=>`You are in the Undervault. Each floor is a maze of rooms, and the map fills in as you walk. Red squares are monsters; the orange square is the stairs down. Go and find something to fight.`},
+ {hi:()=>[S.fight?'#quick [data-cmd="kill"]':'#quick .qb.foe'],done:T=>S.kills>T.b,
+  t:()=>S.fight?`Tap {w}Attack{n} each round until it falls. The red bar at the top is your health; the bar under it is the monster's. If yours runs low, tap {w}Heal{n}.`
+   :`A monster! Tap its {w}Kill{n} button (or type kill) to fight it. A fight goes in rounds: keep tapping {w}Attack{n} until it falls.`},
+ {hi:['#hpb'],next:1,
+  t:()=>`Well fought. Keep an eye on your health, the red bar. When it runs low, drink a Healing Draught (Heal), {w}Rest{n} in an empty room, or {w}Recall{n} to go home to town. If you do fall, the thread pulls you back to town: it is never the end.`},
+ {hi:['#apad [data-cmd="eq"]','#dpad [data-cmd="inv"]'],next:1,
+  t:()=>`Monsters and chests drop gold and gear, and you pick it up as you go. {w}Inv{n} is your pack and {w}Gear{n} is what you wear; anything better than yours says so in green. Brakka, at the Forge in town, sells and upgrades.`},
+ {btn:[['Start playing','off']],
+  t:()=>`That's all you need. Follow the goal at the top, floor by floor, down to the Wardstone at the bottom of each act, and talk to everyone on the way. Type {@help|help} whenever you are unsure, or {@tutorial|tutorial} to see this guide again. Good luck, ${S.name}.`}
+];
+const tutAtGate=()=>S.floor===0&&cur().npc==='gate';
+function tutOn(){return !!(S&&S.tut&&TUT[S.tut.i]);}
+function tutGo(i){const m=S.tut&&S.tut.map;S.tut=TUT[i]?{i,b:S.kills||0,map:m}:null;}
+/* `tutorial`: the guide from its first real step. */
+function tutStart(){S.tut={i:1,b:S.kills||0};pref('tut','1');tutTick();out('{d}The guide is open, just above the buttons.');}
+/* Something the guide was waiting for (k: 'map'). */
+function tutEv(k){if(!tutOn())return;S.tut[k]=1;tutTick();}
+/* After every command (render): move on past the steps you have done, then draw the card. */
+function tutTick(){
+  for(let n=0;n<TUT.length&&tutOn();n++){const s=TUT[S.tut.i];if(!s.done||!s.done(S.tut))break;tutGo(S.tut.i+1);}
+  tutPaint();
+}
+function tutPaint(){
+  const el=$('#tut');if(!el)return;
+  document.querySelectorAll('.tut-hi').forEach(e=>e.classList.remove('tut-hi'));
+  if(!tutOn()||!$('#title').hidden){el.hidden=true;return;}
+  const i=S.tut.i,s=TUT[i],hi=(typeof s.hi==='function'?s.hi():s.hi)||[];
+  const btn=s.btn||[s.next?['Next','next']:['Skip this step','next']];
+  el.innerHTML=`<div class="tut-top"><b>${i?`First steps ${i} of ${TUT.length-1}`:'First steps'}</b><button type="button" class="tut-x" data-tut="off" aria-label="Close the guide">&times;</button></div>`
+    +`<p>${fmt(s.t())}</p><div class="tut-btns">${btn.map(([l,a],j)=>`<button type="button" data-tut="${a}" class="${j||(!s.btn&&!s.next)?'tut-alt':'tut-go'}">${esc(l)}</button>`).join('')}</div>`;
+  el.hidden=false;
+  hi.forEach(q=>{const e=document.querySelector(q);if(e&&e.offsetParent!==null)e.classList.add('tut-hi');});
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-tut]');if(!b||!S||!S.tut)return;e.preventDefault();
+  const a=b.dataset.tut;pref('tut','1');
+  if(a==='off')S.tut=null;else tutGo(a==='go'?1:S.tut.i+1);
+  tutTick();save(true);
+});
+
 /* ================= SHOPS ================= */
 function potPrice(k){return Math.round(POT[k].p*(1+dangerLvl()*0.06));}
 /* A real bed costs gold that scales with depth, so recalling to heal is a choice, not a free reset. */
@@ -9916,6 +9997,7 @@ function help(arg){
     `{w}Talents{n}    Maître des bêtes rend chaque familier plus fort. Les Rôdeurs ont aussi Chef de meute, et apprivoisent mieux que personne.`].join('\n'));return;}
   if(arg==='inn'){out(`${S.town==='solenne'?"La Lampe de Sel est sur le quai, à l'ouest du Quai du Levant":"La Chandelle Noyée est à l'ouest de la Porte, au sud de la Forge"}. Un lit (${innCost()} po, plus cher à mesure que vous descendez) vous rétablit entièrement et vous rend Bien reposé : +${restPct()} % d'expérience jusqu'à votre prochain retour en ville. Sans un sou, l'âtre vous rétablit à moitié. Votre réserve est à l'étage, dans les deux auberges.`);return;}
   out([`{y}== COMMENT JOUER ==`,
+  `{w}New?{n}     {@tutorial|tutorial}: a short guide through your first steps`,
   `{w}Aller{n}    {@n|n} {@e|e} {@s|s} {@w|w} {@u|u} {@d|d}, ou les touches`,
   `{w}Enchaîner{n} n;e;kill   {w}Marche rapide{n} .3n2e`,
   `{w}Regarder{n} {@look|look}, look <chose>, {@map|map}, {@where|where}`,
@@ -9957,7 +10039,7 @@ function defc(names,fn){names.split(' ').forEach(n=>CMDS[n]=fn);}
 defc('n north',()=>move('n'));defc('s south',()=>move('s'));defc('e east',()=>move('e'));defc('w west',()=>move('w'));
 defc('u up ascend',()=>move('u'));defc('d down descend',()=>move('d'));
 defc('l look ex examine',a=>a?examine(a):look());
-defc('m map',drawMap);
+defc('m map',a=>{drawMap(a);tutEv('map');});
 defc('k kill attack a hit fight',cmdKill);
 defc('def defend block',()=>{if(!S.fight){out("Vous ne combattez rien.");return;}round(()=>{S.fx.defend=true;const st=stats();S.mp=Math.min(st.mmp,S.mp+4);sfx('block');out("{c}Vous vous préparez au choc.");});});
 defc('flee run',cmdFlee);defc('march',a=>cmdMarch(a));defc('triage',()=>cmdTriage());defc('winston wanderer',a=>cmdWinston(a));defc('join',()=>ttJoin());
@@ -9993,7 +10075,7 @@ defc('j journal story',journal);defc('recap previously sofar',()=>taleRecap(fals
 defc('trials trial legend',cmdTrials);
 defc('where seed',where);
 defc('save',()=>{save(false);});
-defc('help h ?',help);
+defc('help h ?',help);defc('tutorial',tutStart);
 defc('choose',choose);
 defc('pick lockpick',()=>cmdEvent('pick'));defc('trace',()=>cmdEvent('trace'));defc('answer',()=>cmdEvent('answer'));defc('solve',()=>cmdEvent('solve'));
 defc('fortune',cmdFortune);defc('polish',cmdPolish);defc('contract contracts',cmdContract);
@@ -10234,7 +10316,7 @@ function render(){
   $('#sub').innerHTML=(S.hard?'<span class="hc">Hardcore</span>':'')+`<span>Or <b>${S.gold}</b></span><span>Pierres <b>${S.bosses.filter(Boolean).length}/5</b></span>`+(book2On()?`<span>Réduits au silence <b>${S.b2.filter(Boolean).length}/5</b></span>`:'')+(book3bOn()?`<span>Apaisés <b>${(S.b3||[]).filter(Boolean).length}/5</b></span>`:'')+(book4On()?`<span>Front <b>${(S.b4||[]).filter(Boolean).length}/5</b></span>`:'')+(voySub())+`<span>Savoir <b>${S.lore.length}/${loreMax()}</b></span>`+(pt?`<span>Familier <b>${esc(pt.nick)}</b> ${pt.hp>0?pt.hp+'hp':"<em class=\"down\">À TERRE</em>"}</span>`:'')+(S.wellRested?"<span class=\"rested\">Bien reposé</span>":'')+(talPoints()?`<span class="tp" data-cmd="talents" role="button" tabindex="0">Points de talent <b>${talPoints()}</b></span>`:'')+(S.live?`<span class="live" data-cmd="who" role="button" tabindex="0">En direct <b>${LIVE.status==='on'?Object.keys(LIVE.peers).length:LIVE.status==='connecting'?'...':'offline'}</b></span>`:'');
   $('#quest').innerHTML=fmt(questLine());drawMini();musicUpdate();frTrack();
   $('#loc').textContent=S.floor?(S.dg?`${theme().name} . F${floorLabel()}`:`É${S.floor} . ${theme().name}`):townName();
-  renderQuick();renderPads();
+  renderQuick();renderPads();tutTick();
 }
 function renderQuick(){
   const q=[];const add=(l,c,k)=>q.push([l,c,k||'']);const r=cur();
@@ -10374,6 +10456,7 @@ function newGame(name,cls,seed,hard,live,body){
   S.eq.weapon=genItem(r,'weapon',1,0,CLASSES[cls].start);S.eq.armor=genItem(r,'armor',1,0,CLASS_ARMOR[cls]);
   addPot('hp',2);
   if(cls==='ranger'){const p=newPet('wolf',1);p.nick="Ronce";S.pets.push(p);S.pet=0;}
+  if(!pref('tut'))S.tut={i:0,b:0};   /* the first hero on this device is offered the guided first steps (tutorial.js) */
   const st=stats();S.hp=st.mhp;S.mp=st.mmp;
   $('#title').hidden=true;term.innerHTML='';
   out(`{o}LANTERNS OF THE UNDERVAULT{n}  {d}graine ${S.seed}`,'rt');
