@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy · Lanterns of the Undervault</title>
+<meta name="description" content="What Lanterns of the Undervault keeps about you, and how to delete it.">
+<link rel="icon" href="../icon-192.png">
+<style>
+:root{--bg:#0b0d15;--panel:#11152a;--line:#262d4d;--fg:#d9dcea;--dim:#8a93b8;--accent:#eaa94a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.65 'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+main{max-width:720px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:22px;color:var(--accent);margin:0 0 4px;letter-spacing:.04em}
+h2{font-size:16px;color:var(--accent);margin:32px 0 8px}
+p,li{margin:0 0 10px}ul{padding-left:20px;margin:0 0 10px}
+a{color:#62d6d6}
+.dim{color:var(--dim);font-size:13px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:14px 0}
+</style>
+</head>
+<body>
+<main>
+<h1>Privacy</h1>
+<p class="dim">Lanterns of the Undervault · last updated 10 October 2026</p>
+
+<div class="box">The short version: the game keeps your heroes on your device. If you use the online features, the little they need goes to the game's server. If you sign in, your account and your saves go there too, so you can play on any device. There are no ads, no tracking and no analytics, and nothing is sold or shared for marketing. You can delete your account and everything in it from inside the game.</div>
+
+<h2>On your device</h2>
+<p>Your heroes, settings, friends list and friend code are saved in your browser's storage (or the app's) on your own device. They stay there unless you use the features below.</p>
+
+<h2>The online features</h2>
+<p>These use a database and real-time server run on <a href="https://supabase.com">Supabase</a> for this game. Each one sends only what it needs:</p>
+<ul>
+<li><b>Leaderboards and seed races</b> (on unless you turn off "Send scores" in the menu): your hero's name, class, level, progress (floor reached, bosses, deaths, ending), the seed, and a random id for the run. These are public: anyone playing can see the boards.</li>
+<li><b>Live play and raids</b> (only when you turn them on): your hero's name, class, level, where you are in the dungeon, and what you say in chat, shared live with the other players on the same seed or in your party. Nothing is stored after you leave.</li>
+<li><b>Friends</b>: your friend code, player name, hero and where you are are shown to players who are on the friends lobby while you are online (turn this off with "Hide me" on the Friends screen). Invites and friend requests go only to the player they are for.</li>
+</ul>
+
+<h2>If you sign in</h2>
+<p>Signing in is optional. You sign in with Google or Discord; the game never sees your password. When you do:</p>
+<ul>
+<li>Google or Discord tells the game's server your <b>email address</b>, your <b>name</b> and your <b>profile picture address</b>. These are kept with your account, used only to sign you in, and never shown to other players.</li>
+<li>Your <b>profile</b> is kept: your player name, friend code and friends list, so they follow you to every device.</li>
+<li>Your <b>heroes</b> are kept as cloud saves (Hardcore heroes stay on their own device), so you can carry on from another device.</li>
+<li>Scores you send while signed in show your <b>player name</b> on the public boards.</li>
+</ul>
+<p>Only you can read or change your profile and saves; the database enforces that.</p>
+
+<h2>Buying the full game</h2>
+<p>Book I is free. If you buy the full game:</p>
+<ul>
+<li><b>On the website</b>, <a href="https://stripe.com/privacy">Stripe</a> takes the payment as the seller of record, through its <a href="https://link.com/privacy">Link</a> checkout. Your card details, billing address and email go to them, never to the game. The game's server only records that your account owns the full game, with Stripe's payment number, so it unlocks wherever you sign in.</li>
+<li><b>In the Android app</b>, <a href="https://policies.google.com/privacy">Google Play</a> takes the payment and keeps the purchase with your Google account. The app only asks Google Play whether you own the full game; nothing about the purchase goes to the game's server.</li>
+</ul>
+
+<h2>Deleting your data</h2>
+<ul>
+<li><b>Everything:</b> in the game, open the menu, then <b>Account</b>, then <b>Delete my account</b>. This deletes your account, your profile, every cloud save and the record of a website purchase, at once and for good. Heroes saved on your devices stay there until you delete them.</li>
+<li><b>One hero:</b> delete it on the home screen; signed in, that deletes its cloud save too.</li>
+<li><b>Scores</b> already on the public boards are not tied to your account and are not removed by deleting it; to have one taken down, open an issue at <a href="https://github.com/A-Theme/undervault/issues">github.com/A-Theme/undervault/issues</a>.</li>
+</ul>
+
+<h2>Who else is involved</h2>
+<ul>
+<li><a href="https://supabase.com/privacy">Supabase</a> runs the database, the sign-in and the real-time server.</li>
+<li><a href="https://policies.google.com/privacy">Google</a> and <a href="https://discord.com/privacy">Discord</a>, if you sign in with them.</li>
+<li><a href="https://stripe.com/privacy">Stripe</a> (and its <a href="https://link.com/privacy">Link</a> checkout) and <a href="https://policies.google.com/privacy">Google Play</a>, if you buy the full game.</li>
+<li><a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub Pages</a> hosts the game's website, and the game loads its fonts from <a href="https://policies.google.com/privacy">Google Fonts</a>. Like any website host, they see your IP address when you load the page.</li>
+</ul>
+
+<h2>Children</h2>
+<p>The game does not knowingly collect personal information from children under 13. Signing in requires a Google or Discord account, which have their own age rules.</p>
+
+<h2>Changes and questions</h2>
+<p>If this changes, the date at the top changes too. Questions: fire an email off to support@playundervault.com .</p>
+
+<nav style="font-size:13px;color:var(--dim);margin-top:40px;border-top:1px solid var(--line);padding-top:14px"><a href="./" style="margin-right:12px">Play</a><a href="about.html" style="margin-right:12px">About</a><a href="terms.html" style="margin-right:12px">Terms</a><a href="refund.html" style="margin-right:12px">Refunds</a><a href="privacy.html" style="margin-right:12px">Privacy</a><a href="mailto:support@playundervault.com">Contact</a></nav>
+</main>
+</body>
+</html>
