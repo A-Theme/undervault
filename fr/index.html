@@ -519,7 +519,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
     <div class="pad" id="dpad"></div>
     <div class="pad" id="apad"></div>
   </div>
-  <form id="cmdForm" autocomplete="off"><input id="cmd" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="type a command, or tap above" enterkeyhint="send"><button type="submit">Envoyer</button></form>
+  <form id="cmdForm" autocomplete="off"><input id="cmd" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="tapez une commande, ou touchez ci-dessus" enterkeyhint="send"><button type="submit">Envoyer</button></form>
 </div>
 
 <div id="title" class="overlay">
@@ -533,7 +533,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
     <div class="move-box" id="moveBox" hidden><p><b>Le jeu a déménagé sur playundervault.com.</b> Vos héros sont sauvegardés dans ce navigateur, à cette ancienne adresse. Un seul geste suffit pour les emmener.</p><button id="moveOut" type="button">Emmener mes héros sur playundervault.com</button></div>
     <div class="lbl">Vos héros</div>
     <p class="hint" id="moveInfo" role="status" hidden></p>
-    <button id="accLink" class="link acc-link" type="button" hidden>Sign in to keep your heroes on every device</button>
+    <button id="accLink" class="link acc-link" type="button" hidden>Connectez-vous pour garder vos héros sur chaque appareil</button>
     <div id="slots"></div>
     <a id="moveLink" class="link move-link" href="https://a-theme.github.io/move.html" hidden>Vous avez joué sur a-theme.github.io ? Ramenez vos héros</a>
     <div class="lbl">Nouveau héros</div>
@@ -548,7 +548,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
     <p class="hint" id="dailyInfo" hidden></p>
     <p class="hint link-info" id="linkInfo" hidden role="status"></p>
     <p class="hint">La graine façonne chaque étage, salle, coffre et monstre. Même graine, même donjon : partagez-la pour faire la course avec un ami.</p>
-    <button id="seedShare" class="link share-link" type="button">Share this seed with a friend</button>
+    <button id="seedShare" class="link share-link" type="button">Partager cette graine avec un ami</button>
     <div id="liveWrap" class="opt"><label class="chk"><input type="checkbox" id="liveIn"> Jouer en direct avec des amis sur cette graine</label>
     <p class="hint">Les amis qui commencent sur la même graine avec cette option apparaissent sur votre carte, et vous pouvez vous parler. Nécessite une connexion internet.</p></div>
     <label class="chk"><input type="checkbox" id="hardIn"> Hardcore : une seule vie</label>
@@ -556,7 +556,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
     <p class="hint" id="slotInfo" role="status"></p>
     <button id="beginBtn" class="big" type="button">Descendre</button>
     <button id="titleLore" type="button" class="lb-open">Le Livre du savoir</button>
-    <button id="titleStore" class="link store-link" type="button">Get the full game</button>
+    <button id="titleStore" class="link store-link" type="button">Obtenir le jeu complet</button>
     <button id="titleImport" class="link" type="button">Importer un code de sauvegarde</button>
     <p class="hint privacy-link"><a class="web-only" href="about.html" target="_blank" rel="noopener">À propos</a><span class="web-only"> · </span><a class="web-only" href="terms.html" target="_blank" rel="noopener">Conditions</a><span class="web-only"> · </span><a class="web-only" href="refund.html" target="_blank" rel="noopener">Remboursements</a><span class="web-only"> · </span><a href="privacy.html" target="_blank" rel="noopener">Confidentialité</a></p>
     <p class="hint lang-pick" id="langPick" hidden></p>
@@ -594,7 +594,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
       <button id="mMusic" type="button">Musique : oui</button>
       <button id="mExpo" type="button">Expéditions</button>
       <button id="mLore" type="button">Livre du savoir</button>
-      <button id="mStore" type="button">Full game</button>
+      <button id="mStore" type="button">Jeu complet</button>
       <button id="mBoard" type="button">Classement</button>
       <button id="mLbSend" type="button">Envoyer les scores : oui</button>
       <button id="mLive" type="button">En direct : non</button>
@@ -602,7 +602,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
       <button id="mRace" type="button">Course sur graine</button>
       <button id="mExport" type="button">Exporter la sauvegarde</button>
       <button id="mImport" type="button">Importer une sauvegarde</button>
-      <button id="mAccount" type="button">Sign in</button>
+      <button id="mAccount" type="button">Se connecter</button>
     </div>
   </div>
 </div>
@@ -624,7 +624,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
 <div id="scene" class="scene" hidden role="dialog" aria-modal="true" aria-live="assertive">
   <canvas class="sc-fx" aria-hidden="true"></canvas>
   <div class="sc-body"></div>
-  <div class="sc-tap" aria-hidden="true">tap to continue</div>
+  <div class="sc-tap" aria-hidden="true">touchez pour continuer</div>
 </div>
 <div id="lvlToast" class="lvl-toast" hidden role="status" aria-live="polite"></div>
 <div id="mapView" class="overlay" hidden role="dialog" aria-label="Carte de cet étage">
@@ -645,7 +645,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
   <div class="ex-body"></div></div>
 </div>
 <div id="store" class="overlay" hidden role="dialog" aria-labelledby="storeTitle">
-  <div class="sheet"><div class="ex-head"><div class="lbl" id="storeTitle">The full game</div><button type="button" class="ex-close" data-close="1">Retour</button></div>
+  <div class="sheet"><div class="ex-head"><div class="lbl" id="storeTitle">Le jeu complet</div><button type="button" class="ex-close" data-close="1">Retour</button></div>
   <div class="store-body fr-body"></div></div>
 </div>
 <div id="news" class="overlay" hidden role="dialog" aria-labelledby="newsTitle">
@@ -3547,31 +3547,31 @@ function plainTxt(s){return String(s).replace(/\{@[^|}]+\|([^}]+)\}/g,'$1').repl
 function reducedMotion(){return window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;}
 
 /* ----- the scene types ----- */
-function sceneAct(a){const A_=ACTS[a];return {t:'act',kicker:'ACT '+A_.num+'  ·  '+CHAPTERS[chapterOfAct(a)].t.toUpperCase(),title:A_.name.toUpperCase(),text:plainTxt(A_.intro),col:SC_COL[A_.col],fx:A_.col,art:'stairs',sound:'act'};}
-function sceneDungeon(D,f,first){return {t:'act',kicker:D.endless?'THE ABYSS  ·  FLOOR '+f:'SIDE PASSAGE',title:D.name.toUpperCase(),text:first?plainTxt(D.intro):'',
-  sub:D.endless?'monster level '+lvShow(dgLvl(D)+f-1)+' and rising':dgFloors(D)+' floors  ·  monster level '+lvShow(dgLvl(D))+'-'+lvShow(dgLvl(D)+dgFloors(D)-1),col:SC_COL[D.col],fx:D.endless?'v':D.col,art:'stairs',sound:'act',auto:first?0:2400};}
-function sceneFloor(f){const th=theme(f);return {t:'floor',kicker:'DESCENDING',title:'FLOOR '+f,sub:th.name,col:SC_COL[th.col],fx:S.dg==='abyss'?'v':th.col,art:'stairs',sound:'floor',auto:1500};}
-function sceneBoss(m){const B=bossDef(m);return {t:'boss',kicker:m.raid?'RAID BOSS  ·  PARTY OF '+(S.raid?S.raid.size:'?'):m.dg?(DUNGEONS[m.dg].endless?'FROM THE HUNGER BELOW':'MASTER OF '+DUNGEONS[m.dg].name.toUpperCase()):(m.bi>=10?'BOOK III  ·  '+ACTS[m.bi].name.toUpperCase():m.bi>=5?'BOOK II  ·  '+ACTS[m.bi].name.toUpperCase():'KEEPER OF THE '+['FIRST','SECOND','THIRD','FOURTH','LAST'][m.bi])+' WARDSTONE',
+function sceneAct(a){const A_=ACTS[a];return {t:'act',kicker:"ACTE "+A_.num+'  ·  '+CHAPTERS[chapterOfAct(a)].t.toUpperCase(),title:A_.name.toUpperCase(),text:plainTxt(A_.intro),col:SC_COL[A_.col],fx:A_.col,art:'stairs',sound:'act'};}
+function sceneDungeon(D,f,first){return {t:'act',kicker:D.endless?"L'ABÎME  ·  ÉTAGE "+f:"PASSAGE ANNEXE",title:D.name.toUpperCase(),text:first?plainTxt(D.intro):'',
+  sub:D.endless?"monstres de niveau "+lvShow(dgLvl(D)+f-1)+" et plus":dgFloors(D)+" étages  ·  monstres de niveau "+lvShow(dgLvl(D))+'-'+lvShow(dgLvl(D)+dgFloors(D)-1),col:SC_COL[D.col],fx:D.endless?'v':D.col,art:'stairs',sound:'act',auto:first?0:2400};}
+function sceneFloor(f){const th=theme(f);return {t:'floor',kicker:"DESCENTE",title:"ÉTAGE "+f,sub:th.name,col:SC_COL[th.col],fx:S.dg==='abyss'?'v':th.col,art:'stairs',sound:'floor',auto:1500};}
+function sceneBoss(m){const B=bossDef(m);return {t:'boss',kicker:m.raid?"BOSS DE RAID  ·  GROUPE DE "+(S.raid?S.raid.size:'?'):m.dg?(DUNGEONS[m.dg].endless?"VENU DE LA FAIM D'EN BAS":"MAÎTRE DE "+DUNGEONS[m.dg].name.toUpperCase()):(m.bi>=10?"LIVRE III  ·  "+ACTS[m.bi].name.toUpperCase():m.bi>=5?"LIVRE II  ·  "+ACTS[m.bi].name.toUpperCase():"GARDIEN DE LA "+["PREMIÈRE","DEUXIÈME","TROISIÈME","QUATRIÈME","DERNIÈRE"][m.bi])+" PIERRE DE GARDE",
   title:B.n.toUpperCase(),boss:bossKey(m),text:B.intro.map(plainTxt).join('  '),col:SC_COL[B.col],fx:B.col,sound:'boss',shake:true};}
-function sceneRelit(bi){return {t:'relit',kicker:'WARDSTONE '+(bi+1)+' OF 5',title:'THE LIGHT RETURNS',sub:'Far above, the Last Lantern burns a little brighter.',col:'#7aaeff',fx:'spark',art:'lantern',sound:'relit',auto:2800};}
-function sceneCleared(D){return {t:'relit',kicker:'CLEARED',title:D.name.toUpperCase(),sub:'The dark will fill back in. It always does.',col:SC_COL[D.col],fx:'spark',sound:'victory',auto:2600};}
+function sceneRelit(bi){return {t:'relit',kicker:"PIERRE DE GARDE "+(bi+1)+" SUR 5",title:"LA LUMIÈRE REVIENT",sub:"Tout là-haut, la Dernière Lanterne brûle un peu plus fort.",col:'#7aaeff',fx:'spark',art:'lantern',sound:'relit',auto:2800};}
+function sceneCleared(D){return {t:'relit',kicker:"VIDÉ",title:D.name.toUpperCase(),sub:"L'obscurité reviendra. Elle revient toujours.",col:SC_COL[D.col],fx:'spark',sound:'victory',auto:2600};}
 /* Recall: Maren's thread of blue light pulls you up through every floor at once. */
-function sceneRecall(){const sol=S&&S.town==='solenne';return {t:'recall',kicker:'THE LANTERN-THREAD',title:sol?'SOLENNE':'EMBERFALL',sub:sol?'The thread pulls you up into the Glass College.':'The dark folds, and you are home.',col:'#7aaeff',fx:'warp',sound:'recall',auto:1800};}
-function sceneDeath(hard,sol){return {t:'death',kicker:hard?'HARDCORE':'YOU HAVE FALLEN',title:hard?'YOUR STORY ENDS':'THE THREAD PULLS',sub:hard?'There is no pull this time.':sol?'Up through the sea and the rock, to the Glass College.':'Up through the dark, back to the Temple floor.',col:'#ff6e6e',fx:'ash',auto:2800};}
-function sceneEnding(key){const L=ENDINGS[key].map(plainTxt),last=L[L.length-1];return {t:'act',kicker:'THE END',title:last.replace(/^ENDING:\s*/,''),text:L.slice(0,-1).join('  '),col:'#f3d36b',fx:'spark',art:'lantern',sound:'relit'};}
+function sceneRecall(){const sol=S&&S.town==='solenne';return {t:'recall',kicker:"LE FIL DE LA LANTERNE",title:sol?'SOLENNE':'EMBERFALL',sub:sol?"Le fil vous tire jusqu'au Collège de Verre.":"L'obscurité se replie, et vous voilà chez vous.",col:'#7aaeff',fx:'warp',sound:'recall',auto:1800};}
+function sceneDeath(hard,sol){return {t:'death',kicker:hard?'HARDCORE':"VOUS ÊTES TOMBÉ",title:hard?"VOTRE HISTOIRE S'ACHÈVE":"LE FIL TIRE",sub:hard?"Cette fois, rien ne tire.":sol?"À travers la mer et la roche, jusqu'au Collège de Verre.":"À travers le noir, jusqu'au sol du Temple.",col:'#ff6e6e',fx:'ash',auto:2800};}
+function sceneEnding(key){const L=ENDINGS[key].map(plainTxt),last=L[L.length-1];return {t:'act',kicker:"FIN",title:last.replace(/^ENDING:\s*/,''),text:L.slice(0,-1).join('  '),col:'#f3d36b',fx:'spark',art:'lantern',sound:'relit'};}
 /* Opening a chest: it sits, shakes, the lid pops and the loot comes out. A mimic bares its teeth instead. */
 function sceneChest(tier,loot,mimic){const C=CHESTS[tier]||CHESTS.iron;
-  return {t:'chest',chest:tier,mimic:!!mimic,kicker:'TREASURE',title:C.n.toUpperCase(),openKicker:mimic?'IT WAS A TRAP':null,openTitle:mimic?'MIMIC!':null,loot:loot||[],col:SC_COL[C.col]||'#f3d36b',fx:mimic?'ash':'spark'};}
+  return {t:'chest',chest:tier,mimic:!!mimic,kicker:"TRÉSOR",title:C.n.toUpperCase(),openKicker:mimic?"C'ÉTAIT UN PIÈGE":null,openTitle:mimic?"MIMIQUE !":null,loot:loot||[],col:SC_COL[C.col]||'#f3d36b',fx:mimic?'ash':'spark'};}
 /* A Rare-or-better piece from a chest gets its own card: a picture (you wearing it, or the trinket itself, large),
    its stats, and what it would change against what you wear now, in green and red. Tap it away. */
 function sceneLoot(it,floor){
   const sl=slotFor(it),old=S.eq[sl],eq2=Object.assign({},S.eq,{[sl]:it});
   const a=stats(),real=S.eq;S.eq=eq2;let b;try{b=stats();}finally{S.eq=real;}
-  const rows=[['Max HP',a.mhp,b.mhp],[CLASSES[S.cls].res,a.mmp,b.mmp],['Armor',a.def,b.def],['Crit %',a.crit,b.crit],['Dodge %',a.dodge,b.dodge],['STR',a.str,b.str],['AGI',a.agi,b.agi],['INT',a.int,b.int]];
-  if(sl==='weapon')rows.unshift(['Damage',+avgDmg(S.eq.weapon).toFixed(1),+avgDmg(it).toFixed(1)]);
+  const rows=[["Vie max.",a.mhp,b.mhp],[CLASSES[S.cls].res,a.mmp,b.mmp],['Armor',a.def,b.def],["Critique %",a.crit,b.crit],["Esquive %",a.dodge,b.dodge],["FOR",a.str,b.str],['AGI',a.agi,b.agi],['INT',a.int,b.int]];
+  if(sl==='weapon')rows.unshift(["Dégâts",+avgDmg(S.eq.weapon).toFixed(1),+avgDmg(it).toFixed(1)]);
   const kind=it.kind==='charm'?cap(charmKind(it)):SLOTNAME[sl];
-  return {t:'gear',item:it,eq2,rows:rows.filter(r=>r[1]!==r[2]),kicker:(it.set?'SET PIECE':it.unique?'ONE OF A KIND':RAR[it.rar].n.toUpperCase())+'  ·  '+kind.toUpperCase(),
-    title:it.name+(it.up?' +'+it.up:''),sub:old?'against your '+old.name:'your '+kind.toLowerCase()+' slot is empty',desc:plainTxt(idesc(it)),
+  return {t:'gear',item:it,eq2,rows:rows.filter(r=>r[1]!==r[2]),kicker:(it.set?"PIÈCE DE PANOPLIE":it.unique?"UNIQUE":RAR[it.rar].n.toUpperCase())+'  ·  '+kind.toUpperCase(),
+    title:it.name+(it.up?' +'+it.up:''),sub:old?"comparé à votre "+old.name:'your '+kind.toLowerCase()+" : emplacement vide",desc:plainTxt(idesc(it)),
     off:suits(it)?'':offNote(it),floor:!!floor,col:SC_COL[it.set?'y':RAR[it.rar].c],fx:'spark'};}
 function sceneLootBody(s,add){
   const it=s.item,pic=add('div','sc-pic');
@@ -3580,7 +3580,7 @@ function sceneLootBody(s,add){
   const box=add('div','sc-rows');
   if(s.rows.length)s.rows.forEach(([n,x,y])=>{const d=+(y-x).toFixed(1),r=document.createElement('div');
     r.innerHTML=`<span>${esc(n)}</span><span>${x} <b>→</b> ${y}</span><span class="${d>0?'up':'down'}">${d>0?'+':''}${d}</span>`;box.appendChild(r);});
-  else box.innerHTML='<div class="even">No change to your numbers.</div>';
+  else box.innerHTML="<div class=\"even\">Aucun changement dans vos chiffres.</div>";
   if(s.off)add('div','sc-off',s.off+'.');
   if(s.floor)add('div','sc-off','Your pack is full: it waits on the floor.');
 }
@@ -3601,8 +3601,8 @@ function trinketCanvas(it,scale){
   if(r>=3)[[3,12],[15,9],[14,16],[4,5]].slice(0,r===4?4:2).forEach(([x,y])=>{P(x,y,'#ffffff');P(x-1,y,'#ffffff88');P(x+1,y,'#ffffff88');P(x,y-1,'#ffffff88');P(x,y+1,'#ffffff88');});
   return cv;
 }
-function scenePrologue(){return {t:'act',kicker:'LANTERNS OF THE UNDERVAULT',title:'EMBERFALL WAS BUILT ON A LID',
-  text:'Three hundred years ago the Lantern Order chained the Ashen Sovereign beneath the city. Five Wardstones hold the seal. Tonight the Last Lantern guttered and turned blue. You came when Sister Maren called. It felt like being called by name.',col:'#eaa94a',fx:'spark',art:'lantern',sound:'act'};}
+function scenePrologue(){return {t:'act',kicker:'LANTERNS OF THE UNDERVAULT',title:"EMBERFALL FUT BÂTIE SUR UN COUVERCLE",
+  text:"Il y a trois cents ans, l'Ordre de la Lanterne a enchaîné le Souverain de Cendre sous la cité. Cinq Pierres de garde tiennent le sceau. Ce soir, la Dernière Lanterne a vacillé et viré au bleu. Vous êtes venu quand Sœur Maren a appelé. C'était comme être appelé par son nom.",col:'#eaa94a',fx:'spark',art:'lantern',sound:'act'};}
 
 /* ----- showing one ----- */
 const SC_LANTERN=['......####......','.....#....#.....','....########....','....#oooooo#....','...##oyyyyo##...','...#oyyYYyyo#...','...#oyYWWYyo#...','...#oyYWWYyo#...','...#oyyYYyyo#...','...##oyyyyo##...','....#oooooo#....','....########....','......#..#......','.....######.....'];
@@ -3679,7 +3679,7 @@ function splashShow(){
   const el=$('#splash');if(!el)return;
   if(!(window.__forceScenes||!navigator.webdriver)){el.hidden=true;return;}
   const heroes=HERO_SLOTS.map(n=>loadSave(n)).filter(Boolean);
-  $('#spSub').textContent=heroes.length===1?'Welcome back, '+heroes[0].name+'.':heroes.length?'Welcome back. Your heroes are waiting.':'Emberfall was built on a lid.';
+  $('#spSub').textContent=heroes.length===1?"Bon retour, "+heroes[0].name+'.':heroes.length?"Bon retour. Vos héros vous attendent.":"Emberfall a été bâtie sur un couvercle.";
   Object.assign(SPL,{boot:performance.now()/1000,parts:[],caught:false,flare:0});SPL.t=SPL.boot;el.hidden=false;
   const tick=()=>{if(el.hidden)return;lanternDraw(performance.now()/1000,$('#spLanternCv'),$('#spLantern'),SPL);if(!reducedMotion())setTimeout(tick,66);};tick();
   clearTimeout(splashShow.t);splashShow.t=setTimeout(splashClose,SCENE_WAIT);   /* a tap or a key, or it goes on by itself */
@@ -3700,7 +3700,7 @@ function showScene(s){
   if(s.loot&&s.loot.length){const box=add('div','sc-loot');box.hidden=!!s.chest;s.loot.forEach((l,i)=>{const d=document.createElement('div');d.innerHTML=fmt(l);d.style.animationDelay=((s.chest?0.8:1.3)+i*0.16)+'s';box.appendChild(d);});}
   const tx=s.text?add('p','sc-text'):null;
   if(s.show){const k=add('button','sc-skip','Skip');k.type='button';k.addEventListener('click',e=>{e.stopPropagation();sceneSkip(s.show);});}   /* a slideshow (tale.js): skip the rest of it */
-  el.querySelector('.sc-tap').textContent=s.t==='boss'?'tap to fight':s.chest?'tap to open':'tap to continue';
+  el.querySelector('.sc-tap').textContent=s.t==='boss'?"touchez pour combattre":s.chest?"touchez pour ouvrir":"touchez pour continuer";
   el.hidden=false;sceneParticles(s.fx,s.col);if(s.sound)sfx(s.sound);
   clearTimeout(sceneTimer);
   if(tx)typeOut(tx,s.text);else if(!s.chest)sceneAuto(s);
@@ -3758,7 +3758,7 @@ function animChest(cv,tier,mimic,s){
 /* The tap on a chest card: the lid comes up (with the mimic's reveal, if it is one) and the loot spills out. */
 function chestOpen(s){
   s.openAt=performance.now();const el=$('#scene');
-  el.querySelector('.sc-tap').textContent='tap to continue';
+  el.querySelector('.sc-tap').textContent="touchez pour continuer";
   if(s.openTitle){const k=el.querySelector('.sc-kicker'),t=el.querySelector('.sc-title');if(k)k.textContent=s.openKicker;if(t)t.textContent=s.openTitle;}
   const box=el.querySelector('.sc-loot');if(box)box.hidden=false;
   if(s._step)requestAnimationFrame(s._step);
@@ -3794,7 +3794,7 @@ function sceneParticles(kind,col){
 function showLevel(lvl,lines){if(window.__forceScenes||!navigator.webdriver)lvlPending=[lvl,lines];}
 function levelToast(lvl,lines){
   const el=$('#lvlToast');
-  el.innerHTML='<div class="lv-burst"></div><div class="lv-kicker">LEVEL UP</div><div class="lv-num"></div><div class="lv-lines"></div>';
+  el.innerHTML="<div class=\"lv-burst\"></div><div class=\"lv-kicker\">NIVEAU SUPÉRIEUR</div><div class=\"lv-num\"></div><div class=\"lv-lines\"></div>";
   el.querySelector('.lv-num').textContent=lvl;el.querySelector('.lv-lines').innerHTML=lines.map(l=>'<div>'+esc(l)+'</div>').join('');
   el.hidden=false;el.classList.remove('show');void el.offsetWidth;el.classList.add('show');
   clearTimeout(lvlTimer);lvlTimer=setTimeout(()=>{el.hidden=true;},2900);
@@ -4570,7 +4570,7 @@ function book2Chalk(){
 
 /* ----- scenes ----- */
 function sceneBook2(){return {t:'act',kicker:'BOOK II',title:'THE HUNGER BELOW',text:'Beneath the Ember Throne, where the histories end, a stair goes on. Everything the Hunger has ever taken went down it: light, and names, and the people who carried them. Now you are going down after them.',col:'#d48cff',fx:'v',art:'lantern',sound:'act'};}
-function sceneSilenced(bi){const A_=ACTS[bi];return {t:'relit',kicker:'ACT '+A_.num+'  ·  '+A_.name.toUpperCase(),title:['THE NAMES GO HOME','THE CANDLES GO OUT','THE ASH REMEMBERS','THE WATCH IS KEPT'][bi-5],sub:'Far above, the Last Lantern burns a little steadier.',col:SC_COL[A_.col]||'#7aaeff',fx:'spark',art:'lantern',sound:'relit',auto:2800};}
+function sceneSilenced(bi){const A_=ACTS[bi];return {t:'relit',kicker:"ACTE "+A_.num+'  ·  '+A_.name.toUpperCase(),title:['THE NAMES GO HOME','THE CANDLES GO OUT','THE ASH REMEMBERS','THE WATCH IS KEPT'][bi-5],sub:'Far above, the Last Lantern burns a little steadier.',col:SC_COL[A_.col]||'#7aaeff',fx:'spark',art:'lantern',sound:'relit',auto:2800};}
 
 /* ----- the five bosses, in pixels (48x56, 4 frames; see creatures.js) ----- */
 Object.assign(BOSS_DRAW,{
@@ -5080,41 +5080,41 @@ function eventMechanism(r,ev){
    - 11 the Old Docks: no ships sail yet. (Book III starts here.)
    Old rooms keep their exits; new exits join them up. */
 TOWN.push(
- {id:6,x:0,y:0,title:"The Keepers' Cemetery",npc:'mott',exits:{e:0,s:2},desc:`Rows of small stones lean in the long grass behind the Temple, each with a lantern carved on it and most with no body beneath. The keepers who went down and did not come up are remembered here. An old man with a spade sits on a bench, eating an apple very slowly.`},
- {id:7,x:2,y:0,title:'Lantern Hill',npc:'esk',exits:{w:0,s:3},desc:`A grassy rise above the rooftops where the lamplighters climb at dusk. A striped tent leans against the old beacon post, its flap tied back. Inside, a woman with a great many rings shuffles cards that are not quite cards.`},
- {id:8,x:3,y:1,title:"The Jewelers' Arcade",npc:'jeweler',exits:{w:3,e:10,s:11},desc:`A covered arcade of narrow shops, most of them shuttered. One is lit: a jeweler's, its window full of rings that catch the lantern light and throw it back in colours. A woman with a loupe screwed into one eye waves you in without looking up.`},
- {id:9,x:2,y:2,title:'Market Street',npc:'alchemist',exits:{n:3,w:5,e:11},desc:`Stalls of turnips, tallow and things in jars line the street east of the Gate. The jars are the alchemist's: bubbling, glowing, one of them knocking politely on its own lid. Ysolde, sleeves rolled, is arguing with a cauldron.`},
- {id:10,x:4,y:1,title:'The Watchtower',npc:'captain',exits:{w:8},desc:`The city watch keeps a tall stone tower at the east end of the arcade. A board by the door is pinned with notices in a hard, square hand: CONTRACTS. Watch-Captain Hale, scarred and patient, reads every one of them twice.`},
- {id:11,x:3,y:2,title:'The Old Docks',npc:'ferryman',exits:{n:8,w:9},desc:`Black water slaps against empty piers. The ships that used to come to Emberfall stopped when the Last Lantern guttered, and the harbour has been quiet ever since. A ferryman sits on an upturned boat, mending a net that will never catch anything.`}
+ {id:6,x:0,y:0,title:"Le Cimetière des Gardiens",npc:'mott',exits:{e:0,s:2},desc:`Des rangées de petites pierres penchent dans les hautes herbes derrière le Temple, chacune ornée d'une lanterne gravée, et la plupart sans corps dessous. On se souvient ici des gardiens descendus qui ne sont pas remontés. Un vieil homme à la bêche est assis sur un banc et mange une pomme, très lentement.`},
+ {id:7,x:2,y:0,title:"La Colline de la Lanterne",npc:'esk',exits:{w:0,s:3},desc:`Une butte herbeuse au-dessus des toits, où les allumeurs de réverbères grimpent au crépuscule. Une tente rayée s'appuie contre le vieux poteau du fanal, le rabat relevé. À l'intérieur, une femme couverte de bagues bat des cartes qui ne sont pas tout à fait des cartes.`},
+ {id:8,x:3,y:1,title:"L'Arcade des Joailliers",npc:'jeweler',exits:{w:3,e:10,s:11},desc:`Une arcade couverte de boutiques étroites, presque toutes fermées. Une seule est éclairée : un joaillier, dont la vitrine est pleine de bagues qui attrapent la lueur des lanternes et la renvoient en couleurs. Une femme, une loupe vissée à l'œil, vous fait signe d'entrer sans lever la tête.`},
+ {id:9,x:2,y:2,title:"La Rue du Marché",npc:'alchemist',exits:{n:3,w:5,e:11},desc:`Des étals de navets, de suif et de choses en bocaux bordent la rue à l'est de la Porte. Les bocaux sont ceux de l'alchimiste : ils bouillonnent, luisent, et l'un d'eux frappe poliment contre son propre couvercle. Ysolde, manches retroussées, se dispute avec un chaudron.`},
+ {id:10,x:4,y:1,title:"La Tour de guet",npc:'captain',exits:{w:8},desc:`La garde de la cité tient une haute tour de pierre au bout est de l'arcade. Un panneau près de la porte est couvert d'affiches d'une écriture dure et carrée : CONTRATS. Le capitaine de la garde Hale, balafré et patient, les lit toutes deux fois.`},
+ {id:11,x:3,y:2,title:"Les Vieux Docks",npc:'ferryman',exits:{n:8,w:9},desc:`L'eau noire clapote contre des jetées vides. Les navires qui venaient à Emberfall ont cessé quand la Dernière Lanterne a vacillé, et le port est silencieux depuis. Un passeur est assis sur une barque retournée et ravaude un filet qui n'attrapera jamais rien.`}
 );
 TOWN[0].exits.w=6;TOWN[0].exits.e=7;TOWN[2].exits.n=6;TOWN[3].exits.n=7;TOWN[3].exits.e=8;TOWN[3].exits.s=9;TOWN[5].exits.e=9;
 const TOWN_W=5,TOWN_H=3;
 
 /* Elixirs from Ysolde: each lasts five fights won, eight once her mission is done (S.elix counts them down). */
-Object.assign(POT,{might:{n:'Elixir of Might',p:90,c:'r'},stone:{n:'Stoneskin Draught',p:90,c:'w'},swift:{n:'Quicksilver Tonic',p:90,c:'c'},wits:{n:"Scholar's Brew",p:110,c:'m'}});
+Object.assign(POT,{might:{n:"Élixir de puissance",p:90,c:'r'},stone:{n:"Philtre de peau de pierre",p:90,c:'w'},swift:{n:"Tonique de vif-argent",p:90,c:'c'},wits:{n:"Breuvage du lettré",p:110,c:'m'}});
 const elixFights=()=>S&&S.flags&&S.flags.ysolde?8:5,elixFor=()=>' for '+(elixFights()===8?'eight':'five')+' fights';
-const ELIX={might:{get d(){return '+15% damage'+elixFor();},b:{dmgPct:15}},stone:{get d(){return '+15% armor'+elixFor();},b:{defPct:15}},swift:{get d(){return '+8% dodge'+elixFor();},b:{dodge:8}},wits:{get d(){return '+20% experience'+elixFor();},b:{}}};
+const ELIX={might:{get d(){return "+15 % de dégâts"+elixFor();},b:{dmgPct:15}},stone:{get d(){return "+15 % d'armure"+elixFor();},b:{defPct:15}},swift:{get d(){return "+8 % d'esquive"+elixFor();},b:{dodge:8}},wits:{get d(){return "+20 % d'expérience"+elixFor();},b:{}}};
 function elixBonus(b){if(!S||!S.elix)return;for(const k in S.elix)if(S.elix[k]>0&&ELIX[k])for(const x in ELIX[k].b)b[x]=(b[x]||0)+ELIX[k].b[x];}
-function elixFightWon(){if(!S.elix)return;for(const k in S.elix)if(S.elix[k]>0&&--S.elix[k]===0)out(`{d}The ${POT[k].n} wears off.`);}
+function elixFightWon(){if(!S.elix)return;for(const k in S.elix)if(S.elix[k]>0&&--S.elix[k]===0)out(`{d}L'effet de ${POT[k].n} se dissipe.`);}
 
 /* Fortunes from Madame Esk: one for your next descent, gone when you return to town. */
 const FORTUNES=[
- {k:'gold',t:'The Coin Turns Up',d:'Monsters drop a fifth more gold.'},
- {k:'xp',t:'The Open Book',d:'You learn a tenth faster.'},
- {k:'crit',t:'The Bright Blade',d:'Your blows find the gaps (+6% crit).'},
- {k:'guard',t:'The Shut Door',d:'No thief will get the better of you.'},
- {k:'champ',t:'The Crowned Shadow',d:'Champions will seek you out.'},
- {k:'luck',t:'The Lucky Hand',d:'Locks and riddles come easier.'},
- {k:'doom',t:'The Tower Falls',d:'Monsters hit a little harder, and pay a lot better.'}
+ {k:'gold',t:'The Coin Turns Up',d:"Les monstres lâchent un cinquième d'or en plus."},
+ {k:'xp',t:'The Open Book',d:"Vous apprenez un dixième plus vite."},
+ {k:'crit',t:'The Bright Blade',d:"Vos coups trouvent les failles (+6 % de critique)."},
+ {k:'guard',t:'The Shut Door',d:"Aucun voleur ne prendra le dessus sur vous."},
+ {k:'champ',t:'The Crowned Shadow',d:"Les champions viendront vous chercher."},
+ {k:'luck',t:'The Lucky Hand',d:"Serrures et énigmes vous viennent plus facilement."},
+ {k:'doom',t:'The Tower Falls',d:"Les monstres frappent un peu plus fort, et paient beaucoup mieux."}
 ];
 const fortuneOn=k=>!!(S.fortune&&(S.fortune.trip===S.trips||(S.flags.eskFriend&&S.fortune.trip===S.trips-1))&&S.fortune.k===k);
 function fortuneBonus(b){if(fortuneOn('crit'))b.crit=(b.crit||0)+6;}
 function cmdFortune(){
-  if(S.floor!==0||cur().npc!=='esk'){out('Only Madame Esk on Lantern Hill reads fortunes.');return;}
-  if(S.fortune&&S.fortune.trip===S.trips){const F_=FORTUNES.find(x=>x.k===S.fortune.k);out(`{m}"I have already read for you,"{n} Esk says. {m}"${F_.t}. ${F_.d}"`);return;}
-  const c=disc(Math.round(20+8*dangerLvl()));if(S.gold<c){out(`{m}"Fortunes cost ${c} gold, dear,"{n} Esk says. You have ${S.gold}.`);return;}
+  if(S.floor!==0||cur().npc!=='esk'){out("Seule Madame Esk, sur la Colline de la Lanterne, lit l'avenir.");return;}
+  if(S.fortune&&S.fortune.trip===S.trips){const F_=FORTUNES.find(x=>x.k===S.fortune.k);out(`{m}« J'ai déjà lu pour vous »,{n} dit Esk. {m}« ${F_.t}. ${F_.d} »`);return;}
+  const c=disc(Math.round(20+8*dangerLvl()));if(S.gold<c){out(`{m}« La bonne aventure coûte ${c} or, mon cœur »,{n} dit Esk. Vous en avez ${S.gold}.`);return;}
   S.gold-=c;const F_=pick(MR,FORTUNES);S.fortune={k:F_.k,trip:S.trips};sfx('cards');
-  out(`{m}Esk turns a card. It is ${F_.t}.{n} {d}${F_.d} (Until you next come home.)`);
+  out(`{m}Esk retourne une carte. C'est ${F_.t}.{n} {d}${F_.d} (Jusqu'à votre prochain retour.)`);
 }
 
 /* Ottilie's charms (her stock changes each trip), and polishing: new powers for a charm of yours. */
@@ -5124,59 +5124,59 @@ function jewelStock(){
   return S.jewel;
 }
 function cmdPolish(arg){
-  if(S.floor!==0||cur().npc!=='jeweler'){out('Only Ottilie in the Jewelers\' Arcade polishes charms.');return;}
+  if(S.floor!==0||cur().npc!=='jeweler'){out("Seule Ottilie, dans l'Arcade des Joailliers, polit les charmes.");return;}
   const it=arg?findIn(S.inv.concat(SLOTS.map(k=>S.eq[k]).filter(Boolean)),arg):null;
-  if(!it||it.kind!=='charm'){out('{d}Polish which charm? "polish <name or number>" (a ring or amulet you carry or wear).');return;}
-  if(it.unique||it.set){out('{y}"That one is perfect as it is,"{n} Ottilie says. {y}"I would not dare."');return;}
-  const c=disc(Math.round((it.value*0.6+20)*(S.flags.ottilie?0.5:1)));if(S.gold<c){out(`{y}"${c} gold,"{n} says Ottilie. You have ${S.gold}.`);return;}
+  if(!it||it.kind!=='charm'){out("{d}Polir quel charme ? « polish <nom ou numéro> » (une bague ou une amulette que vous portez ou transportez).");return;}
+  if(it.unique||it.set){out("{y}« Celui-là est parfait comme il est »,{n} dit Ottilie. {y}« Je n'oserais pas. »");return;}
+  const c=disc(Math.round((it.value*0.6+20)*(S.flags.ottilie?0.5:1)));if(S.gold<c){out(`{y}« ${c} or »,{n} dit Ottilie. Vous en avez ${S.gold}.`);return;}
   S.gold-=c;const fresh=genItem(MR,'charm',it.tier,it.rar);it.bon=fresh.bon;it.name=fresh.name;it.title=fresh.title;sfx('chime');capVitals();
-  out(`{y}Ottilie breathes on it, polishes, squints.{n} ${cap(iname(it))} {d}${idesc(it)}`);
+  out(`{y}Ottilie souffle dessus, polit, plisse les yeux.{n} ${cap(iname(it))} {d}${idesc(it)}`);
 }
 
 /* Watch-Captain Hale's contracts: one at a time, hard, and well paid. Paid when you report back to him. */
 function contractOffer(){
   const L=dangerLvl(),T=[
-   {t:'elite',n:rnd(4,7),label:n=>`Kill ${n} elite monsters`},
-   {t:'champ',n:rnd(1,2),label:n=>`Bring down ${n} champion${n>1?'s':''}`},
-   {t:'side',n:1,label:()=>'Clear any side dungeon'},
-   {t:'event',n:rnd(3,5),label:n=>`Beat ${n} of the dungeon's challenges (locks, glyphs, riddles, puzzles)`}];
+   {t:'elite',n:rnd(4,7),label:n=>`Tuer ${n} monstres d'élite`},
+   {t:'champ',n:rnd(1,2),label:n=>`Abattre ${n} champion${n>1?'s':''}`},
+   {t:'side',n:1,label:()=>"Vider n'importe quel donjon annexe"},
+   {t:'event',n:rnd(3,5),label:n=>`Relever ${n} des épreuves du donjon (serrures, glyphes, énigmes, casse-têtes)`}];
   const c=pick(MR,T);return {t:c.t,n:c.n,prog:0,label:c.label(c.n),gold:Math.round((60+12*L)*c.n*(c.t==='side'?3:c.t==='champ'?2:1)*(S.flags.haleFriend?1.5:1)),epic:c.t!=='event'};
 }
-function contractProgress(t){const c=S.contract;if(!c||c.done||c.t!==t)return;c.prog++;if(c.prog>=c.n){c.done=true;sfx('bounty');out(`{o}Contract complete: ${c.label}.{n} {d}Report to Watch-Captain Hale at the Watchtower.`);}}
+function contractProgress(t){const c=S.contract;if(!c||c.done||c.t!==t)return;c.prog++;if(c.prog>=c.n){c.done=true;sfx('bounty');out(`{o}Contrat rempli : ${c.label}.{n} {d}Faites votre rapport au capitaine Hale, à la Tour de guet.`);}}
 function cmdContract(arg){
-  if(S.floor!==0||cur().npc!=='captain'){out(S.contract?`{o}Contract:{n} ${S.contract.label} {d}(${S.contract.prog}/${S.contract.n})`+(S.contract.done?' Done: report to the Watchtower.':''):'Contracts are posted at the Watchtower, east of the Jewelers\' Arcade.');return;}
+  if(S.floor!==0||cur().npc!=='captain'){out(S.contract?`{o}Contrat :{n} ${S.contract.label} {d}(${S.contract.prog}/${S.contract.n})`+(S.contract.done?" Fait : faites votre rapport à la Tour de guet.":''):"Les contrats sont affichés à la Tour de guet, à l'est de l'Arcade des Joailliers.");return;}
   const c=S.contract;
-  if(c&&c.done){S.gold+=c.gold;sfx('coins');out(`{w}Hale reads your report twice, nods once, and pays.{n} {y}(+${c.gold}g){n}`);
-    if(c.epic){const it=randomGear(MR,dangerLvl()+2,0,3);if(addItem(it,true))out(`{w}"And this, from the armory."{n} ${iname(it)} {d}${idesc(it)}`+cmpTag(it));else S.stash.push(it);}
+  if(c&&c.done){S.gold+=c.gold;sfx('coins');out(`{w}Hale lit votre rapport deux fois, hoche la tête une fois, et paie.{n} {y}(+${c.gold} po){n}`);
+    if(c.epic){const it=randomGear(MR,dangerLvl()+2,0,3);if(addItem(it,true))out(`{w}« Et ceci, de l'armurerie. »{n} ${iname(it)} {d}${idesc(it)}`+cmpTag(it));else S.stash.push(it);}
     S.contract=null;S.contractsDone=(S.contractsDone||0)+1;return;}
-  if(c){out(`{w}"You have a contract already,"{n} Hale says. ${c.label} {d}(${c.prog}/${c.n}){n} {@contract abandon|abandon it}`);if(arg==='abandon'){S.contract=null;out('{w}Hale strikes it from the board without a word.');}return;}
+  if(c){out(`{w}« Vous avez déjà un contrat »,{n} dit Hale. ${c.label} {d}(${c.prog}/${c.n}){n} {@contract abandon|l'abandonner}`);if(arg==='abandon'){S.contract=null;out("{w}Hale le raye du tableau sans un mot.");}return;}
   S.offer=S.offer&&S.offer.trip===S.trips?S.offer:{trip:S.trips,list:[contractOffer(),contractOffer()]};
-  if(arg==='1'||arg==='2'){const o=S.offer.list[+arg-1];if(!o){out('{w}"That one\'s taken."');return;}S.contract=o;S.offer.list.splice(+arg-1,1);sfx('scroll');out(`{w}"Good. Don't die."{n} {o}Contract: ${o.label}.{n} {d}${o.gold} gold${o.epic?' and something from the armory':''}.`);return;}
-  out('{w}-- Contracts --{n} {d}one at a time; paid when you report back; new ones each trip','rt');if(!S.offer.list.length)out('{d}  The board is bare until your next trip.');
-  S.offer.list.forEach((o,i)=>out(`${i+1}. ${o.label} {y}${o.gold}g{n}${o.epic?' {m}+ armory pick{n}':''} {@contract ${i+1}|take it}`));
+  if(arg==='1'||arg==='2'){const o=S.offer.list[+arg-1];if(!o){out("{w}« Celui-là est pris. »");return;}S.contract=o;S.offer.list.splice(+arg-1,1);sfx('scroll');out(`{w}« Bien. Ne mourez pas. »{n} {o}Contrat : ${o.label}.{n} {d}${o.gold} or${o.epic?" et quelque chose de l'armurerie":''}.`);return;}
+  out("{w}-- Contrats --{n} {d}un à la fois ; payé à votre retour ; de nouveaux à chaque expédition",'rt');if(!S.offer.list.length)out("{d}  Le tableau est vide jusqu'à votre prochaine expédition.");
+  S.offer.list.forEach((o,i)=>out(`${i+1}. ${o.label} {y}${o.gold} po{n}${o.epic?" {m}+ pièce de l'armurerie{n}":''} {@contract ${i+1}|le prendre}`));
 }
 
 /* The cemetery's memorial: a short prayer for the fallen, once a trip. */
 function memorialPray(){
   if(S.flags.memTrip!==S.trips)S.flags.memN=0;
-  if(S.flags.memTrip===S.trips&&(S.flags.memN||1)>=(S.flags.memTwice?2:1)){out('{d}You have already lit a candle here today.');return;}
+  if(S.flags.memTrip===S.trips&&(S.flags.memN||1)>=(S.flags.memTwice?2:1)){out("{d}Vous avez déjà allumé une bougie ici aujourd'hui.");return;}
   S.flags.memTrip=S.trips;S.flags.memN=(S.flags.memN||0)+1;const st=stats();S.hp=st.mhp;S.mp=st.mmp;healPets(1);sfx('heal');
   const g=(S.graves||[]).slice(-5).map(x=>x.n);
-  out('{w}You light a candle at the keepers\' memorial and say the names you know'+(g.length?`, and the names of the friends you lost below: ${g.join(', ')}`:'')+'. The wind drops. You feel rested, and less alone.{n} {g}Fully restored.');
+  out("{w}Vous allumez une bougie au mémorial des gardiens et dites les noms que vous connaissez"+(g.length?`, et les noms des amis perdus en bas : ${g.join(', ')}`:'')+". Le vent tombe. Vous vous sentez reposé, et moins seul.{n} {g}Entièrement rétabli.");
 }
 
 function townShop(n){
-  if(n==='jeweler')return{name:"Ottilie's Charms",list:jewelStock(),sells:true};
-  if(n==='alchemist')return{name:"Ysolde's Elixirs",list:[{pot:'might'},{pot:'stone'},{pot:'swift'},{pot:'wits'},{pot:'hp'},{pot:'mp'}]};
+  if(n==='jeweler')return{name:"Les Charmes d'Ottilie",list:jewelStock(),sells:true};
+  if(n==='alchemist')return{name:"Les Élixirs d'Ysolde",list:[{pot:'might'},{pot:'stone'},{pot:'swift'},{pot:'wits'},{pot:'hp'},{pot:'mp'}]};
   return null;
 }
 function townTalk(n){
-  if(n==='mott'){out(`Old Mott takes a bite of apple and chews for a long time. {w}"Dug most of these myself,"{n} he says. {w}"Empty, most of them. The Temple likes a stone even when the Gate keeps the rest."`+(S.flags.ended?` {w}"Fewer stones lately. I'll not complain."`:'')+((S.graves||[]).length?`{n} He nods at a row of little stones by the wall. {w}"Yours, those. Cut 'em small, for the small ones."{n} {d}${S.graves.slice(-8).map(x=>`${x.n} (${x.f}, level ${x.l}), ${x.at}`).join('; ')}.`:'')+`{n} {@pray|light a candle at the memorial}`);return true;}
-  if(n==='esk'){out(`Madame Esk fans her cards without looking at them. {m}"Sit, sit. The deep is a different place every time you go down it. Let me tell you which one you'll find."{n} {@fortune|have your fortune read}`);return true;}
-  if(n==='jeweler'){out(`Ottilie peers at your hands through her loupe. {y}"Rings, amulets, lockets. And if a charm of yours has gone dull, I can polish new life into it, for a price."{n} {@list|see her charms}  {d}or "polish <charm>"`);return true;}
-  if(n==='alchemist'){out(`Ysolde wipes her hands on an apron covered in small burns. {r}"Draughts for strength, for skin like stone, for quick feet and a quick head. ${elixFights()===8?'Eight':'Five'} fights' worth each, and don't drink them all at once. Well. Do, if you like. I'm not your mother."{n} {@list|see her elixirs}`);return true;}
-  if(n==='captain'){out(`Watch-Captain Hale looks you over the way he reads his notices: twice. {w}"The Gate's below us all, and the watch is stretched thin. I pay for hard work done well."{n} {@contract|see the contracts}`);return true;}
-  if(n==='ferryman'){out(`The ferryman doesn't look up from his net. {c}"No ships,"{n} he says. {c}"Not since the Lantern went blue. The sea-lanes to the far kingdoms went dark the same night. Maybe one day."{n}`+(S.flags.ended?` He glances at the horizon. {c}"Funny. Since the Throne went quiet, I'd swear I've seen lights out there."`:''));return true;}
+  if(n==='mott'){out(`Le vieux Mott croque dans sa pomme et mâche longtemps. {w}« J'ai creusé la plupart moi-même »,{n} dit-il. {w}« Vides, pour la plupart. Le Temple aime avoir une pierre, même quand la Porte garde le reste. »`+(S.flags.ended?` {w}« Moins de pierres ces temps-ci. Je ne m'en plaindrai pas. »`:'')+((S.graves||[]).length?`{n} Il désigne d'un signe de tête une rangée de petites pierres près du mur. {w}« Les vôtres, celles-là. Taillées petites, pour les petits. »{n} {d}${S.graves.slice(-8).map(x=>`${x.n} (${x.f}, niveau ${x.l}), ${x.at}`).join('; ')}.`:'')+`{n} {@pray|allumer une bougie au mémorial}`);return true;}
+  if(n==='esk'){out(`Madame Esk déploie ses cartes en éventail sans les regarder. {m}« Asseyez-vous, asseyez-vous. Les profondeurs sont un lieu différent chaque fois qu'on y descend. Laissez-moi vous dire lequel vous trouverez. »{n} {@fortune|se faire lire l'avenir}`);return true;}
+  if(n==='jeweler'){out(`Ottilie observe vos mains à travers sa loupe. {y}« Bagues, amulettes, médaillons. Et si l'un de vos charmes s'est terni, je peux lui rendre vie au polissage, contre paiement. »{n} {@list|voir ses charmes}  {d}ou « polish <charme> »`);return true;}
+  if(n==='alchemist'){out(`Ysolde s'essuie les mains sur un tablier criblé de petites brûlures. {r}« Des philtres pour la force, pour une peau de pierre, pour des pieds vifs et une tête vive. ${elixFights()===8?"Huit":'Five'} combats chacun, et ne les buvez pas tous d'un coup. Enfin. Faites-le, si ça vous chante. Je ne suis pas votre mère. »{n} {@list|voir ses élixirs}`);return true;}
+  if(n==='captain'){out(`Le capitaine Hale vous jauge comme il lit ses affiches : deux fois. {w}« La Porte est sous nos pieds à tous, et la garde est à bout. Je paie pour du travail dur bien fait. »{n} {@contract|voir les contrats}`);return true;}
+  if(n==='ferryman'){out(`Le passeur ne lève pas les yeux de son filet. {c}« Pas de navires »,{n} dit-il. {c}« Pas depuis que la Lanterne a viré au bleu. Les routes maritimes vers les royaumes lointains se sont éteintes la même nuit. Un jour, peut-être. »{n}`+(S.flags.ended?` Il jette un œil à l'horizon. {c}« Drôle. Depuis que le Trône s'est tu, je jurerais avoir vu des lumières là-bas. »`:''));return true;}
   return false;
 }
 
@@ -5513,7 +5513,7 @@ function voyFloor(D,f,where){
     const first=!S.flags['dg_'+D.key];
     if(where==='start'){out('');out(`{${D.col}}${D.stages[f-1].toUpperCase()}`,'act');out(`{d}${D.voyage==='sea'?'by sea':'on foot'} . leg ${f} of ${dgFloors(D)} . monster level ${lvShow(dgLvl(D)+f-1)}, more off the ${D.voyage==='sea'?'lane':'road'} . ${S.voy.sup} supplies`,'actsub');
       if(first){S.flags['dg_'+D.key]=1;out(D.intro,'story');}out('');}
-    return where==='start'?{t:'act',kicker:(D.voyage==='sea'?'BY SEA':'ON FOOT')+'  ·  LEG '+f+' OF '+dgFloors(D),title:D.stages[f-1].toUpperCase(),text:first?plainTxt(D.intro):'',sub:'monster level '+lvShow(dgLvl(D)+f-1),col:SC_COL[D.col],fx:D.col,sound:'act',auto:first?0:2200}:null;}
+    return where==='start'?{t:'act',kicker:(D.voyage==='sea'?'BY SEA':'ON FOOT')+'  ·  LEG '+f+' OF '+dgFloors(D),title:D.stages[f-1].toUpperCase(),text:first?plainTxt(D.intro):'',sub:"monstres de niveau "+lvShow(dgLvl(D)+f-1),col:SC_COL[D.col],fx:D.col,sound:'act',auto:first?0:2200}:null;}
   if(D.bleak&&f===1&&where==='start'){out('');out(`{m}THE UNDERSIDE`,'act');out(`{d}2 floors . monster level ${lvShow(dgLvl(D))}-${lvShow(dgLvl(D)+1)} . the thread does not reach here`,'actsub');out(D.intro,'story');out('');return null;}
   return null;
 }
@@ -6482,7 +6482,7 @@ function book3Quick(add){if(book3Lore()>=15)add('Turn the tide','choose tide','g
 
 /* ----- scenes ----- */
 function sceneBook3b(){return {t:'act',kicker:'BOOK III',title:'THE DROWNED STAIR',text:'Behind the Palace of Dawn a stair goes down under the sea, and the sea makes room for it. The people of Solenne have been walking down it in their sleep for three years. Now you are walking down after them.',col:'#62d6d6',fx:'c',art:'lantern',sound:'act'};}
-function sceneTide(bi){const A_=ACTS[bi];return {t:'relit',kicker:'ACT '+A_.num+'  ·  '+A_.name.toUpperCase(),title:['THE STAIR IS OPEN','THE LAMPS GO GOLD','THE TREATY BREAKS','THE KEEPER LETS GO'][bi-10],sub:'Far above, a few of Solenne\'s lamps burn gold again.',col:SC_COL[A_.col]||'#62d6d6',fx:'spark',art:'lantern',sound:'relit',auto:2800};}
+function sceneTide(bi){const A_=ACTS[bi];return {t:'relit',kicker:"ACTE "+A_.num+'  ·  '+A_.name.toUpperCase(),title:['THE STAIR IS OPEN','THE LAMPS GO GOLD','THE TREATY BREAKS','THE KEEPER LETS GO'][bi-10],sub:'Far above, a few of Solenne\'s lamps burn gold again.',col:SC_COL[A_.col]||'#62d6d6',fx:'spark',art:'lantern',sound:'relit',auto:2800};}
 
 /* ----- under Solenne: the Drowned Stair, the way down and the way up ----- */
 SOLENNE[7].exits.d='stair';
@@ -7047,27 +7047,27 @@ function parseLink(search){
 }
 /* Opens the phone's share sheet when there is one, else copies the link. The link is always printed too. */
 function shareSeed(seed,live,say){
-  const url=shareLink(seed,live),text='Race me in Lanterns of the Undervault on seed '+seed+(live?". I'm playing live: come and find me.":'.');
-  say(`{c}Share this link with a friend:{n} ${url}`);
+  const url=shareLink(seed,live),text="Fais la course contre moi dans Lanterns of the Undervault, graine "+seed+(live?". Je joue en direct : viens me trouver.":'.');
+  say(`{c}Partagez ce lien avec un ami :{n} ${url}`);
   if(navigator.share){navigator.share({title:'Lanterns of the Undervault',text,url}).catch(()=>{});return;}
-  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(()=>say('{g}Link copied.'),()=>{});
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(()=>say("{g}Lien copié."),()=>{});
 }
 let linkIn=null;   /* the seed that arrived in the page URL, if any */
 function applyLink(search){
   const fromUrl=search===undefined;linkIn=parseLink(fromUrl?location.search:search);if(!linkIn)return;
   const el=$('#linkInfo');el.hidden=false;
-  if(linkIn.raid){linkRaid=linkIn.raid;el.textContent='A friend invited you to raid party '+linkIn.raid+'. Continue your hero (or start one), then join from Expeditions.';}
+  if(linkIn.raid){linkRaid=linkIn.raid;el.textContent="Un ami vous a invité dans le groupe de raid "+linkIn.raid+". Reprenez votre héros (ou créez-en un), puis rejoignez-le depuis les Expéditions.";}
   if(linkIn.seed){$('#seedIn').value=linkIn.seed;$('#liveIn').checked=linkIn.live&&lbReady();syncDaily();
-    el.textContent='A friend sent you seed '+linkIn.seed+'. Start a new adventure on it to race them'+(linkIn.live?' and play live together.':'.');titleRace(linkIn.seed);}
+    el.textContent="Un ami vous a envoyé la graine "+linkIn.seed+". Commencez une nouvelle aventure dessus pour faire la course contre lui"+(linkIn.live?" et jouer en direct ensemble.":'.');titleRace(linkIn.seed);}
   if(fromUrl)try{history.replaceState(null,'',location.pathname);}catch(e){}   /* a reload starts clean */
 }
 
 /* ----- the seed race ----- */
 const RACE_ORDER='order=finished.desc,bosses.desc,deepest.desc,deaths.asc,created_at.asc';
-const END_NAME={conquer:'took the iron crown',shutout:'shut the cold door',share:'shared the light',seal:'relit the seal',crown:'took the crown',shatter:'spoke the third oath',name:'gave the Hunger a name',close:'closed the door',shut:'closed the second door',tide:'turned the tide'};
+const END_NAME={conquer:"a pris la couronne de fer",shutout:"a fermé la porte froide",share:"a partagé la lumière",seal:"a rallumé le sceau",crown:"a pris la couronne",shatter:"a prononcé le troisième serment",name:"a donné un nom à la Faim",close:"a fermé la porte",shut:"a fermé la deuxième porte",tide:"a renversé la marée"};
 /* The furthest ending reached: Book III's (sent as shut or tide, since Book II also has a close), then Book II's, then Book I's. */
 function raceEnd(){const f=S.flags;return f.ended4?f.ended4:f.ended3?(f.ended3==='close'?'shut':'tide'):f.ended2||f.ended||null;}
-function raceRow(){return {run_id:S.cid,seed:S.seed,name:clean(S.name).replace(/[<>]/g,'').slice(0,16)||'Wanderer',cls:S.cls,lvl:S.lvl,
+function raceRow(){return {run_id:S.cid,seed:S.seed,name:clean(S.name).replace(/[<>]/g,'').slice(0,16)||"Vagabond",cls:S.cls,lvl:S.lvl,
   deepest:Math.min(100,S.deepest),bosses:bossCount(),deaths:Math.min(100000,S.deaths||0),ended:raceEnd(),fallen:!!S.over,hard:!!S.hard,ng:S.ng||0};}
 let raceBusy=false,raceAgain=false;
 /* Called at milestones: a new deepest floor, a Wardstone, a death, the ending. Sends only what changed. */
@@ -7085,29 +7085,29 @@ function submitRace(){
 const boardName=x=>clean(String(x.player||x.name||'?')).slice(0,16)+(x.player&&x.name?' ('+clean(String(x.name)).slice(0,16)+')':'');
 function raceLine(x,i,me){
   const N=v=>Number(v)||0,c=CLASSES[x.cls];
-  const prog=x.ended?`{y}finished{n}: ${END_NAME[x.ended]||'?'}`:x.fallen?`{r}fell{n} on floor ${N(x.deepest)}`:`floor ${N(x.deepest)}, ${N(x.bosses)} boss${N(x.bosses)===1?'':'es'}`;
-  return `${String(i+1).padStart(2)}. ${boardName(x).padEnd(16)} ${(c?c.n:'?').padEnd(11)} ${prog}  lv ${N(x.lvl)}  ${N(x.deaths)} death${N(x.deaths)===1?'':'s'}`
-    +(x.hard?'  {r}[HC]{n}':'')+(x.ng?'  NG+'+N(x.ng):'')+(me?'  {y}<- you{n}':'');
+  const prog=x.ended?`{y}a terminé{n} : ${END_NAME[x.ended]||'?'}`:x.fallen?`{r}est tombé{n} à l'étage ${N(x.deepest)}`:`étage ${N(x.deepest)}, ${N(x.bosses)} boss`;
+  return `${String(i+1).padStart(2)}. ${boardName(x).padEnd(16)} ${(c?c.n:'?').padEnd(11)} ${prog}  niv. ${N(x.lvl)}  ${N(x.deaths)} mort${N(x.deaths)===1?'':'s'}`
+    +(x.hard?'  {r}[HC]{n}':'')+(x.ng?'  NG+'+N(x.ng):'')+(me?"  {y}<- vous{n}":'');
 }
 function showRace(){
-  out(`{m}-- Seed race --{n} {d}${S.seed}: everyone who has played this seed`,'rt');
-  if(!lbReady()){out('{d}Online play is not set up for this copy of the game.');return;}
-  if(!lbOn())out('{d}You are not sending your progress.{n} {@leaderboard on|send mine}');
-  out('{d}Asking the other delvers...');
+  out(`{m}-- Course sur graine --{n} {d}${S.seed} : tous ceux qui ont joué cette graine`,'rt');
+  if(!lbReady()){out("{d}Le jeu en ligne n'est pas configuré pour cette copie du jeu.");return;}
+  if(!lbOn())out("{d}Vous n'envoyez pas votre progression.{n} {@leaderboard on|envoyer la mienne}");
+  out("{d}On interroge les autres explorateurs...");
   lbRows('seed_race?select=run_id,name,cls,lvl,deepest,bosses,deaths,ended,fallen,hard,ng,player&seed=eq.'+encodeURIComponent(S.seed)+'&'+RACE_ORDER+'&limit=20')
     .then(rows=>{
-      if(!Array.isArray(rows)||!rows.length)out(S.deepest?'{d}Nobody is on the board for this seed yet.':'{d}Nobody has played this seed yet. Head down to put yourself on the board.');
+      if(!Array.isArray(rows)||!rows.length)out(S.deepest?"{d}Personne n'est encore au tableau pour cette graine.":"{d}Personne n'a encore joué cette graine. Descendez pour vous inscrire au tableau.");
       else rows.forEach((x,i)=>out(raceLine(x,i,S&&x.run_id===S.cid)));
-      if(Array.isArray(rows)&&rows.length&&S.deepest&&!rows.some(x=>x.run_id===S.cid))out("{d}Your run isn't on the board yet.");
-      out(`{d}Same seed, same dungeon:{n} {@share|share it} {d}to add a rival.`);scrollDown();
-    }).catch(st=>{out(st===404?"{d}The seed race isn't switched on for this server yet.":"{d}Couldn't reach the race board. Are you offline?");scrollDown();});
+      if(Array.isArray(rows)&&rows.length&&S.deepest&&!rows.some(x=>x.run_id===S.cid))out("{d}Votre partie n'est pas encore au tableau.");
+      out(`{d}Même graine, même donjon :{n} {@share|partagez-la} {d}pour ajouter un rival.`);scrollDown();
+    }).catch(st=>{out(st===404?"{d}La course sur graine n'est pas encore activée sur ce serveur.":"{d}Impossible de joindre le tableau de la course. Êtes-vous hors ligne ?");scrollDown();});
 }
 /* Title screen: who is already on a seed a friend sent you. */
 function titleRace(seed){
   if(!lbReady())return;
   lbRows('seed_race?select=name,cls,deepest,bosses,ended,fallen,player&seed=eq.'+encodeURIComponent(seed)+'&'+RACE_ORDER+'&limit=3').catch(()=>[]).then(rows=>{
     if(!Array.isArray(rows)||!rows.length)return;const x=rows[0],el=$('#linkInfo');
-    el.textContent+=' Leading: '+boardName(x)+' ('+((CLASSES[x.cls]||{}).n||'?')+'), '+(x.ended?'finished':x.fallen?'fell on floor '+(Number(x.deepest)||0):'floor '+(Number(x.deepest)||0))+'.';
+    el.textContent+=" En tête : "+boardName(x)+' ('+((CLASSES[x.cls]||{}).n||'?')+'), '+(x.ended?'finished':x.fallen?"tombé à l'étage "+(Number(x.deepest)||0):'floor '+(Number(x.deepest)||0))+'.';
   }).catch(()=>{});
 }
 
@@ -7160,7 +7160,7 @@ function liveMessage(m){
   if(!m||m.topic!==LIVE.topic)return;
   const p=m.payload||{};
   if(m.event==='phx_reply'&&m.ref===LIVE.joinRef){
-    if(p.status==='ok'){LIVE.status='on';LIVE.retry=0;if(!LIVE.told){LIVE.told=true;liveNote(`{m}You are live on seed ${S.seed}.{n} {d}Friends on this seed show up on your map as a{n} {m}@{n}{d}. Talk to them with "say".`);}liveTrack(true);}
+    if(p.status==='ok'){LIVE.status='on';LIVE.retry=0;if(!LIVE.told){LIVE.told=true;liveNote(`{m}Vous êtes en direct sur la graine ${S.seed}.{n} {d}Les amis sur cette graine apparaissent sur votre carte sous forme de{n} {m}@{n}{d}. Parlez-leur avec « say ».`);}liveTrack(true);}
     else{LIVE.status='offline';try{LIVE.ws.close();}catch(e){}}
     render();return;
   }
@@ -7171,9 +7171,9 @@ function liveMessage(m){
 }
 function livePeer(p){
   const n=v=>Math.max(0,Math.round(Number(v)||0));
-  return {n:clean(String(p.n||'')).replace(/[<>]/g,'').slice(0,16)||'Someone',c:CLASSES[p.c]?p.c:'warrior',l:clamp(n(p.l),1,LV_CAP),f:n(p.f),t:p.t?1:0,q:n(p.q),d:DUNGEONS[p.d]?p.d:'',r:n(p.r),h:clamp(n(p.h),0,100),x:clean(String(p.x||'')).replace(/[<>]/g,'').slice(0,32)};
+  return {n:clean(String(p.n||'')).replace(/[<>]/g,'').slice(0,16)||"Quelqu'un",c:CLASSES[p.c]?p.c:'warrior',l:clamp(n(p.l),1,LV_CAP),f:n(p.f),t:p.t?1:0,q:n(p.q),d:DUNGEONS[p.d]?p.d:'',r:n(p.r),h:clamp(n(p.h),0,100),x:clean(String(p.x||'')).replace(/[<>]/g,'').slice(0,32)};
 }
-function livePlace(p){return (p.f===0?(p.t?'in Solenne':'in Emberfall'):p.d?`in ${DUNGEONS[p.d].name}, floor ${p.f}`:`on floor ${p.f}`)+(p.x?`, fighting ${p.x}`:'');}
+function livePlace(p){return (p.f===0?(p.t?"à Solenne":"à Emberfall"):p.d?`dans ${DUNGEONS[p.d].name}, étage ${p.f}`:`à l'étage ${p.f}`)+(p.x?`, en train de combattre ${p.x}`:'');}
 const myTown=()=>S.floor===0&&S.town==='solenne'?1:0;
 const liveWithMe=p=>p.f===S.floor&&(p.t||0)===myTown()&&p.d===(S.dg||'')&&p.r===S.room;
 /* Presence: the full list on joining, then diffs. An update arrives as a leave plus a join for the same key. */
@@ -7185,9 +7185,9 @@ function livePresence(joins,leaves,full){
     now[k]=np;}
   LIVE.peers=now;
   for(const k in now){if(LIVE.gone[k]){clearTimeout(LIVE.gone[k]);delete LIVE.gone[k];}
-    else if(!LIVE.known[k]){const p=now[k];liveNote(`{m}${p.n}{n} {d}the ${CLASSES[p.c].n}, level ${p.l}, has joined you on this seed (${livePlace(p)}).`);sfx('msg');}
+    else if(!LIVE.known[k]){const p=now[k];liveNote(`{m}${p.n}{n} {d}le ${CLASSES[p.c].n}, niveau ${p.l}, vous a rejoint sur cette graine (${livePlace(p)}).`);sfx('msg');}
     LIVE.known[k]=now[k];}
-  const went=k=>{if(LIVE.gone[k]||!LIVE.known[k])return;const p=LIVE.known[k];LIVE.gone[k]=setTimeout(()=>{delete LIVE.gone[k];if(LIVE.peers[k])return;delete LIVE.known[k];liveNote(`{d}${p.n} has left this seed.`);render();},LIVE_GRACE);};
+  const went=k=>{if(LIVE.gone[k]||!LIVE.known[k])return;const p=LIVE.known[k];LIVE.gone[k]=setTimeout(()=>{delete LIVE.gone[k];if(LIVE.peers[k])return;delete LIVE.known[k];liveNote(`{d}${p.n} a quitté cette graine.`);render();},LIVE_GRACE);};
   for(const k in before)if(!now[k])went(k);
   if(full)for(const k in LIVE.known)if(!now[k])went(k);   /* gone while we were away */
   render();
@@ -7209,39 +7209,39 @@ function liveBroadcast(b){
   const p=b&&b.payload;if(!p||!S||String(p.id)===S.cid)return;
   if(b.event==='bf'||b.event==='bd'){ttHear(b.event,p);return;}   /* tag-team bosses */
   if(b.event==='pos'){const o=LIVE.peers[String(p.id)];if(!o)return;const np=livePeer(p);if(np.q<o.q)return;Object.assign(o,np);render();return;}
-  const name=clean(String(p.n||'')).replace(/[<>]/g,'').slice(0,16)||'Someone',text=clean(String(p.s||'')).slice(0,140);
+  const name=clean(String(p.n||'')).replace(/[<>]/g,'').slice(0,16)||"Quelqu'un",text=clean(String(p.s||'')).slice(0,140);
   if(!text||LIVE.muted[name.toLowerCase()])return;
-  if(b.event==='say'){liveNote(`{m}${name}{n} says: "${text}"`);sfx('msg');}
+  if(b.event==='say'){liveNote(`{m}${name}{n} dit : « ${text} »`);sfx('msg');}
   else if(b.event==='moment'){liveNote(`{m}${name}{n} ${text}`);sfx('chime');}
 }
 function liveSay(raw){
   const text=clean(String(raw||'')).slice(0,140);
-  if(!text){out('Say what? For example: say meet me at the stairs');return;}
-  if(!S.live){out('{d}You are not playing live.{n} {@live on|Go live}');return;}
-  if(LIVE.status!=='on'){out('{d}You are not connected yet, so nobody hears you.');return;}
-  if(Date.now()-LIVE.sayAt<1500){out('{d}Slow down a little.');return;}
+  if(!text){out("Dire quoi ? Par exemple : say on se retrouve aux escaliers");return;}
+  if(!S.live){out("{d}Vous ne jouez pas en direct.{n} {@live on|Passer en direct}");return;}
+  if(LIVE.status!=='on'){out("{d}Vous n'êtes pas encore connecté : personne ne vous entend.");return;}
+  if(Date.now()-LIVE.sayAt<1500){out("{d}Ralentissez un peu.");return;}
   LIVE.sayAt=Date.now();livePush('broadcast',{type:'broadcast',event:'say',payload:{id:S.cid,n:clean(S.name).slice(0,16),s:text}});
-  out(`{m}You say:{n} "${text}"`);
+  out(`{m}Vous dites :{n} « ${text} »`);
 }
 function liveWho(){
-  if(!S.live){out('{d}You are playing alone.{n} '+(lbReady()?'{@live on|Go live} {d}to see friends on this seed, or{n} ':'')+'{@share|share the seed}{d}.');return;}
+  if(!S.live){out("{d}Vous jouez seul.{n} "+(lbReady()?"{@live on|Passer en direct} {d}pour voir vos amis sur cette graine, ou{n} ":'')+"{@share|partagez la graine}{d}.");return;}
   const ps=Object.values(LIVE.peers);
-  out(`{m}-- Live on seed ${S.seed} --{n} {d}`+(LIVE.status==='on'?`${ps.length} other${ps.length===1?'':'s'} here`:LIVE.status==='connecting'?'connecting...':'offline, reconnecting'),'rt');
-  if(!ps.length&&LIVE.status==='on')out('{d}Nobody else is live on this seed right now.{n} {@share|Invite a friend}');
-  ps.forEach(p=>out(`{m}${p.n}{n} {d}the ${CLASSES[p.c].n}, level ${p.l}, ${livePlace(p)}${p.h<100?', '+p.h+'% health':''}${LIVE.muted[p.n.toLowerCase()]?' (muted)':''}`));
-  out('{d}say <words> to talk. mute <name> hides someone for this session.');
+  out(`{m}-- En direct sur la graine ${S.seed} --{n} {d}`+(LIVE.status==='on'?`${ps.length} autre${ps.length===1?'':'s'} ici`:LIVE.status==='connecting'?'connecting...':"hors ligne, reconnexion"),'rt');
+  if(!ps.length&&LIVE.status==='on')out("{d}Personne d'autre n'est en direct sur cette graine pour l'instant.{n} {@share|Inviter un ami}");
+  ps.forEach(p=>out(`{m}${p.n}{n} {d}le ${CLASSES[p.c].n}, niveau ${p.l}, ${livePlace(p)}${p.h<100?', '+p.h+" % de vie":''}${LIVE.muted[p.n.toLowerCase()]?' (muted)':''}`));
+  out("{d}say <mots> pour parler. mute <nom> masque quelqu'un pour cette session.");
 }
 function liveMute(arg,on){
-  const n=clean(arg||'').toLowerCase().slice(0,16);if(!n){out(on?'Mute whom? For example: mute ash':'Unmute whom?');return;}
+  const n=clean(arg||'').toLowerCase().slice(0,16);if(!n){out(on?"Rendre muet qui ? Par exemple : mute ash":"Rendre la parole à qui ?");return;}
   if(on)LIVE.muted[n]=1;else delete LIVE.muted[n];
-  out(on?`{d}You won't see messages from ${n} this session.`:`{d}You will see messages from ${n} again.`);
+  out(on?`{d}Vous ne verrez plus les messages de ${n} pendant cette session.`:`{d}Vous verrez de nouveau les messages de ${n}.`);
 }
 function cmdLive(arg){
   if(arg!=='on'&&arg!=='off'){liveWho();return;}
-  if(!lbReady()){out('{d}Online play is not set up for this copy of the game.');return;}
+  if(!lbReady()){out("{d}Le jeu en ligne n'est pas configuré pour cette copie du jeu.");return;}
   const on=arg==='on';S.live=on;save(true);
-  if(on){if(!LIVE.ws){out(`{m}Going live on seed ${S.seed}...{n}`);liveStart();}else liveWho();}
-  else{liveStop();out('{d}You are playing alone again.');}
+  if(on){if(!LIVE.ws){out(`{m}Passage en direct sur la graine ${S.seed}...{n}`);liveStart();}else liveWho();}
+  else{liveStop();out("{d}Vous jouez de nouveau seul.");}
   render();
 }
 /* Friends on your floor (for the map) and in your room (for look). */
@@ -7259,10 +7259,10 @@ function partyScale(m){
   const n=Math.min(3,liveOnFloor().length);m.party=n;if(!n||m.raid)return;
   m.mhp=Math.round(m.mhp*(1+0.3*n));m.hp=Math.round(m.hp*(1+0.3*n));m.atk=Math.round(m.atk*(1+0.1*n));if(m.batk)m.batk=Math.round(m.batk*(1+0.1*n));
   m.xp=Math.round(m.xp*(1+0.2*n));m.gold=Math.round(m.gold*(1+0.2*n));
-  out(`{m}With ${n} friend${n>1?'s':''} on this floor, ${the(m)} is tougher than usual.{n} {d}(+${30*n}% health, +${10*n}% attack, +${20*n}% rewards)`);
+  out(`{m}Avec ${n} ami${n>1?'s':''} à cet étage, ${the(m)} est plus coriace que d'habitude.{n} {d}(+${30*n} % de vie, +${10*n} % d'attaque, +${20*n} % de récompenses)`);
 }
 function liveAssist(m){
-  if(m.hp<=0||m.tt)return;liveInRoom().forEach(p=>{if(m.hp<=0)return;const d=Math.max(1,Math.round(mobHp(p.l)/3.2*(0.75+MR()*0.5)));m.hp-=d;out(`{m}${p.n} fights beside you.{n} {d}(${d})`);});
+  if(m.hp<=0||m.tt)return;liveInRoom().forEach(p=>{if(m.hp<=0)return;const d=Math.max(1,Math.round(mobHp(p.l)/3.2*(0.75+MR()*0.5)));m.hp-=d;out(`{m}${p.n} se bat à vos côtés.{n} {d}(${d})`);});
 }
 
 /* ----- tag-team bosses -----
@@ -7305,7 +7305,7 @@ function ttEngage(m){
     F_.mem[S.cid]={n:clean(S.name).slice(0,16),w:1,d:m.ttBase-m.hp,b:m.ttBase};}   /* what you did to it before counts as yours */
   else{const st=ttState(F_),w=clamp((st.M-st.D)/st.M,0.05,1);
     F_.mem[S.cid]={n:clean(S.name).slice(0,16),w,d:0,b:m.ttBase};
-    out(`{m}You join ${others.map(id=>F_.mem[id].n).join(' and ')} against ${m.short}!{n} {d}It grows to meet you.`);}
+    out(`{m}Vous rejoignez ${others.map(id=>F_.mem[id].n).join(' and ')} contre ${m.short} !{n} {d}Il grandit pour vous affronter.`);}
   m.tt=g;m.syncHp=null;ttSend('bf',{n:F_.mem[S.cid].n,g,s:m.short,f:S.floor,d:S.dg||'',r:S.room,b:m.ttBase,bi:m.bi==null?-1:m.bi,k:m.dg||'',w:F_.mem[S.cid].w});
   ttSync(m,true);
 }
@@ -7326,25 +7326,25 @@ function ttHear(ev,p){
   const g=String(p.g||'').slice(0,64),id=String(p.id);if(!g||!S||id===S.cid)return;
   let F_=TT.fights[g];
   if(!F_){if(ev!=='bf')return;
-    F_=TT.fights[g]={g,s:clean(String(p.s||'')).replace(/[<>]/g,'').slice(0,40)||'the boss',f:Math.max(0,Math.round(+p.f||0)),d:DUNGEONS[p.d]?p.d:'',r:Math.max(0,Math.round(+p.r||0)),
+    F_=TT.fights[g]={g,s:clean(String(p.s||'')).replace(/[<>]/g,'').slice(0,40)||"le boss",f:Math.max(0,Math.round(+p.f||0)),d:DUNGEONS[p.d]?p.d:'',r:Math.max(0,Math.round(+p.r||0)),
       bi:Number.isInteger(+p.bi)&&+p.bi>=0&&+p.bi<BOSSES.length?+p.bi:null,k:DUNGEONS[p.k]&&!DUNGEONS[p.k].raid&&!DUNGEONS[p.k].endless?p.k:'',mem:{}};}
-  const x=F_.mem[id]||(F_.mem[id]={n:'Someone',w:1,d:0,b:0});
+  const x=F_.mem[id]||(F_.mem[id]={n:"Quelqu'un",w:1,d:0,b:0});
   if(ev==='bf'){x.w=clamp(+p.w||1,0.05,1);x.b=clamp(Math.round(+p.b||0),1,1e9);x.n=clean(String(p.n||'')).replace(/[<>]/g,'').slice(0,16)||x.n;}
   if(ev==='bd')x.d=Math.max(x.d,clamp(Math.round(+p.d||0),0,1e10));
   const m=curFoe();
   if(m&&m.tt===g){const before=m.ttN||1;ttSync(m);
-    if(ev==='bf'&&m.ttN>before){out(`{m}${x.n} joins the fight against ${m.short}!{n} {d}It grows stronger: ${Math.max(0,m.hp)} health left.`);scrollDown();}
+    if(ev==='bf'&&m.ttN>before){out(`{m}${x.n} rejoint le combat contre ${m.short} !{n} {d}Il se renforce : ${Math.max(0,m.hp)} PV restants.`);scrollDown();}
     if(m.hp<=0)ttDown(m);else render();
     return;}
   /* not in it: if it is on your floor, offer to join (once a fight) */
   if(ev==='bf'&&!TT.told[g]&&S.floor>0&&F_.f===S.floor&&F_.d===(S.dg||'')){TT.told[g]=1;
-    out(`{m}${x.n} is fighting ${F_.s}.{n} {@join|Join the fight}`);sfx('alert');scrollDown();}
+    out(`{m}${x.n} combat ${F_.s}.{n} {@join|Rejoindre le combat}`);sfx('alert');scrollDown();}
 }
 /* The shared health ran out from someone else's blow. Your share decides whether it falls for you too. */
 function ttDown(m){
   const F_=TT.fights[m.tt],st=ttState(F_),mine=(F_.mem[S.cid]||{}).d||0;
   if(m.helper||mine>=st.D*0.05){m.hp=0;m.syncHp=0;victory(m);promptLine();render();scrollDown();return;}
-  out(`{d}Your friends brought down ${m.short}, but you did too little to count. It is still here for you to face yourself.`);
+  out(`{d}Vos amis ont abattu ${m.short}, mais vous en avez trop peu fait pour que ça compte. Il est toujours là, à vous d'y faire face vous-même.`);
   ttLeave(m);S.fight=false;S.fx={};promptLine();render();scrollDown();
 }
 /* Back to fighting alone (you died or the fight ended): your copy goes back to its own size. */
@@ -7352,20 +7352,20 @@ function ttLeave(m){if(!m||!m.tt)return;delete TT.fights[m.tt];delete TT.told[m.
 /* When it falls: everyone's share of the damage. */
 function ttShares(m){
   const F_=TT.fights[m.tt];if(!F_)return;const all=Object.values(F_.mem),D=all.reduce((a,x)=>a+x.d,0)||1;if(all.length<2)return;
-  out('{d}Damage: '+all.sort((a,b)=>b.d-a.d).map(x=>`${x.n} ${Math.round(x.d/D*100)}%`).join('  ·  ')+'{n}');
+  out("{d}Dégâts : "+all.sort((a,b)=>b.d-a.d).map(x=>`${x.n} ${Math.round(x.d/D*100)}%`).join('  ·  ')+'{n}');
 }
 /* `join`: run to a friend's boss fight on this floor. If you have beaten that boss already, you go as a helper. */
 function ttJoin(){
-  if(!S.live){out('{d}You are not playing live.{n} {@live on|Go live}');return;}
-  if(S.fight){out('Finish your own fight first.');return;}
+  if(!S.live){out("{d}Vous ne jouez pas en direct.{n} {@live on|Passer en direct}");return;}
+  if(S.fight){out("Terminez d'abord votre propre combat.");return;}
   const fs=Object.values(TT.fights).filter(F_=>F_.f===S.floor&&F_.d===(S.dg||'')&&ttMembers(F_).some(id=>id!==S.cid));
-  if(!fs.length){out('{d}Nobody on this floor is fighting a boss right now.');return;}
-  const F_=fs[fs.length-1],r=F().rooms[F_.r];if(!r){out('{d}You cannot find the way there.');return;}
-  out(`{m}You run to help ${ttMembers(F_).filter(id=>id!==S.cid).map(id=>F_.mem[id].n).join(' and ')}.{n}`);sfx('run');
+  if(!fs.length){out("{d}Personne à cet étage ne combat de boss en ce moment.");return;}
+  const F_=fs[fs.length-1],r=F().rooms[F_.r];if(!r){out("{d}Vous ne trouvez pas le chemin.");return;}
+  out(`{m}Vous courez aider ${ttMembers(F_).filter(id=>id!==S.cid).map(id=>F_.mem[id].n).join(' and ')}.{n}`);sfx('run');
   r.mobs=r.mobs||[];
   if(!r.mobs.some(x=>x.boss)){   /* already beaten here: a helper's copy */
-    const h=F_.k?makeSideBoss(F_.k,S.floor):F_.bi!=null?makeBoss(F_.bi):null;if(!h){out('{d}You are too late.');return;}
-    h.helper=true;h.introduced=true;r.mobs.push(h);out(`{d}You have beaten ${F_.s} before: you fight as a helper (no story, a helper's share).{n}`);}
+    const h=F_.k?makeSideBoss(F_.k,S.floor):F_.bi!=null?makeBoss(F_.bi):null;if(!h){out("{d}Vous arrivez trop tard.");return;}
+    h.helper=true;h.introduced=true;r.mobs.push(h);out(`{d}Vous avez déjà vaincu ${F_.s} : vous combattez en renfort (pas d'histoire, une part de renfort).{n}`);}
   S.room=F_.r;enterRoom();
 }
 /* A helper's win: a share of the spoils, no story. */
@@ -7373,7 +7373,7 @@ function ttHelperWon(m){
   const r=cur(),i=r.mobs.indexOf(m);if(i>=0)r.mobs.splice(i,1);r.mobs=r.mobs.filter(x=>!x.minion);
   out(`{${bossDef(m).col}}${m.short} falls!`,'huge');sfx('killBig');sfx('victory');musicVictory();ttShares(m);delete TT.fights[m.tt];
   S.fight=false;S.fx={};S.kills++;
-  gainXp(Math.round(m.xp*0.5*xpScale(m.lvl)));const g=Math.round(m.gold*0.5);S.gold+=g;out(`{y}Your helper's share: ${g} gold.`,'gold');
+  gainXp(Math.round(m.xp*0.5*xpScale(m.lvl)));const g=Math.round(m.gold*0.5);S.gold+=g;out(`{y}Votre part de renfort : ${g} or.`,'gold');
   const it=randomGear(MR,m.lvl,20);if(addItem(it,true))out(`{w}You take ${iname(it)}. {d}${idesc(it)}`,it.rar>=4?'legend':'');else{r.items.push(it);out(`${cap(iname(it))} drops to the ground. ${takeLink(it)}`);}
   liveMoment(`helped bring down ${m.short}!`);
 }
@@ -7420,13 +7420,13 @@ let linkRaid='';   /* a party code that arrived in the page URL */
 function raidReady(){return lbReady()&&!!window.WebSocket;}
 function raidOk(k){const R_=RAIDS[k];return !!R_&&(R_.need?R_.need():!!S.bosses[R_.req])&&S.lvl>=(R_.minLv||RAID_MIN_LV);}
 /* Why a raid is shut to you. */
-function raidWhy(k){const R_=RAIDS[k];return (R_.need?!R_.need():!S.bosses[R_.req])?(R_.needTxt||`opens when Wardstone ${R_.req+1} burns again`):`opens at level ${R_.minLv||RAID_MIN_LV}`;}
+function raidWhy(k){const R_=RAIDS[k];return (R_.need?!R_.need():!S.bosses[R_.req])?(R_.needTxt||`opens when Wardstone ${R_.req+1} burns again`):`s'ouvre au niveau ${R_.minLv||RAID_MIN_LV}`;}
 function newCode(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<5;i++)s+=A[Math.floor(Math.random()*A.length)];return s;}
 function partyTopic(code){return 'realtime:uv-raid-'+String(code).toLowerCase().replace(/[^a-z0-9]/g,'');}
 function partyMe(){const st=stats();return {n:clean(S.name).slice(0,16),c:S.cls,l:S.lvl,lead:PARTY.lead?1:0,raid:PARTY.raid,ok:raidOk(PARTY.raid)?1:0,
   rd:S.raid?S.raid.dmg:0,h:Math.round(S.hp/st.mhp*100),st:S.raid?(S.raid.out?'out':'raid'):'lobby'};}
 function partyPeer(p){const n=v=>Math.max(0,Math.round(Number(v)||0));
-  return {n:clean(String(p.n||'')).replace(/[<>]/g,'').slice(0,16)||'Someone',c:CLASSES[p.c]?p.c:'warrior',l:clamp(n(p.l),1,LV_CAP),lead:!!p.lead,raid:RAIDS[p.raid]?p.raid:'',ok:!!p.ok,rd:n(p.rd),h:clamp(n(p.h),0,100),st:['lobby','raid','out'].includes(p.st)?p.st:'lobby'};}
+  return {n:clean(String(p.n||'')).replace(/[<>]/g,'').slice(0,16)||"Quelqu'un",c:CLASSES[p.c]?p.c:'warrior',l:clamp(n(p.l),1,LV_CAP),lead:!!p.lead,raid:RAIDS[p.raid]?p.raid:'',ok:!!p.ok,rd:n(p.rd),h:clamp(n(p.h),0,100),st:['lobby','raid','out'].includes(p.st)?p.st:'lobby'};}
 function partyTrack(force){if(!PARTY.ch||!PARTY.ch.on)return;const now=Date.now();if(!force&&now-PARTY.trackAt<1000)return;PARTY.trackAt=now;PARTY.ch.track(partyMe());}
 function partyNames(){return [clean(S.name)].concat(Object.values(PARTY.peers).map(p=>p.n)).join(', ');}
 function raidNote(t){if(S){out(t);scrollDown();}}
@@ -7434,19 +7434,19 @@ function partyOpen(code,raid,lead){
   partyClose();Object.assign(PARTY,{code,raid:raid||'',lead:!!lead,peers:{},status:'connecting',synced:false,told:false});
   PARTY.ch=rtOpen(partyTopic(code),S.cid,{
     join:()=>{PARTY.status='on';partyTrack(true);if(PARTY.told)return;PARTY.told=true;
-      raidNote(`{m}You are in raid party ${code}.{n} {d}`+(lead?`Share the code (or {@raid invite|an invite link}) with up to three friends, then {@raid start|start} when everyone is here.`:`Waiting for the leader to start.`));renderParty();},
+      raidNote(`{m}Vous êtes dans le groupe de raid ${code}.{n} {d}`+(lead?`Partagez le code (ou {@raid invite|un lien d'invitation}) avec jusqu'à trois amis, puis {@raid start|lancez} quand tout le monde est là.`:`En attente du chef pour lancer.`));renderParty();},
     presence:(joins,leaves,full)=>{
       const before=PARTY.peers,now=full?{}:Object.assign({},before);
       for(const k in leaves||{})delete now[k];
       for(const k in joins||{}){if(k===S.cid)continue;const ms=(joins[k]&&joins[k].metas)||[];if(ms.length)now[k]=partyPeer(ms[ms.length-1]);}
       /* four is the most: whoever finds four already there when they arrive steps back out */
-      if(full&&!PARTY.lead&&!PARTY.synced&&Object.keys(now).length>=RAID_PARTY_MAX){raidNote(`{y}Raid party ${code} is full: ${RAID_PARTY_MAX} is the most.{n} {d}Form your own with{n} {@raid|raid}{d}.`);partyClose();renderParty();return;}
+      if(full&&!PARTY.lead&&!PARTY.synced&&Object.keys(now).length>=RAID_PARTY_MAX){raidNote(`{y}Le groupe de raid ${code} est complet : ${RAID_PARTY_MAX} au maximum.{n} {d}Formez le vôtre avec{n} {@raid|raid}{d}.`);partyClose();renderParty();return;}
       if(full)PARTY.synced=true;
       PARTY.peers=now;
-      for(const k in now)if(!before[k])raidNote(`{m}${now[k].n}{n} {d}(level ${now[k].l} ${CLASSES[now[k].c].n}) joins the party.`);
-      for(const k in before)if(!now[k])raidNote(`{d}${before[k].n} leaves the party.`);
+      for(const k in now)if(!before[k])raidNote(`{m}${now[k].n}{n} {d}(${CLASSES[now[k].c].n} de niveau ${now[k].l}) rejoint le groupe.`);
+      for(const k in before)if(!now[k])raidNote(`{d}${before[k].n} quitte le groupe.`);
       const ld=Object.values(now).find(p=>p.lead&&p.raid);if(!PARTY.raid&&ld){PARTY.raid=ld.raid;partyTrack(true);
-        raidNote(raidOk(ld.raid)?`{d}The party is going after ${RAIDS[ld.raid].n}.`:`{r}This party is going after ${RAIDS[ld.raid].n}, which you cannot join yet.{n} {d}It ${raidWhy(ld.raid)}.`);}
+        raidNote(raidOk(ld.raid)?`{d}Le groupe part affronter ${RAIDS[ld.raid].n}.`:`{r}Ce groupe part affronter ${RAIDS[ld.raid].n}, que vous ne pouvez pas encore rejoindre.{n} {d}${raidWhy(ld.raid)}.`);}
       raidHpSync();renderParty();},
     broadcast:(ev,p)=>{
       if(ev==='start')raidBegin(p);
@@ -7473,15 +7473,15 @@ function raidHpSync(){
 }
 function raidBegin(p){
   const k=String(p.raid||''),R_=RAIDS[k];if(!R_||S.raid||String(p.code)!==PARTY.code)return;
-  if(!raidOk(k)){raidNote(`{r}Your party went into ${R_.n} without you: it ${raidWhy(k)}.`);return;}
-  if(S.fight||S.flags.choosing){raidNote(`{y}Your party has gone into ${R_.n}.{n} {d}Finish what you are doing, then {@raid go|follow them}.`);S.raid={key:k,code:PARTY.code,t0:+p.t0||Date.now(),size:+p.size||2,dmg:0,pending:1};return;}
+  if(!raidOk(k)){raidNote(`{r}Votre groupe est entré dans ${R_.n} sans vous : ${raidWhy(k)}.`);return;}
+  if(S.fight||S.flags.choosing){raidNote(`{y}Votre groupe est entré dans ${R_.n}.{n} {d}Finissez ce que vous faites, puis {@raid go|suivez-le}.`);S.raid={key:k,code:PARTY.code,t0:+p.t0||Date.now(),size:+p.size||2,dmg:0,pending:1};return;}
   S.raid={key:k,code:PARTY.code,t0:+p.t0||Date.now(),size:+p.size||2,dmg:0};raidEnter();
 }
 function raidEnter(){
   const k='raid_'+S.raid.key;delete S.raid.pending;
   Object.keys(S.floors).forEach(x=>{if(x.startsWith(k+':'))delete S.floors[x];});
   if(S.floor>0){S.fight=false;S.fx={};}
-  out('');out(`{${RAIDS[S.raid.key].col}}RAID: ${RAIDS[S.raid.key].n.toUpperCase()}`,'act');out(`{d}party of ${S.raid.size}  ·  ${partyNames()}`,'actsub');
+  out('');out(`{${RAIDS[S.raid.key].col}}RAID : ${RAIDS[S.raid.key].n.toUpperCase()}`,'act');out(`{d}groupe de ${S.raid.size}  ·  ${partyNames()}`,'actsub');
   S.dg=k;gotoFloor(1,'start');partyTrack(true);promptLine();render();scrollDown();
 }
 function raidWonRemote(){if(S.raid&&!S.raid.won){const m=raidBoss();if(m&&S.fight&&curFoe()===m){S.fight=false;S.fx={};}if(m){const r=F()&&F().rooms.find(x=>x.mobs.includes(m));if(r)r.mobs=r.mobs.filter(x=>x!==m&&!x.minion);}raidWon(null);promptLine();render();scrollDown();}}
@@ -7489,62 +7489,62 @@ function raidWonRemote(){if(S.raid&&!S.raid.won){const m=raidBoss();if(m&&S.figh
 function raidWon(){
   if(!S.raid||S.raid.won)return;S.raid.won=1;const R_=RAIDS[S.raid.key],L=R_.lvl;
   if(PARTY.ch)PARTY.ch.send('won',{id:S.cid});
-  if(!S.raid.dmg){out(`{d}Your party brought down ${R_.boss.short} without you.`);return;}
-  out(`{o}*** RAID CLEARED: ${R_.n} ***`,'huge');sfx('victory');musicVictory();
-  gainXp(Math.round(mobXp(L)*20*xpScale(L)));const g=L*80;S.gold+=g;out(`{y}Your share: ${g} gold.`,'gold');
+  if(!S.raid.dmg){out(`{d}Votre groupe a abattu ${R_.boss.short} sans vous.`);return;}
+  out(`{o}*** RAID ACCOMPLI : ${R_.n} ***`,'huge');sfx('victory');musicVictory();
+  gainXp(Math.round(mobXp(L)*20*xpScale(L)));const g=L*80;S.gold+=g;out(`{y}Votre part : ${g} or.`,'gold');
   [randomGear(MR,L+2,0,MR()<0.12?4:3),randomGear(MR,L+1,30),{kind:'potion',key:'hp',qty:3}].forEach(x=>{
     if(addItem(x,true))out(`{w}You take ${iname(x)}. {d}${idesc(x)}`,x.rar>=4?'legend':'');else if(S.floor>0)cur().items.push(x);});
   S.raids[S.raid.key]=(S.raids[S.raid.key]||0)+1;liveMoment(`cleared the raid ${R_.n}!`);
-  queueScene({t:'relit',kicker:'RAID CLEARED',title:R_.n.toUpperCase(),sub:'With '+partyNames(),col:SC_COL[R_.col],fx:'spark',sound:'victory',auto:3600});
-  if(S.floor>0)out('{d}The way out is open.{n} {@recall|recall to town}');
+  queueScene({t:'relit',kicker:"RAID ACCOMPLI",title:R_.n.toUpperCase(),sub:"Avec "+partyNames(),col:SC_COL[R_.col],fx:'spark',sound:'victory',auto:3600});
+  if(S.floor>0)out("{d}La sortie est ouverte.{n} {@recall|rentrer en ville}");
 }
 /* Leaving the raid floor (recall, death or the clock) ends your part in it; the party stays together. */
 function raidLeave(why){if(!S.raid)return;if(!S.raid.won&&why)raidNote(why);if(S.raid.won||!S.raid.dmg){S.raid=null;}else{S.raid.out=1;}partyTrack(true);}
 /* Raid-only boss behaviour, called from bossTurn: cataclysms, helpers and the enrage clock. True = turn spent. */
 function raidBossTurn(m,B){
   if(!S.raid)return false;
-  if(!m.raged&&Date.now()>S.raid.t0+RAID_ENRAGE){m.raged=1;m.atk=Math.round(m.atk*3);sfx('roar');flashTerm('hit');out(`{${B.col}}${m.short} has run out of patience. Every blow will be fatal now.`,'heavy');}
+  if(!m.raged&&Date.now()>S.raid.t0+RAID_ENRAGE){m.raged=1;m.atk=Math.round(m.atk*3);sfx('roar');flashTerm('hit');out(`{${B.col}}${m.short} est à bout de patience. Chaque coup sera désormais fatal.`,'heavy');}
   const fr=m.hp/m.mhp,cut=[0.8,0.55,0.3];m.cat=m.cat||0;
   if(!m.add1&&fr<0.6){m.add1=1;summonAdds(m,1);}if(!m.add2&&fr<0.3){m.add2=1;summonAdds(m,1);}
-  if(m.cat<3&&fr<cut[m.cat]){m.cat++;m.charging=true;sfx('roar');out(`{${B.col}}${m.short} gathers the whole room into one blow!{n} {w}(Cataclysm next turn. {@defend|Defend}!)`,'heavy');return true;}
+  if(m.cat<3&&fr<cut[m.cat]){m.cat++;m.charging=true;sfx('roar');out(`{${B.col}}${m.short} rassemble toute la salle en un seul coup !{n} {w}(Cataclysme au prochain tour. {@defend|Défendez-vous} !)`,'heavy');return true;}
   return false;
 }
 
 /* ----- commands and the Expeditions panel ----- */
 function cmdRaid(arg){
   const [a,b]=String(arg||'').split(/\s+/);
-  if(!raidReady()){out('{d}Raids need online play, which is not set up for this copy of the game.');return;}
-  if(a==='form'){const k=b;if(!RAIDS[k]){out('Form a party for which raid? '+Object.keys(RAIDS).join(', '));return;}
-    if(!raidOk(k)){out(`{d}${RAIDS[k].n} ${raidWhy(k)}. You are level ${S.lvl}.`);return;}
-    partyOpen(newCode(),k,true);out(`{m}Forming a party for ${RAIDS[k].n}. Code: ${PARTY.code}{n} {d}(connecting...)`);return;}
-  if(a==='join'){if(S.lvl<RAID_MIN_LV){out(`{d}Raids open at level ${RAID_MIN_LV}. You are level ${S.lvl}.`);return;}const code=clean(b||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,5);if(code.length!==5){out('Join which party? Type its five-letter code: raid join ABCDE');return;}
-    partyOpen(code,'',false);out(`{m}Joining raid party ${code}...`);return;}
+  if(!raidReady()){out("{d}Les raids nécessitent le jeu en ligne, qui n'est pas configuré pour cette copie du jeu.");return;}
+  if(a==='form'){const k=b;if(!RAIDS[k]){out("Former un groupe pour quel raid ? "+Object.keys(RAIDS).join(', '));return;}
+    if(!raidOk(k)){out(`{d}${RAIDS[k].n} : ${raidWhy(k)}. Vous êtes niveau ${S.lvl}.`);return;}
+    partyOpen(newCode(),k,true);out(`{m}Formation d'un groupe pour ${RAIDS[k].n}. Code : ${PARTY.code}{n} {d}(connexion...)`);return;}
+  if(a==='join'){if(S.lvl<RAID_MIN_LV){out(`{d}Les raids s'ouvrent au niveau ${RAID_MIN_LV}. Vous êtes niveau ${S.lvl}.`);return;}const code=clean(b||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,5);if(code.length!==5){out("Rejoindre quel groupe ? Tapez son code à cinq lettres : raid join ABCDE");return;}
+    partyOpen(code,'',false);out(`{m}Connexion au groupe de raid ${code}...`);return;}
   if(a==='start'){
-    if(!PARTY.code){out('You are not in a party.');return;}if(!PARTY.lead){out('Only the party leader can start the raid.');return;}
+    if(!PARTY.code){out("Vous n'êtes dans aucun groupe.");return;}if(!PARTY.lead){out("Seul le chef du groupe peut lancer le raid.");return;}
     const ready=1+Object.values(PARTY.peers).filter(p=>p.ok&&p.st==='lobby').length;
-    if(ready<2){out('{y}You need at least one more player in the party (two to four; it is built for four).');return;}
+    if(ready<2){out("{y}Il faut au moins un joueur de plus dans le groupe (de deux à quatre ; il est conçu pour quatre).");return;}
     const p={raid:PARTY.raid,code:PARTY.code,t0:Date.now(),size:Math.min(4,ready)};PARTY.ch.send('start',p);raidBegin(p);return;}
-  if(a==='go'){if(S.raid&&S.raid.pending&&!S.fight){raidEnter();return;}out('There is no raid to follow.');return;}
-  if(a==='leave'){if(S.raid&&S.floor>0&&S.dg&&DUNGEONS[S.dg].raid){out('{b}You tug the thread and leave the raid.');toTown(5);}partyClose();out('{d}You leave the raid party.');return;}
-  if(a==='invite'){if(!PARTY.code){out('You are not in a party.');return;}shareSeed(S.seed,false,t=>{out(t.replace(/\?seed=[^ &]*/,'?raid='+PARTY.code).replace(/&live=1/,''));scrollDown();});return;}
+  if(a==='go'){if(S.raid&&S.raid.pending&&!S.fight){raidEnter();return;}out("Il n'y a aucun raid à suivre.");return;}
+  if(a==='leave'){if(S.raid&&S.floor>0&&S.dg&&DUNGEONS[S.dg].raid){out("{b}Vous tirez sur le fil et quittez le raid.");toTown(5);}partyClose();out("{d}Vous quittez le groupe de raid.");return;}
+  if(a==='invite'){if(!PARTY.code){out("Vous n'êtes dans aucun groupe.");return;}shareSeed(S.seed,false,t=>{out(t.replace(/\?seed=[^ &]*/,'?raid='+PARTY.code).replace(/&live=1/,''));scrollDown();});return;}
   /* status */
-  out('{m}-- Raids --{n} {d}a party of 2 to 4 (built for 4), all playing at once; the boss\'s health is shared','rt');
-  Object.entries(RAIDS).forEach(([k,R_])=>out(`${raidOk(k)?`{@raid form ${k}|${R_.n}}`:'{d}'+R_.n}{n} {d}level ${lvShow(R_.lvl)}, for heroes of level ${R_.minLv||RAID_MIN_LV}+. ${raidOk(k)?R_.blurb:cap(raidWhy(k))+'.'}${S.raids[k]?' Cleared x'+S.raids[k]+'.':''}`));
-  if(PARTY.code)out(`{m}Party ${PARTY.code}{n} {d}(${PARTY.raid?RAIDS[PARTY.raid].n:'raid not chosen'}): ${partyNames()}.{n} `+(PARTY.lead?'{@raid start|start} ':'')+'{@raid invite|invite} {@raid leave|leave}');
-  else out('{d}Join a friend\'s party with: raid join CODE');
+  out("{m}-- Raids --{n} {d}un groupe de 2 à 4 (conçu pour 4), tous en même temps ; la vie du boss est partagée",'rt');
+  Object.entries(RAIDS).forEach(([k,R_])=>out(`${raidOk(k)?`{@raid form ${k}|${R_.n}}`:'{d}'+R_.n}{n} {d}niveau ${lvShow(R_.lvl)}, pour les héros de niveau ${R_.minLv||RAID_MIN_LV}+. ${raidOk(k)?R_.blurb:cap(raidWhy(k))+'.'}${S.raids[k]?" Accompli ×"+S.raids[k]+'.':''}`));
+  if(PARTY.code)out(`{m}Groupe ${PARTY.code}{n} {d}(${PARTY.raid?RAIDS[PARTY.raid].n:"raid non choisi"}) : ${partyNames()}.{n} `+(PARTY.lead?'{@raid start|start} ':'')+"{@raid invite|inviter} {@raid leave|quitter}");
+  else out("{d}Rejoignez le groupe d'un ami avec : raid join CODE");
 }
 function raidRows(){
-  let h=`<div class="ex-sec">Raids</div><p class="hint">For a party of 2 to 4 friends playing at the same time; built for 4. The boss's health is shared, and it hits each of you separately.</p>`;
-  if(!raidReady())return h+`<p class="hint">Raids need online play.</p>`;
+  let h=`<div class="ex-sec">Raids</div><p class="hint">Pour un groupe de 2 à 4 amis qui jouent en même temps ; conçu pour 4. La vie du boss est partagée, et il frappe chacun de vous séparément.</p>`;
+  if(!raidReady())return h+`<p class="hint">Les raids nécessitent le jeu en ligne.</p>`;
   Object.entries(RAIDS).forEach(([k,R_])=>{const ok=raidOk(k);
-    h+=`<div class="ex-row"><button type="button" class="ex-main ex-open" data-raid="${esc(k)}"><b>${esc(R_.n)}</b><small>level ${lvShow(R_.lvl)}  ·  heroes ${R_.minLv||RAID_MIN_LV}+  ·  party of 2-4</small><em>${fmt(ok?(S.raids[k]?`{g}cleared x${S.raids[k]}{n}`:'{y}open{n}'):`{d}${raidWhy(k)}{n}`)}</em></button>`+
-      (ok&&!PARTY.code?`<button type="button" class="ex-go" data-go="raid:form ${esc(k)}">Go</button>`:'')+`</div>`;});
+    h+=`<div class="ex-row"><button type="button" class="ex-main ex-open" data-raid="${esc(k)}"><b>${esc(R_.n)}</b><small>niveau ${lvShow(R_.lvl)}  ·  héros ${R_.minLv||RAID_MIN_LV}+  ·  groupe de 2 à 4</small><em>${fmt(ok?(S.raids[k]?`{g}cleared x${S.raids[k]}{n}`:'{y}open{n}'):`{d}${raidWhy(k)}{n}`)}</em></button>`+
+      (ok&&!PARTY.code?`<button type="button" class="ex-go" data-go="raid:form ${esc(k)}">Y aller</button>`:'')+`</div>`;});
   if(PARTY.code){const ps=Object.values(PARTY.peers),ready=1+ps.filter(p=>p.ok&&p.st==='lobby').length;
-    h+=`<div class="ex-story"><b>Party ${esc(PARTY.code)}${PARTY.raid?' · '+esc(RAIDS[PARTY.raid].n):''}</b><p>${esc(clean(S.name))} (you${PARTY.lead?', leader':''})`+ps.map(p=>`<br>${esc(p.n)}, level ${p.l} ${esc(CLASSES[p.c].n)}${p.lead?' (leader)':''}${p.ok?'':' (not unlocked)'}`).join('')+`</p>`+
-      (PARTY.status!=='on'?`<p class="hint">Connecting...</p>`:'')+
-      (PARTY.lead?`<button type="button" class="big" data-go="raid:start"${ready<2?' disabled':''}>Start raid (${ready}/4)</button>`:'<p class="hint">Waiting for the leader to start.</p>')+
-      `<div class="row"><button type="button" data-go="raid:invite">Invite link</button><button type="button" data-go="raid:leave">Leave party</button></div></div>`;}
-  else h+=`<div class="row"><input id="raidCode" maxlength="5" placeholder="party code" autocapitalize="characters" aria-label="Party code"><button type="button" data-go="raid:join">Join</button></div>`;
+    h+=`<div class="ex-story"><b>Groupe ${esc(PARTY.code)}${PARTY.raid?' · '+esc(RAIDS[PARTY.raid].n):''}</b><p>${esc(clean(S.name))} (vous${PARTY.lead?", chef":''})`+ps.map(p=>`<br>${esc(p.n)}, ${esc(CLASSES[p.c].n)} de niveau ${p.l}${p.lead?' (leader)':''}${p.ok?'':" (non débloqué)"}`).join('')+`</p>`+
+      (PARTY.status!=='on'?`<p class="hint">Connexion...</p>`:'')+
+      (PARTY.lead?`<button type="button" class="big" data-go="raid:start"${ready<2?' disabled':''}>Lancer le raid (${ready}/4)</button>`:"<p class=\"hint\">En attente du chef pour lancer.</p>")+
+      `<div class="row"><button type="button" data-go="raid:invite">Lien d'invitation</button><button type="button" data-go="raid:leave">Quitter le groupe</button></div></div>`;}
+  else h+=`<div class="row"><input id="raidCode" maxlength="5" placeholder="code du groupe" autocapitalize="characters" aria-label="Code du groupe"><button type="button" data-go="raid:join">Rejoindre</button></div>`;
   return h;
 }
 /* ----- a raid's own screen (#mission, like a mission's): its whole story, how the fight goes, how hard it is, the
@@ -7553,49 +7553,49 @@ function raidRows(){
 const RAID_TALES={
  choir:{
   story:[
-   `Grisholt was not the first Warden of the cisterns. He was the twelfth. Before him came eleven others, and before them the diggers who cut the cisterns out of the rock under Emberfall, and before the diggers the river that ran there first. The water remembers every one of them.`,
-   `For three hundred years the Order sent its keepers down to the first Wardstone, and the water took the ones it wanted: Wardens, lantern-children who went down before Grisholt began sending them back, a flood's worth of townsfolk the night the stone first cracked. They did not drown, exactly. They kept. Down in the dark they found each other, and to stay themselves they sang: the old hymn of the Order, the one that is half-scratched into the moss of the Mycelial Deep. {c}Hold the lamp and hold the line.{n}`,
-   `While Grisholt lived, he sang with them. He drank the poisoned water so the wells would stay clean, and every night, the cistern-men say, you could hear him down there, answering a hundred voices with one cracked old one. He was their keeper as much as the stone's.`,
-   `Now Grisholt is gone, and nobody answers the song. Without a keeper it has started to change. One long note, then a hundred, then a tide: the Choir has stood up out of the water as a body built of bodies, and it is singing the flood back up the well-shafts of Emberfall. Every bucket that comes up from the city's wells this week has come up black.`,
-   `It does not hate the city. It wants what Grisholt gave it: someone to keep it. And it will drown Emberfall to find out who that is.`],
-  fight:`Four voices are enough to answer a hundred, the old cistern-men say, if they hold the note together. The Choir sings the Flood (Defend), drains the strength of whoever it can reach, and calls drowned thralls up out of the water to fight beside it. When it splits its note in two, the water rises.`,
-  after:`When the last voice fell silent it was a child's, humming the hymn. The wells of Emberfall run clear again. Old Mott swears that on still nights he can hear singing under the cemetery, very quietly, in tune.`},
+   `Grisholt n'était pas le premier Gardien des citernes. Il était le douzième. Avant lui en vinrent onze autres, et avant eux les terrassiers qui taillèrent les citernes dans la roche sous Emberfall, et avant les terrassiers, la rivière qui coulait là d'abord. L'eau se souvient de chacun d'eux.`,
+   `Pendant trois cents ans, l'Ordre a envoyé ses gardiens jusqu'à la première Pierre de garde, et l'eau a pris ceux qu'elle voulait : des Gardiens, des enfants-lanternes descendus avant que Grisholt ne commence à les renvoyer, une crue entière de citadins la nuit où la pierre se fendit pour la première fois. Ils ne se sont pas noyés, pas vraiment. Ils se sont conservés. En bas, dans le noir, ils se sont trouvés, et pour rester eux-mêmes ils ont chanté : le vieil hymne de l'Ordre, celui qui est à moitié gravé dans la mousse des Profondeurs Mycéliennes. {c}Tiens la lampe et tiens la ligne.{n}`,
+   `Tant que Grisholt vécut, il chanta avec eux. Il but l'eau empoisonnée pour que les puits restent propres, et chaque nuit, disent les hommes des citernes, on l'entendait là en bas, répondre à cent voix d'une seule, vieille et fêlée. Il était leur gardien autant que celui de la pierre.`,
+   `Désormais Grisholt n'est plus, et personne ne répond au chant. Sans gardien, il s'est mis à changer. Une longue note, puis cent, puis une marée : le Chœur s'est dressé hors de l'eau, un corps fait de corps, et il chante la crue jusque dans les puits d'Emberfall. Chaque seau remonté des puits de la cité cette semaine est remonté noir.`,
+   `Il ne hait pas la cité. Il veut ce que Grisholt lui donnait : quelqu'un pour le garder. Et il noiera Emberfall pour découvrir qui ce sera.`],
+  fight:`Quatre voix suffisent à répondre à cent, disent les vieux hommes des citernes, si elles tiennent la note ensemble. Le Chœur chante la Crue (Défendez-vous), draine la force de quiconque il peut atteindre, et fait monter de l'eau des serfs noyés pour se battre à ses côtés. Quand il dédouble sa note, l'eau monte.`,
+  after:`Quand la dernière voix se tut, c'était celle d'un enfant qui fredonnait l'hymne. Les puits d'Emberfall sont de nouveau limpides. Le vieux Mott jure que, les nuits calmes, il entend chanter sous le cimetière, tout doucement, et juste.`},
  colossus:{
   story:[
-   `Before the Bone Engine, before the Ossuary, before there was a Lantern Order with a charter and a Temple, there was a forge under the hill and seven smiths who did not sleep for a year. What they built there was meant to be the Order's last answer: if the seal ever broke and the Ashen Sovereign came up the stair, the Brass Colossus would be waiting at the top of it.`,
-   `It is the size of a chapel and shaped like a knight at prayer. Its chest is a cathedral, with pews, and an altar where its heart should be, and around the altar the founders cast their names in brass so the machine would know whom it served. There were eight names. One of them has been chiselled off. It said Caius.`,
-   `The founders gave it one order before they sealed the forge: {y}DESTROY THE UNWORTHY.{n} Worthy meant whoever kept the charter. Unworthy meant anyone who broke it. For three hundred years it has stood in the dark and waited for the word.`,
-   `The word came when the charter changed. You found the Order's true charter in the Archive, or carried the third oath out of the deep, and somewhere in the Colossus an old brass ledger turned a page. By the first charter, the Order that fed children to the seal was faithful. By the true one, the whole of Emberfall broke its oath. The Colossus has woken, and it is checking its list against the city.`,
-   `Brakka has heard it through the forge floor: one slow knock, every hour, like something very large learning to walk again. Her great-grandmother's great-grandmother was one of the seven smiths. She says the machine was never cruel. It was only obedient, and that is worse.`],
-  fight:`Built to fight armies, it fights four as if they were one. Its fists pin whoever they land on (stun), its joints vent scalding steam (burn), and when it raises both arms the whole forge jumps (Defend). Brass hounds run with it. Wounded, it engages its redundant fury: every blow after that comes harder.`,
-  after:`The Colossus knelt the way old men kneel to pray, and its lights went out one by one. Brakka went down afterwards with a chisel and put the eighth name back on the altar.`},
+   `Avant la Machine d'Os, avant l'Ossuaire, avant qu'il y ait un Ordre de la Lanterne avec une charte et un Temple, il y eut une forge sous la colline et sept forgerons qui ne dormirent pas pendant un an. Ce qu'ils y bâtirent devait être la dernière réponse de l'Ordre : si jamais le sceau se brisait et que le Souverain de Cendre remontait l'escalier, le Colosse d'Airain l'attendrait au sommet.`,
+   `Il a la taille d'une chapelle et la forme d'un chevalier en prière. Sa poitrine est une cathédrale, avec des bancs, et un autel là où devrait être son cœur, et autour de l'autel les fondateurs ont coulé leurs noms dans l'airain pour que la machine sache qui elle servait. Il y avait huit noms. L'un d'eux a été effacé au burin. Il disait Caius.`,
+   `Les fondateurs lui donnèrent un seul ordre avant de sceller la forge : {y}DÉTRUIS LES INDIGNES.{n} Digne voulait dire quiconque respectait la charte. Indigne, quiconque la rompait. Pendant trois cents ans, il s'est tenu dans le noir, à attendre le mot.`,
+   `Le mot vint quand la charte changea. Vous avez trouvé la véritable charte de l'Ordre dans l'Archive, ou rapporté le troisième serment des profondeurs, et quelque part dans le Colosse un vieux registre d'airain a tourné une page. Selon la première charte, l'Ordre qui nourrissait le sceau d'enfants était fidèle. Selon la vraie, Emberfall tout entière a rompu son serment. Le Colosse s'est réveillé, et il vérifie sa liste en regardant la cité.`,
+   `Brakka l'a entendu à travers le sol de la forge : un coup lent, toutes les heures, comme quelque chose de très grand qui réapprend à marcher. L'arrière-grand-mère de son arrière-grand-mère était l'un des sept forgerons. Elle dit que la machine n'a jamais été cruelle. Seulement obéissante, et c'est pire.`],
+  fight:`Bâti pour combattre des armées, il combat quatre adversaires comme s'ils n'en faisaient qu'un. Ses poings clouent sur place quiconque ils touchent (étourdissement), ses articulations crachent une vapeur brûlante (brûlure), et quand il lève les deux bras, toute la forge tressaute (Défendez-vous). Des chiens d'airain courent avec lui. Blessé, il enclenche sa fureur de secours : chaque coup qui suit frappe plus fort.`,
+  after:`Le Colosse s'agenouilla comme les vieillards s'agenouillent pour prier, et ses lumières s'éteignirent une à une. Brakka descendit ensuite avec un burin et remit le huitième nom sur l'autel.`},
  maw:{
   story:[
-   `Under the Ember Throne the world stops, and under where it stops is the Abyss, and under the Abyss, if you go down far enough, the walls stop being walls and start being throat.`,
-   `The Order had a name for what is down there: the Lower Mouth. Arden Vale could see it from the far end of his watch-wall, and in the letters he never sent he wrote about it the way you write about weather. {m}It yawned again today. I do not think it is awake. I think it is dreaming about being hungry.{n}`,
-   `That is what the Maw is. Not the Hunger itself, but its habit: the part that ate before it knew why, and goes on eating after there is no reason. Whatever you did at the bottom of the world, whether you gave the Hunger a name or closed its door and kept the watch, a mouth remembers being empty. The Heralds you killed on every fifth floor of the Abyss were its teeth, loose in the dark. They have stopped coming. The mouth is looking for them.`,
-   `It is opening now, slowly, the way the sky opens before a storm. If it opens all the way it will swallow the Abyss and everything that ever fell into it: the Heralds, the hungering shades, the names nobody came back for. Then it will remember the stair, and the Throne, and the city at the top, and the lanterns.`,
-   `It says one word, and the word is {m}LIGHT{n}. It means all of it.`],
-  fight:`Nothing alone stands at the bottom of the world for long. The Maw drains the light out of whoever it looks at, pours lightless fire from its throat (burn), and swallows the light itself (Defend). Hungering shades crawl up out of its gullet to join it. When it opens wider, the thing behind it leans closer, and the fight gets worse.`,
-  after:`The Maw closed slowly, like an eye that is tired of looking. The Abyss is still bottomless. But for the first time in three hundred years, nothing at the bottom of it is yawning.`}
+   `Sous le Trône de Braise, le monde s'arrête, et sous l'endroit où il s'arrête se trouve l'Abîme, et sous l'Abîme, si l'on descend assez loin, les murs cessent d'être des murs et deviennent une gorge.`,
+   `L'Ordre avait un nom pour ce qui se trouve là en bas : la Bouche d'En-Bas. Arden Vale la voyait depuis le bout de son mur de guet, et dans les lettres qu'il n'envoya jamais, il en parlait comme on parle du temps qu'il fait. {m}Elle a encore bâillé aujourd'hui. Je ne crois pas qu'elle soit éveillée. Je crois qu'elle rêve d'avoir faim.{n}`,
+   `Voilà ce qu'est la Gueule. Pas la Faim elle-même, mais son habitude : la part qui mangeait avant de savoir pourquoi, et continue de manger quand il n'y a plus de raison. Quoi que vous ayez fait au fond du monde, que vous ayez donné un nom à la Faim ou fermé sa porte pour monter la garde, une bouche se souvient d'avoir été vide. Les Hérauts que vous avez tués tous les cinq étages de l'Abîme étaient ses dents, perdues dans le noir. Ils ne viennent plus. La bouche les cherche.`,
+   `Elle s'ouvre à présent, lentement, comme le ciel s'ouvre avant l'orage. Si elle s'ouvre en entier, elle avalera l'Abîme et tout ce qui y est jamais tombé : les Hérauts, les ombres affamées, les noms que personne n'est venu rechercher. Puis elle se souviendra de l'escalier, et du Trône, et de la cité tout en haut, et des lanternes.`,
+   `Elle dit un seul mot, et ce mot est {m}LUMIÈRE{n}. Elle entend tout.`],
+  fight:`Rien de seul ne tient longtemps au fond du monde. La Gueule draine la lumière de quiconque elle regarde, déverse un feu sans lumière de sa gorge (brûlure), et avale la lumière elle-même (Défendez-vous). Des ombres affamées remontent de son gosier pour la rejoindre. Quand elle s'ouvre plus grand, la chose derrière elle se penche plus près, et le combat empire.`,
+  after:`La Gueule se referma lentement, comme un œil las de regarder. L'Abîme est toujours sans fond. Mais pour la première fois en trois cents ans, rien ne bâille tout au fond.`}
 };
 function openRaid(k){if(!RAIDS[k])return;misOpen='raid:'+k;renderMission();$('#mission').hidden=false;sfx('scroll');}
 function renderRaid(k){
   const R_=RAIDS[k],T=RAID_TALES[k]||{},el=$('#mission .mis-body');if(!R_||!el)return;const ok=raidOk(k),n=(S.raids||{})[k]||0,r=missionRating({hi:R_.lvl});
   $('#misTitle').textContent=R_.n;let h='';
-  h+=`<div class="dg-head"><div class="dg-boss"></div><div class="ex-story"><b>${!ok?'Shut':n?`Cleared ${n} time${n>1?'s':''}`:'Open'}</b><p>${fmt(R_.blurb)}</p></div></div>`;
-  h+=`<div class="ex-sec">The story</div>`+(T.story||[]).map(p=>`<p class="mis-p">${fmt(p)}</p>`).join('');
-  if(n&&T.after)h+=`<div class="ex-sec">After</div><p class="mis-p">${fmt(T.after)}</p>`;
-  h+=`<div class="ex-sec">The fight</div><p class="mis-p">${fmt(T.fight||'')}</p><p class="hint">For 2 to 4 friends playing at the same time; built for 4. ${esc(R_.boss.short)}'s health is shared, and it hits each of you separately. At 80%, 55% and 30% health it unleashes a cataclysm: Defend. Its helpers join at 60% and 30%. After ten minutes it stops holding back. Everyone who hurt it gets their own share when it falls.</p>`;
-  h+=`<div class="ex-sec">How hard</div><div class="mis-facts"><div><small>Raid level</small><b>${lvShow(R_.lvl)}</b></div><div><small>Heroes</small><b>level ${R_.minLv||RAID_MIN_LV}+</b></div><div><small>Party</small><b>2 to 4</b></div><div><small>For you (level ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;
-  h+=`<div class="ex-sec">Your share</div><p class="mis-p">${R_.lvl*80} gold, a great deal of experience, an epic piece of gear (sometimes a legendary), another piece besides, and three Healing Draughts.</p>`;
-  if(!raidReady())h+='<p class="hint">Raids need online play.</p>';
+  h+=`<div class="dg-head"><div class="dg-boss"></div><div class="ex-story"><b>${!ok?'Shut':n?`Cleared ${n} time${n>1?'s':''}`:"Ouvert"}</b><p>${fmt(R_.blurb)}</p></div></div>`;
+  h+=`<div class="ex-sec">L'histoire</div>`+(T.story||[]).map(p=>`<p class="mis-p">${fmt(p)}</p>`).join('');
+  if(n&&T.after)h+=`<div class="ex-sec">Après</div><p class="mis-p">${fmt(T.after)}</p>`;
+  h+=`<div class="ex-sec">Le combat</div><p class="mis-p">${fmt(T.fight||'')}</p><p class="hint">Pour 2 à 4 amis qui jouent en même temps ; conçu pour 4. La vie de ${esc(R_.boss.short)} est partagée, et il frappe chacun de vous séparément. À 80 %, 55 % et 30 % de vie, il déchaîne un cataclysme : Défendez-vous. Ses acolytes arrivent à 60 % et 30 %. Au bout de dix minutes, il ne se retient plus. Tous ceux qui l'ont blessé ont leur propre part quand il tombe.</p>`;
+  h+=`<div class="ex-sec">Difficulté</div><div class="mis-facts"><div><small>Niveau du raid</small><b>${lvShow(R_.lvl)}</b></div><div><small>Héros</small><b>niveau ${R_.minLv||RAID_MIN_LV}+</b></div><div><small>Groupe</small><b>2 à 4</b></div><div><small>Pour vous (niveau ${S.lvl})</small><b>${fmt(`{${r.c}}${r.t}{n}`)}</b></div></div>`;
+  h+=`<div class="ex-sec">Votre part</div><p class="mis-p">${R_.lvl*80} or, énormément d'expérience, une pièce d'équipement épique (parfois légendaire), une autre en prime, et trois Potions de soin.</p>`;
+  if(!raidReady())h+="<p class=\"hint\">Les raids nécessitent le jeu en ligne.</p>";
   else if(!ok)h+=`<p class="hint">It ${esc(raidWhy(k))}.</p>`;
-  else if(!PARTY.code)h+=`<button type="button" class="big" data-mgo="raid:form ${esc(k)}">Form a party</button><button type="button" data-minv="1">Invite a friend</button><p class="hint">Or join a friend's party with its code on the Expeditions screen.</p>`;
+  else if(!PARTY.code)h+=`<button type="button" class="big" data-mgo="raid:form ${esc(k)}">Former un groupe</button><button type="button" data-minv="1">Inviter un ami</button><p class="hint">Ou rejoignez le groupe d'un ami avec son code, dans l'écran Expéditions.</p>`;
   else{const ps=Object.values(PARTY.peers),mine=PARTY.raid===k;
-    h+=`<div class="ex-story"><b>Your party: ${esc(PARTY.code)}${PARTY.raid?' · '+esc(RAIDS[PARTY.raid].n):''}</b><p>${esc(clean(S.name))} (you)`+ps.map(p=>`, ${esc(p.n)}`).join('')+`</p></div>`;
-    if(mine&&PARTY.lead)h+=`<button type="button" class="big" data-mgo="raid:start"${1+ps.length<2?' disabled':''}>Start the raid (${1+ps.length}/4)</button>`;
-    h+=`<button type="button" data-minv="1">Invite a friend</button>`;}
+    h+=`<div class="ex-story"><b>Votre groupe : ${esc(PARTY.code)}${PARTY.raid?' · '+esc(RAIDS[PARTY.raid].n):''}</b><p>${esc(clean(S.name))} (vous)`+ps.map(p=>`, ${esc(p.n)}`).join('')+`</p></div>`;
+    if(mine&&PARTY.lead)h+=`<button type="button" class="big" data-mgo="raid:start"${1+ps.length<2?' disabled':''}>Lancer le raid (${1+ps.length}/4)</button>`;
+    h+=`<button type="button" data-minv="1">Inviter un ami</button>`;}
   el.innerHTML=h;
   const b=el.querySelector('.dg-boss');if(b&&typeof bossSprite==='function')b.appendChild(bossSprite(bossKey({raid:1,dg:'raid_'+k}),2));
 }
@@ -7971,7 +7971,7 @@ function book4BossDown(bi,r){
     [`On Marshal's Hill the iron banners come down. Kaldmark's army is falling back over the Teeth, and the grass behind them is thawing in rings.`],
     [`All across Kaldmark the red lamps are out, and the hearths are burning yellow. Only one place in the north is still cold: the mountain where the king sits.`]][bi-15];
   if(bi<19){
-    if(!queueScene({t:'relit',kicker:'ACT '+A_.num+'  ·  '+A_.name.toUpperCase(),title:['THE TUNNELS ARE OURS','THE GATE HOLDS','THE BANNERS FALL','THE RED LAMPS GO OUT'][bi-15],sub:'Far behind you, the Last Lantern burns gold.',col:SC_COL[A_.col]||'#ff8a5c',fx:'spark',art:'lantern',sound:'relit',auto:2800}))sfx('relit');
+    if(!queueScene({t:'relit',kicker:"ACTE "+A_.num+'  ·  '+A_.name.toUpperCase(),title:['THE TUNNELS ARE OURS','THE GATE HOLDS','THE BANNERS FALL','THE RED LAMPS GO OUT'][bi-15],sub:'Far behind you, the Last Lantern burns gold.',col:SC_COL[A_.col]||'#ff8a5c',fx:'spark',art:'lantern',sound:'relit',auto:2800}))sfx('relit');
     after.forEach(t=>out(t,'story'));taleFall(bi);
     r.exits.d='down';out(`{${A_.col}}${A_.name}: taken.{n} {o}The front moves on.{n} {@d|advance}  {d}or{n} {@recall|recall to the war table}`);return;}
   taleFall(bi);S.flags.choosing4=true;
@@ -8140,7 +8140,7 @@ DUNGEONS.summer={name:'The Everlasting Summer',col:'g',floors:1,fixed:1,story:1,
     if(!queueScene({t:'relit',kicker:'CHAPTER XXII',title:'THE SUMMERS GO HOME',sub:'Lily\'s Everlasting Summer is open, as a raid.',col:'#9ae67a',fx:'spark',art:'lantern',sound:'relit',auto:3600}))sfx('relit');
     taleLanterns(false);}
   else out(`{g}The garden is quiet again.{n}`);
-  out(`{d}The way out is open.{n} {@recall|recall to town}`);
+  out(`{d}La sortie est ouverte.{n} {@recall|rentrer en ville}`);
  }};
 Object.assign(STORY_ITEMS,{summerseed:{n:'A Seed of Everlasting Summer',bon:{hp:'t26',regen:4,healPct:15,dmgPct:12}}});
 
@@ -8251,22 +8251,22 @@ const frName=p=>p.u||p.n;
 const FR_A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 function frCode(){let c=pref('fcode');if(!/^[A-Z2-9]{6}$/.test(c||'')){c='';for(let i=0;i<6;i++)c+=FR_A[Math.floor(Math.random()*FR_A.length)];pref('fcode',c);}return c;}
 function frNorm(c){return String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);}
-function frList(){try{const l=JSON.parse(pref('friends')||'[]');return Array.isArray(l)?l.filter(f=>f&&/^[A-Z2-9]{6}$/.test(f.c)).map(f=>({c:f.c,n:clean(String(f.n||'')).slice(0,16)||'Friend'})).slice(0,50):[];}catch(e){return [];}}
+function frList(){try{const l=JSON.parse(pref('friends')||'[]');return Array.isArray(l)?l.filter(f=>f&&/^[A-Z2-9]{6}$/.test(f.c)).map(f=>({c:f.c,n:clean(String(f.n||'')).slice(0,16)||"Ami"})).slice(0,50):[];}catch(e){return [];}}
 function frSave(l,quiet){pref('friends',JSON.stringify(l.slice(0,50)));if(!quiet)accSaveProfile();}   /* signed in, the list follows your account */
 function frOn(){return pref('fonline')!=='0';}
 function frInGame(){return !!S&&$('#title').hidden;}
-function frWhere(){return S.floor===0?(S.town==='solenne'?'in Solenne':'in Emberfall'):S.dg?'in '+(DUNGEONS[S.dg]?DUNGEONS[S.dg].name:'the dark'):'on floor '+S.floor;}
-function frHomeName(){if(S)return clean(S.name).slice(0,16);const h=HERO_SLOTS.map(n=>loadSave(n)).find(Boolean);return h?clean(h.name).slice(0,16):'A wanderer';}
+function frWhere(){return S.floor===0?(S.town==='solenne'?"à Solenne":"à Emberfall"):S.dg?'in '+(DUNGEONS[S.dg]?DUNGEONS[S.dg].name:'the dark'):"à l'étage "+S.floor;}
+function frHomeName(){if(S)return clean(S.name).slice(0,16);const h=HERO_SLOTS.map(n=>loadSave(n)).find(Boolean);return h?clean(h.name).slice(0,16):"Un vagabond";}
 /* What friends see of you: your hero and where, or that you are on the home screen. */
 function frMe(){
-  if(!frInGame())return {c:frCode(),u:frPlayer(),n:frHomeName(),k:'',l:0,w:'on the home screen',p:'',r:'',v:0};
+  if(!frInGame())return {c:frCode(),u:frPlayer(),n:frHomeName(),k:'',l:0,w:"sur l'écran d'accueil",p:'',r:'',v:0};
   const lead=PARTY.code&&PARTY.lead&&PARTY.raid;
   return {c:frCode(),u:frPlayer(),n:clean(S.name).slice(0,16),k:S.cls,l:S.lvl,w:frWhere(),p:lead?PARTY.code:'',r:lead?PARTY.raid:'',v:S.live?1:0};
 }
 function frPeer(p){const n=v=>Math.max(0,Math.round(Number(v)||0));
   return {c:frNorm(p.c),u:clean(String(p.u||'')).replace(/[<>]/g,'').slice(0,16),n:clean(String(p.n||'?')).slice(0,16)||'?',k:CLASSES[p.k]?p.k:'',l:Math.min(99,n(p.l)),w:clean(String(p.w||'')).slice(0,40),
     p:frNorm(p.p).slice(0,5),r:RAIDS[p.r]?p.r:'',v:p.v?1:0};}
-function frPeerLine(p){return (p.k?(p.u?p.n+', ':'')+`${CLASSES[p.k].n}, level ${p.l}, `:'')+p.w+(p.p?' · leading a raid party':'');}
+function frPeerLine(p){return (p.k?(p.u?p.n+', ':'')+`${CLASSES[p.k].n}, niveau ${p.l}, `:'')+p.w+(p.p?" · mène un groupe de raid":'');}
 
 /* ----- the lobby ----- */
 function frStart(){
@@ -8288,9 +8288,9 @@ function frNotes(before,full){
   if(!FR.synced){FR.synced=true;for(const c in FR.peers)if(mine[c])FR.known[c]=frName(FR.peers[c]);return;}
   for(const c in FR.peers){if(!mine[c])continue;const p=FR.peers[c];
     if(FR.gone[c]){clearTimeout(FR.gone[c]);delete FR.gone[c];}
-    else if(!FR.known[c]){say(`{m}${frName(p)}{n} {d}is online`+(p.k?` (${p.u?p.n+', ':''}${CLASSES[p.k].n}, level ${p.l}).`:'.')+'{n}');sfx('msg');}
+    else if(!FR.known[c]){say(`{m}${frName(p)}{n} {d}est en ligne`+(p.k?` (${p.u?p.n+', ':''}${CLASSES[p.k].n}, niveau ${p.l}).`:'.')+'{n}');sfx('msg');}
     FR.known[c]=frName(p);}
-  const went=c=>{if(FR.gone[c]||!FR.known[c])return;const nm=FR.known[c];FR.gone[c]=setTimeout(()=>{delete FR.gone[c];if(FR.peers[c])return;delete FR.known[c];say(`{d}${nm} has gone offline.{n}`);},LIVE_GRACE);};
+  const went=c=>{if(FR.gone[c]||!FR.known[c])return;const nm=FR.known[c];FR.gone[c]=setTimeout(()=>{delete FR.gone[c];if(FR.peers[c])return;delete FR.known[c];say(`{d}${nm} s'est déconnecté.{n}`);},LIVE_GRACE);};
   for(const c in before)if(!FR.peers[c])went(c);
   if(full)for(const c in FR.known)if(!FR.peers[c])went(c);
 }
@@ -8305,19 +8305,19 @@ function frRefresh(){
 /* Something waiting for you: shown on the share link and the menu's Friends button. */
 function frWaiting(){return (FR.inv?1:0)+FR.req.length;}
 function frBadge(){const n=frWaiting(),t=$('#seedShare'),m=$('#mShare');
-  if(t)t.textContent='Share this seed with a friend'+(n?` (${n} waiting)`:'');if(m)m.textContent='Friends & share'+(n?` (${n})`:'');}
+  if(t)t.textContent="Partager cette graine avec un ami"+(n?` (${n} en attente)`:'');if(m)m.textContent="Amis et partage"+(n?` (${n})`:'');}
 function frMessage(ev,p){
   if(!p||frNorm(p.to)!==frCode())return;const from=frNorm(p.from),n=clean(String(p.n||'?')).slice(0,16)||'?';if(from.length!==6)return;
   const known=frList().some(f=>f.c===from),say=t=>{if(frInGame()){out(t);scrollDown();}};
   if(ev==='add'){if(known||FR.req.some(r=>r.c===from))return;FR.req.push({c:from,n});if(FR.req.length>10)FR.req.shift();sfx('chime');
-    say(`{m}${n} added you as a friend.{n} {@friend add ${from}|add them back}`);}
+    say(`{m}${n} vous a ajouté en ami.{n} {@friend add ${from}|l'ajouter aussi}`);}
   else if(ev==='inv'&&known){
     if(p.kind==='raid'){const code=frNorm(p.code).slice(0,5),raid=RAIDS[p.raid]?p.raid:'';if(code.length!==5)return;
-      FR.inv={kind:'raid',code,raid,n};sfx('chime');say(`{m}${n} invites you to raid ${raid?RAIDS[raid].n:'with them'} (party ${code}).{n} {@friend accept|join them}`);}
+      FR.inv={kind:'raid',code,raid,n};sfx('chime');say(`{m}${n} vous invite au raid ${raid?RAIDS[raid].n:"avec lui"} (groupe ${code}).{n} {@friend accept|le rejoindre}`);}
     else if(p.kind==='seed'){const seed=clean(String(p.seed||'')).toUpperCase().slice(0,24);if(!seed)return;
       const what=clean(String(p.what||'')).replace(/[<>]/g,'').slice(0,48),go=/^(dg:[a-z_]{2,16}(:[0-3])?|act:\d{1,2}|deep)$/.test(String(p.go||''))?String(p.go):'',here=frInGame()&&String(S.seed)===seed;
       FR.inv={kind:'seed',seed,live:!!p.live,n,what,go};sfx('chime');
-      say(`{m}${n} invites you to ${p.live?'play live with them':'race them'} on seed ${seed}${what?`: they are going to ${what}`:''}.{n} `+(here?`{d}You are on that seed.{n} {@friend accept|join them}`:`{d}A new hero on their seed; yours stays saved.{n} {@friend accept|accept}`));}
+      say(`{m}${n} vous invite à ${p.live?"jouer en direct avec lui":"faire la course contre lui"} sur la graine ${seed}${what?` : il part pour ${what}`:''}.{n} `+(here?`{d}Vous êtes sur cette graine.{n} {@friend accept|le rejoindre}`:`{d}Un nouveau héros sur sa graine ; le vôtre reste sauvegardé.{n} {@friend accept|accepter}`));}
     else return;}
   else return;
   frRefresh();
@@ -8333,29 +8333,29 @@ function frShareCtx(){
   return {seed:String(S.seed),live:!!S.live,party};
 }
 function frShareLink(ctx){
-  if(ctx.party){const url=SITE_URL+'?raid='+encodeURIComponent(ctx.party.code);FR.note='Party link: '+url;
-    if(navigator.share)navigator.share({title:'Lanterns of the Undervault',text:'Raid with me in Lanterns of the Undervault.',url}).catch(()=>{});
-    else if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(()=>{FR.note='Party link copied: '+url;renderFriends();},()=>{});return;}
-  shareSeed(ctx.seed,ctx.live,t=>{FR.note=/copied/i.test(t)?'Link copied.':plainTxt(t);renderFriends();});
+  if(ctx.party){const url=SITE_URL+'?raid='+encodeURIComponent(ctx.party.code);FR.note="Lien du groupe : "+url;
+    if(navigator.share)navigator.share({title:'Lanterns of the Undervault',text:"Viens faire un raid avec moi dans Lanterns of the Undervault.",url}).catch(()=>{});
+    else if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(()=>{FR.note="Lien du groupe copié : "+url;renderFriends();},()=>{});return;}
+  shareSeed(ctx.seed,ctx.live,t=>{FR.note=/copied/i.test(t)?"Lien copié.":plainTxt(t);renderFriends();});
 }
 function frInvite(f){
-  const ctx=frShareCtx();if(!ctx)return 'Nothing to share yet.';
-  if(!FR.peers[f.c])return `${f.n} is not online right now.`;
+  const ctx=frShareCtx();if(!ctx)return "Rien à partager pour l'instant.";
+  if(!FR.peers[f.c])return `${f.n} n'est pas en ligne en ce moment.`;
   if(ctx.mis&&S&&!S.live&&lbReady())cmdLive('on');   /* to play together you both need to be live */
   const ok=ctx.party?frSend('inv',f.c,{kind:'raid',code:ctx.party.code,raid:ctx.party.raid}):frSend('inv',f.c,Object.assign({kind:'seed',seed:ctx.seed,live:ctx.live?1:0},ctx.mis?{what:ctx.mis.what,go:ctx.mis.go}:{}));
-  if(!ok)return 'Not connected yet. Try again in a moment.';
-  sfx('chime');return ctx.mis?`Sent ${f.n} your seed, to join you in ${ctx.mis.what}.`:ctx.party?`Sent ${f.n} your raid party, ${ctx.party.code}.`:`Sent ${f.n} seed ${ctx.seed}${ctx.live?', to play live together':', to race you'}.`;
+  if(!ok)return "Pas encore connecté. Réessayez dans un instant.";
+  sfx('chime');return ctx.mis?`Graine envoyée à ${f.n}, pour vous rejoindre dans ${ctx.mis.what}.`:ctx.party?`Groupe de raid envoyé à ${f.n} : ${ctx.party.code}.`:`Graine ${ctx.seed} envoyée à ${f.n}${ctx.live?", pour jouer en direct ensemble":", pour faire la course contre vous"}.`;
 }
 function frAdd(code){
-  const c=frNorm(code);if(!/^[A-Z2-9]{6}$/.test(c))return 'A friend code is six letters and numbers, like ABC234.';
-  if(c===frCode())return 'That is your own code.';
-  const l=frList();if(l.some(f=>f.c===c))return 'Already on your list.';if(l.length>=50)return 'Your list is full (50).';
-  const p=FR.peers[c],r=FR.req.find(x=>x.c===c);l.push({c,n:p?frName(p):r?r.n:'Friend '+c});FR.known[c]=p?frName(p):'';if(!p)delete FR.known[c];frSave(l);FR.req=FR.req.filter(x=>x.c!==c);frSend('add',c);sfx('chime');frRefresh();
-  return `${l[l.length-1].n} is on your friends list.`+(p?' Online now.':' They show as online when they are playing.');
+  const c=frNorm(code);if(!/^[A-Z2-9]{6}$/.test(c))return "Un code ami compte six lettres et chiffres, comme ABC234.";
+  if(c===frCode())return "C'est votre propre code.";
+  const l=frList();if(l.some(f=>f.c===c))return "Déjà dans votre liste.";if(l.length>=50)return "Votre liste est pleine (50).";
+  const p=FR.peers[c],r=FR.req.find(x=>x.c===c);l.push({c,n:p?frName(p):r?r.n:"Ami "+c});FR.known[c]=p?frName(p):'';if(!p)delete FR.known[c];frSave(l);FR.req=FR.req.filter(x=>x.c!==c);frSend('add',c);sfx('chime');frRefresh();
+  return `${l[l.length-1].n} est dans votre liste d'amis.`+(p?" En ligne maintenant.":" Il apparaît en ligne quand il joue.");
 }
 function frAccept(){
-  const v=FR.inv;if(!v)return 'No invite to accept.';FR.inv=null;frBadge();closeFriends();
-  if(v.kind==='raid'){if(frInGame()){cmdRaid('join '+v.code);return '';}linkRaid=v.code;$('#linkInfo').hidden=false;$('#linkInfo').textContent=`${v.n} invited you to raid party ${v.code}. Continue your hero, and you will be asked to join.`;return '';}
+  const v=FR.inv;if(!v)return "Aucune invitation à accepter.";FR.inv=null;frBadge();closeFriends();
+  if(v.kind==='raid'){if(frInGame()){cmdRaid('join '+v.code);return '';}linkRaid=v.code;$('#linkInfo').hidden=false;$('#linkInfo').textContent=`${v.n} vous a invité dans le groupe de raid ${v.code}. Reprenez votre héros, et on vous proposera de le rejoindre.`;return '';}
   if(frInGame()&&String(S.seed)===v.seed){if(v.live&&!S.live&&lbReady())cmdLive('on');if(v.go)expoGo(v.go);promptLine();render();scrollDown();save(true);playScenes();return '';}   /* already on their seed: go to them */
   if(frInGame()){save(true);openTitle();}
   applyLink('?seed='+encodeURIComponent(v.seed)+(v.live?'&live=1':''));$('#title').scrollTop=0;return '';
@@ -8367,25 +8367,25 @@ function closeFriends(){$('#friends').hidden=true;if(FR.from==='mission'&&FR.mis
 function renderFriends(){
   const el=$('#friends .fr-body');if(!el)return;const l=frList(),on=lbReady(),ctx=frShareCtx();
   let h='';
-  if(ctx){h+=`<div class="ex-story fr-share"><b>${ctx.mis?esc(ctx.mis.kind||'Mission')+': '+esc(ctx.mis.n):ctx.party?'Your raid party: '+esc(ctx.party.code)+(ctx.party.raid?' · '+esc(RAIDS[ctx.party.raid].n):''):'Seed '+esc(ctx.seed)}</b>`+
-    `<p>${ctx.mis?`Send it to an online friend below: they get your seed (${esc(ctx.seed)}), live, and word that you are going to ${esc(ctx.mis.what)}. You go live too.`:ctx.party?'Send it to a friend below, or share the party link.':ctx.live?'Send it to a friend below to play live together, or share the link.':'Send it to a friend below to race you on it, or share the link.'}${!ctx.party&&!ctx.live&&FR.from==='game'?' (Turn Live on in the menu to play together, not just race.)':''}</p>`+
-    `<div class="row"><button type="button" data-fr="link">Share link</button><button type="button" data-fr="copyseed">Copy ${ctx.party?'code':'seed'}</button></div></div>`;}
+  if(ctx){h+=`<div class="ex-story fr-share"><b>${ctx.mis?esc(ctx.mis.kind||'Mission')+': '+esc(ctx.mis.n):ctx.party?"Votre groupe de raid : "+esc(ctx.party.code)+(ctx.party.raid?' · '+esc(RAIDS[ctx.party.raid].n):''):"Graine "+esc(ctx.seed)}</b>`+
+    `<p>${ctx.mis?`Envoyez-la à un ami en ligne ci-dessous : il reçoit votre graine (${esc(ctx.seed)}), en direct, et sait que vous partez pour ${esc(ctx.mis.what)}. Vous passez aussi en direct.`:ctx.party?"Envoyez-le à un ami ci-dessous, ou partagez le lien du groupe.":ctx.live?"Envoyez-la à un ami ci-dessous pour jouer en direct ensemble, ou partagez le lien.":"Envoyez-la à un ami ci-dessous pour qu'il fasse la course contre vous, ou partagez le lien."}${!ctx.party&&!ctx.live&&FR.from==='game'?" (Activez le Direct dans le menu pour jouer ensemble, et pas seulement faire la course.)":''}</p>`+
+    `<div class="row"><button type="button" data-fr="link">Partager le lien</button><button type="button" data-fr="copyseed">Copier : ${ctx.party?'code':'seed'}</button></div></div>`;}
   if(FR.note)h+=`<p class="fr-note" role="status">${esc(FR.note)}</p>`;
-  if(FR.inv){const v=FR.inv,here=frInGame()&&v.kind==='seed'&&String(S.seed)===v.seed;h+=`<div class="ex-story fr-inv"><b>${esc(v.n)} invites you</b><p>${v.kind==='raid'?'to raid'+(v.raid?' '+esc(RAIDS[v.raid].n):'')+' (party '+esc(v.code)+').':'to '+(v.live?'play live':'race')+' on seed '+esc(v.seed)+(v.what?', in '+esc(v.what):'')+(here?'. You are already on it: Accept takes you there.':': a new hero on their seed. Yours stays saved.')}</p>`+
-    `<div class="row"><button type="button" class="big" data-fr="accept">Accept</button><button type="button" data-fr="dismiss">Not now</button></div></div>`;}
-  FR.req.forEach((r,i)=>{h+=`<div class="ex-row fr-req"><div class="ex-main"><b>${esc(r.n)}</b><small>added you as a friend</small></div><button type="button" class="ex-go" data-fr="addback ${i}">Add back</button><button type="button" class="fr-mini" data-fr="ignore ${i}" aria-label="Ignore">&times;</button></div>`;});
-  if(!on){el.innerHTML=h+'<p class="hint">Friends need online play, which is not set up for this copy of the game.</p>';return;}
+  if(FR.inv){const v=FR.inv,here=frInGame()&&v.kind==='seed'&&String(S.seed)===v.seed;h+=`<div class="ex-story fr-inv"><b>${esc(v.n)} vous invite</b><p>${v.kind==='raid'?"en raid"+(v.raid?' '+esc(RAIDS[v.raid].n):'')+' (party '+esc(v.code)+').':'to '+(v.live?"à jouer en direct":'race')+" sur la graine "+esc(v.seed)+(v.what?", dans "+esc(v.what):'')+(here?". Vous y êtes déjà : Accepter vous y emmène.":" : un nouveau héros sur sa graine. Le vôtre reste sauvegardé.")}</p>`+
+    `<div class="row"><button type="button" class="big" data-fr="accept">Accepter</button><button type="button" data-fr="dismiss">Pas maintenant</button></div></div>`;}
+  FR.req.forEach((r,i)=>{h+=`<div class="ex-row fr-req"><div class="ex-main"><b>${esc(r.n)}</b><small>vous a ajouté en ami</small></div><button type="button" class="ex-go" data-fr="addback ${i}">Ajouter aussi</button><button type="button" class="fr-mini" data-fr="ignore ${i}" aria-label="Ignorer">&times;</button></div>`;});
+  if(!on){el.innerHTML=h+"<p class=\"hint\">Les amis nécessitent le jeu en ligne, qui n'est pas configuré pour cette copie du jeu.</p>";return;}
   const online=l.filter(x=>FR.peers[x.c]),offline=l.filter(x=>!FR.peers[x.c]);
-  h+=`<div class="ex-sec">Your friends${l.length?` (${online.length} online)`:''}</div>`;
-  if(!l.length)h+='<p class="hint">No friends yet. Swap friend codes with someone and add theirs below.</p>';
+  h+=`<div class="ex-sec">Vos amis${l.length?` (${online.length} en ligne)`:''}</div>`;
+  if(!l.length)h+="<p class=\"hint\">Pas encore d'amis. Échangez vos codes ami avec quelqu'un et ajoutez le sien ci-dessous.</p>";
   online.concat(offline).forEach(x=>{const p=FR.peers[x.c],i=l.indexOf(x)+1;
     h+=`<div class="ex-row fr-row${p?' on':''}"><div class="ex-main"><b>${p?'&#9679; ':''}${esc(p?frName(p):x.n)}</b><small>${p?esc(frPeerLine(p)):'offline'}</small></div>`+
-      (p&&ctx?`<button type="button" class="ex-go" data-fr="send ${i}">Send</button>`:'')+`<button type="button" class="fr-mini" data-fr="remove ${i}" aria-label="Remove ${esc(x.n)}">&times;</button></div>`;});
-  h+=`<div class="ex-sec">Your name</div><div class="row"><input id="frNameIn" maxlength="16" placeholder="what friends see you as" autocomplete="off" aria-label="Your player name" value="${esc(frPlayer())}"><button type="button" data-fr="name">Save</button></div>`+
-    `<p class="hint">${frPlayer()?'Friends see you as '+esc(frPlayer())+', with your hero beside it.':'With no name, friends see your hero\'s name.'}</p>`;
-  h+=`<div class="ex-sec">Add a friend</div><div class="fr-code"><small>Your code</small><b>${esc(frCode())}</b><button type="button" class="fr-mini" data-fr="copycode">Copy</button></div>`+
-    `<div class="row"><input id="frCodeIn" maxlength="6" placeholder="their code" autocapitalize="characters" autocomplete="off" aria-label="Friend code"><button type="button" data-fr="add">Add</button></div>`;
-  h+=`<p class="hint">${frOn()?(FR.status==='on'?'Your friends can see when you are online.':'Connecting...'):'You are hidden from your friends.'} <button type="button" class="fr-mini" data-fr="toggle">${frOn()?'Hide me':'Show me'}</button></p>`;
+      (p&&ctx?`<button type="button" class="ex-go" data-fr="send ${i}">Envoyer</button>`:'')+`<button type="button" class="fr-mini" data-fr="remove ${i}" aria-label="Remove ${esc(x.n)}">&times;</button></div>`;});
+  h+=`<div class="ex-sec">Votre nom</div><div class="row"><input id="frNameIn" maxlength="16" placeholder="ce que vos amis voient" autocomplete="off" aria-label="Votre nom de joueur" value="${esc(frPlayer())}"><button type="button" data-fr="name">Enregistrer</button></div>`+
+    `<p class="hint">${frPlayer()?"Vos amis vous voient sous le nom de "+esc(frPlayer())+", avec votre héros à côté.":"Sans nom, vos amis voient celui de votre héros."}</p>`;
+  h+=`<div class="ex-sec">Ajouter un ami</div><div class="fr-code"><small>Votre code</small><b>${esc(frCode())}</b><button type="button" class="fr-mini" data-fr="copycode">Copier</button></div>`+
+    `<div class="row"><input id="frCodeIn" maxlength="6" placeholder="son code" autocapitalize="characters" autocomplete="off" aria-label="Code ami"><button type="button" data-fr="add">Ajouter</button></div>`;
+  h+=`<p class="hint">${frOn()?(FR.status==='on'?"Vos amis voient quand vous êtes en ligne.":"Connexion..."):"Vous êtes caché à vos amis."} <button type="button" class="fr-mini" data-fr="toggle">${frOn()?"Me cacher":"Me montrer"}</button></p>`;
   el.innerHTML=h;
 }
 function frCopy(text,label){FR.note=label+': '+text;if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>{FR.note=label+' copied: '+text;renderFriends();},()=>{});}
@@ -8393,12 +8393,12 @@ function frCopy(text,label){FR.note=label+': '+text;if(navigator.clipboard&&navi
 function frAct(a){
   const [k,arg]=String(a||'').split(' '),l=frList(),f=l[parseInt(arg)-1];FR.note='';
   if(k==='link'){const ctx=frShareCtx();if(ctx)frShareLink(ctx);}
-  else if(k==='copyseed'){const ctx=frShareCtx();if(ctx)frCopy(ctx.party?ctx.party.code:ctx.seed,ctx.party?'Party code':'Seed');}
-  else if(k==='copycode')frCopy(frCode(),'Your friend code');
+  else if(k==='copyseed'){const ctx=frShareCtx();if(ctx)frCopy(ctx.party?ctx.party.code:ctx.seed,ctx.party?"Code du groupe":"Graine");}
+  else if(k==='copycode')frCopy(frCode(),"Votre code ami");
   else if(k==='send'&&f)FR.note=frInvite(f);
-  else if(k==='remove'&&f){frSave(l.filter(x=>x.c!==f.c));FR.note=`${f.n} is off your list.`;}
+  else if(k==='remove'&&f){frSave(l.filter(x=>x.c!==f.c));FR.note=`${f.n} ne fait plus partie de votre liste.`;}
   else if(k==='add'){const el=$('#frCodeIn');FR.note=frAdd(el?el.value:'');}
-  else if(k==='name'){const el=$('#frNameIn'),v=clean(el?el.value:'').replace(/[<>]/g,'').slice(0,16);pref('pname',v);frTrack(true);accSaveProfile();FR.note=v?`Friends will see you as ${v}.`:'Friends will see your hero\'s name.';}
+  else if(k==='name'){const el=$('#frNameIn'),v=clean(el?el.value:'').replace(/[<>]/g,'').slice(0,16);pref('pname',v);frTrack(true);accSaveProfile();FR.note=v?`Vos amis vous verront sous le nom de ${v}.`:"Vos amis verront le nom de votre héros.";}
   else if(k==='addback'){const r=FR.req[+arg];if(r)FR.note=frAdd(r.c);}
   else if(k==='ignore'){FR.req.splice(+arg,1);}
   else if(k==='accept'){const t=frAccept();if(t)FR.note=t;return;}
@@ -8411,7 +8411,7 @@ function cmdFriends(arg,raw){
   const a=String(raw||'').trim().split(/\s+/),sub=(a[0]||'').toLowerCase(),rest=a.slice(1).join(' ');
   if(sub==='add'){out(frAdd(rest));return;}
   if(sub==='accept'){const t=frAccept();if(t)out(t);return;}
-  if(sub==='on'||sub==='off'){pref('fonline',sub==='on'?'1':'0');if(sub==='on'){frStart();out('{m}Friends can see when you are online.');}else{frStop();out('{d}You are hidden from your friends.');}return;}
+  if(sub==='on'||sub==='off'){pref('fonline',sub==='on'?'1':'0');if(sub==='on'){frStart();out("{m}Vos amis voient quand vous êtes en ligne.");}else{frStop();out("{d}Vous êtes caché à vos amis.");}return;}
   openFriends('game');
 }
 
@@ -8441,7 +8441,7 @@ async function accToken(){
   const s=ACC.sess;if(!s)return null;
   if(Date.now()<s.exp-60000)return s.at;
   try{const r=await fetch(accBase()+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:LEADERBOARD.key,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:s.rt})});
-    if(!r.ok){if(r.status===400||r.status===401)accForget('Your sign-in ran out. Sign in again to keep syncing.');return null;}
+    if(!r.ok){if(r.status===400||r.status===401)accForget("Votre connexion a expiré. Reconnectez-vous pour continuer la synchronisation.");return null;}
     accKeep(await r.json());return ACC.sess.at;}catch(e){return null;}
 }
 async function accFetch(path,opt){
@@ -8474,19 +8474,19 @@ function accSignIn(p){
    device stay. */
 async function accDeleteAccount(){
   try{const r=await accFetch('/rest/v1/rpc/delete_my_account',{method:'POST',body:'{}'});
-    if(r.status===404){ACC.note="Deleting accounts isn't switched on for this server yet.";return;}
-    if(!r.ok){ACC.note="Couldn't delete your account just now. Try again.";return;}}
-  catch(e){ACC.note="Couldn't reach the server. Are you offline?";return;}
-  accForget('Your account, profile and cloud saves are deleted. Heroes on this device are still here.');
+    if(r.status===404){ACC.note="La suppression des comptes n'est pas encore activée sur ce serveur.";return;}
+    if(!r.ok){ACC.note="Impossible de supprimer votre compte pour l'instant. Réessayez.";return;}}
+  catch(e){ACC.note="Impossible de joindre le serveur. Êtes-vous hors ligne ?";return;}
+  accForget("Votre compte, votre profil et vos sauvegardes dans le cloud sont supprimés. Les héros de cet appareil sont toujours là.");
 }
 async function accSignOut(){
   try{if(ACC.sess)await accFetch('/auth/v1/logout',{method:'POST'});}catch(e){}
-  accForget('Signed out. Your heroes stay on this device.');
+  accForget("Déconnecté. Vos héros restent sur cet appareil.");
 }
 /* Coming back from the provider: the fragment holds the session, or an error. */
 function accFromFragment(frag){
   const q=new URLSearchParams(String(frag||'').replace(/^[#?]/,''));
-  if(q.get('error')){ACC.note='Sign-in did not finish: '+(q.get('error_description')||q.get('error')).replace(/\+/g,' ').slice(0,120);return false;}
+  if(q.get('error')){ACC.note="La connexion n'a pas abouti : "+(q.get('error_description')||q.get('error')).replace(/\+/g,' ').slice(0,120);return false;}
   if(!q.get('access_token'))return false;
   accKeep({access_token:q.get('access_token'),refresh_token:q.get('refresh_token'),expires_in:q.get('expires_in')});return true;
 }
@@ -8504,15 +8504,15 @@ async function accBoot(){
 }
 /* Who you are, then your profile and your cloud heroes. */
 async function accStart(fresh){
-  try{const r=await accFetch('/auth/v1/user');if(!r.ok){if(r.status===401)accForget('Your sign-in ran out. Sign in again to keep syncing.');return;}ACC.user=await r.json();}
+  try{const r=await accFetch('/auth/v1/user');if(!r.ok){if(r.status===401)accForget("Votre connexion a expiré. Reconnectez-vous pour continuer la synchronisation.");return;}ACC.user=await r.json();}
   catch(e){accRefreshUi();return;}   /* offline: keep the session and try again next time */
   await accProfile();await accSyncAll();
-  if(fresh){ACC.note=`Signed in as ${accName()||'you'}.`;sfx('chime');if(S&&$('#title').hidden)out(`{g}Signed in with ${accProviderName()}.{n} {d}Your heroes, friends and name now follow you to every device.{n}`);}
+  if(fresh){ACC.note=`Connecté en tant que ${accName()||'you'}.`;sfx('chime');if(S&&$('#title').hidden)out(`{g}Connecté avec ${accProviderName()}.{n} {d}Vos héros, vos amis et votre nom vous suivent désormais sur chaque appareil.{n}`);}
   accRefreshUi();
 }
 /* Google, Discord, or both when one account signs in with either (Supabase links them by email). */
 function accProviderName(){const m=(ACC.user&&ACC.user.app_metadata)||{},ps=[].concat(m.providers||[],m.provider||[]).filter((p,i,a)=>ACC_PROVIDERS[p]&&a.indexOf(p)===i);
-  return ps.length?ps.map(p=>ACC_PROVIDERS[p]).join(' or '):'your account';}
+  return ps.length?ps.map(p=>ACC_PROVIDERS[p]).join(' or '):"votre compte";}
 
 /* ----- the profile: friend code, friends and player name ----- */
 async function accProfile(){
@@ -8543,7 +8543,7 @@ function accSaveProfile(now){
 
 /* ----- cloud saves ----- */
 /* What a hero looks like on the list, without its whole save. */
-const accMeta=o=>({name:clean(o.name||'').slice(0,16)||'Wanderer',cls:o.cls,lvl:Number(o.lvl)||1,where:o.floor?(o.dg&&DUNGEONS[o.dg]?DUNGEONS[o.dg].name+', floor '+o.floor:'Floor '+o.floor):o.town==='solenne'?'Solenne':'Emberfall'});
+const accMeta=o=>({name:clean(o.name||'').slice(0,16)||"Vagabond",cls:o.cls,lvl:Number(o.lvl)||1,where:o.floor?(o.dg&&DUNGEONS[o.dg]?DUNGEONS[o.dg].name+', floor '+o.floor:'Floor '+o.floor):o.town==='solenne'?'Solenne':'Emberfall'});
 async function accList(){
   try{const r=await accFetch('/rest/v1/saves?select=hero,name,cls,lvl,place,saved_at&order=saved_at.desc');ACC.noCloud=r.status===404;ACC.cloud=r.ok?await r.json():ACC.cloud;}catch(e){}   /* 404: the server has no saves table yet (tools/supabase.sql) */
   return ACC.cloud||[];
@@ -8573,14 +8573,14 @@ function accKeepLocal(o){const n=HERO_SLOTS.find(k=>{const v=loadSave(k);return 
 /* The hero you are playing was played on another device since you loaded it: say so once, and offer both ways out. */
 function accConflict(){
   if(!S||ACC.conflict===S.cid)return;ACC.conflict=S.cid;sfx('warn');
-  out(`{y}${S.name} was played on another device since you loaded this save.{n} {d}This device won't overwrite that progress.{n} {@cloud load|load the newer save} {d}or{n} {@cloud keep|keep playing this one} {d}(it replaces the other){n}`);scrollDown();
+  out(`{y}${S.name} a été joué sur un autre appareil depuis le chargement de cette sauvegarde.{n} {d}Cet appareil n'écrasera pas cette progression.{n} {@cloud load|charger la plus récente} {d}ou{n} {@cloud keep|continuer celle-ci} {d}(elle remplace l'autre){n}`);scrollDown();
 }
 /* Typed or tapped: cloud load | keep | sync. */
 async function cmdCloud(a){
-  if(!accIn()){out('{d}You are not signed in.{n} {@account|sign in}');return;}
-  if(a==='keep'){if(S&&await accPush(S,true))out(`{g}${S.name} is saved to the cloud from this device.{n}`);else out("{d}Couldn't reach the cloud. Are you offline?");scrollDown();return;}
-  if(a==='load'){const k=S&&S.cid,err=k?await accPull(k,curSlot):'';if(err){out('{d}'+err);scrollDown();return;}ACC.conflict='';const o=loadSave(curSlot);if(o){resume(o);out('{g}Loaded the newer save from the cloud.{n}');scrollDown();}return;}
-  out('{d}Syncing...');if(S&&!S.hard&&!S.over)await accPush(S);await accSyncAll();out(`{g}Synced.{n} {d}${(ACC.cloud||[]).length} hero${(ACC.cloud||[]).length===1?'':'es'} in the cloud.{n}`);scrollDown();
+  if(!accIn()){out("{d}Vous n'êtes pas connecté.{n} {@account|se connecter}");return;}
+  if(a==='keep'){if(S&&await accPush(S,true))out(`{g}${S.name} est sauvegardé dans le cloud depuis cet appareil.{n}`);else out("{d}Impossible de joindre le cloud. Êtes-vous hors ligne ?");scrollDown();return;}
+  if(a==='load'){const k=S&&S.cid,err=k?await accPull(k,curSlot):'';if(err){out('{d}'+err);scrollDown();return;}ACC.conflict='';const o=loadSave(curSlot);if(o){resume(o);out("{g}Sauvegarde plus récente chargée depuis le cloud.{n}");scrollDown();}return;}
+  out("{d}Synchronisation...");if(S&&!S.hard&&!S.over)await accPush(S);await accSyncAll();out(`{g}Synchronisé.{n} {d}Héros dans le cloud : ${(ACC.cloud||[]).length}.{n}`);scrollDown();
 }
 /* Continuing a hero: if the cloud has a newer copy (played on another device), that is the one you get. */
 async function accFresh(n){
@@ -8603,11 +8603,11 @@ async function accSyncAll(){
 }
 /* A hero from the cloud, into a slot on this device (its own, a free one, or n). */
 async function accPull(hero,n){
-  try{const r=await accFetch('/rest/v1/saves?hero=eq.'+encodeURIComponent(hero)+'&select=data,saved_at');const j=r.ok?await r.json():[];if(!j[0])return 'That hero is not in the cloud any more.';
+  try{const r=await accFetch('/rest/v1/saves?hero=eq.'+encodeURIComponent(hero)+'&select=data,saved_at');const j=r.ok?await r.json():[];if(!j[0])return "Ce héros n'est plus dans le cloud.";
     const o=await decodeSave(j[0].data);o.savedAt=Number(j[0].saved_at)||o.savedAt;o.cloudBase=Number(j[0].saved_at)||0;
-    const slot=n||HERO_SLOTS.find(k=>{const v=loadSave(k);return v&&v.cid===hero;})||freeSlot();if(!slot)return 'All three hero slots are full. Delete one to make room.';
+    const slot=n||HERO_SLOTS.find(k=>{const v=loadSave(k);return v&&v.cid===hero;})||freeSlot();if(!slot)return "Les trois emplacements de héros sont pris. Supprimez-en un pour faire de la place.";
     localStorage.setItem(slotKey(slot),JSON.stringify(o));return '';}
-  catch(e){return e&&e.message==='old browser'?'This browser is too old to read that save.':"Couldn't fetch that hero. Are you offline?";}
+  catch(e){return e&&e.message==='old browser'?"Ce navigateur est trop ancien pour lire cette sauvegarde.":"Impossible de récupérer ce héros. Êtes-vous hors ligne ?";}
 }
 async function accDrop(hero){if(!accIn()||!hero)return;try{await accFetch('/rest/v1/saves?hero=eq.'+encodeURIComponent(hero),{method:'DELETE'});}catch(e){}ACC.cloud=(ACC.cloud||[]).filter(x=>x.hero!==hero);}
 /* How a local hero stands against the cloud: 'newer' (the cloud has a newer copy), 'synced', or '' (not there). */
@@ -8620,39 +8620,39 @@ function openAccount(){$('#menu').hidden=true;renderAccount();$('#account').hidd
 function closeAccount(){$('#account').hidden=true;}
 function renderAccount(){
   const el=$('#account .acc-body');if(!el)return;let h='';
-  if(!lbReady()){el.innerHTML='<p class="hint">Accounts need online play, which is not set up for this copy of the game.</p>';return;}
+  if(!lbReady()){el.innerHTML="<p class=\"hint\">Les comptes nécessitent le jeu en ligne, qui n'est pas configuré pour cette copie du jeu.</p>";return;}
   if(ACC.note)h+=`<p class="fr-note" role="status">${esc(ACC.note)}</p>`;
   if(accIn()){const n=(ACC.cloud||[]).length;
-    h+=`<div class="ex-story"><b>Signed in with ${esc(accProviderName())}</b><p>${accName()?'Friends and the leaderboards see you as '+esc(accName())+'.':'Set your player name on the Friends screen.'}</p></div>`;
-    if(ACC.noCloud)h+='<p class="hint">Cloud saves are not switched on for this server yet.</p>';
-    h+=`<div class="ex-sec">Cloud saves</div><p class="mis-p">${n?`${n} hero${n>1?'es':''} in the cloud.`:'No heroes in the cloud yet.'} The hero you play goes up about once a minute, and whenever you put the game away. Hardcore heroes stay on their own device.</p>`;
-    accElsewhere().forEach(c=>{h+=`<div class="ex-row"><div class="ex-main"><b>${esc(c.name)}</b><small>Level ${Number(c.lvl)||1} ${esc((CLASSES[c.cls]||{}).n||'?')} · ${esc(c.place||'')}</small></div><button type="button" class="ex-go" data-acc="pull ${esc(c.hero)}">Download</button></div>`;});
-    h+=`<div class="row"><button type="button" data-acc="sync">Sync now</button><button type="button" data-acc="out">Sign out</button></div>`+
-      `<p class="hint">To use a different Google or Discord account, sign out, then sign in again. Your heroes stay on this device.</p>`+
-      `<button type="button" class="link acc-del" data-acc="${ACC.delArmed?'delete':'arm'}">${ACC.delArmed?(storeCache().web?'Tap again: delete my account, all cloud saves and your full game purchase, forever':'Tap again: delete my account and all cloud saves, forever'):'Delete my account'}</button>`;}
+    h+=`<div class="ex-story"><b>Connecté avec ${esc(accProviderName())}</b><p>${accName()?"Vos amis et les classements vous voient sous le nom de "+esc(accName())+'.':"Choisissez votre nom de joueur dans l'écran Amis."}</p></div>`;
+    if(ACC.noCloud)h+="<p class=\"hint\">Les sauvegardes dans le cloud ne sont pas encore activées sur ce serveur.</p>";
+    h+=`<div class="ex-sec">Sauvegardes dans le cloud</div><p class="mis-p">${n?`Héros dans le cloud : ${n}.`:"Aucun héros dans le cloud pour l'instant."} Le héros que vous jouez y monte environ une fois par minute, et chaque fois que vous rangez le jeu. Les héros Hardcore restent sur leur propre appareil.</p>`;
+    accElsewhere().forEach(c=>{h+=`<div class="ex-row"><div class="ex-main"><b>${esc(c.name)}</b><small>Niveau ${Number(c.lvl)||1} ${esc((CLASSES[c.cls]||{}).n||'?')} · ${esc(c.place||'')}</small></div><button type="button" class="ex-go" data-acc="pull ${esc(c.hero)}">Télécharger</button></div>`;});
+    h+=`<div class="row"><button type="button" data-acc="sync">Synchroniser</button><button type="button" data-acc="out">Se déconnecter</button></div>`+
+      `<p class="hint">Pour utiliser un autre compte Google ou Discord, déconnectez-vous puis reconnectez-vous. Vos héros restent sur cet appareil.</p>`+
+      `<button type="button" class="link acc-del" data-acc="${ACC.delArmed?'delete':'arm'}">${ACC.delArmed?(storeCache().web?"Touchez encore : supprimer mon compte, toutes les sauvegardes du cloud et mon achat du jeu complet, pour toujours":"Touchez encore : supprimer mon compte et toutes les sauvegardes du cloud, pour toujours"):"Supprimer mon compte"}</button>`;}
   else{const P=ACC.providers;
-    h+=`<div class="ex-story"><b>Sign in</b><p>Keep your heroes, friends and player name on every device: start on your phone, carry on on the Steam Deck. Your name goes on the leaderboards. Hardcore heroes stay on the device they were made on.</p></div>`;
-    if(!P)h+='<p class="hint">Asking the server...</p>';
-    else if(!Object.keys(P).length)h+='<p class="hint">Signing in is not switched on for this game yet.</p>';
-    else for(const k in ACC_PROVIDERS)if(P[k])h+=`<button type="button" class="big acc-${k}" data-acc="in ${k}">Continue with ${ACC_PROVIDERS[k]}</button>`;}
-  h+=`<p class="hint"><a href="${SITE_URL}privacy.html" target="_blank" rel="noopener">Privacy: what the game keeps, and how to delete it</a></p>`;
+    h+=`<div class="ex-story"><b>Se connecter</b><p>Gardez vos héros, vos amis et votre nom de joueur sur chaque appareil : commencez sur votre téléphone, continuez sur le Steam Deck. Votre nom figure dans les classements. Les héros Hardcore restent sur l'appareil où ils sont nés.</p></div>`;
+    if(!P)h+="<p class=\"hint\">On interroge le serveur...</p>";
+    else if(!Object.keys(P).length)h+="<p class=\"hint\">La connexion n'est pas encore activée pour ce jeu.</p>";
+    else for(const k in ACC_PROVIDERS)if(P[k])h+=`<button type="button" class="big acc-${k}" data-acc="in ${k}">Continuer avec ${ACC_PROVIDERS[k]}</button>`;}
+  h+=`<p class="hint"><a href="${SITE_URL}privacy.html" target="_blank" rel="noopener">Confidentialité : ce que le jeu conserve, et comment le supprimer</a></p>`;
   el.innerHTML=h;
 }
 async function accAct(a){
   const [k,arg]=String(a||'').split(' ');ACC.note='';if(k!=='arm')ACC.delArmed=false;
   if(k==='arm'){ACC.delArmed=true;renderAccount();return;}
-  if(k==='delete'){ACC.note='Deleting...';renderAccount();await accDeleteAccount();renderSlots();renderAccount();return;}
+  if(k==='delete'){ACC.note="Suppression...";renderAccount();await accDeleteAccount();renderSlots();renderAccount();return;}
   if(k==='in')accSignIn(arg);
   else if(k==='out')await accSignOut();
-  else if(k==='sync'){ACC.note='Syncing...';renderAccount();if(S&&!S.over&&!S.hard)S.savedAt=S.savedAt||Date.now();await accSyncAll();ACC.note='Synced.';}
-  else if(k==='pull'){ACC.note='Downloading...';renderAccount();const e=await accPull(arg);ACC.note=e||'Downloaded. The hero is on the home screen.';renderSlots();}
+  else if(k==='sync'){ACC.note="Synchronisation...";renderAccount();if(S&&!S.over&&!S.hard)S.savedAt=S.savedAt||Date.now();await accSyncAll();ACC.note="Synchronisé.";}
+  else if(k==='pull'){ACC.note="Téléchargement...";renderAccount();const e=await accPull(arg);ACC.note=e||"Téléchargé. Le héros est sur l'écran d'accueil.";renderSlots();}
   renderAccount();
 }
 /* The account's line on the home screen and in the menu. */
 function accRefreshUi(){
   const t=$('#accLink'),m=$('#mAccount');
-  if(t){t.hidden=!lbReady();t.textContent=accIn()?`Signed in${accName()?' as '+accName():''} · Account & sign out`:'Sign in to keep your heroes on every device';}
-  if(m)m.textContent=accIn()?'Account & sign out':'Sign in';
+  if(t){t.hidden=!lbReady();t.textContent=accIn()?`Connecté${accName()?' as '+accName():''} · Compte et déconnexion`:"Connectez-vous pour garder vos héros sur chaque appareil";}
+  if(m)m.textContent=accIn()?"Compte et déconnexion":"Se connecter";
   if(!$('#account').hidden)renderAccount();
   if(!$('#title').hidden&&typeof renderSlots==='function')renderSlots();
 }
@@ -8704,15 +8704,15 @@ async function storeRefresh(){
 async function storeBack(){
   if(!/[?&]bought=1/.test(location.search))return;
   try{history.replaceState(null,'',location.href.replace(/([?&])bought=1&?/,'$1').replace(/[?&]$/,''));}catch(e){}
-  storeWait=1;storeMsg='Thank you! Unlocking the full game...';openStore();
+  storeWait=1;storeMsg="Merci ! Déblocage du jeu complet...";openStore();
   for(let i=0;i<15&&!storeCache().web;i++){await storeRefresh();if(storeCache().web)break;await new Promise(r=>setTimeout(r,3000));}
-  storeWait=0;storeMsg=storeCache().web?'The full game is yours. Thank you for supporting the Undervault!':"Your order went through, but the unlock hasn't arrived yet. Give it a minute, then tap Check again.";
+  storeWait=0;storeMsg=storeCache().web?"Le jeu complet est à vous. Merci de soutenir l'Undervault !":"Votre commande est passée, mais le déblocage n'est pas encore arrivé. Attendez une minute, puis touchez Vérifier à nouveau.";
   if(storeCache().web)sfx('legend');renderStore();
 }
 function storeBuy(){
   const W=STORE.web;
-  if(!accIn()){storeMsg='Sign in first, so the full game stays with your account on every browser.';renderStore();return;}
-  if(!W.checkout){storeMsg='The store is not open yet.';renderStore();return;}
+  if(!accIn()){storeMsg="Connectez-vous d'abord, pour que le jeu complet reste attaché à votre compte sur chaque navigateur.";renderStore();return;}
+  if(!W.checkout){storeMsg="La boutique n'est pas encore ouverte.";renderStore();return;}
   location.href=storeCheckout();   /* the Payment Link sends you back to SITE_URL?bought=1 */
 }
 /* The buy link carries your account id (not your email), so the server knows whose purchase it is. */
@@ -8732,12 +8732,12 @@ async function playRefresh(){
   if(!playPrice)try{const r=await N.getProduct({productIdentifier:PLAY_ID,productType:'inapp'});if(r&&r.product&&r.product.priceString)playPrice=r.product.priceString;}catch(e){}
 }
 async function playBuy(){
-  const N=playApi();if(!N){storeMsg='Google Play is not available on this device.';renderStore();return;}
-  storeMsg='Opening Google Play...';renderStore();
+  const N=playApi();if(!N){storeMsg="Google Play n'est pas disponible sur cet appareil.";renderStore();return;}
+  storeMsg="Ouverture de Google Play...";renderStore();
   try{const t=await N.purchaseProduct({productIdentifier:PLAY_ID,productType:'inapp'});
-    if(t&&String(t.purchaseState)==='0')storeMsg='Your payment is pending. The full game unlocks as soon as Google Play confirms it.';
-    else{await playRefresh();if(fullGame()){storeMsg='The full game is yours. Thank you for supporting the Undervault!';sfx('legend');}else storeMsg="Google Play hasn't confirmed the purchase yet. Tap Check again in a moment.";}}
-  catch(e){storeMsg=/cancel/i.test(String(e&&e.message||e))?'':"The purchase didn't go through, and nothing was charged.";}
+    if(t&&String(t.purchaseState)==='0')storeMsg="Votre paiement est en attente. Le jeu complet se débloque dès que Google Play le confirme.";
+    else{await playRefresh();if(fullGame()){storeMsg="Le jeu complet est à vous. Merci de soutenir l'Undervault !";sfx('legend');}else storeMsg="Google Play n'a pas encore confirmé l'achat. Touchez Vérifier à nouveau dans un instant.";}}
+  catch(e){storeMsg=/cancel/i.test(String(e&&e.message||e))?'':"L'achat n'a pas abouti, et rien n'a été débité.";}
   renderStore();storeUi();
 }
 async function playRestore(){const N=playApi();if(N)try{await N.restorePurchases();}catch(e){}await playRefresh();await storeRefresh();}
@@ -8746,55 +8746,55 @@ function storeBoot(){storeBack();if(playApi())playRefresh().then(()=>{storeUi();
 
 /* ----- the store screen ----- */
 const STORE_BOOKS=[
-  ['o','Book II: The Hunger Below','Floors 21 to 40: the Unlit Stair, the Hall of the Fed, the Archive of Ash, Arden\'s Watch and the Heart of the Hunger.'],
-  ['c','Book III: Across the Ashen Sea','The crossing to Solenne, the Underside, and floors 41 to 60 down the Drowned Stair.'],
-  ['r','Book IV: The Lantern War','Floors 61 to 80: the iron king of Kaldmark at war with Emberfall, and Lily\'s Everlasting Summer.']];
+  ['o','Book II: The Hunger Below',"Étages 21 à 40 : l'Escalier Sans Lumière, la Salle des Repus, l'Archive de Cendre, la Garde d'Arden et le Cœur de la Faim."],
+  ['c','Book III: Across the Ashen Sea',"La traversée vers Solenne, l'Envers, et les étages 41 à 60 le long de l'Escalier Noyé."],
+  ['r','Book IV: The Lantern War',"Étages 61 à 80 : le roi de fer de Kaldmark en guerre contre Emberfall, et l'Été Éternel de Lily."]];
 function openStore(){$('#menu').hidden=true;renderStore();$('#store').hidden=false;sfx('scroll');if(playApi())playRefresh().then(renderStore);if(accIn()&&!storeWait)storeRefresh().then(renderStore);}
 function closeStore(){$('#store').hidden=true;}
 /* Stripe's test card works only with a test-mode Payment Link (buy.stripe.com/test_...); the live link takes real money. */
-const storeTestNote=()=>/\/test_/.test(STORE.web.checkout)?'Pay with Stripe\'s test card, 4242 4242 4242 4242.':'This is the live store, so a purchase is a real charge. You can refund it in the Stripe dashboard.';
+const storeTestNote=()=>/\/test_/.test(STORE.web.checkout)?"Payez avec la carte de test de Stripe, 4242 4242 4242 4242.":"C'est la vraie boutique : un achat est un vrai paiement. Vous pouvez le rembourser dans le tableau de bord Stripe.";
 function renderStore(){
   const el=$('#store .store-body');if(!el)return;const p=storePlat(),P=STORE[p],own=fullGame();let h='';
   if(storeMsg)h+=`<p class="fr-note" role="status">${esc(storeMsg)}</p>`;
-  if(storeTest)h+=`<p class="hint">Store test: only this browser tab sees the store open, and Founders are ignored. ${storeTestNote()} Add ?storetest=0 to the address to stop.</p>`;
-  if(!storeOpen())h+=`<div class="ex-story"><b>Everything is open right now</b><p>The whole game is free while the store gets ready. Everyone who plays before it opens becomes a <b>Founder</b> and keeps Books I to IV for good.</p></div>`;
-  else if(own){const fnd=!storeOwns()&&(founderHero()||founderAcc());h+=`<div class="ex-story"><b>${fnd?'You are a Founder':'You have the full game'}</b><p>${fnd?'You were here before the store opened, so Books I to IV are yours for good. Thank you for being one of the first. The books still to come in the story of the seven doors come with the full game.':'Every book, dungeon and raid is open to you, and so is every book still to come in the story of the seven doors. Thank you for supporting the Undervault.'}</p></div>`;}
-  else{const pr=p==='android'?playPrice:P.price;h+=`<div class="ex-story"><b>Book I is free. The story goes on.</b><p>The full game is ${pr?esc(pr)+', once,':'a one-time purchase, and'} adds:</p></div>`;}
+  if(storeTest)h+=`<p class="hint">Test de boutique : seul cet onglet voit la boutique ouverte, et les Fondateurs sont ignorés. ${storeTestNote()} Ajoutez ?storetest=0 à l'adresse pour arrêter.</p>`;
+  if(!storeOpen())h+=`<div class="ex-story"><b>Tout est ouvert en ce moment</b><p>Le jeu complet est gratuit pendant que la boutique se prépare. Tous ceux qui jouent avant son ouverture deviennent <b>Fondateurs</b> et gardent les Livres I à IV pour de bon.</p></div>`;
+  else if(own){const fnd=!storeOwns()&&(founderHero()||founderAcc());h+=`<div class="ex-story"><b>${fnd?"Vous êtes Fondateur":"Vous avez le jeu complet"}</b><p>${fnd?"Vous étiez là avant l'ouverture de la boutique : les Livres I à IV sont à vous pour de bon. Merci d'avoir été parmi les premiers. Les livres encore à venir dans l'histoire des sept portes viennent avec le jeu complet.":"Chaque livre, donjon et raid vous est ouvert, ainsi que chaque livre encore à venir dans l'histoire des sept portes. Merci de soutenir l'Undervault."}</p></div>`;}
+  else{const pr=p==='android'?playPrice:P.price;h+=`<div class="ex-story"><b>Le Livre I est gratuit. L'histoire continue.</b><p>Le jeu complet (${pr?esc(pr)+", en une fois":"un achat unique"}) ajoute :</p></div>`;}
   h+=STORE_BOOKS.map(([c,t,d])=>`<div class="store-book store-${c}"><b>${esc(t)}</b><small>${esc(d)}</small></div>`).join('')
-    +`<ul class="store-list"><li>Every book still to come in the story of the seven doors, Books V to VIII, as they are written</li><li>Five more side dungeons, from the Nursery of Small Beds to the Salt Mines of Solenne</li><li>All four raids with friends, up to Lily's Everlasting Summer, the hardest raid there is</li><li>Trials of Legend for every book</li></ul>`;
+    +`<ul class="store-list"><li>Chaque livre encore à venir dans l'histoire des sept portes, les Livres V à VIII, au fil de leur écriture</li><li>Cinq donjons annexes de plus, de la Nursery des Petits Lits aux Mines de Sel de Solenne</li><li>Les quatre raids entre amis, jusqu'à l'Été Éternel de Lily, le raid le plus dur qui soit</li><li>Les Épreuves de Légende de chaque livre</li></ul>`;
   if(storeOpen()&&!own){
-    if(p==='android')h+=`<button type="button" class="big" data-store="play">Get the full game${playPrice?' · '+esc(playPrice):''}</button><p class="hint">One payment through Google Play, kept with your Google account for this app.</p><button type="button" class="link" data-store="playcheck">Already bought it? Restore</button>`;
-    else{h+=accIn()?`<button type="button" class="big" data-store="buy">Get the full game · ${esc(P.price)}</button>`:`<button type="button" class="big" data-store="signin">Sign in to buy</button>`;
-      h+=`<p class="hint">One payment, kept with your account, unlocks everything: every browser you sign in to, on PC, Mac, Steam Deck or phone, and the Android app too. Payment is handled by Stripe, shown at checkout as Link: card, Apple Pay or Google Pay.</p>`;}
-    if(accIn()&&p!=='android')h+=`<button type="button" class="link" data-store="check">Already bought it? Check again</button>`;}
+    if(p==='android')h+=`<button type="button" class="big" data-store="play">Obtenir le jeu complet${playPrice?' · '+esc(playPrice):''}</button><p class="hint">Un seul paiement via Google Play, rattaché à votre compte Google pour cette appli.</p><button type="button" class="link" data-store="playcheck">Déjà acheté ? Restaurer</button>`;
+    else{h+=accIn()?`<button type="button" class="big" data-store="buy">Obtenir le jeu complet · ${esc(P.price)}</button>`:`<button type="button" class="big" data-store="signin">Se connecter pour acheter</button>`;
+      h+=`<p class="hint">Un seul paiement, rattaché à votre compte, débloque tout : chaque navigateur où vous vous connectez, sur PC, Mac, Steam Deck ou téléphone, et l'appli Android aussi. Le paiement est géré par Stripe, affiché comme Link au moment de payer : carte, Apple Pay ou Google Pay.</p>`;}
+    if(accIn()&&p!=='android')h+=`<button type="button" class="link" data-store="check">Déjà acheté ? Vérifier à nouveau</button>`;}
   el.innerHTML=h;
 }
 async function storeAct(a){
   storeMsg='';
   if(a==='buy'){storeBuy();return;}
   if(a==='play'){playBuy();return;}
-  if(a==='playcheck'){storeMsg='Asking Google Play...';renderStore();await playRestore();storeMsg=fullGame()?'The full game is yours.':'Google Play has no purchase of the full game for this account.';}
+  if(a==='playcheck'){storeMsg="On interroge Google Play...";renderStore();await playRestore();storeMsg=fullGame()?"Le jeu complet est à vous.":"Google Play n'a aucun achat du jeu complet pour ce compte.";}
   if(a==='signin'){closeStore();openAccount();return;}
-  if(a==='check'){storeMsg='Checking...';renderStore();await storeRefresh();storeMsg=fullGame()?'The full game is yours.':'No purchase found for this account yet.';}
+  if(a==='check'){storeMsg="Vérification...";renderStore();await storeRefresh();storeMsg=fullGame()?"Le jeu complet est à vous.":"Aucun achat trouvé pour ce compte pour l'instant.";}
   renderStore();
 }
 /* The line under the title screen's Lore Book button, and the menu's. */
-function storeUi(){const t=$('#titleStore'),m=$('#mStore'),own=fullGame(),lbl=!storeOpen()?'Founders: everyone playing now keeps the full game':own?'The full game':'Get the full game';
-  if(t){t.textContent=lbl;t.hidden=!lbReady()&&!storeOpen();}if(m)m.textContent=own?'Full game':'Get the full game';
+function storeUi(){const t=$('#titleStore'),m=$('#mStore'),own=fullGame(),lbl=!storeOpen()?"Fondateurs : tous ceux qui jouent maintenant gardent le jeu complet":own?"Le jeu complet":"Obtenir le jeu complet";
+  if(t){t.textContent=lbl;t.hidden=!lbReady()&&!storeOpen();}if(m)m.textContent=own?"Jeu complet":"Obtenir le jeu complet";
   document.querySelectorAll('.web-only').forEach(e=>e.hidden=storePlat()==='android');}   /* the website's About, Terms and Refunds pages talk about the web price: not in the Play app */
 
 /* ----- the gates ----- */
-const storeLine=()=>`{o}This is part of the full game.{n} {@fullgame|See the full game}`;
+const storeLine=()=>`{o}Cela fait partie du jeu complet.{n} {@fullgame|Voir le jeu complet}`;
 {const _maren=book2Maren;book2Maren=function(){
   if(!S.flags.call2&&!fullGame()){sfx('scroll');
-    out(`{y}"Something stirs beneath the Throne,"{n} Maren says. {y}"There is a stair there, under the last Wardstone, that the histories never mention. When you are ready to go down it, come back to me."`,'story');
-    out(`{o}BOOK II: THE HUNGER BELOW{n} {d}continues in the full game.{n} {@fullgame|See the full game}`,'kill');return true;}
+    out(`{y}« Quelque chose remue sous le Trône »,{n} dit Maren. {y}« Il y a là un escalier, sous la dernière Pierre de garde, que les chroniques ne mentionnent jamais. Quand vous serez prêt à le descendre, revenez me voir. »`,'story');
+    out(`{o}LIVRE II : LA FAIM D'EN BAS{n} {d}se poursuit dans le jeu complet.{n} {@fullgame|Voir le jeu complet}`,'kill');return true;}
   return _maren();};}
-{const _teaser=book2Teaser;book2Teaser=function(){_teaser();if(!fullGame())out(`{d}Book II and beyond are the full game.{n} {@fullgame|See what's in it}`);};}
+{const _teaser=book2Teaser;book2Teaser=function(){_teaser();if(!fullGame())out(`{d}Le Livre II et la suite font partie du jeu complet.{n} {@fullgame|Voir ce qu'il contient}`);};}
 {const _go=gotoFloor;gotoFloor=function(f,where){if(S&&!S.dg&&f>20&&!fullGame()){out(storeLine());return;}return _go(f,where);};}
 {const _enter=enterDungeon;enterDungeon=function(k,start,tier){if(DUNGEONS[k]&&!isFreeDg(DUNGEONS[k])&&!fullGame()){out(storeLine());return;}return _enter(k,start,tier);};}
-{const _open=dgOpen,_why=dgNeedTxt;dgOpen=D=>(isFreeDg(D)||fullGame())&&_open(D);dgNeedTxt=D=>!isFreeDg(D)&&!fullGame()?'is part of the full game':_why(D);}
-{const _ok=raidOk,_why=raidWhy;raidOk=k=>fullGame()&&_ok(k);raidWhy=k=>fullGame()?_why(k):'is part of the full game';}
+{const _open=dgOpen,_why=dgNeedTxt;dgOpen=D=>(isFreeDg(D)||fullGame())&&_open(D);dgNeedTxt=D=>!isFreeDg(D)&&!fullGame()?"fait partie du jeu complet":_why(D);}
+{const _ok=raidOk,_why=raidWhy;raidOk=k=>fullGame()&&_ok(k);raidWhy=k=>fullGame()?_why(k):"fait partie du jeu complet";}
 {const _start=accStart;accStart=async function(fresh){await _start(fresh);await storeRefresh();storeUi();if(!$('#store').hidden)renderStore();};}
 FEAT_TITLES.push({t:'the Founder',p:5,test:()=>founderHero()});
 
@@ -9008,20 +9008,20 @@ function legendBackfill(){if(!S)return;[...(S.inv||[]),...Object.values(S.eq||{}
    - Updates: the website and the installed web app update themselves (sw.js), and Google Play updates the Play app.
      Only the downloadable APK can fall behind, so only it asks GitHub for the latest release, at most once a day,
      and offers the new undervault.apk. Never in the Play build: Play forbids apps updating themselves outside Play. */
-const NEWS={v:'1.19.0',title:'Legends, loot cards and sharper armor',items:[
- ['Legends','Every legendary set and every one-of-a-kind item has its own story now. Find a piece and its legend opens in the Lore Book\'s new Legends tab.'],
- ['Loot cards','Rare and better gear from a chest gets its own card: what it looks like on you, and what it changes, in green and red.'],
- ['Sharper armor','Light armor and robes from tier 6 up have real detail now: straps, guards, mantles, glowing runes. The title screen shows off the best of it.'],
- ['A find for every book','Book II has Memory Embers, Book III Echo Shells, Book IV Iron Dispatches, each with its own place in the Lore Book.'],
- ['Fights read better','Every weapon hits in its own words, and bigger blows are bigger on the screen, all the way up to DEVASTATES.'],
- ['Steadier leveling','Side dungeons you have outgrown teach you less, so you level with the story instead of racing past it.'],
- ['Winston','He is rare now. If you meet him, make it count.']]};
+const NEWS={v:'1.19.0',title:"Légendes, cartes de butin et armures plus nettes",items:[
+ ["Légendes","Chaque panoplie légendaire et chaque objet unique ont désormais leur histoire. Trouvez-en une pièce et sa légende s'ouvre dans le nouvel onglet Légendes du Livre du savoir."],
+ ["Cartes de butin","L'équipement Rare ou mieux trouvé dans un coffre a sa propre carte : à quoi il ressemble sur vous, et ce qu'il change, en vert et en rouge."],
+ ["Armures plus nettes","Les armures légères et les robes à partir du rang 6 ont désormais de vrais détails : sangles, protections, mantelets, runes lumineuses. L'écran titre en montre le meilleur."],
+ ["Une trouvaille pour chaque livre","Le Livre II a ses Braises de mémoire, le Livre III ses Coquilles d'écho, le Livre IV ses Dépêches de fer, chacun avec sa place dans le Livre du savoir."],
+ ["Des combats plus lisibles","Chaque arme frappe avec ses propres mots, et les plus gros coups s'affichent en plus grand, jusqu'à DÉVASTE."],
+ ["Une progression plus régulière","Les donjons annexes que vous avez dépassés vous apprennent moins, pour que vous progressiez avec l'histoire au lieu de la devancer."],
+ ['Winston',"Il est rare, désormais. Si vous le croisez, profitez-en."]]};
 const UPD={api:'https://api.github.com/repos/A-Theme/undervault/releases/latest',apk:'https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk'};
 
 function newsShow(){
   const el=$('#news .news-body');if(!el)return;
-  el.innerHTML=`<p class="news-v">Version ${esc(NEWS.v)}: ${esc(NEWS.title)}</p>`+NEWS.items.map(([t,x])=>`<div class="lb-ch"><b>${esc(t)}</b><p>${esc(x)}</p></div>`).join('')+
-    `<p class="hint">Everything that changed is in the release notes on <a href="https://github.com/A-Theme/undervault/releases" target="_blank" rel="noopener">GitHub</a>.</p>`;
+  el.innerHTML=`<p class="news-v">Version ${esc(NEWS.v)} : ${esc(NEWS.title)}</p>`+NEWS.items.map(([t,x])=>`<div class="lb-ch"><b>${esc(t)}</b><p>${esc(x)}</p></div>`).join('')+
+    `<p class="hint">Tout ce qui a changé figure dans les notes de version sur <a href="https://github.com/A-Theme/undervault/releases" target="_blank" rel="noopener">GitHub</a> (en anglais).</p>`;
   $('#news').hidden=false;pref('news',NEWS.v);sfx('scroll');
 }
 function newsClose(){$('#news').hidden=true;}
@@ -9046,7 +9046,7 @@ function updOffer(tag){
   if(!tag||!verNewer(tag,GAME_VERSION))return false;
   const t=$('#title');if(!t||$('#updNote'))return true;
   const d=document.createElement('div');d.id='updNote';d.className='move-box';
-  d.innerHTML=`<p><b>Version ${esc(String(tag).replace(/^v/,''))} is out.</b> You have ${esc(GAME_VERSION)}. Your heroes are kept when you update.</p><button type="button" class="big" data-upd="get">Download the update</button>`;
+  d.innerHTML=`<p><b>La version ${esc(String(tag).replace(/^v/,''))} est sortie.</b> Vous avez la ${esc(GAME_VERSION)}. Vos héros sont conservés lors de la mise à jour.</p><button type="button" class="big" data-upd="get">Télécharger la mise à jour</button>`;
   d.querySelector('[data-upd]').addEventListener('click',()=>{const B=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Browser;
     if(B)B.open({url:UPD.apk});else window.open(UPD.apk,'_system');});   /* the system browser downloads it, as sign-in opens it (account.js) */
   t.insertBefore(d,t.firstChild);return true;
@@ -9063,7 +9063,7 @@ $('#news').addEventListener('click',e=>{if(e.target.closest('[data-close]'))news
    It shows only what your hero has reached: what lies ahead is locked, as a dark shape or ???. In a game it reads as
    the hero you are playing; on the home screen as your furthest hero (lbWith swaps S while it draws). */
 const LB={tab:'story'};
-const LB_TABS=[['story','Story'],['people','People'],['winston','Winston'],['keepers','Keepers'],['places','Places'],['heroes','Heroes'],['lanterns','Lanterns'],['scrolls','Finds'],['legends','Legends']];
+const LB_TABS=[['story','Story'],['people','People'],['winston','Winston'],['keepers','Keepers'],['places','Places'],['heroes','Heroes'],['lanterns','Lanterns'],['scrolls','Finds'],['legends',"Légendes"]];
 const lbShip=()=>!!(S.flags.ship||(S.voy&&S.voy.arrived));
 const lbArrived=()=>!!(S.voy&&S.voy.arrived);
 const lbReached=a=>S.deepest>=actStart(a)||bossDone(a);
@@ -9679,7 +9679,7 @@ function cmdPreview(arg){
   const a=stats();const real=S.eq;S.eq=eq2;let b;try{b=stats();}finally{S.eq=real;}
   out(`{o}Essai :{n} ${iname(it)} {d}(${SLOTNAME[sl].toLowerCase()}${S.eq[sl]?", à la place de "+plainName(S.eq[sl]).trim():''}){n}`,'rt');
   outDolls([heroFigure(heroKey(S.cls,S.body),S.eq,'Now',3),heroFigure(heroKey(S.cls,S.body),eq2,"Avec",3)]);
-  const rows=[['Max HP',a.mhp,b.mhp],[CLASSES[S.cls].res,a.mmp,b.mmp],['Armor',a.def,b.def],['Crit %',a.crit,b.crit],['Dodge %',a.dodge,b.dodge],['STR',a.str,b.str],['AGI',a.agi,b.agi],['INT',a.int,b.int]];
+  const rows=[["Vie max.",a.mhp,b.mhp],[CLASSES[S.cls].res,a.mmp,b.mmp],['Armor',a.def,b.def],["Critique %",a.crit,b.crit],["Esquive %",a.dodge,b.dodge],["FOR",a.str,b.str],['AGI',a.agi,b.agi],['INT',a.int,b.int]];
   if(sl==='weapon')rows.unshift(["Dégâts arme",+avgDmg(S.eq.weapon).toFixed(1),+avgDmg(it).toFixed(1)]);
   const ch=rows.filter(r=>r[1]!==r[2]).map(([n,x,y])=>`${n} ${x} -> ${y} ${y>x?'{g}(+'+(+(y-x).toFixed(1))+'){n}':'{r}('+(+(y-x).toFixed(1))+'){n}'}`);
   out(`{d}${idesc(it)}${sellTag(it)}{n}`);
@@ -10058,7 +10058,7 @@ function lbFetch(p,opt){
 function submitAbyss(){
   if(!S||!lbReady()||!lbOn()||!S.abyssBest||S.abyssBest<=(S.abyssSent||0))return;
   if(!S.cid)S.cid=newRunId();
-  const depth=S.abyssBest,row={run_id:S.cid,name:clean(S.name).replace(/[<>]/g,'').slice(0,16)||'Wanderer',cls:S.cls,depth,lvl:S.lvl,hard:!!S.hard,ng:S.ng||0};
+  const depth=S.abyssBest,row={run_id:S.cid,name:clean(S.name).replace(/[<>]/g,'').slice(0,16)||"Vagabond",cls:S.cls,depth,lvl:S.lvl,hard:!!S.hard,ng:S.ng||0};
   lbFetch('abyss_scores',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(row)})
     .then(r=>{if(r.ok&&S&&S.cid===row.run_id){S.abyssSent=Math.max(S.abyssSent||0,depth);save(true);}}).catch(()=>{});
 }
@@ -10070,7 +10070,7 @@ function showLeaderboard(){
   lbRows('abyss_leaderboard?select=run_id,name,cls,depth,lvl,hard,ng,player&limit=20').then(rows=>{
     if(!Array.isArray(rows)||!rows.length){out("{d}Personne n'a encore bravé l'Abîme. Soyez le premier.");scrollDown();return;}
     rows.forEach((x,i)=>{const me=S&&x.run_id===S.cid,c=CLASSES[x.cls];
-      out(`${me?'{y}':''}${String(i+1).padStart(2)}. ${boardName(x).padEnd(16)} ${(c?c.n:'?').padEnd(11)} étage ${Number(x.depth)||0}  niv. ${Number(x.lvl)||0}${x.hard?'  {r}[HC]{n}':''}${x.ng?'  NG+'+(Number(x.ng)||0):''}${me?'  {y}<- you{n}':''}`);});
+      out(`${me?'{y}':''}${String(i+1).padStart(2)}. ${boardName(x).padEnd(16)} ${(c?c.n:'?').padEnd(11)} étage ${Number(x.depth)||0}  niv. ${Number(x.lvl)||0}${x.hard?'  {r}[HC]{n}':''}${x.ng?'  NG+'+(Number(x.ng)||0):''}${me?"  {y}<- vous{n}":''}`);});
     if(S&&S.abyssBest&&!rows.some(x=>x.run_id===S.cid))out(`{d}Votre record : étage ${S.abyssBest}.`);
     scrollDown();
   }).catch(()=>{out("{d}Impossible de joindre le classement. Êtes-vous hors ligne ?");scrollDown();});
@@ -10313,7 +10313,7 @@ $('#slots').addEventListener('click',e=>{
   if(b.classList.contains('slot-go')){const sv=loadSave(n);if(!sv)return;curSlot=n;
     if(accIn()&&!sv.hard){b.disabled=true;b.textContent="Vérification du cloud...";accFresh(n).then(o=>{resume(o||loadSave(n)||sv);if(o){out("{g}Sauvegarde plus récente chargée depuis le cloud{n} {d}(ce héros a été joué sur un autre appareil).{n}");scrollDown();}});return;}
     resume(sv);return;}
-  if(b.classList.contains('slot-pull')){b.disabled=true;b.textContent='Downloading...';accPull(b.dataset.hero,n||0).then(err=>{$('#slotInfo').textContent=err||"Téléchargé.";renderSlots();});return;}
+  if(b.classList.contains('slot-pull')){b.disabled=true;b.textContent="Téléchargement...";accPull(b.dataset.hero,n||0).then(err=>{$('#slotInfo').textContent=err||"Téléchargé.";renderSlots();});return;}
   if(!b.dataset.armed){b.dataset.armed='1';b.textContent=accIn()?"Touchez encore : supprimer pour toujours, ici et dans le cloud":"Touchez encore : supprimer pour toujours";return;}
   const gone=loadSave(n);if(S&&n===curSlot){liveStop();partyClose();S=null;}   /* the hero you were playing: nothing may save it back */
   dropSlot(n);if(gone&&gone.cid)accDrop(gone.cid);renderSlots();
@@ -10338,7 +10338,7 @@ function syncDaily(){const on=clean($('#seedIn').value).toUpperCase()===dailySee
 $('#beginBtn').addEventListener('click',()=>{
   const n=freeSlot();if(!n){renderSlots();return;}
   curSlot=n;
-  const name=cap(clean($('#nameIn').value).slice(0,16)||'Wanderer');const seed=clean($('#seedIn').value).toUpperCase().slice(0,24)||randomSeed();
+  const name=cap(clean($('#nameIn').value).slice(0,16)||"Vagabond");const seed=clean($('#seedIn').value).toUpperCase().slice(0,24)||randomSeed();
   newGame(name,selCls,seed,$('#hardIn').checked,$('#liveIn').checked,selBody);
 });
 $('#seedShare').addEventListener('click',()=>openFriends('title'));   /* the Friends screen: a share link, or send it straight to a friend */
@@ -10575,7 +10575,7 @@ let GPK=GP_FAM.xbox;
 const gpL=k=>GPK[k];
 /* The button indices for the pad in use: a Switch pad confirms with A, which the standard layout puts on the right. */
 function gpIdx(){return GP.fam==='nin'?Object.assign({},GPB,{A:1,B:0}):GPB;}
-function gpHint(){return `${gpL('A')} act · ${gpL('LB')}/${gpL('RB')} pick · ${gpL('X')} pointer · ${gpL('Y')} map · ${gpL('MENU')} menu`;}
+function gpHint(){return `${gpL('A')} agir · ${gpL('LB')}/${gpL('RB')} choisir · ${gpL('X')} pointeur · ${gpL('Y')} carte · ${gpL('MENU')} menu`;}
 /* Learns which pad this is (on connect, and if another takes over). */
 function gpKnow(p){
   if(!p||p.id===GP.id)return false;GP.id=p.id;GP.fam=gpFamily(p.id);GPK=Object.assign({},GP_FAM[GP.fam]);
@@ -10586,10 +10586,10 @@ function gpPad(){const ps=navigator.getGamepads?navigator.getGamepads():[];for(c
 function gpStart(){
   if(GP.on)return;GP.id=null;gpKnow(gpPad());GP.on=true;GP.prev=[];$('#cmd').placeholder=gpHint();requestAnimationFrame(gpTick);
   if(!GP.hinted&&S&&$('#title').hidden){GP.hinted=true;const L=gpL;
-    out(`{c}Controller connected (${GPK.n}).{n} {d}D-pad walks, ${L('A')} does the glowing action (${L('LB')}/${L('RB')} pick another), ${L('LT')}/${L('RT')} take the stairs, ${L('Y')} opens the map, ${L('X')} points at anything on screen, ${L('B')} goes back, ${L('MENU')} opens the menu.{n} {@help controller|more}`);
-    if(GP.odd)out("{y}Your browser does not know this controller's layout, so some buttons may be in odd places.{n} {d}Chrome and Edge know Xbox, PlayStation 4 and 5, and Switch Pro controllers.{n}");scrollDown();}
+    out(`{c}Manette connectée (${GPK.n}).{n} {d}La croix fait marcher, ${L('A')} lance l'action en surbrillance (${L('LB')}/${L('RB')} en choisit une autre), ${L('LT')}/${L('RT')} prennent les escaliers, ${L('Y')} ouvre la carte, ${L('X')} pointe n'importe quoi à l'écran, ${L('B')} revient, ${L('MENU')} ouvre le menu.{n} {@help controller|plus}`);
+    if(GP.odd)out("{y}Votre navigateur ne connaît pas la disposition de cette manette : certains boutons peuvent être mal placés.{n} {d}Chrome et Edge connaissent les manettes Xbox, PlayStation 4 et 5, et Switch Pro.{n}");scrollDown();}
 }
-function gpStop(){GP.on=false;GP.pointer=false;gpMarks(true);$('#cmd').placeholder='type a command, or tap above';}
+function gpStop(){GP.on=false;GP.pointer=false;gpMarks(true);$('#cmd').placeholder="tapez une commande, ou touchez ci-dessus";}
 window.addEventListener('gamepadconnected',gpStart);
 window.addEventListener('gamepaddisconnected',()=>{if(!gpPad())gpStop();});
 /* Rumble along with a vibration pattern ([on, off, on...] in ms, or one number). */
