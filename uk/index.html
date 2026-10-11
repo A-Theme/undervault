@@ -6755,8 +6755,9 @@ function taleWelcome(){const away=Date.now()-(S.taleAt||0);if(S.flags.gift&&away
    - the Peddler: odd wares, for gold, for the second thing in your pack, or free to a friend who listens;
    - the Kind: a gift; the Asker: an errand, in chains of three (WIN_ERRANDS), handed in when you next meet;
    - the Gambler: guess which hand; the Lost: walk him to the stairs; the Trickster: "Oh dear. Wrong door.";
-   - the Mourner: a piece of his own story (WIN_STORY), one at a time as yours goes on;
+   - the Mourner: a piece of his own story (WIN_STORY), about one a book, so it lasts to the last book;
    - the Starbearer: very, very rarely, a legendary that exists nowhere else, with a title of its own (WIN_STARS).
+   He comes once or twice a book, never more (winDue): meeting him should feel like an event.
    Everything about him lives in S.win (made on first use). `winston` (or `talk` while he is there) speaks to him. */
 
 const WIN_MOODS={
@@ -6804,17 +6805,21 @@ const WIN_TALES=[
  {k:'garden',t:'The Garden at the Top of the World',x:['South of everywhere there is a mountain, and on the mountain a garden, and in the garden it is always the end of a summer afternoon. Bees drowse. Nothing wilts. The lady who keeps it has a hat with a hole in the brim where her halo shines through.','"She gave me a cutting of everything once," Winston says, "for my coat." He shows you a patch, green and gold, that is very slightly warm. "Kind," he says. "Terribly kind. You will see."']},
  {k:'longroad',t:'The Long Road Home',x:['There is a road that goes everywhere. Winston has walked all of it. It goes to every kingdom with a door and every kingdom without one, to the sea and under it, to the top of the world and the bottom.','"It goes everywhere," he says, "except home. I have checked." He puts his bubble pipe away. "Perhaps that is why it is such a good road. It never makes you stop."'],need:15}
 ];
-/* ----- his own story (Winston the Mourner), a beat at a time; each needs your story to have reached a point ----- */
+/* ----- his own story (Winston the Mourner), a beat at a time ----- */
+/* It runs the whole length of the story, Books I to VIII, written or not yet: one beat a book (bk is the book it
+   belongs to), the last two in Book VIII. Each also needs your story to have reached its point (on). Told in this
+   order; heard beats are kept by title (W.heard), so the order can change without repeating or skipping any.
+   A new book that adds beats gives them its bk. */
 const WIN_STORY=[
- {t:'The Borrowed Name',on:()=>true,x:['"Winston is not my name," he says. "I borrowed it off a gravestone in the Keepers\' Cemetery. Old Mott\'s grandfather. He was not using it."','"I had a name once. I put it down somewhere and walked off without it. That happens, if you walk far enough."']},
- {t:'Seeds for Ilse',on:()=>bossDone(1),x:['"I knew Ilse, you know. Your Mother Mycelia. When she was young and only a gardener, I brought her seeds from a country where it is always summer."','"They grew. Everything from there grows. That was the trouble with them." He turns his lantern down. "I should not have brought them."']},
- {t:'A List Like That',on:()=>bossDone(3),x:['"You found the Temple\'s orphan rolls." It is not a question. "I was on a list like that once. A long time ago. Before there was a Temple to keep it in."','"Lists are terrible things. Someone writes your name down, and after that it is not really yours."']},
- {t:'Shoulders',on:()=>!!S.flags.ended,x:['"Caius," he says, very quietly, as if the name might break. "He used to carry me on his shoulders. Through the market. I could see over everyone. I could see the whole city." He is still small enough to be carried, and you think he knows it.','"He was kind, Caius. Everybody forgets that part. You did not. Thank you for not forgetting that part."']},
- {t:'The Scratched Name',on:()=>bossDone(6),x:['"On the Wall of Names, in the Hall of the Fed. Was there one scratched out? Near the top. The second one."','He nods before you can answer. "That one is mine. They scratched it off when I left. They thought it would make me come back."']},
- {t:'Letters',on:()=>bossDone(8),x:['"Arden wrote letters he never sent. Did you read them? There is a line in one about a boy who walked back up the stair."','"He saw me go. He did not stop me. He wrote that he was glad." Winston\'s hands are shaking, so he folds them. "I would have liked to read that, back then. I would have liked one letter."']},
- {t:'Twins',on:()=>!!S.flags.ended2,x:['"Aster was my sister," he says at last. "Twins, they told our father, though she got the red hair and I got the walking. When they gave her to the seal, they gave me too. Two of us, to be sure it would know the blood."','"She stayed. I stood up, and walked, all the way to the top. And when I came out into the light I stopped. Growing, I mean. I was seven, and I have been seven for three hundred years."','"I have been walking ever since, because the stair is still in my legs, and every time I stop I can feel it pulling. Caius was our father." He looks at you. "You have the family face. I noticed straight away."']},
- {t:'Seven Doors',on:()=>!!S.flags.ended3,x:['"I have been through all seven doors," he says. "Two are shut now, thanks to you. Five are not. One of them is under a mountain in the north, and it is cold, and it is getting colder."','"And one of them is in the sky." He looks up, as if he could see through the stone. "Something came down through that one a long time ago. She is still here. She is still cold." He does not explain, and when you ask, he only says: "Soon."']},
- {t:'Home',on:()=>!!S.flags.lily,x:['"My name is Corin," he says. "Corin Vale. Nobody has said it in three hundred years. I wanted to hear how it sounded."','He sits down on the floor with his back against the wall, the way a tired old man sits, though he is the size of a child. "Three doors shut. The summers gone home. I think I could stop walking now. For a little while." He closes his eyes. "Wake me if anything interesting happens. Something always does."']}
+ {t:'The Borrowed Name',bk:1,on:()=>true,x:['"Winston is not my name," he says. "I borrowed it off a gravestone in the Keepers\' Cemetery. Old Mott\'s grandfather. He was not using it."','"I had a name once. I put it down somewhere and walked off without it. That happens, if you walk far enough."']},
+ {t:'Seeds for Ilse',bk:2,on:()=>bossDone(1),x:['"I knew Ilse, you know. Your Mother Mycelia. When she was young and only a gardener, I brought her seeds from a country where it is always summer."','"They grew. Everything from there grows. That was the trouble with them." He turns his lantern down. "I should not have brought them."']},
+ {t:'A List Like That',bk:3,on:()=>bossDone(3),x:['"You found the Temple\'s orphan rolls." It is not a question. "I was on a list like that once. A long time ago. Before there was a Temple to keep it in."','"Lists are terrible things. Someone writes your name down, and after that it is not really yours."']},
+ {t:'Seven Doors',bk:4,on:()=>!!S.flags.ended3,x:['"I have been through all seven doors," he says. "Two are shut now, thanks to you. Five are not. One of them is under a mountain in the north, and it is cold, and it is getting colder."','"And one of them is in the sky." He looks up, as if he could see through the stone. "Something came down through that one a long time ago. She is still here. She is still cold." He does not explain, and when you ask, he only says: "Soon."']},
+ {t:'Shoulders',bk:5,on:()=>!!S.flags.ended,x:['"Caius," he says, very quietly, as if the name might break. "He used to carry me on his shoulders. Through the market. I could see over everyone. I could see the whole city." He is still small enough to be carried, and you think he knows it.','"He was kind, Caius. Everybody forgets that part. You did not. Thank you for not forgetting that part."']},
+ {t:'The Scratched Name',bk:6,on:()=>bossDone(6),x:['"On the Wall of Names, in the Hall of the Fed. Was there one scratched out? Near the top. The second one."','He nods before you can answer. "That one is mine. They scratched it off when I left. They thought it would make me come back."']},
+ {t:'Letters',bk:7,on:()=>bossDone(8),x:['"Arden wrote letters he never sent. Did you read them? There is a line in one about a boy who walked back up the stair."','"He saw me go. He did not stop me. He wrote that he was glad." Winston\'s hands are shaking, so he folds them. "I would have liked to read that, back then. I would have liked one letter."']},
+ {t:'Twins',bk:8,on:()=>!!S.flags.ended2,x:['"Aster was my sister," he says at last. "Twins, they told our father, though she got the red hair and I got the walking. When they gave her to the seal, they gave me too. Two of us, to be sure it would know the blood."','"She stayed. I stood up, and walked, all the way to the top. And when I came out into the light I stopped. Growing, I mean. I was seven, and I have been seven for three hundred years."','"I have been walking ever since, because the stair is still in my legs, and every time I stop I can feel it pulling. Caius was our father." He looks at you. "You have the family face. I noticed straight away."']},
+ {t:'Home',bk:8,on:()=>!!S.flags.lily,x:['"My name is Corin," he says. "Corin Vale. Nobody has said it in three hundred years. I wanted to hear how it sounded."','He sits down on the floor with his back against the wall, the way a tired old man sits, though he is the size of a child. "Three doors shut. The summers gone home. I think I could stop walking now. For a little while." He closes his eyes. "Wake me if anything interesting happens. Something always does."']}
 ];
 /* ----- his errands: three chains of three steps; each is handed in the next time you meet ----- */
 const WIN_ERRANDS=[
@@ -6852,10 +6857,27 @@ const WIN_STARS=[
  {n:'A Coat of a Hundred Patches',title:'Patched by Seven Kingdoms',kind:'armor',bon:{hp:'t16',regen:4,defPct:10}}
 ];
 
+/* The order the beats were told in before they were spread over every book: turns an old save's count (W.beat) into
+   the titles it heard. */
+const WIN_OLD_ORDER=['The Borrowed Name','Seeds for Ilse','A List Like That','Shoulders','The Scratched Name','Letters','Twins','Seven Doors',"Головна"];
+
 /* ----- state ----- */
-function winState(){return S.win||(S.win={met:0,cool:14,beat:0,beatAt:0,tales:[],errand:null,chains:{},stars:0,trinkets:[],seen:{},here:null,follow:null});}
+function winState(){
+  const W=S.win||(S.win={met:0,cool:14,heard:[],books:{},tales:[],errand:null,chains:{},stars:0,trinkets:[],seen:{},here:null,follow:null});
+  if(!W.heard){W.heard=WIN_OLD_ORDER.slice(0,W.beat||0);W.cool=Math.min(W.cool||0,40);delete W.beat;delete W.beatAt;}
+  if(!W.books)W.books={};
+  return W;}
 const winHere=()=>!!(S&&S.win&&S.win.here&&S.win.here.f===S.floor&&S.win.here.d===(S.dg||'')&&S.win.here.r===S.room&&S.win.here.t===(S.town||''));
-function winBeatNext(){const W=winState(),B=WIN_STORY[W.beat];return B&&B.on()?W.beat:null;}
+/* The book of the story you are in. A book that is not written yet waits for it: after Book IV you stay in Book IV. */
+function winBook(){let b=1;while(S.flags[b>1?'ended'+b:'ended'])b++;return Math.min(b,Math.ceil(BOSSES.length/5));}
+const winKey=()=>(S.ng||0)+':'+winBook();
+/* How many times he may have come in this book so far: once as it begins (in Book I, from floor 2), twice when three
+   of its five bosses are down. */
+function winSlots(){const b=winBook(),lo=(b-1)*5;let n=0;for(let i=lo;i<lo+5;i++)if(bossDone(i))n++;return b===1&&S.deepest<2?0:n>=3?2:1;}
+const winDue=()=>(winState().books[winKey()]||0)<winSlots();
+/* The beats he could tell you now, in order: not heard yet, from this book or an earlier one, and your story is there. */
+function winBeatsReady(){const W=winState(),b=winBook();return WIN_STORY.map((B,i)=>i).filter(i=>{const B=WIN_STORY[i];return !W.heard.includes(B.t)&&B.bk<=b&&B.on();});}
+function winBeatNext(){const r=winBeatsReady();return r.length?r[0]:null;}
 function winErrandDone(){const e=winState().errand;if(!e)return false;const st=WIN_ERRANDS.find(x=>x.k===e.k).steps[e.step];return WIN_GOAL[st.g]()-e.base>=st.n;}
 function winStarCap(){return Math.min(WIN_STARS.length,1+(S.flags.ended?1:0)+(S.flags.ended2?1:0)+(S.flags.ended3?1:0)+(S.flags.ended4?1:0));}
 
@@ -6868,22 +6890,24 @@ function winMaybe(r){
   if(S.floor>0){
     if(S.dg&&(DUNGEONS[S.dg].raid||S.dg==='underside'))return false;
     if((r.mobs&&r.mobs.length)||(r.ev&&!r.ev.used))return false;
-    W.cool--;const first=!W.met&&S.deepest>=2;
-    if(!first&&(W.cool>0||!chance(0.02)))return false;   /* very rare on purpose: meeting him should feel like an event */
+    W.cool--;if(!winDue())return false;const first=!W.met;
+    if(!first&&(W.cool>0||!chance(0.04)))return false;   /* once he is due, he turns up within a floor or two */
     winMeet(first?'wander':winMood(false),first);return true;}
-  if(r.npc!=='inn'||W.cool>0||!W.met||!chance(0.06))return false;
+  if(r.npc!=='inn'||W.cool>0||!W.met||!winDue()||!chance(0.1))return false;
   winMeet(winMood(true),false);return true;
 }
 function winMood(town){
-  const W=winState();if(W.errand&&winErrandDone())return 'asker';
-  if(W.met>=10&&W.stars<winStarCap()&&chance(0.025))return 'star';
+  const W=winState();
+  {const r=winBeatsReady().length,n=W.books[winKey()]||0;if(r&&n<2&&r>=2-n)return 'mourner';}   /* the last chance this book to tell it */
+  if(W.errand&&winErrandDone())return 'asker';
+  if(W.met>=4&&W.stars<winStarCap()&&chance(0.15))return 'star';
   const o=[['wander',20],['tale',18],['peddler',16],['kind',12],['gambler',8]];
   if(!town)o.push(['lost',7],['trick',5]);if(!W.errand&&!town)o.push(['asker',10]);
-  if(winBeatNext()!=null&&W.met-W.beatAt>=3)o.push(['mourner',30]);
+  if(winBeatNext()!=null)o.push(['mourner',30]);
   let t=o.reduce((a,x)=>a+x[1],0)*MR();for(const [k,w] of o){t-=w;if(t<0)return k;}return 'wander';
 }
 function winMeet(mood,first){
-  const W=winState(),M=WIN_MOODS[mood];W.met++;W.cool=80+Math.floor(MR()*40);W.seen[mood]=(W.seen[mood]||0)+1;
+  const W=winState(),M=WIN_MOODS[mood];W.met++;W.books[winKey()]=(W.books[winKey()]||0)+1;W.cool=40+Math.floor(MR()*20);W.seen[mood]=(W.seen[mood]||0)+1;
   W.here={f:S.floor,d:S.dg||'',r:S.room,t:S.town||'',mood,wares:null,bet:0};
   out('');out(`{${M.c}}A small lantern comes bobbing toward you, burning ${M.lamp}.{n}`);
   out(`{${M.c}}Winston ${M.t}`,'bossname');
@@ -7005,8 +7029,8 @@ function winTrick(){
 }
 function winMourn(){
   const W=winState(),i=winBeatNext();if(i==null){winWander();return;}const B=WIN_STORY[i];
-  out(`{w}${B.t}{n}`,'actsub');B.x.forEach(p=>winSay(p));W.beat++;W.beatAt=W.met;
-  out(`{d}Winston's story, ${W.beat} of ${WIN_STORY.length}: in your Lore Book.{n} {@codex winston|read it}`);
+  out(`{w}${B.t}{n}`,'actsub');B.x.forEach(p=>winSay(p));W.heard.push(B.t);
+  out(`{d}Winston's story, ${W.heard.length} of ${WIN_STORY.length}: in your Lore Book.{n} {@codex winston|read it}`);
   winGone('After a while he gets up, and dusts off his coat, and wanders away without saying goodbye. That is how you know it mattered.');
 }
 function winStar(){
@@ -9087,7 +9111,7 @@ const LB_PEOPLE=[
  {id:'hale',n:'Watch-Captain Hale',pic:'npc:hale',x:"Тримає Вартову вежу. Читає кожне оголошення двічі й платить за важку роботу, зроблену добре."},
  {id:'ferryman',n:'The ferryman',pic:'npc:ferryman',x:"Доглядає Старі доки. Жоден корабель не приходив, відколи Ліхтар посинів: морські шляхи до далеких королівств згасли тієї ж ночі."},
  {id:'winston',n:"Вінстон Мандрівник",pic:'npc:winston',on:()=>!!(S.win&&S.win.met),x:"Хлопчик років семи в пальті зі ста латок, завеликому для нього, з ціпком, вищим за нього самого, і маленьким ліхтарем, що щоразу горить іншим кольором. Говорить, як старий. Його титул підказує, що він збирається зробити.",
-  more:[[()=>(S.win.beat||0)>=1,"Вінстон — ім'я, яке він позичив у надгробка."],[()=>(S.win.beat||0)>=7,"Він близнюк Астер Вейл, син Кая: згодована дитина, що піднялася сходами назад і перестала рости тієї миті, як вийшла. Йому триста років."]]},
+  more:[[()=>winState().heard.includes('The Borrowed Name'),"Вінстон — ім'я, яке він позичив у надгробка."],[()=>winState().heard.includes('Twins'),"Він близнюк Астер Вейл, син Кая: згодована дитина, що піднялася сходами назад і перестала рости тієї миті, як вийшла. Йому триста років."]]},
  {sec:"Унизу"},
  {id:'tobias',n:"Тобіас",pic:'lantern',on:()=>bossDone(1),x:"Хлопчик, якого сестра Ільза сховала від печатки в таємному саду. Це він крейдою писав на фонтані ХТО ГОДУЄ СВІТЛО?"},
  {id:'tick',n:"Тік",pic:'lantern',on:()=>bossDone(2),x:"Записувальна машина Ордену. Вона тримає картку на кожного вартового, який будь-коли існував, і на кожній написано ВЕЙЛ. Вона все копіює двічі, бо Голод не може з'їсти написане двічі."},
@@ -9185,10 +9209,11 @@ const LB_RENDER={
   return h;},
  /* Winston the Wanderer: his own story so far, the tales he has told you, and the titles you have seen him wear */
  winston(has){
-  const W=has&&S.win;if(!W||!W.met)return lbCard('npc:winston','???',"<p>Ще не зустрічався. Кажуть, хтось блукає Андерволтом із ліхтарем, що ніколи двічі не буває одного кольору.</p>",true);
+  const W=has&&S.win&&winState();if(!W||!W.met)return lbCard('npc:winston','???',"<p>Ще не зустрічався. Кажуть, хтось блукає Андерволтом із ліхтарем, що ніколи двічі не буває одного кольору.</p>",true);
   let h=lbCard('npc:winston',"Вінстон Мандрівник",lbP(`Ти зустрічав його ${W.met} раз(и): ${Object.keys(W.seen).map(k=>"Вінстон "+WIN_MOODS[k].t).join(', ')}.`)+(W.errand?lbP("Ти виконуєш його доручення: "+WIN_ERRANDS.find(x=>x.k===W.errand.k).n+'.'):''));
   h+="<div class=\"ex-sec\">Його історія</div>";
-  WIN_STORY.forEach((B,i)=>{h+=i<W.beat?`<div class="lb-ch"><b>${esc(B.t)}</b>${B.x.map(lbP).join('')}</div>`:`<div class="lb-ch lb-locked"><b>???</b><p>${i===W.beat?"Він розповість, коли буде готовий.":"Ще ні."}</p></div>`;});
+  const nx=WIN_STORY.findIndex(B=>!W.heard.includes(B.t));
+  WIN_STORY.forEach((B,i)=>{h+=W.heard.includes(B.t)?`<div class="lb-ch"><b>${esc(B.t)}</b>${B.x.map(lbP).join('')}</div>`:`<div class="lb-ch lb-locked"><b>???</b><p>${i===nx?"Він розповість, коли буде готовий.":"Ще ні."}</p></div>`;});
   h+=`<div class="ex-sec">Його оповідки</div><p class="mis-p">Почуто ${W.tales.length} з ${WIN_TALES.length}.</p>`;
   WIN_TALES.forEach(T=>{h+=W.tales.includes(T.k)?`<div class="lb-ch"><b>${esc(T.t)}</b>${T.x.map(lbP).join('')}</div>`:"<div class=\"lb-ch lb-locked\"><b>???</b><p>Ще не розказано.</p></div>";});
   return h;},
