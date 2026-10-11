@@ -1543,7 +1543,7 @@ const ngMult=()=>1+0.6*S.ng;
    so a hero settles around a monster level divided by 1.4: about 24 at the end of Book I, 44 at the end of Book II.
    lvShow() puts monster levels on the hero's scale wherever they are shown. */
 const need=l=>Math.round(40*Math.pow(l,1.9));
-const LV_CAP=80,LV_GROW=1.4;   /* 50, then 60 for Book III's crossing, 70 for the Drowned Stair, 80 for the Lantern War */
+const LV_CAP=(typeof BOOKS_IN!=='undefined'&&BOOKS_IN>=5)?100:80,LV_GROW=1.4;   /* 50, then 60 for Book III's crossing, 70 for the Drowned Stair, 80 for the Lantern War, 100 for Book V (only in a build that has it: BOOKS_IN) */
 const effLvl=()=>1+(S.lvl-1)*LV_GROW;
 const lvShow=L=>Math.max(1,Math.round(1+((L||1)-1)/LV_GROW));
 const petNeed=l=>Math.round(25*Math.pow(l,1.5));
@@ -1552,15 +1552,17 @@ const petNeed=l=>Math.round(25*Math.pow(l,1.5));
 const FPA=4;   /* floors per act */
 /* Book II (book2.js) opens floors 21-40 once Maren has sent you down again after the ending. */
 const book2On=()=>!!(S&&S.flags&&S.flags.call2);
-const mainFloors=()=>book4On()?80:book3bOn()?60:book2On()?40:20;   /* Book III part two (book3b.js): 41-60 below Solenne; Book IV (book4.js): 61-80, the front */
-const actOf=f=>Math.min(19,Math.floor((f-1)/FPA));
+const mainFloors=()=>S&&S.flags&&S.flags.quiet?100:book4On()?80:book3bOn()?60:book2On()?40:20;   /* Book III part two (book3b.js): 41-60 below Solenne; Book IV (book4.js): 61-80, the front */
+const actOf=f=>Math.min(ACTS.length-1,Math.floor((f-1)/FPA));
 /* Bosses 0-4 are the Wardstone keepers (S.bosses); 5-9 are Book II's (S.b2). */
-const bossDone=bi=>bi<5?!!S.bosses[bi]:bi<10?!!(S.b2&&S.b2[bi-5]):bi<15?!!(S.b3&&S.b3[bi-10]):!!(S.b4&&S.b4[bi-15]);   /* 10-14: Book III's (S.b3); 15-19: Book IV's (S.b4) */
-function setBossDone(bi){if(bi<5)S.bosses[bi]=true;else if(bi<10){S.b2=S.b2||[false,false,false,false,false];S.b2[bi-5]=true;}else if(bi<15){S.b3=S.b3||[false,false,false,false,false];S.b3[bi-10]=true;}else{S.b4=S.b4||[false,false,false,false,false];S.b4[bi-15]=true;}}
+/* 5-9 Book II's (S.b2), 10-14 Book III's (S.b3), 15-19 Book IV's (S.b4), and on: book n's bosses are in S['b'+n]. */
+const bossBook=bi=>bi<5?S.bosses:S['b'+(Math.floor(bi/5)+1)];
+const bossDone=bi=>{const L=bossBook(bi);return !!(L&&L[bi%5]);};
+function setBossDone(bi){if(bi<5){S.bosses[bi]=true;return;}const k='b'+(Math.floor(bi/5)+1);S[k]=S[k]||[false,false,false,false,false];S[k][bi%5]=true;}
 /* Story bosses beaten, of those open to you: five a book. */
-const bossCount=()=>S.bosses.filter(Boolean).length+(S.b2||[]).filter(Boolean).length+(S.b3||[]).filter(Boolean).length+(S.b4||[]).filter(Boolean).length;
-const bossMax=()=>book4On()?20:book3bOn()?15:book2On()?10:5;
-const loreMax=()=>book4On()?60:book3bOn()?45:book2On()?30:15;
+const bossCount=()=>{let n=S.bosses.filter(Boolean).length;for(let b=2;b<=8;b++)n+=(S['b'+b]||[]).filter(Boolean).length;return n;};
+const bossMax=()=>S.flags.quiet?25:book4On()?20:book3bOn()?15:book2On()?10:5;
+const loreMax=()=>S.flags.quiet?75:book4On()?60:book3bOn()?45:book2On()?30:15;
 const actStart=a=>a*FPA+1;
 const isBossFloor=f=>f%FPA===0;
 /* Which lore scroll lies on main floor f: the boss floors have none, so each act holds three. */
@@ -2387,6 +2389,7 @@ function bossDefeated(m,r){
   if(m.dg)return sideCleared(m,r);
   const bi=m.bi;
   setBossDone(bi);submitRace();
+  if(bi>=20&&typeof book5BossDown==='function')return book5BossDown(bi,r);
   if(bi>=15)return book4BossDown(bi,r);
   if(bi>=10)return book3BossDown(bi,r);
   if(bi>=5)return book2BossDown(bi,r);
@@ -9984,7 +9987,7 @@ function choose(arg){
 function ngplus(){
   if(!S.flags.ended){out("La Nouvelle Partie+ se débloque une fois l'histoire terminée.");return;}
   const keep={};['forgeFriend','summer','saltLamp','memTwice','eskFriend','ysolde','ottilie','haleFriend','gateFree','wickOil'].forEach(k=>{if(S.flags[k])keep[k]=1;});   /* mission rewards that say "forever" */
-  S.ng++;S.story={};S.dreams={};S.dgOpen={};S.taleL=0;S.b2=[false,false,false,false,false];S.b3=[false,false,false,false,false];S.b4=[false,false,false,false,false];S.war=null;S.uniq4={};S.voy=voyFresh(S.voy);S.town='emberfall';S.seed=randomSeed();S.layout=2;S.floors={};S.deepest=0;S.dg=null;S.side={};S.dgDone={};S.dgRuns={};S.bosses=[false,false,false,false,false];S.lore=[];S.flags=Object.assign({gift:1},keep);S.smith=null;S.fight=false;S.fx={};
+  S.ng++;S.story={};S.dreams={};S.dgOpen={};S.taleL=0;S.b2=[false,false,false,false,false];S.b3=[false,false,false,false,false];S.b4=[false,false,false,false,false];S.b5=[false,false,false,false,false];S.war=null;S.uniq4={};S.voy=voyFresh(S.voy);S.town='emberfall';S.seed=randomSeed();S.layout=2;S.floors={};S.deepest=0;S.dg=null;S.side={};S.dgDone={};S.dgRuns={};S.bosses=[false,false,false,false,false];S.lore=[];S.flags=Object.assign({gift:1},keep);S.smith=null;S.fight=false;S.fx={};
   const st=stats();S.hp=st.mhp;S.mp=st.mmp;
   term.innerHTML='';out(`{o}NOUVELLE PARTIE+${S.ng}{n} {d}Graine ${S.seed}. Les lanternes vacillent à nouveau. Quelque chose, en bas, a remarqué votre retour.`);
   toTown(0);if(S.live){liveStop();liveStart();}
@@ -10069,6 +10072,7 @@ defc('m map',a=>{drawMap(a);tutEv('map');});
 defc('k kill attack a hit fight',cmdKill);
 defc('def defend block',()=>{if(!S.fight){out("Vous ne combattez rien.");return;}round(()=>{S.fx.defend=true;const st=stats();S.mp=Math.min(st.mmp,S.mp+4);sfx('block');out("{c}Vous vous préparez au choc.");});});
 defc('flee run',cmdFlee);defc('march',a=>cmdMarch(a));defc('triage',()=>cmdTriage());defc('winston wanderer',a=>cmdWinston(a));defc('join',()=>ttJoin());
+if(typeof cmdWestward==='function')defc('westward',a=>cmdWestward(a));   /* Book V (book5.js), only in a build that has it */
 defc('tame',cmdTame);
 defc('c cast',a=>{const s=SK[S.cls].find(x=>x.k.startsWith(a)||x.n.toLowerCase().startsWith(a));if(!a||!s){showSkills();return;}useSkill(s);});
 defc('skills sk abilities',showSkills);
