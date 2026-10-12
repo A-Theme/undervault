@@ -577,6 +577,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
 .pet-r2 .hero-anim,.pet-r2>.hero-anim{animation:petStar 3.2s linear infinite}
 @keyframes petStar{0%{filter:hue-rotate(0deg) saturate(1.5) drop-shadow(0 0 8px #fff)}50%{filter:hue-rotate(180deg) saturate(1.8) drop-shadow(0 0 14px #d48cff)}100%{filter:hue-rotate(360deg) saturate(1.5) drop-shadow(0 0 8px #fff)}}
 .pet-r1 figcaption{color:#f3d36b}.pet-r2 figcaption{color:#d48cff}
+#appUpdate{background:var(--accent);color:#1a1205;border-color:var(--accent);font-weight:bold}
 @keyframes scIn{from{opacity:0}to{opacity:1}}
 @keyframes scUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes scTitle{0%{opacity:0;transform:scale(.6);letter-spacing:.3em}100%{opacity:1;transform:none;letter-spacing:.04em}}
@@ -11191,6 +11192,22 @@ const NATIVE_APP=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.
  if(App){App.addListener('backButton',()=>{if(!backStep())App.exitApp();});$('#mExit').hidden=false;$('#mExit').addEventListener('click',()=>{if(S&&!S.over)save(true);App.exitApp();});}
  else try{history.pushState({uvBack:1},'');window.addEventListener('popstate',()=>{if(backStep())history.pushState({uvBack:1},'');});}catch(e){}}   /* the web: one step of history held, so Back stays in the game */
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sceneNow&&$('#splash').hidden&&backStep())e.preventDefault();});
+/* In the Android app: ask Google Play whether a newer version is out (the app carries its own copy of the game, so it
+   falls behind the website until it updates). Play only says yes once the new build is approved and live, so the
+   notice is never early. A gold button on the title screen and a line in the game open Play's own update screen. */
+let appUpdateGo=null;
+function appUpdateCheck(P){
+  const U=P||(NATIVE_APP&&window.Capacitor.Plugins&&window.Capacitor.Plugins.AppUpdate);if(!U||(!P&&appUpdateCheck.asked))return Promise.resolve(false);appUpdateCheck.asked=1;
+  return U.getAppUpdateInfo().then(i=>{
+    if(!i||i.updateAvailability!==2)return false;   /* 2: UPDATE_AVAILABLE */
+    appUpdateGo=()=>{const open=()=>U.openAppStore().catch(()=>{});(i.immediateUpdateAllowed?U.performImmediateUpdate():U.openAppStore()).catch(open);};
+    let b=$('#appUpdate');if(!b){b=document.createElement('button');b.id='appUpdate';b.type='button';b.className='big app-update';b.textContent='A new version is out: update the game';b.addEventListener('click',()=>appUpdateGo&&appUpdateGo());
+      const at=$('#title .title-cards');if(at)at.after(b);}
+    b.hidden=false;if(S)out('{y}A new version of the game is out.{n} {@appupdate|Update now}');return true;
+  }).catch(()=>false);
+}
+defc('appupdate update',()=>{if(appUpdateGo)appUpdateGo();else out('{d}You have the latest version.{n}');});
+if(NATIVE_APP){setTimeout(()=>appUpdateCheck(),2500);const A=window.Capacitor.Plugins&&window.Capacitor.Plugins.App;if(A)A.addListener('resume',()=>{appUpdateCheck.asked=0;appUpdateCheck();});}   /* at start, and on coming back to the app */
 /* Hotkeys on a keyboard: with the command line empty (or nothing typed into), 1-9 and 0 press the first ten buttons on
    the action bar, like a hotbar. The wide screen shows each button's number. */
 function hotkey(e){
