@@ -216,7 +216,10 @@ button.ex-open{background:none;border:0;padding:0 18px 0 0;text-align:left;color
 .lb-txt b,.lb-ch b{font-family:var(--disp);font-weight:400;color:var(--kw);font-size:14px}.lb-txt p,.lb-ch p{margin:0;font-size:13px;line-height:1.45}.lb-txt small,.lb-ch small{color:var(--dim);font-size:11px}
 .lb-q{color:var(--ky);font-style:italic}.lb-ch{display:flex;flex-direction:column;gap:6px;padding:4px 0 8px;border-bottom:1px solid var(--line)}.lb-ch i{color:var(--accent);font-style:normal}.lb-end b{color:var(--accent)}
 .lb-locked{opacity:.55}.lb-locked .lb-pic canvas{filter:brightness(0)}.lb-who{margin:0}.lb-hero .lb-pic{min-width:0}
-#titleLore{width:100%;margin:6px 0 2px}
+#titleLore{width:100%;margin:12px 0 6px;padding:12px 14px;display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--panel2);border:1px solid var(--accent);border-radius:10px;color:var(--accent);box-shadow:0 0 14px #eaa94a22}
+#titleLore b{font-family:var(--disp);font-size:16px;font-weight:normal;letter-spacing:.08em}
+#titleLore span{font-size:12px;color:var(--fg);opacity:.8}
+#titleLore:hover{background:#eaa94a1a}
 @media (max-width:420px){.lb-card{flex-wrap:wrap}.lb-hero .lb-txt{flex-basis:100%}}
 #account button.big.acc-google{background:#fff;color:#1f1f1f;border-color:#dadce0;font-family:inherit;letter-spacing:.02em}#account button.big.acc-discord{background:#5865f2;color:#fff;border-color:#5865f2;font-family:inherit;letter-spacing:.02em}
 .lang-pick{text-align:center;margin:2px 0 6px}.acc-link{margin:-4px 0 4px;text-align:left}.acc-del{color:var(--kr);align-self:flex-start;font-size:12px}.privacy-link{text-align:center;margin:4px 0 0}.slot small.cloud{color:var(--kc)}.slot small.cloud b{color:var(--ky);font-weight:400}.slot.cloud-only{border-style:dashed}
@@ -531,6 +534,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
     </div>
     <p class="tag">A text dungeon in the old MUD style. Fight, loot, tame beasts and descend beneath Emberfall to relight the failing seals, then follow the dark across the sea.</p>
     <p class="hint abyss-top" id="abyssTop" hidden></p>
+    <button id="titleLore" type="button" class="lb-open"><b>The Lore Book</b><span>The story so far, its people, its keepers and its legends</span></button>
     <div class="move-box" id="moveBox" hidden><p><b>The game has moved to playundervault.com.</b> Your heroes are saved in this browser at this old address. One tap takes them with you.</p><button id="moveOut" type="button">Take my heroes to playundervault.com</button></div>
     <div class="lbl">Your heroes</div>
     <p class="hint" id="moveInfo" role="status" hidden></p>
@@ -556,7 +560,6 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
     <p class="hint">If you die, the run ends and the save is erased. In return you get +20% experience and gold, and better loot.</p>
     <p class="hint" id="slotInfo" role="status"></p>
     <button id="beginBtn" class="big" type="button">Descend</button>
-    <button id="titleLore" type="button" class="lb-open">The Lore Book</button>
     <button id="titleStore" class="link store-link" type="button">Get the full game</button>
     <button id="titleImport" class="link" type="button">Import a save code</button>
     <p class="hint privacy-link"><a class="web-only" href="about.html" target="_blank" rel="noopener">About</a><span class="web-only"> · </span><a class="web-only" href="terms.html" target="_blank" rel="noopener">Terms</a><span class="web-only"> · </span><a class="web-only" href="refund.html" target="_blank" rel="noopener">Refunds</a><span class="web-only"> · </span><a href="privacy.html" target="_blank" rel="noopener">Privacy</a></p>
