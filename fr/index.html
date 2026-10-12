@@ -446,9 +446,12 @@ span .cl{color:inherit}
 .hb-n{color:var(--dim);text-align:right}
 .hb-list li:nth-child(-n+3) .hb-n{color:var(--accent)}
 .hb-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--fg)}
-.hb-name small{color:var(--dim);margin-left:6px}
+.hb-name small{color:var(--fg);opacity:.7;margin-left:5px}
+.hb-name small:not(.hb-hc)::before{content:" b7  ";opacity:.6}
 .hb-cls{color:var(--dim)}
 .hb-lv{color:var(--fg);font-weight:600}
+.hb-hc{color:#ff8a8a!important}
+#term .hero-board{margin:6px 0;font-size:inherit}
 .store-book{border-left:4px solid var(--line);background:var(--panel2);border-radius:6px;padding:8px 12px;margin:6px 0;display:flex;flex-direction:column;gap:2px}.store-book small{color:var(--fg);opacity:.85}.store-o{border-color:var(--ko,#ffa04a)}.store-o b{color:var(--ko,#ffa04a)}.store-c{border-color:var(--kc,#62d6d6)}.store-c b{color:var(--kc,#62d6d6)}.store-r{border-color:var(--kr,#ff6e6e)}.store-r b{color:var(--kr,#ff6e6e)}.store-list{margin:8px 0;padding-left:20px}.store-list li{margin:3px 0}.store-link{text-align:center}
 .lb-set{border-color:var(--ky)!important}.lb-set>b{color:var(--ky)}.lb-set-r{border-color:var(--kr)!important}.lb-set-r>b{color:var(--kr)}.lb-set-b{border-color:var(--kb)!important}.lb-set-b>b{color:var(--kb)}.lb-set-m{border-color:var(--km)!important}.lb-set-m>b{color:var(--km)}.lb-set-g{border-color:var(--kg)!important}.lb-set-g>b{color:var(--kg)}.lb-set-o{border-color:var(--ko)!important}.lb-set-o>b{color:var(--ko)}.lb-set-c{border-color:var(--kc)!important}.lb-set-c>b{color:var(--kc)}.lb-set-w{border-color:var(--kw)!important}
 .news-v{color:var(--accent);margin:0 0 6px;font-size:13px;letter-spacing:.04em}#updNote{margin:8px 0}
@@ -10251,40 +10254,42 @@ function submitHero(){
   const undo=()=>{if(S&&S.cid===row.run_id)S.heroSent=sent;};
   lbFetch('hero_scores',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(row)}).then(r=>{if(!r.ok)undo();}).catch(undo);
 }
+/* A leaderboard as a list, one entry a line: rank, the hero (and the player's name, small), class, and what counts
+   (Lv, or the floor). The heroes marked as yours get a highlight. Used on the title screen and by `leaderboard`. */
+function boardHtml(title,sub,rows,mine,val){
+  const nm=v=>esc(clean(String(v||'?')).slice(0,16));
+  return `<div class="hb-head"><b>${esc(title)}</b><small>${esc(sub)}</small></div>`+(rows.length?'<ol class="hb-list">'+rows.map((x,i)=>
+    `<li${mine.has(x.run_id)?' class="me"':''}><span class="hb-n">${i+1}</span><span class="hb-name">${nm(x.name)}${x.player?`<small>${nm(x.player)}</small>`:''}${x.hard?'<small class="hb-hc">HC</small>':''}</span><span class="hb-cls">${esc((CLASSES[x.cls]||{}).n||'?')}</span><span class="hb-lv">${esc(val(x))}</span></li>`).join('')+'</ol>'
+    :'<p class="hint">Nobody is on it yet. Be the first.</p>');
+}
+function outBoard(html){const d=document.createElement('div');d.className='ln hero-board';d.innerHTML=html;term.appendChild(d);}
 function showLeaderboard(){
-  out("{m}-- Les Lanternes les plus vives --{n} {d}(les héros les plus forts : le niveau le plus haut, puis la puissance)",'rt');
   if(!lbReady()){out("{d}Le classement en ligne n'est pas configuré pour cette copie du jeu.");return;}
   if(!lbOn())out("{d}Vous n'envoyez pas vos scores.{n} {@leaderboard on|envoyer les miens}");
   out("{d}On interroge les ténèbres...");
+  const mine=new Set([S&&S.cid].filter(Boolean)),list=r=>Array.isArray(r)?r:[];
   const heroes=lbRows('hero_leaderboard?select=run_id,name,cls,lvl,might,books,hard,ng,player&limit=10').catch(()=>null),
     abyss=lbRows('abyss_leaderboard?select=run_id,name,cls,depth,lvl,hard,ng,player&limit=10');
   heroes.then(rows=>{
     if(rows===null)out("{d}Les Lanternes les plus vives ouvrent bientôt.");
-    else if(!Array.isArray(rows)||!rows.length)out("{d}Personne n'y figure encore. Soyez le premier.");
-    else rows.forEach((x,i)=>{const me=S&&x.run_id===S.cid,c=CLASSES[x.cls];
-      out(`${me?'{y}':''}${String(i+1).padStart(2)}. ${boardName(x).padEnd(16)} ${(c?c.n:'?').padEnd(11)} niv ${Number(x.lvl)||0}  puissance ${Number(x.might)||0}${x.books?"  Livre "+['','I','II','III','IV','V','VI','VII','VIII'][Math.min(8,Number(x.books)||0)]+' done':''}${x.hard?'  {r}[HC]{n}':''}${x.ng?'  NG+'+(Number(x.ng)||0):''}${me?"  {y}<- vous{n}":''}`);});
+    else outBoard(boardHtml('The Brightest Lanterns','the strongest heroes: level, then might',list(rows),mine,x=>'Lv '+(Number(x.lvl)||0)));
     if(S&&S.flags&&S.flags.gift)out(`{d}Votre héros : niveau ${S.lvl}, puissance ${heroMight()}.{n}`);
-    out('');out("{m}-- Abysse --{n} {d}(l'étage le plus profond atteint, la meilleure partie de chaque personnage)");
     return abyss;
   }).then(rows=>{
-    if(!Array.isArray(rows)||!rows.length){out("{d}Personne n'a encore bravé l'Abîme. Soyez le premier.");scrollDown();return;}
-    rows.forEach((x,i)=>{const me=S&&x.run_id===S.cid,c=CLASSES[x.cls];
-      out(`${me?'{y}':''}${String(i+1).padStart(2)}. ${boardName(x).padEnd(16)} ${(c?c.n:'?').padEnd(11)} étage ${Number(x.depth)||0}  niv. ${Number(x.lvl)||0}${x.hard?'  {r}[HC]{n}':''}${x.ng?'  NG+'+(Number(x.ng)||0):''}${me?"  {y}<- vous{n}":''}`);});
-    if(S&&S.abyssBest&&!rows.some(x=>x.run_id===S.cid))out(`{d}Votre record : étage ${S.abyssBest}.`);
+    outBoard(boardHtml('The Abyss','the deepest floor reached',list(rows),mine,x=>'Floor '+(Number(x.depth)||0)));
+    if(S&&S.abyssBest&&!list(rows).some(x=>x.run_id===S.cid))out(`{d}Votre record : étage ${S.abyssBest}.`);
     scrollDown();
   }).catch(()=>{out("{d}Impossible de joindre le classement. Êtes-vous hors ligne ?");scrollDown();});
 }
 /* Title screen: the Brightest Lanterns, the ten strongest heroes of every player on the server, as a list, with this
-   device's own heroes marked. Hidden offline, or until the board is open on the server. */
+   device's own heroes and the hero in play marked. Hidden offline, or until the board is open on the server. */
 function titleLeaderboard(){
   const el=$('#abyssTop');if(!lbReady()){el.hidden=true;return;}
-  const mine=new Set(HERO_SLOTS.map(n=>{const s=loadSave(n);return s&&s.cid;}).concat(S&&S.cid).filter(Boolean)),nm=v=>esc(clean(String(v||'?')).slice(0,16));
-  lbRows('hero_leaderboard?select=run_id,name,cls,lvl,might,player&limit=10').then(rows=>{
+  const mine=new Set(HERO_SLOTS.map(n=>{const s=loadSave(n);return s&&s.cid;}).concat(S&&S.cid).filter(Boolean));
+  lbRows('hero_leaderboard?select=run_id,name,cls,lvl,might,hard,player&limit=10').then(rows=>{
     if(!Array.isArray(rows)){el.hidden=true;return;}
-    el.innerHTML='<div class="hb-head"><b>The Brightest Lanterns</b><small>the strongest heroes in the game</small></div>'+(rows.length?'<ol class="hb-list">'+rows.map((x,i)=>
-      `<li${mine.has(x.run_id)?' class="me"':''}><span class="hb-n">${i+1}</span><span class="hb-name">${nm(x.name)}${x.player?`<small>${nm(x.player)}</small>`:''}</span><span class="hb-cls">${esc((CLASSES[x.cls]||{}).n||'?')}</span><span class="hb-lv">Lv ${Number(x.lvl)||0}</span></li>`).join('')+'</ol>'
-      :'<p class="hint">Nobody is on it yet. Be the first.</p>');
-    el.hidden=false;}).catch(()=>{el.hidden=true;});
+    el.innerHTML=boardHtml('The Brightest Lanterns','the strongest heroes in the game',rows,mine,x=>'Lv '+(Number(x.lvl)||0));el.hidden=false;
+  }).catch(()=>{el.hidden=true;});
 }
 function cmdLeaderboard(arg){
   if(arg==='off'){pref('lb','0');out("{d}Vous n'enverrez plus de scores au classement.");return;}
