@@ -253,10 +253,14 @@ button.ex-open{background:none;border:0;padding:0 18px 0 0;text-align:left;color
 .lb-txt b,.lb-ch b{font-family:var(--disp);font-weight:400;color:var(--kw);font-size:14px}.lb-txt p,.lb-ch p{margin:0;font-size:13px;line-height:1.45}.lb-txt small,.lb-ch small{color:var(--dim);font-size:11px}
 .lb-q{color:var(--ky);font-style:italic}.lb-ch{display:flex;flex-direction:column;gap:6px;padding:4px 0 8px;border-bottom:1px solid var(--line)}.lb-ch i{color:var(--accent);font-style:normal}.lb-end b{color:var(--accent)}
 .lb-locked{opacity:.55}.lb-locked .lb-pic canvas{filter:brightness(0)}.lb-who{margin:0}.lb-hero .lb-pic{min-width:0}
-#titleLore{width:100%;margin:12px 0 6px;padding:12px 14px;display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--panel2);border:1px solid var(--accent);border-radius:10px;color:var(--accent);box-shadow:0 0 14px #eaa94a22}
-#titleLore b{font-family:var(--disp);font-size:16px;font-weight:normal;letter-spacing:.08em}
-#titleLore span{font-size:12px;color:var(--fg);opacity:.8}
-#titleLore:hover{background:#eaa94a1a}
+/* the two doors up front on the title screen: the Lore Book, and the Common Room (friends) */
+.title-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 6px}
+.title-card{min-width:0;padding:12px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;background:var(--panel2);border:1px solid var(--accent);border-radius:10px;color:var(--accent);box-shadow:0 0 14px #eaa94a22}
+.title-card b{font-family:var(--disp);font-size:14px;font-weight:normal;letter-spacing:.06em}
+.title-card span{font-size:11.5px;line-height:1.35;color:var(--fg);opacity:.8}
+.title-card:hover{background:#eaa94a1a}
+#titleFriends{border-color:#62d6d6;color:#62d6d6;box-shadow:0 0 14px #62d6d622}
+#titleFriends:hover{background:#62d6d61a}
 @media (max-width:420px){.lb-card{flex-wrap:wrap}.lb-hero .lb-txt{flex-basis:100%}}
 #account button.big.acc-google{background:#fff;color:#1f1f1f;border-color:#dadce0;font-family:inherit;letter-spacing:.02em}#account button.big.acc-discord{background:#5865f2;color:#fff;border-color:#5865f2;font-family:inherit;letter-spacing:.02em}
 .lang-pick{text-align:center;margin:2px 0 6px}.acc-link{margin:-4px 0 4px;text-align:left}.acc-del{color:var(--kr);align-self:flex-start;font-size:12px}.privacy-link{text-align:center;margin:4px 0 0}.slot small.cloud{color:var(--kc)}.slot small.cloud b{color:var(--ky);font-weight:400}.slot.cloud-only{border-style:dashed}
@@ -571,7 +575,10 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
     </div>
     <p class="tag">Un donjon textuel à l'ancienne, façon MUD. Combattez, pillez, apprivoisez des bêtes et descendez sous Emberfall pour raviver les sceaux qui faiblissent, puis suivez les ténèbres de l'autre côté de la mer.</p>
     <p class="hint abyss-top" id="abyssTop" hidden></p>
-    <button id="titleLore" type="button" class="lb-open"><b>The Lore Book</b><span>The story so far, its people, its keepers and its legends</span></button>
+    <div class="title-cards">
+      <button id="titleLore" type="button" class="lb-open title-card"><b>The Lore Book</b><span>The story so far, its people and its legends</span></button>
+      <button id="titleFriends" type="button" class="title-card"><b>The Common Room</b><span>Friends, live play and raid parties</span></button>
+    </div>
     <div class="move-box" id="moveBox" hidden><p><b>Le jeu a déménagé sur playundervault.com.</b> Vos héros sont sauvegardés dans ce navigateur, à cette ancienne adresse. Un seul geste suffit pour les emmener.</p><button id="moveOut" type="button">Emmener mes héros sur playundervault.com</button></div>
     <div class="lbl">Vos héros</div>
     <p class="hint" id="moveInfo" role="status" hidden></p>
@@ -639,7 +646,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
       <button id="mBoard" type="button">Classement</button>
       <button id="mLbSend" type="button">Envoyer les scores : oui</button>
       <button id="mLive" type="button">En direct : non</button>
-      <button id="mShare" type="button">Amis et partage</button>
+      <button id="mShare" type="button">Friends: the Common Room</button>
       <button id="mRace" type="button">Course sur graine</button>
       <button id="mExport" type="button">Exporter la sauvegarde</button>
       <button id="mImport" type="button">Importer une sauvegarde</button>
@@ -678,7 +685,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
   <div class="acc-body fr-body"></div></div>
 </div>
 <div id="friends" class="overlay" hidden role="dialog" aria-labelledby="frTitle">
-  <div class="sheet"><div class="ex-head"><div class="lbl" id="frTitle">Amis</div><button type="button" class="ex-close" data-close="1">Fermer</button></div>
+  <div class="sheet"><div class="ex-head"><div class="lbl" id="frTitle">The Common Room</div><button type="button" class="ex-close" data-close="1">Fermer</button></div>
   <div class="fr-body"></div></div>
 </div>
 <div id="expo" class="overlay" hidden role="dialog" aria-labelledby="expoTitle">
@@ -8447,7 +8454,7 @@ function openFriends(from,mis){FR.from=from||(frInGame()?'game':'title');FR.mis=
 function closeFriends(){$('#friends').hidden=true;if(FR.from==='mission'&&FR.mis&&frInGame()){const k=FR.mis;FR.from='game';openExpo();openMission(k);}}   /* back to the mission you invited from */
 function renderFriends(){
   const el=$('#friends .fr-body');if(!el)return;const l=frList(),on=lbReady(),ctx=frShareCtx();
-  let h='';
+  let h='<p class="hint fr-intro">The common room of the Guttered Candle: your friends and who is online, live play on a shared seed, and raid parties.</p>';
   if(ctx){h+=`<div class="ex-story fr-share"><b>${ctx.mis?esc(ctx.mis.kind||'Mission')+': '+esc(ctx.mis.n):ctx.party?"Votre groupe de raid : "+esc(ctx.party.code)+(ctx.party.raid?' · '+esc(RAIDS[ctx.party.raid].n):''):"Graine "+esc(ctx.seed)}</b>`+
     `<p>${ctx.mis?`Envoyez-la à un ami en ligne ci-dessous : il reçoit votre graine (${esc(ctx.seed)}), en direct, et sait que vous partez pour ${esc(ctx.mis.what)}. Vous passez aussi en direct.`:ctx.party?"Envoyez-le à un ami ci-dessous, ou partagez le lien du groupe.":ctx.live?"Envoyez-la à un ami ci-dessous pour jouer en direct ensemble, ou partagez le lien.":"Envoyez-la à un ami ci-dessous pour qu'il fasse la course contre vous, ou partagez le lien."}${!ctx.party&&!ctx.live&&FR.from==='game'?" (Activez le Direct dans le menu pour jouer ensemble, et pas seulement faire la course.)":''}</p>`+
     `<div class="row"><button type="button" data-fr="link">Partager le lien</button><button type="button" data-fr="copyseed">Copier : ${ctx.party?'code':'seed'}</button></div></div>`;}
@@ -10422,6 +10429,7 @@ function renderQuick(){
     if(r.npc==='tobble'&&S.pets.length)add('Train pets','train','pet');
     if(S.floor===0&&r.id===1)add('Bounty board','bounties','gold');
     if(r.npc==='inn')add('Stash','stash','gold');
+    if(r.npc==='inn')add('Common room','friends','pet');   /* the inn's common room: friends, live play, raid parties */
     if(r.npc==='inn')add(S.gold>=innCost()?`Dormir ${innCost()} po`:"Somnoler près de l'âtre",'rest','pet');
     if(r.npc==='gate')add('Expeditions','quests','gold');
     voyQuick(add,r);
@@ -10435,7 +10443,7 @@ function renderQuick(){
   $('#quick').innerHTML=q.map(([l,c,k])=>`<button type="button" class="qb ${k}" data-cmd="${esc(c)}">${esc(l)}</button>`).join('');
 }
 const DPAD=[['u',"Haut"],['n','N'],['d',"Bas"],['w','W'],['look',"Regarder"],['e','E'],['map',"Carte"],['s','S'],['inv',"Sac"]];
-const APAD=[['score',"Fiche"],['skills',"Compétences"],['pet',"Familiers"],['eq',"Équipement"],['rest',"Repos"],['quests',"Quêtes"],['talk',"Parler"],['talents','Talents'],['recall',"Rappel"]];
+const APAD=[['score',"Fiche"],['skills',"Compétences"],['pet',"Familiers"],['eq',"Équipement"],['rest',"Repos"],['quests',"Quêtes"],['talk',"Parler"],['talents','Talents'],['friends',"Amis"]];   /* (Recall is on the quick bar whenever you are down below) */
 function buildPads(){
   $('#dpad').innerHTML=DPAD.map(([c,l])=>`<button type="button" data-cmd="${c}" class="${'nsewud'.includes(c)&&c.length===1?'dir':''}">${l}</button>`).join('');
   $('#apad').innerHTML=APAD.map(([c,l])=>`<button type="button" data-cmd="${c}">${l}</button>`).join('');
@@ -10524,7 +10532,7 @@ $('#beginBtn').addEventListener('click',()=>{
   const name=cap(clean($('#nameIn').value).slice(0,16)||"Vagabond");const seed=clean($('#seedIn').value).toUpperCase().slice(0,24)||randomSeed();
   newGame(name,selCls,seed,$('#hardIn').checked,$('#liveIn').checked,selBody);
 });
-$('#seedShare').addEventListener('click',()=>openFriends('title'));   /* the Friends screen: a share link, or send it straight to a friend */
+$('#seedShare').addEventListener('click',()=>openFriends('title'));$('#titleFriends').addEventListener('click',()=>openFriends('title'));   /* the Friends screen: a share link, or send it straight to a friend */
 function newGame(name,cls,seed,hard,live,body){
   liveStop();
   S=freshState(name,cls,seed);S.born=Date.now();S.body=body==='f'?'f':'m';S.lastTitle=heroTitle();S.hard=!!hard;S.cid=newRunId();S.live=!!live&&lbReady();if(seed===dailySeed())S.daily=today();
