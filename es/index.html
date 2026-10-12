@@ -539,6 +539,39 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
 .sc-boss .sc-title{color:var(--sc);text-shadow:0 0 20px var(--sc),0 2px 0 #000}
 .sc-death .sc-title{color:#ffb3b3}
 .sc-floor .sc-title{font-size:clamp(26px,9vw,44px)}
+/* the final blow, slowed down: the hero lunges, the screen flashes white, the boss jolts, then the number lands */
+.sc-duel{display:flex;align-items:flex-end;justify-content:center;gap:clamp(4px,3vw,26px)}
+.sc-lunge{animation:scLunge 2.2s cubic-bezier(.7,0,.3,1) both}
+.sc-struck{animation:scStruck 2.2s linear both}
+@keyframes scLunge{0%{transform:translateX(-40px);opacity:0}15%{opacity:1}55%{transform:translateX(-30px)}62%{transform:translateX(26px)}100%{transform:translateX(14px)}}
+@keyframes scStruck{0%,58%{filter:drop-shadow(0 0 14px var(--sc))}62%{filter:brightness(5) drop-shadow(0 0 40px #fff);transform:translateX(10px) rotate(4deg)}
+ 70%{transform:translateX(-6px)}78%{transform:translateX(5px) rotate(-2deg)}100%{transform:translateX(8px) rotate(3deg);filter:brightness(.9) drop-shadow(0 0 10px var(--sc))}}
+.scene.sc-blow::after{content:"";position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;animation:scFlash 2.2s linear both;z-index:3}
+@keyframes scFlash{0%,58%{opacity:0}61%{opacity:.9}75%{opacity:0}100%{opacity:0}}
+.sc-blow .sc-title{font-size:clamp(34px,11vw,64px);color:#fff;text-shadow:0 0 30px var(--sc),0 0 8px #ff6e6e,0 3px 0 #000;animation:scTitle .9s 1.45s cubic-bezier(.2,1.4,.4,1) both}
+.sc-blow .sc-sub{animation-delay:1.9s;text-transform:none;letter-spacing:.04em;font-size:13px}
+.sc-blow .sc-kicker{animation-delay:.2s}
+.sc-steps{display:flex;flex-direction:column;gap:9px;text-align:left;width:100%;max-width:30em}
+.sc-steps>div{padding:9px 12px;border-left:3px solid var(--sc);background:rgba(255,255,255,.05);border-radius:0 8px 8px 0;font-size:14px;line-height:1.5;color:var(--fg);opacity:0;animation:scUp .5s ease-out forwards}
+.sc-steps>div:first-child{color:var(--kw);font-weight:600}
+/* a boss falls: flare, grey, sink */
+.sc-victory .sc-title{color:var(--sc);text-shadow:0 0 24px var(--sc),0 2px 0 #000}
+.sc-victory .sc-sprite{animation:scFall 2.3s .1s ease-out both}
+@keyframes scFall{0%{opacity:1;transform:none;filter:brightness(1) drop-shadow(0 0 18px var(--sc))}14%{filter:brightness(3) drop-shadow(0 0 40px #fff)}
+ 30%{transform:translateX(-4px)}38%{transform:translateX(4px)}46%{transform:none;filter:brightness(1.2) grayscale(.3) drop-shadow(0 0 18px var(--sc))}
+ 100%{opacity:.18;transform:translateY(26px) scale(.94);filter:grayscale(1) brightness(.55) drop-shadow(0 0 0 transparent)}}
+/* a book's film: letterboxed, a slow push-in, keepers stepping out one by one, numbers counting up */
+.scene.sc-film::after{content:"";position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 9vh 0 #000,inset 0 -9vh 0 #000;z-index:2}
+.sc-film .sc-body{animation:scKen 4.6s ease-out both}
+@keyframes scKen{from{transform:scale(1.07)}to{transform:none}}
+.sc-film .sc-title{color:var(--sc);text-shadow:0 0 26px var(--sc),0 2px 0 #000}
+.sc-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:6px 14px;max-width:100%}
+.sc-row>*{opacity:0;animation:scUp .7s ease-out forwards;filter:drop-shadow(0 0 12px var(--sc))}
+.sc-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 26px;margin-top:6px}
+.sc-stats>div{display:flex;flex-direction:column;align-items:center;opacity:0;animation:scUp .6s ease-out forwards}
+.sc-stats b{font-family:var(--disp);font-weight:normal;font-size:clamp(28px,9vw,44px);color:var(--kw);text-shadow:0 0 18px var(--sc);font-variant-numeric:tabular-nums}
+.sc-stats span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sc)}
+.sc-hero{filter:drop-shadow(0 0 20px var(--sc));animation:scBoss 1.1s ease-out both}
 @keyframes scIn{from{opacity:0}to{opacity:1}}
 @keyframes scUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes scTitle{0%{opacity:0;transform:scale(.6);letter-spacing:.3em}100%{opacity:1;transform:none;letter-spacing:.04em}}
@@ -2518,6 +2551,7 @@ function stunFoe(m,n){
   if(m.eff.stimm>0){sfx('block');out(`{d}${The(m)} shrugs off the stun.`);return;}
   m.eff.stun=n;if(m.boss)m.eff.stimm=n+3;sfx('stun');out(`{y}${The(m)} is stunned!`);
 }
+let lastBlow=null;   /* your last blow, for the final-blow card */
 function hitFoe(mult,label,o){
   o=o||{};const m=curFoe();if(!m)return 0;const st=stats();
   let d=weaponDmg(st)*mult;const crit=o.crit||chance(Math.min(60,st.crit)/100);
@@ -2526,7 +2560,8 @@ function hitFoe(mult,label,o){
   if(st.exec&&m.hp<m.mhp*0.3)d*=1+st.exec/100;
   d=Math.max(1,Math.round(d));m.hp-=d;
   const huge=d/m.mhp>=0.22,band=hitBand(d,m.mhp),cls=HIT_CLS[band]+(crit&&band<4?' crit':'');
-  out(`${crit?'{o}*CRIT*{n} ':''}${hitText(label,d,m,band,o)} {d}(${d})`,cls.trim());   /* only the action word grows with the blow */
+  const ht=hitText(label,d,m,band,o);lastBlow={m,d,crit,text:ht,kill:m.hp<=0};
+  out(`${crit?'{o}*CRIT*{n} ':''}${ht} {d}(${d})`,cls.trim());   /* only the action word grows with the blow */
   {const fl=crit&&chance(0.3)?vary('cf'+hitFam(),CRIT_FLAIR[hitFam()]):m.hp>0?hitAfter(m,band):'';if(fl)out('{d}'+fl,'flair');}if(!(inSkill&&/^sp/.test(skSnd)))sfx(WPN_SND[S.eq.weapon&&S.eq.weapon.wt]||'wFist');if(crit)sfx('crit');else if(huge)sfx('impact');
   if(m.trait==='thorny'){const t=Math.min(S.hp-1,Math.max(1,Math.round(d*0.12)));if(t>0){S.hp-=t;out(`{g}Its thorns bite into you.{n} {d}(-${t})`);}}
   if(o.procs!==false){
@@ -2685,8 +2720,9 @@ function victory(m){
   out(m.boss||m.mini?`{${bossDef(m).col}}${m.short} falls!`:`{y}${killLine(m)}`,m.boss?'huge':'kill');
   if(idx>=0)r.mobs.splice(idx,1);
   if((m.boss||m.mini||m.elite)&&!m.minion&&VOICE[S.cls])out('{d}'+pick(MR,VOICE[S.cls].kill));
+  if(m.boss&&!m.raid){queueScene(sceneBlow(m));queueScene(sceneVictory(m));}   /* the final blow in slow motion, the fall, then (bossDefeated) the light, a pause, the story, and what now */
   if((m.boss||m.mini)&&r.mobs.some(x=>x.minion)){r.mobs=r.mobs.filter(x=>!x.minion);out(`{d}With ${m.short} fallen, the rest scatter into the dark.`);}
-  if(m.boss){sfx('killBig');sfx('victory');musicVictory();}else{sfx(m.elite||m.mini?'killBig':'kill');if(m.mini)musicVictory();}
+  if(m.boss){if(m.raid||!scenesOn()){sfx('killBig');sfx('victory');musicVictory();}}   /* with cutscenes on, each card brings its own sound, one at a time */else{sfx(m.elite||m.mini?'killBig':'kill');if(m.mini)musicVictory();}
   if(m.mini){liveMoment('defeated '+m.name+'!');S.champs=(S.champs||0)+1;}
   if(m.boss&&!m.dg&&!m.raid&&m.bi>=5&&!m.potted)S.flags.unbowed=1;   /* a Trial of Legend: a Book II boss, no potions */
   if(m.trait==='explosive'){const b=Math.min(S.hp-1,Math.max(1,Math.round(m.mhp*0.15*50/(50+stats().def*2))));if(b>0){S.hp-=b;sfx('hitBig');out(`{o}${The(m)} bursts apart in a spray of fire and bone!{n} {d}(-${b})`,'heavy');}}
@@ -2718,7 +2754,7 @@ function victory(m){
     else{r.items.push(it);sfx('plink');out(`${cap(iname(it))} drops to the ground. ${takeLink(it)}`,it.rar>=4?'legend':'');}
   });
   if(!m.boss){jobProgress('kill',m.name);if(m.elite||m.mini)jobProgress('elite');}
-  if(m.boss)bossDefeated(m,r);else if(warFloor())warAfterKill(m,r);   /* the war's objectives (book4.js) */
+  if(m.boss){bossDefeated(m,r);if(!m.raid)queueScene(sceneNext());}else if(warFloor())warAfterKill(m,r);   /* the war's objectives (book4.js) */
   const ag=r.mobs.findIndex(x=>x.aggro);
   if(ag>=0&&!S.flags.choosing){sfx('alert');out(`{r}${cap(A(r.mobs[ag]))} snarls and attacks!`);engage(ag,true);}
   save(true);
@@ -3938,8 +3974,10 @@ function scenesOn(){return (window.__forceScenes||!navigator.webdriver)&&pref('s
 /* Returns true when the scene will play (and so make its own sound). */
 function queueScene(s){if(!scenesOn()||sceneQ.length>=16)return false;sceneQ.push(s);return true;}
 /* Plays the next queued scene; once the queue is empty, shows a level-up banner that was waiting. */
+let sceneHold=0;   /* a pause in the queue: nothing on screen for a moment, so you can take in what just happened */
 function playScenes(){
-  if(sceneNow||!$('#title').hidden)return;
+  if(sceneNow||sceneHold||!$('#title').hidden)return;
+  if(sceneQ.length&&sceneQ[0].t==='pause'){const p=sceneQ.shift();sceneHold=setTimeout(()=>{sceneHold=0;playScenes();},reducedMotion()?200:p.ms);return;}
   if(sceneQ.length){showScene(sceneQ.shift());return;}
   if(lvlPending){const p=lvlPending;lvlPending=null;levelToast(p[0],p[1]);}
 }
@@ -3954,6 +3992,38 @@ function sceneDungeon(D,f,first){return {t:'act',kicker:D.endless?"EL ABISMO  ·
 function sceneFloor(f){const th=theme(f);return {t:'floor',kicker:"DESCENSO",title:"PISO "+f,sub:th.name,col:SC_COL[th.col],fx:S.dg==='abyss'?'v':th.col,art:'stairs',sound:'floor',auto:1500};}
 function sceneBoss(m){const B=bossDef(m);return {t:'boss',kicker:m.raid?"JEFE DE INCURSIÓN  ·  GRUPO DE "+(S.raid?S.raid.size:'?'):m.dg?(DUNGEONS[m.dg].endless?"DESDE EL HAMBRE DE ABAJO":"SEÑOR DE "+DUNGEONS[m.dg].name.toUpperCase()):(m.bi>=10?"LIBRO III  ·  "+ACTS[m.bi].name.toUpperCase():m.bi>=5?"LIBRO II  ·  "+ACTS[m.bi].name.toUpperCase():"GUARDIÁN DE LA "+["PRIMERA","SEGUNDA","TERCERA","CUARTA","ÚLTIMA"][m.bi])+" PIEDRA GUARDIANA",
   title:B.n.toUpperCase(),boss:bossKey(m),text:B.intro.map(plainTxt).join('  '),col:SC_COL[B.col],fx:B.col,sound:'boss',shake:true};}
+/* The killing blow, slowed right down: you lunge, the light goes white, the boss jolts; then the number. */
+function sceneBlow(m){const B=bossDef(m),b=lastBlow&&lastBlow.m===m&&lastBlow.kill?lastBlow:null;
+  return {t:'blow',kicker:b&&b.crit?'THE FINAL BLOW  ·  CRITICAL':'THE FINAL BLOW',duel:bossKey(m),title:b?'-'+b.d:'IT IS DONE',sub:b?plainTxt(b.text.replace(/[\x02\x03]/g,'')):'',col:SC_COL[B.col]||'#f3d36b',sound:'crit',shake:true,hold:3400};}
+/* A boss falls: its sprite flares white, greys and sinks away while its last words type out. Waits for a tap. */
+function sceneVictory(m){const B=bossDef(m);return {t:'victory',kicker:'VICTORY',title:String(m.short||B.n).toUpperCase()+' FALLS',boss:bossKey(m),text:plainTxt((B.death||[])[0]||''),col:SC_COL[B.col]||'#f3d36b',fx:'spark',onShow:()=>{if(typeof musicVictory==='function')musicVictory();sfx('victory');}};}
+/* The last card after a boss or a book: what to do now, read off the quest and the room when it shows. */
+function sceneNext(){return {t:'next',kicker:'WHAT NOW',title:'YOUR NEXT STEP',col:'#62d6d6',steps:nextSteps};}
+function nextSteps(){
+  const L=[],f=S.flags||{},r=S.floor>0&&cur();const q=plainTxt(questLine()||'');if(q)L.push(q);
+  if(f.choosing||f.choosing2||f.choosing3||f.choosing4||f.choosing5)L.push('The story waits on your choice: pick one of the gold buttons under the story.');
+  else if(r&&r.exits&&r.exits.d==='down')L.push('The way down is open: tap Down (or type d) to go deeper.');
+  if(S.floor>0)L.push('Or Recall to go back to town: rest at the inn, sell your loot and upgrade your gear.');
+  else L.push('You are in town: rest, sell, upgrade, then head back down when you are ready.');
+  return L;
+}
+/* Finishing a book: a short film of cards that play on their own in a letterboxed frame (skippable). The book, the
+   keepers who fell, your journey in numbers, your hero, and what comes next. */
+const FILM_COL=['','#eaa94a','#d872a4','#62d2c4','#e57a3e','#cbd6ea','#9ab8ff','#d48cff','#f3d36b'];
+const FILM_LINE=['','Five Wardstones burn again. Emberfall sleeps a little easier.','Below the Throne, the dark drew back.','The Ashen Sea lies quiet behind you.','The Lantern War is over.','The quiet kept its word.'];
+const FILM_NEXT=['','Something under the Throne has noticed the light.','The dark has a shore on the far side of the sea.','War is coming down from the north.','In the west, a city has stopped speaking.','Three doors remain.'];
+function bookFilm(n){
+  const show='film'+n,col=FILM_COL[n]||'#eaa94a',base={t:'film',show,col},bis=[];for(let i=(n-1)*5;i<n*5;i++)if(BOSS_SPR[i]&&BOSSES[i])bis.push(i);
+  queueScene({...base,kicker:'BOOK '+ROMAN8[n]+' COMPLETE',title:(BOOK_NAMES[n]||'').toUpperCase(),art:'lantern',sub:FILM_LINE[n]||'',fx:'spark',sound:'legend',hold:4400});
+  if(bis.length)queueScene({...base,kicker:'THE KEEPERS WHO FELL',row:bis.map(i=>BOSS_SPR[i]),sub:bis.map(i=>BOSSES[i].short).join('  ·  '),sound:'relit',hold:4800});
+  queueScene({...base,kicker:'YOUR JOURNEY SO FAR',stats:[[S.lvl,'level'],[S.kills,'foes felled'],[S.deaths,S.deaths===1?'fall':'falls'],[S.deepest,'floors deep']],hold:4400});
+  queueScene({...base,kicker:'REMEMBER THE NAME',hero:1,title:fullName().toUpperCase(),sub:'Level '+S.lvl+' '+CLASSES[S.cls].n,fx:'spark',sound:'legend',hold:4000});
+  const nx=n+1,have=typeof BOOKS_IN!=='undefined'&&BOOKS_IN>=nx;
+  queueScene({...base,kicker:nx<=8?'NEXT  ·  BOOK '+ROMAN8[nx]:'THE STORY GOES ON',title:(have&&BOOK_NAMES[nx]?BOOK_NAMES[nx]:nx<=8?'Book '+ROMAN8[nx]:'').toUpperCase(),sub:have?FILM_NEXT[n]||'':'Coming soon.',hold:4400});
+  queueScene(sceneNext());
+}
+/* counts a number up from 0 */
+function countUp(el,v,ms){if(reducedMotion()||!v){el.textContent=v;return;}const t0=performance.now();const step=t=>{const p=Math.min(1,(t-t0)/ms);el.textContent=Math.round(v*(1-Math.pow(1-p,3)));if(p<1&&el.isConnected)requestAnimationFrame(step);};requestAnimationFrame(step);}
 function sceneRelit(bi){return {t:'relit',kicker:"PIEDRA GUARDIANA "+(bi+1)+" DE 5",title:"LA LUZ REGRESA",sub:"Muy arriba, la Última Linterna arde un poco más.",col:'#7aaeff',fx:'spark',art:'lantern',sound:'relit',auto:2800};}
 function sceneCleared(D){return {t:'relit',kicker:"DESPEJADO",title:D.name.toUpperCase(),sub:"La oscuridad volverá a llenarlo. Siempre lo hace.",col:SC_COL[D.col],fx:'spark',sound:'victory',auto:2600};}
 /* Recall: Maren's thread of blue light pulls you up through every floor at once. */
@@ -4095,8 +4165,15 @@ function showScene(s){
   if(s.art==='lantern')body.appendChild(lanternCanvas(7));
   if(s.chest){const cv=document.createElement('canvas');cv.className='sc-chestcv';cv.width=240;cv.height=170;body.appendChild(cv);animChest(cv,s.chest,s.mimic,s);}
   if(s.boss){const b=bossSprite(s.boss,innerHeight<700?3:4);b.classList.add('sc-sprite');body.appendChild(b);}
+  if(s.duel){const d=add('div','sc-duel');try{const h=heroSprite(heroKey(S.cls,S.body),S.eq,innerHeight<700?3:4);h.classList.add('sc-lunge');d.appendChild(h);}catch(e){}
+    try{const b=bossSprite(s.duel,innerHeight<700?3:4);b.classList.add('sc-struck');d.appendChild(b);}catch(e){}}
+  if(s.onShow)try{s.onShow();}catch(e){}
+  if(s.row){const row=add('div','sc-row');s.row.forEach((k,i)=>{try{const b=bossSprite(k,innerWidth<480?1:2);b.style.animationDelay=(0.35+i*0.5)+'s';row.appendChild(b);}catch(e){}});}
+  if(s.stats){const g=add('div','sc-stats');s.stats.forEach(([v,l],i)=>{const d=document.createElement('div');d.style.animationDelay=(0.3+i*0.3)+'s';d.innerHTML='<b>0</b><span></span>';d.lastChild.textContent=l;g.appendChild(d);setTimeout(()=>countUp(d.firstChild,v,1100),300+i*300);});}
+  if(s.hero){try{const h=heroSprite(heroKey(S.cls,S.body),S.eq,innerHeight<700?4:5);h.classList.add('sc-hero');body.appendChild(h);}catch(e){}}
   if(s.title)add('div','sc-title',s.title);
   if(s.sub)add('div','sc-sub',s.sub);
+  if(s.steps){const st=typeof s.steps==='function'?s.steps():s.steps,box=add('div','sc-steps');st.forEach((x,i)=>{const e=document.createElement('div');e.textContent=x;e.style.animationDelay=(0.5+i*0.35)+'s';box.appendChild(e);});}
   if(s.item)sceneLootBody(s,add);
   if(s.loot&&s.loot.length){const box=add('div','sc-loot');box.hidden=!!s.chest;s.loot.forEach((l,i)=>{const d=document.createElement('div');d.innerHTML=fmt(l);d.style.animationDelay=((s.chest?0.8:1.3)+i*0.16)+'s';box.appendChild(d);});}
   const tx=s.text?add('p','sc-text'):null;
@@ -4110,8 +4187,8 @@ function showScene(s){
    seconds after their text is out; bosses and special events (no auto: story encounters, acts, books, endings,
    arrivals) wait for a tap. A chest waits for the tap that opens it, then goes on three and a half seconds later. */
 const SCENE_WAIT=3000;
-function sceneAuto(s,ms){clearTimeout(sceneTimer);if(!ms&&!s.auto)return;   /* bosses and special events (no auto) wait for a tap */
-  sceneTimer=setTimeout(()=>{if(sceneNow===s)closeScene();},ms||SCENE_WAIT);}
+function sceneAuto(s,ms){clearTimeout(sceneTimer);if(!ms&&!s.auto&&!s.hold)return;   /* bosses and special events (no auto) wait for a tap */
+  sceneTimer=setTimeout(()=>{if(sceneNow===s)closeScene();},ms||s.hold||SCENE_WAIT);}
 function typeOut(el,text){
   const s=sceneNow;if(reducedMotion()){el.textContent=text;sceneAuto(s);return;}
   let i=0;el.textContent='';const step=()=>{i+=2;el.textContent=text.slice(0,i);if(i<text.length)sceneTyping=setTimeout(step,24);else{sceneTyping=null;sceneAuto(s);}};sceneTyping=setTimeout(step,450);
@@ -4126,7 +4203,7 @@ function sceneTap(){
 function sceneSkip(show){for(let i=sceneQ.length-1;i>=0;i--)if(sceneQ[i].show===show)sceneQ.splice(i,1);closeScene();}
 function closeScene(){
   clearTimeout(sceneTimer);clearTimeout(sceneTyping);sceneTyping=null;cancelAnimationFrame(sceneRaf);sceneRaf=0;
-  $('#scene').hidden=true;sceneNow=null;playScenes();
+  $('#scene').hidden=true;sceneNow=null;clearTimeout(sceneHold);sceneHold=0;playScenes();
 }
 
 /* The chest animation: frames are drawn once, then a timeline picks the frame, shakes the box, and
@@ -7126,7 +7203,7 @@ function taleColOf(key){return TALE_COL[taleB4(key)?3:key==='xi'||key==='end'?2:
 /* A chapter's first floor (called from gotoFloor before its act card). */
 function taleChapter(a){if(TALE_START[a])taleShow('ch'+a,taleKicker(a),taleColOf(a),taleSlides(a));}
 /* A story boss falls. */
-function taleFall(bi){const F_=TALE_FALL[bi];if(F_)taleShow('fall'+bi,'AFTER '+BOSSES[bi].short.toUpperCase(),TALE_COL[taleBook(bi)],F_);}
+function taleFall(bi){const F_=TALE_FALL[bi];if(F_)queueScene({t:'pause',ms:1800});if(F_)taleShow('fall'+bi,'AFTER '+BOSSES[bi].short.toUpperCase(),TALE_COL[taleBook(bi)],F_);}
 function taleCrossing(){taleShow('xi','BOOK III',TALE_COL[2],taleSlides('xi'));}
 function taleSolenne(){taleShow('solenne','ACROSS THE ASHEN SEA',TALE_COL[2],TALE_SOLENNE);}
 /* The lantern cards you have not seen yet (after each command), or all of them (`lanterns`). */
@@ -10798,7 +10875,12 @@ function render(){
   $('#loc').textContent=S.floor?(S.dg?`${theme().name} . F${floorLabel()}`:`P${S.floor} . ${theme().name}`):townName();
   renderQuick();renderPads();tutTick();
   {const b=uiBook();if(document.body.dataset.book!==String(b))document.body.dataset.book=b;$('#bookTag').textContent=BOOK_NAMES[b]?`Book ${ROMAN8[b]} · ${BOOK_NAMES[b]}`:'';}
-  renderSide();
+  renderSide();filmCheck();
+}
+const BOOK_ENDS=['ended','ended2','ended3','ended4','ended5'];
+function filmCheck(){
+  const f=S.flags||{};if(!S.films){S.films={};BOOK_ENDS.forEach((k,i)=>{if(f[k])S.films[i+1]=1;});return;}
+  BOOK_ENDS.forEach((k,i)=>{if(f[k]&&!S.films[i+1]){S.films[i+1]=1;bookFilm(i+1);playScenes();}});
 }
 /* Which book's look the screen wears (shell.html, body[data-book]): the book of the floor you are on, or in town and in
    side dungeons, the book your story has reached. */
