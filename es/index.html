@@ -635,10 +635,10 @@ body[data-book] #term{border-top-color:var(--edge)}
   #cmdForm button{padding:0 22px}
   #mini{grid-column:2;grid-row:2;justify-self:center;width:clamp(150px,calc(100vh - 690px),100%);height:auto;aspect-ratio:1;
     border-radius:10px;box-shadow:0 0 0 1px var(--line),0 10px 28px rgba(0,0,0,.45)}
-  #heroCard{grid-column:2;grid-row:3;display:flex;align-items:center;gap:14px;padding:12px 14px;min-height:120px;border:1px solid var(--line);border-radius:10px;
+  #heroCard{grid-column:2;grid-row:3;display:flex;align-items:center;gap:14px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;
     background:radial-gradient(ellipse 60% 90% at 14% 60%,var(--edge),transparent 70%),var(--bg)}
   #heroCard[hidden]{display:none}
-  #bars{grid-column:2;grid-row:4;grid-template-columns:1fr;gap:6px}
+  #bars{grid-column:2;grid-row:4;grid-template-columns:1fr 1fr;gap:6px}
   .bar{height:22px;border-radius:5px}.bar span{line-height:22px;font-size:12px;padding-inline:8px}
   #sub{grid-column:2;grid-row:5;font-size:12px;gap:6px 14px}
   #quest{grid-column:2;grid-row:6/9;align-self:start;font-size:12px;line-height:1.45;white-space:normal;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
@@ -652,9 +652,17 @@ body[data-book] #term{border-top-color:var(--edge)}
   .hc-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;font-size:12px;line-height:1.3}
   .hc-name{font-family:var(--disp);font-weight:normal;color:var(--accent);font-size:14px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hc-cls{color:var(--dim);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
-  .hc-gear{font-size:12.5px;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hc-gear{font-size:12.5px;line-height:1.32;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hc-gear i{font-style:normal;color:var(--dim);display:inline-block;width:64px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
-  .hc-side{flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10.5px;color:var(--dim);max-width:120px;text-align:center}
+  .hc-line{display:flex;align-items:center;gap:6px;margin-top:2px}
+  .hc-line i{flex:none}
+  .hc-pic{flex:none;display:inline-flex;align-items:flex-end;height:26px;overflow:visible}
+  .hc-pic .hero-anim{zoom:.6}
+  .hc-pet .hc-pic .hero-anim{zoom:.8}
+  .hc-pic{height:20px}
+  .hc-lt{min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .hc-pet .hc-lt{color:var(--kg)}.hc-foe .hc-lt{color:#ffb8a8}.hc-foe i{color:var(--kr)}
+  .hc-pet.pet-r1 .hc-lt{color:#f3d36b}.hc-pet.pet-r2 .hc-lt{color:#d48cff}
   .hc-vs{font-family:var(--disp);color:var(--kr);font-size:12px;letter-spacing:.1em}
   .hc-foe{color:#ffb8a8;font-size:11.5px;line-height:1.25}
   /* overlays get room to breathe; the title screen splits into two columns: the book and your heroes, then a new hero */
@@ -773,8 +781,8 @@ body[data-book] #term{border-top-color:var(--edge)}
       <button id="mBigger" type="button">Texto más grande</button>
       <button id="mPads" type="button">Ocultar botones táctiles</button>
       <button id="mLoot" type="button">Recogida automática: sí</button>
-      <button id="mNew" type="button">Exit to character select</button>
-      <button id="mExit" type="button" hidden>Exit game</button>
+      <button id="mNew" type="button">Salir a la selección de héroe</button>
+      <button id="mExit" type="button" hidden>Salir del juego</button>
       <button id="mHelp" type="button">Ayuda</button>
       <button id="mSound" type="button">Sonido: sí</button>
       <button id="mVib" type="button">Vibración: sí</button>
@@ -4010,32 +4018,32 @@ function sceneBoss(m){const B=bossDef(m);return {t:'boss',kicker:m.raid?"JEFE DE
   title:B.n.toUpperCase(),boss:bossKey(m),text:B.intro.map(plainTxt).join('  '),col:SC_COL[B.col],fx:B.col,sound:'boss',shake:true};}
 /* The killing blow, slowed right down: you lunge, the light goes white, the boss jolts; then the number. */
 function sceneBlow(m){const B=bossDef(m),b=lastBlow&&lastBlow.m===m&&lastBlow.kill?lastBlow:null;
-  return {t:'blow',kicker:b&&b.crit?'THE FINAL BLOW  ·  CRITICAL':'THE FINAL BLOW',duel:bossKey(m),title:b?'-'+b.d:'IT IS DONE',sub:b?plainTxt(b.text.replace(/[\x02\x03]/g,'')):'',col:SC_COL[B.col]||'#f3d36b',sound:'crit',shake:true,hold:3400};}
+  return {t:'blow',kicker:b&&b.crit?"EL GOLPE FINAL  ·  CRÍTICO":"EL GOLPE FINAL",duel:bossKey(m),title:b?'-'+b.d:"SE ACABÓ",sub:b?plainTxt(b.text.replace(/[\x02\x03]/g,'')):'',col:SC_COL[B.col]||'#f3d36b',sound:'crit',shake:true,hold:3400};}
 /* A boss falls: its sprite flares white, greys and sinks away while its last words type out. Waits for a tap. */
-function sceneVictory(m){const B=bossDef(m);return {t:'victory',kicker:'VICTORY',title:String(m.short||B.n).toUpperCase()+' FALLS',boss:bossKey(m),text:plainTxt((B.death||[])[0]||''),col:SC_COL[B.col]||'#f3d36b',fx:'spark',onShow:()=>{if(typeof musicVictory==='function')musicVictory();sfx('victory');}};}
+function sceneVictory(m){const B=bossDef(m);return {t:'victory',kicker:"VICTORIA",title:String(m.short||B.n).toUpperCase()+" CAE",boss:bossKey(m),text:plainTxt((B.death||[])[0]||''),col:SC_COL[B.col]||'#f3d36b',fx:'spark',onShow:()=>{if(typeof musicVictory==='function')musicVictory();sfx('victory');}};}
 /* The last card after a boss or a book: what to do now, read off the quest and the room when it shows. */
-function sceneNext(){return {t:'next',kicker:'WHAT NOW',title:'YOUR NEXT STEP',col:'#62d6d6',steps:nextSteps};}
+function sceneNext(){return {t:'next',kicker:"¿Y AHORA?",title:"TU SIGUIENTE PASO",col:'#62d6d6',steps:nextSteps};}
 function nextSteps(){
   const L=[],f=S.flags||{},r=S.floor>0&&cur();const q=plainTxt(questLine()||'');if(q)L.push(q);
-  if(f.choosing||f.choosing2||f.choosing3||f.choosing4||f.choosing5)L.push('The story waits on your choice: pick one of the gold buttons under the story.');
-  else if(r&&r.exits&&r.exits.d==='down')L.push('The way down is open: tap Down (or type d) to go deeper.');
-  if(S.floor>0)L.push('Or Recall to go back to town: rest at the inn, sell your loot and upgrade your gear.');
-  else L.push('You are in town: rest, sell, upgrade, then head back down when you are ready.');
+  if(f.choosing||f.choosing2||f.choosing3||f.choosing4||f.choosing5)L.push("La historia espera tu elección: pulsa uno de los botones dorados bajo el relato.");
+  else if(r&&r.exits&&r.exits.d==='down')L.push("El camino hacia abajo está abierto: pulsa el botón de bajar (o escribe d) para ir más hondo.");
+  if(S.floor>0)L.push("O usa Regresar para volver a la ciudad: descansa en la posada, vende tu botín y mejora tu equipo.");
+  else L.push("Estás en la ciudad: descansa, vende, mejora y vuelve a bajar cuando estés listo.");
   return L;
 }
 /* Finishing a book: a short film of cards that play on their own in a letterboxed frame (skippable). The book, the
    keepers who fell, your journey in numbers, your hero, and what comes next. */
 const FILM_COL=['','#eaa94a','#d872a4','#62d2c4','#e57a3e','#cbd6ea','#9ab8ff','#d48cff','#f3d36b'];
-const FILM_LINE=['','Five Wardstones burn again. Emberfall sleeps a little easier.','Below the Throne, the dark drew back.','The Ashen Sea lies quiet behind you.','The Lantern War is over.','The quiet kept its word.'];
-const FILM_NEXT=['','Something under the Throne has noticed the light.','The dark has a shore on the far side of the sea.','War is coming down from the north.','In the west, a city has stopped speaking.','Three doors remain.'];
+const FILM_LINE=['',"Cinco Piedras guardianas vuelven a arder. Emberfall duerme un poco más tranquila.","Bajo el Trono, la oscuridad retrocedió.","El Mar de Ceniza yace en calma a tu espalda.","La Guerra de las Linternas ha terminado.","El silencio cumplió su palabra."];
+const FILM_NEXT=['',"Algo bajo el Trono ha notado la luz.","La oscuridad tiene una orilla al otro lado del mar.","La guerra baja desde el norte.","En el oeste, una ciudad ha dejado de hablar.","Quedan tres puertas."];
 function bookFilm(n){
   const show='film'+n,col=FILM_COL[n]||'#eaa94a',base={t:'film',show,col},bis=[];for(let i=(n-1)*5;i<n*5;i++)if(BOSS_SPR[i]&&BOSSES[i])bis.push(i);
-  queueScene({...base,kicker:'BOOK '+ROMAN8[n]+' COMPLETE',title:(BOOK_NAMES[n]||'').toUpperCase(),art:'lantern',sub:FILM_LINE[n]||'',fx:'spark',sound:'legend',hold:4400});
-  if(bis.length)queueScene({...base,kicker:'THE KEEPERS WHO FELL',row:bis.map(i=>BOSS_SPR[i]),sub:bis.map(i=>BOSSES[i].short).join('  ·  '),sound:'relit',hold:4800});
-  queueScene({...base,kicker:'YOUR JOURNEY SO FAR',stats:[[S.lvl,'level'],[S.kills,'foes felled'],[S.deaths,S.deaths===1?'fall':'falls'],[S.deepest,'floors deep']],hold:4400});
-  queueScene({...base,kicker:'REMEMBER THE NAME',hero:1,title:fullName().toUpperCase(),sub:'Level '+S.lvl+' '+CLASSES[S.cls].n,fx:'spark',sound:'legend',hold:4000});
+  queueScene({...base,kicker:"LIBRO "+ROMAN8[n]+" COMPLETADO",title:(BOOK_NAMES[n]||'').toUpperCase(),art:'lantern',sub:FILM_LINE[n]||'',fx:'spark',sound:'legend',hold:4400});
+  if(bis.length)queueScene({...base,kicker:"LOS GUARDIANES CAÍDOS",row:bis.map(i=>BOSS_SPR[i]),sub:bis.map(i=>BOSSES[i].short).join('  ·  '),sound:'relit',hold:4800});
+  queueScene({...base,kicker:"TU VIAJE HASTA AHORA",stats:[[S.lvl,'level'],[S.kills,"enemigos abatidos"],[S.deaths,S.deaths===1?'fall':'falls'],[S.deepest,"pisos de profundidad"]],hold:4400});
+  queueScene({...base,kicker:"RECUERDA ESTE NOMBRE",hero:1,title:fullName().toUpperCase(),sub:"Nivel "+S.lvl+' '+CLASSES[S.cls].n,fx:'spark',sound:'legend',hold:4000});
   const nx=n+1,have=typeof BOOKS_IN!=='undefined'&&BOOKS_IN>=nx;
-  queueScene({...base,kicker:nx<=8?'NEXT  ·  BOOK '+ROMAN8[nx]:'THE STORY GOES ON',title:(have&&BOOK_NAMES[nx]?BOOK_NAMES[nx]:nx<=8?'Book '+ROMAN8[nx]:'').toUpperCase(),sub:have?FILM_NEXT[n]||'':'Coming soon.',hold:4400});
+  queueScene({...base,kicker:nx<=8?"A CONTINUACIÓN  ·  LIBRO "+ROMAN8[nx]:"LA HISTORIA CONTINÚA",title:(have&&BOOK_NAMES[nx]?BOOK_NAMES[nx]:nx<=8?"Libro "+ROMAN8[nx]:'').toUpperCase(),sub:have?FILM_NEXT[n]||'':"Próximamente.",hold:4400});
   queueScene(sceneNext());
 }
 /* counts a number up from 0 */
@@ -4045,7 +4053,7 @@ function sceneCleared(D){return {t:'relit',kicker:"DESPEJADO",title:D.name.toUpp
 /* Recall: Maren's thread of blue light pulls you up through every floor at once. */
 function sceneRecall(){const sol=S&&S.town==='solenne';return {t:'recall',kicker:"EL HILO DE LA LINTERNA",title:sol?'SOLENNE':'EMBERFALL',sub:sol?"El hilo te sube hasta el Colegio de Cristal.":"La oscuridad se pliega y ya estás en casa.",col:'#7aaeff',fx:'warp',sound:'recall',auto:1800};}
 function sceneDeath(hard,sol){return {t:'death',kicker:hard?'HARDCORE':"HAS CAÍDO",title:hard?"TU HISTORIA TERMINA":"EL HILO TIRA",sub:hard?"Esta vez no tira nada.":sol?"A través del mar y la roca, hasta el Colegio de Cristal.":"A través de la oscuridad, de vuelta al suelo del Templo.",col:'#ff6e6e',fx:'ash',auto:2800};}
-function sceneEnding(key){const L=ENDINGS[key].map(plainTxt),last=L[L.length-1];return {t:'act',kicker:'THE END OF BOOK I',title:last.replace(/^ENDING:\s*/,''),text:L.slice(0,-1).join('  '),col:'#f3d36b',fx:'spark',art:'lantern',sound:'relit'};}
+function sceneEnding(key){const L=ENDINGS[key].map(plainTxt),last=L[L.length-1];return {t:'act',kicker:"FIN DEL LIBRO I",title:last.replace(/^ENDING:\s*/,''),text:L.slice(0,-1).join('  '),col:'#f3d36b',fx:'spark',art:'lantern',sound:'relit'};}
 /* Opening a chest: it sits, shakes, the lid pops and the loot comes out. A mimic bares its teeth instead. */
 function sceneChest(tier,loot,mimic){const C=CHESTS[tier]||CHESTS.iron;
   return {t:'chest',chest:tier,mimic:!!mimic,kicker:"TESORO",title:C.n.toUpperCase(),openKicker:mimic?"ERA UNA TRAMPA":null,openTitle:mimic?"¡MÍMICO!":null,loot:loot||[],col:SC_COL[C.col]||'#f3d36b',fx:mimic?'ash':'spark'};}
@@ -4631,7 +4639,7 @@ function chapterHome(k){
   S.flags['home'+k]=1;(EPILOGUE[k]||(()=>[]))().forEach(t=>out(t,'story'));
   const ci=chapterOfAct(k),C=CHAPTERS[ci],N=CHAPTERS[ci+1];sfx('victory');
   out(`{o}${C.n} complete: ${C.t}.{n}`+(N&&N.act!=null?` {d}Next: ${N.n}, ${N.t}.`:''),'kill');
-  queueScene({t:'relit',kicker:C.n.toUpperCase()+' COMPLETE',title:C.t.toUpperCase(),sub:N?'Next: '+N.n+', '+N.t:'',col:'#f3d36b',fx:'spark',sound:'victory',auto:3200});
+  queueScene({t:'relit',kicker:C.n.toUpperCase()+" COMPLETADO",title:C.t.toUpperCase(),sub:N?'Next: '+N.n+', '+N.t:'',col:'#f3d36b',fx:'spark',sound:'victory',auto:3200});
   return true;
 }
 
@@ -5252,7 +5260,7 @@ function expoGo(go){
   if(go==='wartable'||go==='square'){const room=go==='square'?1:10;if(S.floor>0||S.town==='solenne'){out("{b}Tiras del hilo de la Linterna. La oscuridad se pliega y ya estás en casa.");toTown(room);if(!queueScene(sceneRecall()))sfx('recall');}else{S.room=room;enterRoom();}return;}
   /* Book V (book5.js, only in a build that has it): west to Marrowgate (81-100) */
   if(f>80&&typeof cmdWestward==='function'){if(f!==81&&S.deepest<f){out("Todavía no has llegado tan lejos.");return;}
-    S.dg=null;out(`{c}Captain Varo takes you west again, to Marrowgate: floor ${f}.`);gotoFloor(f,'start');return;}
+    S.dg=null;out(`{c}El capitán Varo te lleva de nuevo al oeste, a Marrowgate: piso ${f}.`);gotoFloor(f,'start');return;}
   if(f>60){if(!book4On()){out("No hay guerra. Todavía.");return;}if(f!==61&&S.deepest<f){out("El frente aún no ha llegado tan lejos.");return;}
     if(S.floor>0||S.town==='solenne'){out("{b}Tiras del hilo de la Linterna y vuelves a la mesa de guerra.");toTown(10);if(!queueScene(sceneRecall()))sfx('recall');}
     S.dg=null;out(`{c}Marchas al frente: piso ${f}.`);gotoFloor(f,'start');return;}
@@ -9897,8 +9905,8 @@ function listShop(){
     out(` ${i+1}. ${nm} {y}${p}g{n} `+(lock?"{d}(tras la primera Piedra guardiana)":`{@buy ${i+1}|comprar}`));
   });
   if(sh.sells)out(`{d}Vende con{n} {@sell junk|vender lo común} {d}(todo el equipo común) o «sell <objeto>». Paga el 35 %.`);
-  if(cur().npc==='brakka'&&packNext())out(`{d}Brakka also sells{n} {@pack|bigger packs}{d}.{n}`);
-  if(cur().npc==='tobble')out(`{g}Kennels{n} {d}Tobble boards the pets you are not taking down (${(S.kennel||[]).length}/${KENNEL_MAX} kept).{n} {@kennel|open the kennels}`);
+  if(cur().npc==='brakka'&&packNext())out(`{d}Brakka también vende{n} {@pack|mochilas más grandes}{d}.{n}`);
+  if(cur().npc==='tobble')out(`{g}Perreras{n} {d}Tobble cuida de las mascotas que no te llevas abajo (${(S.kennel||[]).length}/${KENNEL_MAX} guardadas).{n} {@kennel|abrir las perreras}`);
 }
 function buy(arg){
   const sh=getShop();if(!sh){out("Aquí no hay nadie a quien comprarle.");return;}
@@ -9921,7 +9929,7 @@ function sell(arg){
   let q=1;{const mq=String(arg||'').match(/^(.+?)\s+(all|\d+)$/);if(mq&&findIn(S.inv,mq[1])){arg=mq[1];q=mq[2];}}
   const it=findIn(S.inv,arg);if(!it){out("¿Vender qué?");return;}
   if(it.kind==='potion'){const n=q==='all'?it.qty:clamp(parseInt(q)||1,1,it.qty),g=sellValue(it)*n;it.qty-=n;if(it.qty<=0)S.inv.splice(S.inv.indexOf(it),1);S.gold+=g;sfx(n>1?'coins':'gold');
-    out(n>1?`You sell ${n} ${POT[it.key].n}s for ${g} gold.`:`Vendes ${POT[it.key].n} por ${g} de oro.`);return;}
+    out(n>1?`Vendes ${n} × ${POT[it.key].n} por ${g} de oro.`:`Vendes ${POT[it.key].n} por ${g} de oro.`);return;}
   if(!it.value){out("Nadie lo quiere.");return;}
   const g=sellValue(it);S.inv.splice(S.inv.indexOf(it),1);S.gold+=g;sfx('coins');out(`Vendes ${iname(it)} por {y}${g} de oro{n}.`);
 }
@@ -10106,7 +10114,7 @@ function cmdStash(arg){
 function cmdWithdraw(arg){
   if(!atNpc('inn')){out("Tu alijo está en la posada: la Vela Consumida, o la Lámpara de Sal en Solenne.");return;}
   const it=findIn(S.stash,arg);if(!it){out("¿Qué sacas del alijo? Prueba {@stash|stash}.");return;}
-  if(it.kind!=='potion'&&S.inv.length>=packMax()){out(`{r}Your pack is full (${packMax()}).`);return;}
+  if(it.kind!=='potion'&&S.inv.length>=packMax()){out(`{r}Tu mochila está llena (${packMax()}).`);return;}
   S.stash.splice(S.stash.indexOf(it),1);if(it.kind==='potion')addPot(it.key,it.qty);else S.inv.push(it);sfx('pickup');
   out(`Sacas ${iname(it)} de tu alijo.`);
 }
@@ -10187,8 +10195,8 @@ function cmdFlee(){
       const r=cur();const dirs=['n','s','e','w'].filter(d=>typeof r.exits[d]==='number');
       /* running costs: a parting blow (never quite fatal), a tenth of your gold spilled in the dark, and the foe gets
          its breath back */
-      hitPlayer(m,m.atk*(m.boss?1.6:1.2),`As you turn to run, ${the(m)} ${m.v||'strikes'} you in the back!`,{sure:true});if(S.hp<1)S.hp=1;
-      const lost=Math.floor(S.gold*0.1);if(lost>0){S.gold-=lost;sfx('coins');out(`{y}You drop ${lost} gold in the dark as you run.{n}`);}
+      hitPlayer(m,m.atk*(m.boss?1.6:1.2),`Al darte la vuelta para huir, ${the(m)} te ${m.v||'strikes'} por la espalda.`,{sure:true});if(S.hp<1)S.hp=1;
+      const lost=Math.floor(S.gold*0.1);if(lost>0){S.gold-=lost;sfx('coins');out(`{y}Al huir, se te caen ${lost} de oro en la oscuridad.{n}`);}
       m.hp=m.mhp;
       S.fight=false;S.fx={};sfx('run');out("{c}¡Huyes a trompicones!");
       if(dirs.length){const d=pick(MR,dirs);S.room=r.exits[d];out(`{d}Sales a trompicones hacia: ${DN[d]}.`);enterRoom();}
@@ -10243,7 +10251,7 @@ function equip(it){
   const old=S.eq[sl];S.inv.splice(S.inv.indexOf(it),1);S.eq[sl]=it;if(old)S.inv.push(old);sfx('equip');
   out(`Te equipas: ${iname(it)}`+(it.kind==='charm'?` {d}(${SLOTNAME[sl].toLowerCase()})`:'')+'.'+(old?` {d}(${plainName(old).trim()} va a tu mochila)`:''));
   if(!suits(it))out(`{o}${offNote(it)}.{n}`);
-  if(it.title&&heroTitles().length>1&&heroTitle()!==it.title)out(`{d}It carries the title{n} {o}${it.title}{n}{d}.{n} {@title|choose your title}`);
+  if(it.title&&heroTitles().length>1&&heroTitle()!==it.title)out(`{d}Lleva el título{n} {o}${it.title}{n}{d}.{n} {@title|elige tu título}`);
   if(!S.fight)outDolls([heroFigure(heroKey(S.cls,S.body),S.eq,null,2)]);
   capVitals();
 }
@@ -10256,14 +10264,14 @@ function cmdRemove(arg){
 }
 function showInv(){
   const sh=getShop();
-  out(`{o}Inventory{n} {d}(${S.inv.length}/${packMax()}){n}  {y}${S.gold} gold{n}`+(S.floor===0&&packNext()&&S.inv.length>=packMax()-3?'  {@pack|bigger pack}':''),'rt');
+  out(`{o}Inventario{n} {d}(${S.inv.length}/${packMax()}){n}  {y}${S.gold} de oro{n}`+(S.floor===0&&packNext()&&S.inv.length>=packMax()-3?"  {@pack|mochila más grande}":''),'rt');
   if(!S.inv.length)out("{d}  Tu mochila está vacía.");
   S.inv.forEach((it,i)=>{
     const acts=[];
     if(slotOf(it))acts.push(`{@equip ${i+1}|equipar}`,`{@preview ${i+1}|probar}`);
     if(it.kind==='potion'||it.kind==='egg')acts.push(`{@use ${i+1}|usar}`);
     const sv=sellValue(it);
-    if(sh&&sh.sells&&sv)acts.push(it.kind==='potion'&&it.qty>1?`{d}sell{n} {@sell ${i+1}|1}`+(it.qty>=4?` {@sell ${i+1} ${Math.floor(it.qty/2)}|half}`:'')+` {@sell ${i+1} all|all}`:`{@sell ${i+1}|vender ${sv} mo}`);   /* a stack: 1, half or all, on one short line */
+    if(sh&&sh.sells&&sv)acts.push(it.kind==='potion'&&it.qty>1?`{d}vender{n} {@sell ${i+1}|1}`+(it.qty>=4?` {@sell ${i+1} ${Math.floor(it.qty/2)}|mitad}`:'')+` {@sell ${i+1} all|todo}`:`{@sell ${i+1}|vender ${sv} mo}`);   /* a stack: 1, half or all, on one short line */
     acts.push(`{@drop ${i+1}|tirar}`);
     out(`${String(i+1).padStart(2)}. ${iname(it)}${slotOf(it)?cmpTag(it):''}\n    {d}${idesc(it)}${sellTag(it,'{d}')}{n}  ${acts.join(' ')}`);
   });
@@ -10288,7 +10296,7 @@ function showEq(){
   for(const s of SLOTS){const it=S.eq[s];out(`${SLOTNAME[s].padEnd(7)}: `+(it?`${iname(it)}
          {d}${idesc(it)}{n} {@remove ${s}|quitar}`:'{d}(nothing)'));}
   const sc=setCounts();for(const k in sc){const T=SETS[k];out(`{y}${T.n} ${sc[k]}/4{n} {d}2: ${T.d2}${sc[k]>=2?' (active)':''}. 4: ${T.d4}${sc[k]>=4?' (active)':''}.`);}
-  {const n=heroTitles().length;if(n>1)out(`{d}Title:{n} {o}${heroTitle()}{n} {d}(${n} earned){n} {@title|change}`);}   /* two titled pieces, or a title from a deed: choose which to wear */
+  {const n=heroTitles().length;if(n>1)out(`{d}Título:{n} {o}${heroTitle()}{n} {d}(${n} ganados){n} {@title|cambiar}`);}   /* two titled pieces, or a title from a deed: choose which to wear */
 }
 function boxLines(lines){const w=38;out(['.'+'-'.repeat(w)+'.',...lines.map(l=>'| '+(l.length>w-2?l.slice(0,w-2):l.padEnd(w-2))+' |'),"'"+'-'.repeat(w)+"'"].join('\n'),'box');}
 function score(){
@@ -10308,50 +10316,50 @@ function cmdPet(arg,raw){
   if(sub==='dismiss'){const i=parseInt(a[1])-1;if(!S.pets[i]){out("¿Qué mascota?");return;}if(S.fight){out("No durante un combate.");return;}const p=S.pets.splice(i,1)[0];if(S.pet===i)S.pet=-1;else if(S.pet>i)S.pet--;out(`{d}${p.nick} se marcha a lo de Tobble, donde lo malcriarán.`);return;}
   if(sub==='stay'){S.pet=-1;out("Tus mascotas esperan detrás de ti.");return;}
   if(sub==='board'||sub==='fetch'||sub==='kennel'||sub==='kennels'){petKennel(sub,parseInt(a[1])-1);return;}
-  out(`{o}Your companions{n} {d}(${PARTY_MAX} travel with you)`,'rt');
+  out(`{o}Tus compañeros{n} {d}(${PARTY_MAX} viajan contigo)`,'rt');
   if(!S.pets.length){out(`{d}  Ninguno todavía. Compra uno en la Casa de Fieras de Tobble o doma una bestia con «tame».`);return;}
   outDolls(S.pets.map((p,i)=>petFigure(p,(i===S.pet?'* ':'')+p.nick,2)));
   S.pets.forEach((p,i)=>{const ps=petStats(p),B=PETS[p.sp];
-    out(`${i===S.pet?'{y}*{n}':' '}${i+1}. {g}${p.nick}{n} {d}${p.nick!==petForm(p)?petForm(p)+', ':''}nv. ${p.lvl}${p.lvl<20?`, evoluciona en el nivel ${p.lvl<10?10:20}`:''},  PV ${p.hp}/${ps.mhp}  atq. ${ps.atk}  ${B.an}: ${ABTXT[B.ab]}{n}`+(i===S.pet?'{d}active{n}':`{@pet call ${i+1}|llamar}`)+` {@pet board ${i+1}|send to kennels} {@pet dismiss ${i+1}|dismiss}`);});
+    out(`${i===S.pet?'{y}*{n}':' '}${i+1}. {g}${p.nick}{n} {d}${p.nick!==petForm(p)?petForm(p)+', ':''}nv. ${p.lvl}${p.lvl<20?`, evoluciona en el nivel ${p.lvl<10?10:20}`:''},  PV ${p.hp}/${ps.mhp}  atq. ${ps.atk}  ${B.an}: ${ABTXT[B.ab]}{n}`+(i===S.pet?'{d}active{n}':`{@pet call ${i+1}|llamar}`)+` {@pet board ${i+1}|a las perreras} {@pet dismiss ${i+1}|despedir}`);});
   out(`{d}Renombrar: pet name <número> <nombre>`);
-  {const k=(S.kennel||[]).length;out(`{d}Tobble's kennels keep ${k?k+' of yours':'up to '+KENNEL_MAX+' more'}.{n} {@kennel|the kennels}`);}
+  {const k=(S.kennel||[]).length;out(`{d}Las perreras de Tobble guardan ${k?k+" tuyas":"hasta "+KENNEL_MAX+' more'}.{n} {@kennel|las perreras}`);}
 }
 /* Tobble's kennels: pets you are not taking down. Board and fetch in any town (Tobble's runners are quick); they wait,
    fed and safe, without levelling. */
 function petKennel(sub,i){
   const K=S.kennel=S.kennel||[];
   if((sub==='board'||sub==='fetch')&&S.fight){out("No durante un combate.");return;}
-  if(sub==='fetch'&&S.floor!==0){out("You can fetch pets from the kennels in town. Tobble's runners do not go below.");return;}
-  if(sub==='board'){const p=S.pets[i];if(!p){out('Board which pet? (its number in {@pet|your pets})');return;}
-    if(p.hp<=0&&S.floor!==0){out(`${p.nick} is down and cannot travel. Bring it back with a {@use treat|Pet Treat}, a rest or a shrine first.`);return;}
-    if(K.length>=KENNEL_MAX){out(`Tobble's kennels are full (${KENNEL_MAX}).`);return;}
+  if(sub==='fetch'&&S.floor!==0){out("Puedes recoger mascotas de las perreras en la ciudad. Los recaderos de Tobble no bajan.");return;}
+  if(sub==='board'){const p=S.pets[i];if(!p){out("¿Qué mascota dejas en las perreras? (su número en {@pet|tus mascotas})");return;}
+    if(p.hp<=0&&S.floor!==0){out(`${p.nick} está caído y no puede viajar. Reanímalo primero con una {@use treat|golosina}, un descanso o un santuario.`);return;}
+    if(K.length>=KENNEL_MAX){out(`Las perreras de Tobble están llenas (${KENNEL_MAX}).`);return;}
     S.pets.splice(i,1);if(S.pet===i)S.pet=S.pets.length?0:-1;else if(S.pet>i)S.pet--;p.hp=petStats(p).mhp;K.push(p);sfx('pet');
-    out(S.floor===0?`{g}${p.nick} trots off to Tobble's kennels, where there is straw, a warm crate and a great deal of fuss.{n} {@pet kennel|the kennels}`:`{g}${p.nick} follows the blue thread home to Tobble's kennels, where there is straw, a warm crate and a great deal of fuss.{n} {d}Fetch it in town.{n}`);save(true);return;}
-  if(sub==='fetch'){const p=K[i];if(!p){out('Fetch which pet? (its number in {@pet kennel|the kennels})');return;}
-    if(S.pets.length>=PARTY_MAX){out(`You already have ${PARTY_MAX} with you. Board one first.`);return;}
+    out(S.floor===0?`{g}${p.nick} trota hacia las perreras de Tobble, donde hay paja, una caja calentita y muchos mimos.{n} {@pet kennel|las perreras}`:`{g}${p.nick} sigue el hilo azul hasta las perreras de Tobble, donde hay paja, una caja calentita y muchos mimos.{n} {d}Recógelo en la ciudad.{n}`);save(true);return;}
+  if(sub==='fetch'){const p=K[i];if(!p){out("¿Qué mascota recoges? (su número en {@pet kennel|las perreras})");return;}
+    if(S.pets.length>=PARTY_MAX){out(`Ya llevas ${PARTY_MAX} contigo. Deja una en las perreras primero.`);return;}
     K.splice(i,1);S.pets.push(p);if(!activePet())S.pet=S.pets.length-1;sfx('pet');sfx('tame');
-    out(`{g}${p.nick} bounds out of the kennels and nearly knocks you over.{n} {@pet|your pets}`);save(true);return;}
-  out(`{o}Tobble's kennels{n} {d}(${K.length}/${KENNEL_MAX})`,'rt');
-  if(S.pets.length)out(`{d}With you:{n} `+S.pets.map((p,j)=>`{g}${p.nick}{n} {@pet board ${j+1}|send to kennels}`).join('  '));
-  if(!K.length){out(`{d}  The kennels are empty. Send a pet here from the list above or from {@pet|your pets}, and a pet you tame or hatch with all ${PARTY_MAX} at your side comes here on its own.{n}`);return;}
-  out(`{d}In the kennels:{n}`);
+    out(`{g}${p.nick} sale de un salto de las perreras y casi te tira al suelo.{n} {@pet|tus mascotas}`);save(true);return;}
+  out(`{o}Las perreras de Tobble{n} {d}(${K.length}/${KENNEL_MAX})`,'rt');
+  if(S.pets.length)out(`{d}Contigo:{n} `+S.pets.map((p,j)=>`{g}${p.nick}{n} {@pet board ${j+1}|a las perreras}`).join('  '));
+  if(!K.length){out(`{d}  Las perreras están vacías. Envía aquí una mascota desde la lista de arriba o desde {@pet|tus mascotas}; una mascota que domes o eclosiones cuando ya llevas ${PARTY_MAX} vendrá sola.{n}`);return;}
+  out(`{d}En las perreras:{n}`);
   outDolls(K.slice(0,12).map(p=>petFigure(p,p.nick,2)));
-  K.forEach((p,j)=>out(` ${j+1}. {g}${p.nick}{n} {d}${p.nick!==petForm(p)?petForm(p)+', ':''}lv ${p.lvl}{n}  `+(S.floor===0?`{@pet fetch ${j+1}|fetch}`:'{d}(fetch in town){n}')));
+  K.forEach((p,j)=>out(` ${j+1}. {g}${p.nick}{n} {d}${p.nick!==petForm(p)?petForm(p)+', ':''}nv. ${p.lvl}{n}  `+(S.floor===0?`{@pet fetch ${j+1}|recoger}`:"{d}(se recoge en la ciudad){n}")));
 }
 /* A bigger pack, bought in town: Brakka stitches it in Emberfall, the sailmakers on the quay in Solenne. */
 function cmdPack(arg){
   const nx=packNext();
   if(!/^buy/.test(arg||'')){
-    out(`{o}Your pack{n} {d}holds ${packMax()} (${S.inv.length} in it).{n}`,'rt');
-    if(!nx){out("{d}  It is as big as packs come.{n}");return;}
-    if(!nx.ok()){out(`{d}  A bigger one, ${nx.n} (+5), is sold in town ${nx.why}.{n}`);return;}
-    out(`  Next: {y}${nx.n}{n} {d}(+5 slots){n} {y}${nx.cost}g{n} `+(S.floor===0?'{@pack buy|buy}':'{d}(in town){n}'));return;}
-  if(!nx){out('Your pack is already as big as packs come.');return;}
-  if(S.floor!==0){out(S.town==='solenne'?'The sailmakers on the quay sell bigger packs. Go back to town.':'Brakka sells bigger packs in Emberfall. Go back to town.');return;}
-  if(!nx.ok()){out(`Not yet: ${nx.n} goes on sale ${nx.why}.`);return;}
+    out(`{o}Tu mochila{n} {d}tiene ${packMax()} huecos (${S.inv.length} ocupados).{n}`,'rt');
+    if(!nx){out("{d}  No hay mochilas más grandes.{n}");return;}
+    if(!nx.ok()){out(`{d}  Una más grande, ${nx.n} (+5), se venderá en la ciudad ${nx.why}.{n}`);return;}
+    out(`  Siguiente: {y}${nx.n}{n} {d}(+5 huecos){n} {y}${nx.cost} de oro{n} `+(S.floor===0?'{@pack buy|buy}':"{d}(en la ciudad){n}"));return;}
+  if(!nx){out("Tu mochila ya es la más grande que existe.");return;}
+  if(S.floor!==0){out(S.town==='solenne'?"Los veleros del muelle venden mochilas más grandes. Vuelve a la ciudad.":"Brakka vende mochilas más grandes en Emberfall. Vuelve a la ciudad.");return;}
+  if(!nx.ok()){out(`Aún no: ${nx.n} saldrá a la venta ${nx.why}.`);return;}
   if(S.gold<nx.cost){sfx('fail');out(`{r}Necesitas ${nx.cost} de oro. Tienes ${S.gold}.`);return;}
   S.gold-=nx.cost;S.packUp=(S.packUp||0)+1;sfx('coinsBuy');sfx('equip');
-  out(`{y}You buy ${nx.n}.{n} `+(S.town==='solenne'?'A sailmaker on the quay stitches your things across into it.':'Brakka throws it on the counter. "These rivets will hold," she says. "Mind you do."')+` {d}Your pack now holds ${packMax()}.{n}`);save(true);
+  out(`{y}Compras ${nx.n}.{n} `+(S.town==='solenne'?"Un velero del muelle cose tus cosas dentro, una a una.":"Brakka la tira sobre el mostrador. «Estos remaches aguantarán», dice. «Procura aguantar tú también.»")+` {d}Tu mochila tiene ahora ${packMax()} huecos.{n}`);save(true);
 }
 function cmdRest(){
   if(S.fight){out("¡No puedes descansar en mitad de un combate!");return;}
@@ -10470,7 +10478,7 @@ function journal(){
   LORE_KINDS.filter(K=>K.from<=loreMax()).forEach(K=>{const L=S.lore.filter(n=>loreKind(n)===K);
     out(`{${K.col}}${K.many} ${L.length}/15:{n} `+(L.length?L.map(n=>`{@lore ${n}|#${n-K.from+1}}`).join(' '):"{d}ninguno todavía. Hay uno en casi cada piso del Libro "+K.book+'.'));});
   {const E=[S.flags.ended&&"Libro I: "+S.flags.ended,S.flags.ended2&&"Libro II: "+S.flags.ended2,S.flags.ended3&&"Libro III: "+(S.flags.ended3==='close'?'shut':S.flags.ended3),S.flags.ended4&&"Libro IV: "+S.flags.ended4].filter(Boolean);
-   if(E.length)out(`{o}Endings reached: ${E.join(', ')}.{n}`+(storyDone()?' {@ngplus|Begin New Game+}':''));}
+   if(E.length)out(`{o}Finales alcanzados: ${E.join(', ')}.{n}`+(storyDone()?" {@ngplus|Empezar Nueva Partida+}":''));}
 }
 function choose(arg){
   if(S.flags.choosing4)return book4Choose(arg);
@@ -10482,8 +10490,8 @@ function choose(arg){
   S.flags.choosing=false;S.flags.ended=arg;submitRace();liveMoment("terminó la historia: "+plainTxt(ENDINGS[arg][ENDINGS[arg].length-1]).replace(/^ENDING:\s*/,'').toLowerCase()+'.');if(!queueScene(sceneEnding(arg)))sfx('relit');out('');ENDINGS[arg].forEach(t=>out('{w}'+t,'story'));if(VOICE[S.cls])out('{d}'+VOICE[S.cls].ending,'story');
   out('');out(`{m}Muy por debajo del Trono, algo se ha dado cuenta de que la puerta está abierta. El Abismo espera.{n} {d}Pell, en la Puerta, puede bajarte.`);
   book2Teaser();
-  out('');out('{y}THE END OF BOOK I.','huge');out('{c}But not of the story.','huge');out(`{d}Seed ${S.seed}, level ${S.lvl}, ${S.kills} kills, ${S.deaths} deaths.`);
-  out(`{d}The story goes on: Book II begins below the Throne.{n}`);
+  out('');out("{y}FIN DEL LIBRO I.",'huge');out('{c}But not of the story.','huge');out(`{d}Seed ${S.seed}, level ${S.lvl}, ${S.kills} kills, ${S.deaths} deaths.`);
+  out(`{d}La historia continúa: el Libro II empieza bajo el Trono.{n}`);
   save(true);
 }
 /* New Game+ starts the whole story over with your level, gear and pets. It opens only when the whole story is done, at
@@ -10491,8 +10499,8 @@ function choose(arg){
 const STORY_LAST=8;
 function storyDone(){return !!(S&&S.flags['ended'+STORY_LAST]);}
 function ngplus(arg){
-  if(!storyDone()){out(`New Game+ opens when the whole story is told, at the end of Book ${ROMAN8[STORY_LAST]}. Your story goes on.`);return;}
-  if(arg!=='yes'){out(`{y}Start the whole story again?{n} {d}You keep your level, gear and pets; the story, your seed and every floor begin again.{n} {@ngplus yes|Yes, begin New Game+}`);return;}
+  if(!storyDone()){out(`La Nueva Partida+ se abre cuando se ha contado toda la historia, al final del Libro ${ROMAN8[STORY_LAST]}. Tu historia continúa.`);return;}
+  if(arg!=='yes'){out(`{y}¿Empezar toda la historia de nuevo?{n} {d}Conservas tu nivel, tu equipo y tus mascotas; la historia, tu semilla y cada piso empiezan de nuevo.{n} {@ngplus yes|Sí, empezar Nueva Partida+}`);return;}
   const keep={};['forgeFriend','summer','saltLamp','memTwice','eskFriend','ysolde','ottilie','haleFriend','gateFree','wickOil'].forEach(k=>{if(S.flags[k])keep[k]=1;});   /* mission rewards that say "forever" */
   S.ng++;S.story={};S.dreams={};S.dgOpen={};S.taleL=0;S.b2=[false,false,false,false,false];S.b3=[false,false,false,false,false];S.b4=[false,false,false,false,false];S.b5=[false,false,false,false,false];S.war=null;S.uniq4={};S.voy=voyFresh(S.voy);S.town='emberfall';S.seed=randomSeed();S.layout=2;S.floors={};S.deepest=0;S.dg=null;S.side={};S.dgDone={};S.dgRuns={};S.bosses=[false,false,false,false,false];S.lore=[];S.flags=Object.assign({gift:1},keep);S.smith=null;S.fight=false;S.fx={};
   const st=stats();S.hp=st.mhp;S.mp=st.mmp;
@@ -10505,16 +10513,16 @@ function ngplus(arg){
 const END_DEFAULT=['','seal','close','close','share','keeper'],END_KEYS=[[],['seal','crown','shatter'],['close','name'],['close','tide'],['conquer','shutout','share'],['keeper','bell','talk']];
 function ngUndoable(){return !!(S&&S.ng>0&&!storyDone()&&!S.ngBack&&S.cid);}
 function cmdOldStory(arg){
-  if(!ngUndoable()){out('There is no New Game+ to undo.');return;}
+  if(!ngUndoable()){out("No hay ninguna Nueva Partida+ que deshacer.");return;}
   if(S.fight){out("No durante un combate.");return;}
-  if(!lbReady()){out('The race board is not reachable from here.');return;}
-  if(arg!=='yes'){out(`{y}Go back to your story from before New Game+?{n} {d}Your seed, how deep you went, the keepers you felled and how your books ended come back from the race board. Your level, gear, pets and gold stay as they are; lore scrolls and side dungeons start fresh.{n} {@oldstory yes|Yes, take me back}`);return;}
-  out('{d}Asking the race board for your old story...{n}');
+  if(!lbReady()){out("No se puede contactar con el tablero de la carrera desde aquí.");return;}
+  if(arg!=='yes'){out(`{y}¿Volver a tu historia de antes de la Nueva Partida+?{n} {d}Tu semilla, lo hondo que llegaste, los guardianes que abatiste y cómo terminaron tus libros vuelven del tablero de la carrera. Tu nivel, tu equipo, tus mascotas y tu oro se quedan como están; los pergaminos de saber y las mazmorras secundarias empiezan de nuevo.{n} {@oldstory yes|Sí, llévame de vuelta}`);return;}
+  out("{d}Consultando tu antigua historia en el tablero de la carrera...{n}");
   lbFetch(`seed_runs?select=seed,deepest,bosses,ended,ng,created_at&run_id=eq.${encodeURIComponent(S.cid)}&ng=lt.${S.ng|0}&order=created_at.desc&limit=1`)
     .then(r=>r.ok?r.json():[]).then(rows=>{const row=Array.isArray(rows)&&rows[0];
-      if(!row||!row.seed){out('{r}The race board has no record of your story from before New Game+.{n} {d}If you saved a code before, use Import save on the title screen.{n}');return;}
+      if(!row||!row.seed){out("{r}El tablero de la carrera no tiene registro de tu historia de antes de la Nueva Partida+.{n} {d}Si guardaste un código antes, usa Importar un código de partida en la pantalla de título.{n}");return;}
       restoreOld(row);})
-    .catch(()=>out('{r}Could not reach the race board. Try again in a moment.{n}'));
+    .catch(()=>out("{r}No se pudo contactar con el tablero de la carrera. Inténtalo de nuevo en un momento.{n}"));
 }
 function restoreOld(row){
   if(!ngUndoable())return;
@@ -10524,7 +10532,7 @@ function restoreOld(row){
     if(k===books&&!row.ended&&n===books*5){S.flags[k>1?'choosing'+k:'choosing']=true;break;}   /* they stood at the choice */
     let e=k===books&&row.ended?String(row.ended):END_DEFAULT[k];if(k===3&&e==='shut')e='close';if(!(END_KEYS[k]||[]).includes(e))e=END_DEFAULT[k];S.flags[k>1?'ended'+k:'ended']=e;}
   S.ngBack=1;S.raceSent=null;S.films=undefined;
-  out(`{g}Your story is back.{n} {d}Seed{n} {w}${S.seed}{n}{d}, deepest floor ${S.deepest}, ${n} keeper${n===1?'':'s'} felled.{n}`);
+  out(`{g}Tu historia ha vuelto.{n} {d}Semilla{n} {w}${S.seed}{n}{d}, piso más hondo ${S.deepest}, guardianes abatidos: ${n}.{n}`);
   toTown(0);save(true);render();
 }
 function where(){out(`{d}${S.floor?(S.dg?`${theme().name}, floor ${floorLabel()}`:`Piso ${S.floor}, ${theme().name}`):townName()}. Semilla {w}${S.seed}{d}. Piso más hondo: ${S.deepest}.`);}
@@ -10576,7 +10584,7 @@ function help(arg){
   `{w}Ciudad{n}   {@talk|talk}, {@list|list}, buy <nº>, sell <nº>|junk,`,
   `         {@recall|recall} para volver, {@delve|delve} en la Puerta`,
   `         upgrade, reforge (forja); train (Tobble); stash (posada)`,
-  `         {@pack|pack} (a bigger one); pet board/fetch ({@kennel|kennels})`,
+  `         {@pack|pack} (una mochila más grande); pet board/fetch ({@kennel|perreras})`,
   `         fortune (Colina de la Linterna), polish (joyero), contract (Atalaya)`,
   `{w}Travesía{n} tras el Libro II: {@sail|sail} (Muelles Viejos), {@walk|walk} (Puerta Norte), {@gate|gate} (Faro del Puerto)`,
   `         {@provision|provision <n>} compra provisiones, {@supplies|supplies} muestra el viaje`,
@@ -10756,7 +10764,7 @@ function boardHtml(title,sub,rows,mine,val){
   const nm=v=>esc(clean(String(v||'?')).slice(0,16));
   return `<div class="hb-head"><b>${esc(title)}</b><small>${esc(sub)}</small></div>`+(rows.length?'<ol class="hb-list">'+rows.map((x,i)=>
     `<li${mine.has(x.run_id)?' class="me"':''}><span class="hb-n">${i+1}</span><span class="hb-name">${nm(x.name)}${x.player?`<small>${nm(x.player)}</small>`:''}${x.hard?'<small class="hb-hc">HC</small>':''}</span><span class="hb-cls">${esc((CLASSES[x.cls]||{}).n||'?')}</span><span class="hb-lv">${esc(val(x))}</span></li>`).join('')+'</ol>'
-    :'<p class="hint">Nobody is on it yet. Be the first.</p>');
+    :"<p class=\"hint\">Aún no hay nadie. Sé el primero.</p>");
 }
 function outBoard(html){const d=document.createElement('div');d.className='ln hero-board';d.innerHTML=html;term.appendChild(d);}
 function showLeaderboard(){
@@ -10768,11 +10776,11 @@ function showLeaderboard(){
     abyss=lbRows('abyss_leaderboard?select=run_id,name,cls,depth,lvl,hard,ng,player&limit=10');
   heroes.then(rows=>{
     if(rows===null)out("{d}Las Linternas más brillantes abren pronto.");
-    else outBoard(boardHtml('The Brightest Lanterns','the strongest heroes: level, then might',list(rows),mine,x=>'Lv '+(Number(x.lvl)||0)));
+    else outBoard(boardHtml("Las Linternas más brillantes","los héroes más fuertes: nivel y luego poder",list(rows),mine,x=>"Nv. "+(Number(x.lvl)||0)));
     if(S&&S.flags&&S.flags.gift)out(`{d}Tu héroe: nivel ${S.lvl}, poder ${heroMight()}.{n}`);
     return abyss;
   }).then(rows=>{
-    outBoard(boardHtml('The Abyss','the deepest floor reached',list(rows),mine,x=>'Floor '+(Number(x.depth)||0)));
+    outBoard(boardHtml('The Abyss',"el piso más hondo alcanzado",list(rows),mine,x=>'Floor '+(Number(x.depth)||0)));
     if(S&&S.abyssBest&&!list(rows).some(x=>x.run_id===S.cid))out(`{d}Tu récord: piso ${S.abyssBest}.`);
     scrollDown();
   }).catch(()=>{out("{d}No se pudo contactar con la clasificación. ¿Estás sin conexión?");scrollDown();});
@@ -10784,7 +10792,7 @@ function titleLeaderboard(){
   const mine=new Set(HERO_SLOTS.map(n=>{const s=loadSave(n);return s&&s.cid;}).concat(S&&S.cid).filter(Boolean));
   lbRows('hero_leaderboard?select=run_id,name,cls,lvl,might,hard,player&limit=10').then(rows=>{
     if(!Array.isArray(rows)){el.hidden=true;return;}
-    el.innerHTML=boardHtml('The Brightest Lanterns','the strongest heroes in the game',rows,mine,x=>'Lv '+(Number(x.lvl)||0));el.hidden=false;
+    el.innerHTML=boardHtml("Las Linternas más brillantes","los héroes más fuertes del juego",rows,mine,x=>"Nv. "+(Number(x.lvl)||0));el.hidden=false;
   }).catch(()=>{el.hidden=true;});
 }
 function cmdLeaderboard(arg){
@@ -10917,8 +10925,8 @@ function render(){
   $('#quest').innerHTML=fmt(questLine());drawMini();musicUpdate();frTrack();
   $('#loc').textContent=S.floor?(S.dg?`${theme().name} . F${floorLabel()}`:`P${S.floor} . ${theme().name}`):townName();
   renderQuick();renderPads();tutTick();
-  {const b=uiBook();if(document.body.dataset.book!==String(b))document.body.dataset.book=b;$('#bookTag').textContent=BOOK_NAMES[b]?`Book ${ROMAN8[b]} · ${BOOK_NAMES[b]}`:'';}
-  renderSide();filmCheck();
+  {const b=uiBook();if(document.body.dataset.book!==String(b))document.body.dataset.book=b;$('#bookTag').textContent=BOOK_NAMES[b]?`Libro ${ROMAN8[b]} · ${BOOK_NAMES[b]}`:'';}
+  renderSide();fitWide();filmCheck();
 }
 const BOOK_ENDS=['ended','ended2','ended3','ended4','ended5'];
 function filmCheck(){
@@ -10944,17 +10952,23 @@ function renderSide(){
   el.hidden=false;if(key===sideKey)return;sideKey=key;el.innerHTML='';
   const fig=document.createElement('div');fig.className='hc-fig';try{fig.appendChild(heroSprite(heroKey(S.cls,S.body),S.eq,innerHeight>=1000?3:2));}catch(e){}el.appendChild(fig);
   const tx=document.createElement('div');tx.className='hc-txt';
-  tx.innerHTML=`<b class="hc-name">${esc(fullName())}</b><span class="hc-cls">Level ${S.lvl} ${esc(CLASSES[S.cls].n)}</span>`+
-    SLOTS.map(k=>{const it=S.eq[k];return `<span class="hc-gear"><i>${esc(SLOTNAME[k])}</i>${it?fmt(iname(it)):fmt(k==='weapon'?'{d}bare hands':'{d}nothing')}</span>`;}).join('');   /* every slot, so nothing worn is hidden */
+  tx.innerHTML=`<b class="hc-name">${esc(fullName())}</b><span class="hc-cls">Nivel ${S.lvl} ${esc(CLASSES[S.cls].n)}</span>`+
+    SLOTS.map(k=>{const it=S.eq[k];return `<span class="hc-gear"><i>${esc(SLOTNAME[k])}</i>${it?fmt(iname(it)):fmt(k==='weapon'?"{d}manos desnudas":'{d}nothing')}</span>`;}).join('');   /* every slot, so nothing worn is hidden */
   el.appendChild(tx);
-  const side=document.createElement('div');side.className='hc-side';
-  if(m){side.innerHTML='<span class="hc-vs">VS</span>';
-    if(m.boss){try{side.appendChild(bossSprite(bossKey(m),1));}catch(e){}}
-    const n=document.createElement('span');n.className='hc-foe';n.textContent=cap(m.boss||m.mini?m.short:m.name)+(m.lvl?' · lv '+m.lvl:'');side.appendChild(n);el.appendChild(side);}
-  else if(pt){try{side.appendChild(petSprite(pt.sp,pt.evo||0,2));}catch(e){}
-    const n=document.createElement('span');n.textContent=pt.nick+' · lv '+pt.lvl;side.appendChild(n);el.appendChild(side);}
+  /* your pet and what you are fighting get a line each under the gear, with a small picture, so the gear's names are never cut short */
+  const line=(cls,label,pic,text)=>{const l=document.createElement('span');l.className='hc-gear hc-line '+cls;const i=document.createElement('i');i.textContent=label;l.appendChild(i);
+    if(pic){const w=document.createElement('span');w.className='hc-pic';w.appendChild(pic);l.appendChild(w);}const t=document.createElement('span');t.className='hc-lt';t.textContent=text;l.appendChild(t);tx.appendChild(l);};
+  if(pt){let pic=null;try{pic=petSprite(pt.sp,pt.evo||0,1);}catch(e){}line('hc-pet'+(pt.rare?' pet-r'+pt.rare:''),'Pet',pic,pt.nick+" · nv. "+pt.lvl);}
+  if(m){line('hc-foe','VS',null,cap(m.boss||m.mini?m.short:m.name)+(m.lvl?" · nv. "+m.lvl:''));}
 }
 if(WIDE.addEventListener)WIDE.addEventListener('change',()=>{sideKey='';if(S)render();});
+/* The map keeps its full size, and gives up only what the side panel needs when everything at once (a fight, a pet, the
+   first-steps card) would push the bottom row off the screen. */
+function fitWide(){
+  const mini=$('#mini'),app=$('#app');if(!mini||!app)return;mini.style.width='';if(!WIDE.matches||mini.hidden)return;
+  const over=app.scrollHeight-app.clientHeight;if(over>0)mini.style.width=Math.max(120,Math.floor(mini.getBoundingClientRect().width-over-2))+'px';
+}
+{let t=0;window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{if(S)fitWide();},120);});}
 function renderQuick(){
   const q=[];const add=(l,c,k)=>q.push([l,c,k||'']);const r=cur();
   if(S.over)add("Nueva aventura",'newgame','gold');
@@ -10981,7 +10995,7 @@ function renderQuick(){
     if(getShop())add("Tienda",'list','gold');
     if(r.npc==='brakka'){add("Mejorar",'upgrade','gold');add("Reforjar",'reforge','gold');}
     if(r.npc==='tobble'&&S.pets.length)add("Entrenar mascotas",'train','pet');
-    if(r.npc==='tobble')add('Kennels','kennel','pet');
+    if(r.npc==='tobble')add("Perreras",'kennel','pet');
     if(S.floor===0&&r.id===1)add("Tablón de recompensas",'bounties','gold');
     if(r.npc==='inn')add("Baúl",'stash','gold');
     if(r.npc==='inn')add("Sala común",'friends','pet');   /* the inn's common room: friends, live play, raid parties */
@@ -10993,7 +11007,7 @@ function renderQuick(){
     if(S.floor>0&&r.type!=='start'&&!r.rested&&!r.mobs.length)add("Descansar",'rest');
     const st=stats();const h=findPot('hp');if(h&&S.hp<st.mhp*0.6)add(`Beber curación x${h.qty}`,'use healing');
     if(storyDone())add("Nueva partida+",'ngplus','gold');
-    if(S.floor===0&&ngUndoable())add('Back to my old story','oldstory','gold');
+    if(S.floor===0&&ngUndoable())add("Volver a mi antigua historia",'oldstory','gold');
     if(S.floor>0&&S.dg!=='underside')add("Regresar",'recall','end');   /* last, at the far right, away from the movement pad */
   }
   $('#quick').innerHTML=q.map(([l,c,k])=>`<button type="button" class="qb ${k}" data-cmd="${esc(c)}">${esc(l)}</button>`).join('');
@@ -11145,7 +11159,7 @@ function resume(sv){
 /* ----- menu ----- */
 let fs=parseFloat(pref('fs'))||13;document.documentElement.style.setProperty('--fs',fs+'px');
 if(pref('pads')==='0')$('#pads').hidden=true;
-function syncMenu(){$('#mPads').textContent=$('#pads').hidden?"Mostrar botones táctiles":"Ocultar botones táctiles";$('#mLoot').textContent="Recogida automática: "+(S&&S.autoloot===false?'off':'on');$('#menuInfo').textContent=S?`${fullName()}, nivel ${S.lvl} ${CLASSES[S.cls].n}. Semilla ${S.seed}.`:'';$('#mNew').textContent='Exit to character select';$('#mExport').disabled=!S;$('#mLbSend').textContent="Enviar puntuaciones: "+(lbOn()?'on':'off');$('#mLbSend').hidden=!lbReady();$('#mSound').textContent="Sonido: "+(soundOn()?'on':'off');$('#mScenes').textContent="Escenas: "+(pref('scenes')==='0'?'off':'on');$('#mTale').textContent="Diapositivas de la historia: "+(pref('tale')==='0'?'off':'on');$('#mTale').disabled=pref('scenes')==='0';$('#mMini').textContent="Minimapa: "+(miniOn()?'on':'off');$('#mMusic').textContent="Música: "+(musicOn()?'on':'off');$('#mLive').textContent="En directo: "+(S&&S.live?'on':'off');$('#mLive').hidden=$('#mRace').hidden=!lbReady();$('#mLive').disabled=$('#mShare').disabled=$('#mRace').disabled=!S;$('#mVib').textContent=canVibrate()?"Vibración: "+(vibOn()?'on':'off'):"Vibración: no disponible";$('#mVib').disabled=!canVibrate();}
+function syncMenu(){$('#mPads').textContent=$('#pads').hidden?"Mostrar botones táctiles":"Ocultar botones táctiles";$('#mLoot').textContent="Recogida automática: "+(S&&S.autoloot===false?'off':'on');$('#menuInfo').textContent=S?`${fullName()}, nivel ${S.lvl} ${CLASSES[S.cls].n}. Semilla ${S.seed}.`:'';$('#mNew').textContent="Salir a la selección de héroe";$('#mExport').disabled=!S;$('#mLbSend').textContent="Enviar puntuaciones: "+(lbOn()?'on':'off');$('#mLbSend').hidden=!lbReady();$('#mSound').textContent="Sonido: "+(soundOn()?'on':'off');$('#mScenes').textContent="Escenas: "+(pref('scenes')==='0'?'off':'on');$('#mTale').textContent="Diapositivas de la historia: "+(pref('tale')==='0'?'off':'on');$('#mTale').disabled=pref('scenes')==='0';$('#mMini').textContent="Minimapa: "+(miniOn()?'on':'off');$('#mMusic').textContent="Música: "+(musicOn()?'on':'off');$('#mLive').textContent="En directo: "+(S&&S.live?'on':'off');$('#mLive').hidden=$('#mRace').hidden=!lbReady();$('#mLive').disabled=$('#mShare').disabled=$('#mRace').disabled=!S;$('#mVib').textContent=canVibrate()?"Vibración: "+(vibOn()?'on':'off'):"Vibración: no disponible";$('#mVib').disabled=!canVibrate();}
 $('#menuBtn').addEventListener('click',()=>{syncMenu();$('#menu').hidden=false;});
 $('#mResume').addEventListener('click',()=>{$('#menu').hidden=true;});
 $('#mSave').addEventListener('click',()=>{if(S){save(false);scrollDown();}$('#menu').hidden=true;});
