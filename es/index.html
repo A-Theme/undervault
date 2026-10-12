@@ -713,6 +713,8 @@ const SITE_URL='https://playundervault.com/';
 /* Books written ahead but held back (release.json) bring their own legends here, since legends.js loads after them:
    each adds {uniq:{name:story}, sets:{key:{...}}}, and legends.js takes them in. */
 const LATER_LEGENDS=[];
+/* ...and their pages of the story in the Lore Book: each adds a function (has) returning that book's HTML. */
+const LATER_STORY=[];
 const LEADERBOARD={url:'https://uxlkammmhdtsizylsahc.supabase.co',key:'sb_publishable_yNyx9DKntsGXJ0_cSCB1NQ_y0lAsp6E'};
 
 'use strict';
@@ -6618,7 +6620,7 @@ Object.assign(BOSS_DRAW,{
    The words always go to the log too, so they can be read back (new lantern cards just get a line with a link). */
 
 const TALE_COL=['#f3d36b','#d48cff','#62d6d6','#ff8a5c'];   /* Books I, II, III and IV */
-const taleBook=a=>a<5?0:a<10?1:a<15?2:3;
+const taleBook=a=>a<5?0:a<10?1:a<15?2:a<20?3:Math.min(TALE_COL.length-1,Math.floor(a/5));   /* Book V on (held back) push their own colours */
 const taleB4=k=>k==='war'||k==='end4'||k==='summer'||k==='fin4'||(typeof k==='number'&&k>=15);
 
 /* ----- the lanterns: one card more each time the story tells you what they burn ----- */
@@ -9250,6 +9252,7 @@ const LB_RENDER={
   if(S.flags.ended4)h+=`<div class="lb-ch lb-end"><b>Cómo terminó la guerra</b>${lbP(END4[S.flags.ended4]||'')}</div>`;
   if(S.flags.south)h+=`<div class="lb-ch"><b>Capítulo XXII: El Verano Eterno</b>${lbP(taleTxt(TALE_START.summer.ahead))}</div>`;
   if(S.flags.lily)h+=`<div class="lb-ch lb-end"><b>Los veranos vuelven a casa</b>${lbP(taleTxt(TALE_START.fin4.so))}${lbP(taleTxt(TALE_START.fin4.ahead))}</div>`;
+  LATER_STORY.forEach(f=>{h+=f(has)||'';});   /* the books held back (config.js), in a build that has them */
   return h;},
  /* the people, with their portraits */
  people(has){
