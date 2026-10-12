@@ -7409,7 +7409,7 @@ function winMeet(mood,first){
   out('');out(`{${M.c}}До тебе, погойдуючись, наближається маленький ліхтарик, що горить ${M.lamp}.{n}`);
   out(`{${M.c}}Вінстон ${M.t}`,'bossname');
   try{outDolls([heroFigure('npc:winston',null,"Вінстон")]);}catch(e){}
-  out(first?'{w}A small boy in a coat of a hundred patches, far too big for him, is sitting on the floor eating an apple. He cannot be more than seven. "Hello," he says, as if you were late, in the voice of a very old man. "I am Winston. I wander. You must be the one with the thread. Everybody is talking about you, by which I mean the walls."{n}':`{w}Winston ${pick(MR,WIN_HELLO[mood])}{n}`,'story');
+  out(first?"{w}Маленький хлопчик у плащі із сотні латок, завеликому для нього, сидить на підлозі й їсть яблуко. Йому не більше семи. «Привіт», — каже він, ніби ти запізнився, голосом дуже старого чоловіка. «Я Вінстон. Я мандрую. Ти, мабуть, той, що з ниткою. Усі про тебе говорять — під «усіма» я маю на увазі стіни.»{n}":`{w}Вінстон ${pick(MR,WIN_HELLO[mood])}{n}`,'story');
   out(`{@winston|${M.go}}`);sfx('chime');scrollDown();
 }
 /* He leaves: when you walk away, or when he is done. */
@@ -7421,24 +7421,24 @@ function winGive(it){if(addItem(it,true))return;(S.floor>0?cur().items:S.stash).
 /* ----- talking to him: `winston [arg]` ----- */
 function cmdWinston(arg){
   const W=winState();arg=String(arg||'').toLowerCase().trim();
-  if(!winHere()){out(W.met?'{d}Winston is not here. He will turn up. He always does.':'{d}Who? You have not met anyone by that name. Yet.');return;}
-  if(S.fight){out('Not now: you are fighting!');return;}
+  if(!winHere()){out(W.met?"{d}Вінстона тут немає. Він з'явиться. Він завжди з'являється.":"{d}Хто? Ти ще нікого з таким ім'ям не зустрічав. Поки що.");return;}
+  if(S.fight){out("Не зараз: ти б'єшся!");return;}
   const H=W.here;({wander:winWander,tale:winTale,peddler:winPeddle,kind:winKind,asker:winAsk,gambler:winGamble,lost:winLost,trick:winTrick,mourner:winMourn,star:winStar}[H.mood]||winWander)(arg,H);
   scrollDown();
 }
 function winWander(){
   const q=questNow(),st=stats();S.hp=Math.min(st.mhp,S.hp+Math.round(st.mhp*0.3));S.mp=Math.min(st.mmp,S.mp+Math.round(st.mmp*0.3));sfx('heal');
-  winSay(pick(MR,['He pours you a cup of tea from a pot that was not there a moment ago. It tastes of somewhere warm.','He shares his apple with you, cutting it in two with a knife he takes out of his hat.']));
-  out(`{g}You feel rested.{n} {d}(+30% health and ${CLASSES[S.cls].res.toLowerCase()})`);
-  winSay(`"Where are you off to?" he asks, and before you can answer: "Ah. ${plainTxt(q.st.o).replace(/\.$/,'')}. Yes. Mind the stairs."`);
-  winGone(pick(MR,['He tips his hat and wanders off, and when you look again the corridor is empty.','"Every road goes somewhere," he says, getting up. "Most of them go here." And he is gone.']));
+  winSay(pick(MR,["Він наливає тобі чашку чаю з чайника, якого мить тому тут не було. Чай смакує як десь, де тепло.","Він ділиться з тобою яблуком, розрізавши його навпіл ножем, якого дістає з капелюха."]));
+  out(`{g}Ти відпочив.{n} {d}(+30% здоров'я та ${CLASSES[S.cls].res.toLowerCase()})`);
+  winSay(`«Куди прямуєш?» — питає він, і перш ніж ти встигаєш відповісти: «А. ${plainTxt(q.st.o).replace(/\.$/,'')}. Так. Обережно на сходах.»`);
+  winGone(pick(MR,["Він торкається капелюха й іде собі, а коли ти знову дивишся, коридор порожній.","«Кожна дорога кудись веде, — каже він, підводячись. — Більшість веде сюди.» І його вже немає."]));
 }
 function winTale(){
   const W=winState(),open=WIN_TALES.filter(T=>!T.need||W.tales.length>=T.need),T=open.find(x=>!W.tales.includes(x.k))||pick(MR,open);
   const fresh=!W.tales.includes(T.k);if(fresh)W.tales.push(T.k);
   out(`{b}${T.t}{n}`,'actsub');T.x.forEach(p=>winSay(p));
-  if(fresh){gainXp(Math.round(need(S.lvl)*0.04));out(`{d}A tale for your Lore Book (${W.tales.length} of ${WIN_TALES.length}).{n} {@codex winston|read them}`);}
-  winGone('"There," he says. "Now it is yours too. Look after it." He pops the last bubble and wanders off.');
+  if(fresh){gainXp(Math.round(need(S.lvl)*0.04));out(`{d}Казка для твоєї Книги знань (${W.tales.length} з ${WIN_TALES.length}).{n} {@codex winston|прочитати}`);}
+  winGone("«Ось, — каже він. — Тепер це й твоє. Бережи.» Він лускає останню бульбашку й іде собі.");
 }
 /* His wares: a piece of gear, a bundle of potions, and a trinket. */
 function winWares(H){
@@ -7449,22 +7449,22 @@ function winWares(H){
 }
 function winPeddle(arg,H){
   const W=winState(),w=winWares(H);
-  if(arg==='bye'||arg==='leave'){winGone('"Come again," he says, folding the blanket around everything at once. "I usually do."');return;}
+  if(arg==='bye'||arg==='leave'){winGone("«Заходь ще, — каже він, загортаючи все разом у ковдру. — Я зазвичай заходжу.»");return;}
   const b=arg.match(/^buy (\d)$/);
-  if(b){const x=w[+b[1]-1];if(!x||x.sold){out('{d}That is not for sale any more.');return;}
-    if(x.price==='gold'){if(S.gold<x.g){sfx('fail');out(`{d}That is ${x.g} gold, and you have ${S.gold}.`);return;}S.gold-=x.g;sfx('coinsBuy');}
-    else if(x.price==='second'){const t=S.inv[1];if(!t){out('{d}"The second thing in your pack," he says. "You do not have a second thing. Come back when you are more cluttered."');return;}
-      S.inv.splice(1,1);out(`{d}He takes ${plainTxt(iname(t))} from your pack, looks at it with great interest, and puts it in a pocket that closes by itself.{n}`);}
-    else winSay('"For a friend who listens to my stories," he says, "no charge."');
+  if(b){const x=w[+b[1]-1];if(!x||x.sold){out("{d}Це вже не продається.");return;}
+    if(x.price==='gold'){if(S.gold<x.g){sfx('fail');out(`{d}Це коштує ${x.g} золота, а в тебе ${S.gold}.`);return;}S.gold-=x.g;sfx('coinsBuy');}
+    else if(x.price==='second'){const t=S.inv[1];if(!t){out("{d}«Друга річ у твоїй торбі, — каже він. — У тебе немає другої речі. Повертайся, коли будеш більш захаращений.»");return;}
+      S.inv.splice(1,1);out(`{d}Він бере ${plainTxt(iname(t))} з твоєї торби, з великою цікавістю роздивляється і кладе до кишені, яка сама зачиняється.{n}`);}
+    else winSay("«Для друга, який слухає мої історії, — каже він, — безкоштовно.»");
     x.sold=1;if(x.it.kind==='potion')addPot(x.it.key,x.it.qty);else winGive(x.it);
     if(x.it.wtk)W.trinkets.push(x.it.wtk);
-    out(`{g}You get ${iname(x.it)}.{n} ${x.it.kind==='potion'?'':'{d}'+idesc(x.it)}`,x.it.rar>=4?'legend':'');
-    if(w.every(y=>y.sold)){winGone('"Sold out!" he says, delighted. "That never happens." He shakes out the empty blanket and wanders off.');}
+    out(`{g}Ти отримуєш ${iname(x.it)}.{n} ${x.it.kind==='potion'?'':'{d}'+idesc(x.it)}`,x.it.rar>=4?'legend':'');
+    if(w.every(y=>y.sold)){winGone("«Усе розпродано! — каже він, утішений. — Такого ніколи не буває.» Він витрушує порожню ковдру й іде собі.");}
     return;}
-  winSay('"Have a look," he says.');
-  w.forEach((x,i)=>{if(x.sold)return;const p=x.price==='gold'?`${x.g} gold`:x.price==='second'?'the second thing in your pack':'free, to a friend who listens';
-    out(`  ${iname(x.it)} {d}${x.it.kind==='potion'?'':idesc(x.it)}{n}  {y}${p}{n} {@winston buy ${i+1}|buy}`);});
-  out('{@winston bye|Say goodbye}');
+  winSay("«Подивися», — каже він.");
+  w.forEach((x,i)=>{if(x.sold)return;const p=x.price==='gold'?`${x.g} gold`:x.price==='second'?"друга річ у твоїй торбі":"безкоштовно, для друга, який слухає";
+    out(`  ${iname(x.it)} {d}${x.it.kind==='potion'?'':idesc(x.it)}{n}  {y}${p}{n} {@winston buy ${i+1}|купити}`);});
+  out("{@winston bye|Попрощатися}");
 }
 function winTrinketNew(){const W=winState();const left=WIN_TRINKETS.filter(t=>!W.trinkets.includes(t.n));return left.length?pick(MR,left):null;}
 function winTrinketItem(T){
@@ -7474,61 +7474,61 @@ function winTrinketItem(T){
 }
 function winKind(){
   const W=winState(),L=depth(),r=MR(),tk=r<0.25?winTrinketNew():null;
-  if(tk){const it=winTrinketItem(tk);W.trinkets.push(tk.n);winSay('He presses something small into your hand and closes your fingers over it. "Do not open it until I have gone," he says, which makes no sense, and then he has gone.');
-    winGive(it);out(`{g}You have ${iname(it)}.{n} {d}${idesc(it)}`);winGone(null);return;}
-  if(r<0.6){addPot('hp',2);addPot('mp',1);winSay('"For the road," he says, and gives you three little bottles wrapped in a handkerchief that smells of lavender.');out(`{g}You get ${iname({kind:'potion',key:'hp',qty:2})} and ${iname({kind:'potion',key:'mp',qty:1})}.{n}`);sfx('bottle');}
-  else{const g=20+L*30;S.gold+=g;sfx('coins');winSay('"I found this behind your ear," he says, and gives you a purse that is heavier than it looks.');out(`{y}You get ${g} gold.{n}`,'gold');}
-  winGone('He pats your hand, solemnly, and wanders off humming.');
+  if(tk){const it=winTrinketItem(tk);W.trinkets.push(tk.n);winSay("Він вкладає тобі в долоню щось маленьке й стискає твої пальці. «Не відкривай, доки я не піду», — каже він, що не має жодного сенсу, і ось його вже немає.");
+    winGive(it);out(`{g}У тебе ${iname(it)}.{n} {d}${idesc(it)}`);winGone(null);return;}
+  if(r<0.6){addPot('hp',2);addPot('mp',1);winSay("«На дорогу», — каже він і дає тобі три маленькі пляшечки, загорнуті в хустинку, що пахне лавандою.");out(`{g}Ти отримуєш ${iname({kind:'potion',key:'hp',qty:2})} і ${iname({kind:'potion',key:'mp',qty:1})}.{n}`);sfx('bottle');}
+  else{const g=20+L*30;S.gold+=g;sfx('coins');winSay("«Знайшов це в тебе за вухом», — каже він і дає тобі гаманець, важчий, ніж здається.");out(`{y}Ти отримуєш ${g} золота.{n}`,'gold');}
+  winGone("Він урочисто поплескує тебе по руці й іде собі, наспівуючи.");
 }
 function winAsk(arg){
   const W=winState(),e=W.errand;
   if(e&&winErrandDone()){const C=WIN_ERRANDS.find(x=>x.k===e.k),last=e.step===C.steps.length-1;
-    winSay(pick(MR,['"You did it!" he says, as if he had been worried. "I knew you would. I was a little worried."','He takes whatever you have brought him, or whatever he thinks you have brought him, and tucks it away with great care.']));
-    const L=depth()+2,it=randomGear(MR,L,40,MR()<0.4?3:2),g=60+L*25;S.gold+=g;sfx('bounty');out(`{y}${g} gold{n}`,'gold');winGive(it);out(`{g}and ${iname(it)}.{n} {d}${idesc(it)}`);
-    if(last){W.chains[e.k]=1;W.errand=null;const tk=winTrinketNew();if(tk){const ti=winTrinketItem(tk);W.trinkets.push(tk.n);winGive(ti);out(`{o}For finishing "${C.n}": ${iname(ti)}.{n} {d}${idesc(ti)}`);}
-      winGone('"That is the whole of it," he says. "Thank you. Truly." He wanders off looking lighter.');return;}
-    e.step++;e.base=WIN_GOAL[C.steps[e.step].g]();const st=C.steps[e.step];winSay(st.ask);out(`{c}Winston's errand, ${C.n} (${e.step+1}/3):{n} {d}${WIN_GOALTXT[st.g](st.n)}.{n}`);
-    winGone('He tips his hat and goes, already looking for the next thing.');return;}
-  if(e){const C=WIN_ERRANDS.find(x=>x.k===e.k),st=C.steps[e.step];winSay('"Still working on it? Good. Good."');out(`{d}Winston's errand, ${C.n}: ${WIN_GOALTXT[st.g](st.n)} (${WIN_GOAL[st.g]()-e.base}/${st.n}).{n}`);winGone(null);return;}
-  const C=WIN_ERRANDS.find(x=>!W.chains[x.k]);if(!C){winSay('"No, no favours today," he says. "You have done enough of those for me. Let me look at you instead."');winGone(null);return;}
-  if(arg==='yes'){W.errand={k:C.k,step:0,base:WIN_GOAL[C.steps[0].g]()};out(`{c}Winston's errand, ${C.n} (1/3):{n} {d}${WIN_GOALTXT[C.steps[0].g](C.steps[0].n)}. Tell him when you next meet.{n}`);sfx('chime');winGone('"Splendid," he says, and wanders off before you can ask anything sensible.');return;}
-  if(arg==='no'){winGone('"Another time, then," he says, not at all offended, and wanders off.');return;}
-  winSay(C.steps[0].ask);out(`{@winston yes|I will do it} {@winston no|Not now}`);
+    winSay(pick(MR,["«Ти зміг! — каже він, ніби хвилювався. — Я знав, що зможеш. Я трохи хвилювався.»","Він бере те, що ти йому приніс, — або те, що він вважає, ніби ти приніс, — і дуже дбайливо ховає."]));
+    const L=depth()+2,it=randomGear(MR,L,40,MR()<0.4?3:2),g=60+L*25;S.gold+=g;sfx('bounty');out(`{y}${g} gold{n}`,'gold');winGive(it);out(`{g}і ${iname(it)}.{n} {d}${idesc(it)}`);
+    if(last){W.chains[e.k]=1;W.errand=null;const tk=winTrinketNew();if(tk){const ti=winTrinketItem(tk);W.trinkets.push(tk.n);winGive(ti);out(`{o}За виконання «${C.n}»: ${iname(ti)}.{n} {d}${idesc(ti)}`);}
+      winGone("«Ось і все, — каже він. — Дякую. Справді.» Він іде, ніби полегшено.");return;}
+    e.step++;e.base=WIN_GOAL[C.steps[e.step].g]();const st=C.steps[e.step];winSay(st.ask);out(`{c}Доручення Вінстона, ${C.n} (${e.step+1}/3):{n} {d}${WIN_GOALTXT[st.g](st.n)}.{n}`);
+    winGone("Він торкається капелюха й іде, уже шукаючи наступну пригоду.");return;}
+  if(e){const C=WIN_ERRANDS.find(x=>x.k===e.k),st=C.steps[e.step];winSay("«Досі працюєш над цим? Добре. Добре.»");out(`{d}Доручення Вінстона, ${C.n}: ${WIN_GOALTXT[st.g](st.n)} (${WIN_GOAL[st.g]()-e.base}/${st.n}).{n}`);winGone(null);return;}
+  const C=WIN_ERRANDS.find(x=>!W.chains[x.k]);if(!C){winSay("«Ні, ні, сьогодні жодних послуг, — каже він. — Ти й так достатньо для мене зробив. Дай-но краще на тебе подивитися.»");winGone(null);return;}
+  if(arg==='yes'){W.errand={k:C.k,step:0,base:WIN_GOAL[C.steps[0].g]()};out(`{c}Доручення Вінстона, ${C.n} (1/3):{n} {d}${WIN_GOALTXT[C.steps[0].g](C.steps[0].n)}. Скажи йому, коли зустрінетеся знову.{n}`);sfx('chime');winGone("«Чудово», — каже він і йде собі, перш ніж ти встигаєш спитати щось розумне.");return;}
+  if(arg==='no'){winGone("«Тоді іншим разом», — каже він, анітрохи не ображений, і йде собі.");return;}
+  winSay(C.steps[0].ask);out(`{@winston yes|Я це зроблю} {@winston no|Не зараз}`);
 }
 function winGamble(arg,H){
   const g=S.gold;
-  if(arg==='no'||arg==='bye'){winGone('"Very wise," he says. "Very boring." He wanders off, flipping his coin.');return;}
-  const b=arg.match(/^bet ([12])$/);if(b){if(g<10){out('{d}"You need at least ten gold to wager," he says. "I am not a monster."');return;}H.bet=Math.max(10,Math.round(g*(b[1]==='1'?0.1:0.25)));winSay(`"${H.bet} gold, then," he says, and his hands go behind his back, and come out again as two fists. "Which hand?"`);out('{@winston left|Left hand} {@winston right|Right hand}');return;}
+  if(arg==='no'||arg==='bye'){winGone("«Дуже розважливо, — каже він. — Дуже нудно.» Він іде, підкидаючи монетку.");return;}
+  const b=arg.match(/^bet ([12])$/);if(b){if(g<10){out("{d}«Щоб зробити ставку, потрібно щонайменше десять золотих, — каже він. — Я ж не чудовисько.»");return;}H.bet=Math.max(10,Math.round(g*(b[1]==='1'?0.1:0.25)));winSay(`«Тоді ${H.bet} золотих», — каже він, ховає руки за спину, і вони повертаються двома кулаками. «Яка рука?»`);out("{@winston left|Ліва рука} {@winston right|Права рука}");return;}
   if((arg==='left'||arg==='right')&&H.bet){const win=MR()<0.5,v=H.bet;H.bet=0;
-    if(win){S.gold+=v;sfx('coins');winSay(`He opens his ${arg} hand. There is a gold coin in it, warm from his palm. "Well done," he says. "Again? No. Never again. That is the rule."`);out(`{y}You win ${v} gold.{n}`,'gold');}
-    else{S.gold=Math.max(0,S.gold-v);sfx('fail');winSay(`He opens his ${arg} hand. Nothing. Then he opens the other one: nothing in that one either. "Philosophically," he says, "you have learned something."`);out(`{d}You lose ${v} gold.{n}`);}
-    winGone('He wanders off whistling.');return;}
-  winSay('"How much will you risk?" he asks.');out(`{@winston bet 1|A little (${Math.max(10,Math.round(g*0.1))} gold)} {@winston bet 2|A lot (${Math.max(10,Math.round(g*0.25))} gold)} {@winston no|No thank you}`);
+    if(win){S.gold+=v;sfx('coins');winSay(`Він розкриває руку (${arg}). У ній золота монета, тепла від долоні. «Молодець, — каже він. — Ще раз? Ні. Ніколи більше. Таке правило.»`);out(`{y}Ти виграєш ${v} золота.{n}`,'gold');}
+    else{S.gold=Math.max(0,S.gold-v);sfx('fail');winSay(`Він розкриває руку (${arg}). Нічого. Потім розкриває другу: і там нічого. «Філософськи, — каже він, — ти дечого навчився.»`);out(`{d}Ти втрачаєш ${v} золота.{n}`);}
+    winGone("Він іде собі, насвистуючи.");return;}
+  winSay("«Скільки ризикнеш?» — питає він.");out(`{@winston bet 1|Трохи (${Math.max(10,Math.round(g*0.1))} золота)} {@winston bet 2|Багато (${Math.max(10,Math.round(g*0.25))} золота)} {@winston no|Ні, дякую}`);
 }
 function winLost(arg){
   const W=winState();
-  if(arg==='yes'){W.follow={f:S.floor,d:S.dg||''};winGone(null);out('{d}Winston takes your arm. He will follow you as far as the stairs.{n}');return;}
-  if(arg==='no'){winGone('"Quite right," he says. "I shall wait for them to come back. They usually do." When you look back he is gone, and so are the stairs, briefly.');return;}
-  winSay('"Would you walk me to the stairs?" he asks. "Either set. I am not particular. I only want to be going somewhere."');out('{@winston yes|Walk him to the stairs} {@winston no|Not now}');
+  if(arg==='yes'){W.follow={f:S.floor,d:S.dg||''};winGone(null);out("{d}Вінстон бере тебе під руку. Він піде з тобою аж до сходів.{n}");return;}
+  if(arg==='no'){winGone("«Слушно, — каже він. — Почекаю, поки вони повернуться. Зазвичай повертаються.» Коли ти озираєшся, його вже немає, а на мить — і сходів.");return;}
+  winSay("«Проведеш мене до сходів? — питає він. — Будь-яких. Я не перебірливий. Просто хочу кудись іти.»");out("{@winston yes|Провести його до сходів} {@winston no|Не зараз}");
 }
 /* Taking the stairs with him on your arm. Called by gotoFloor. */
 function winStairs(){
   const W=S&&S.win;if(!W||!W.follow)return;const f=W.follow;W.follow=null;if(f.f!==S.floor||f.d!==(S.dg||''))return;
-  winSay('"Ah, stairs!" Winston lets go of your arm. "I knew they were around here somewhere. Thank you. Here, for your trouble."');
-  const it=randomGear(MR,depth()+2,35);winGive(it);out(`{g}He gives you ${iname(it)}.{n} {d}${idesc(it)}`);sfx('chime');
+  winSay("«О, сходи!» Вінстон відпускає твою руку. «Я знав, що вони десь тут. Дякую. Ось, за клопіт.»");
+  const it=randomGear(MR,depth()+2,35);winGive(it);out(`{g}Він дає тобі ${iname(it)}.{n} {d}${idesc(it)}`);sfx('chime');
 }
 function winTrick(){
-  winSay('"Oh dear," he says, looking at the floor, which has become a door. "Wrong door." And the floor opens.');sfx('recall');
+  winSay("«Ой леле», — каже він, дивлячись на підлогу, що стала дверима. «Не ті двері.» І підлога розчиняється.");sfx('recall');
   const W=winState();winGone(null);
   if(S.floor>0&&!S.dg&&chance(0.4)){const lo=S.floor>40?41:1,hi=Math.min(S.deepest,S.floor>40?60:40),f=lo+Math.floor(MR()*Math.max(1,hi-lo+1));
-    if(f!==S.floor){out(`{m}You fall, and fall, and land somewhere else: floor ${f}.{n} {d}Somewhere far off, someone is laughing kindly.{n}`);gotoFloor(f,'start');return;}}
-  out('{m}You fall through the floor and land in a heap, at home.{n} {d}A note is pinned to your sleeve: "Sorry. W."{n}');run('recall');
+    if(f!==S.floor){out(`{m}Ти падаєш, і падаєш, і приземляєшся деінде: поверх ${f}.{n} {d}Десь далеко хтось лагідно сміється.{n}`);gotoFloor(f,'start');return;}}
+  out("{m}Ти провалюєшся крізь підлогу й гепаєшся купою — вдома.{n} {d}До рукава приколото записку: «Вибач. В.»{n}");run('recall');
 }
 function winMourn(){
   const W=winState(),i=winBeatNext();if(i==null){winWander();return;}const B=WIN_STORY[i];
   out(`{w}${B.t}{n}`,'actsub');B.x.forEach(p=>winSay(p));W.heard.push(B.t);
-  out(`{d}Winston's story, ${W.heard.length} of ${WIN_STORY.length}: in your Lore Book.{n} {@codex winston|read it}`);
-  winGone('After a while he gets up, and dusts off his coat, and wanders away without saying goodbye. That is how you know it mattered.');
+  out(`{d}Історія Вінстона, ${W.heard.length} з ${WIN_STORY.length}: у твоїй Книзі знань.{n} {@codex winston|прочитати}`);
+  winGone("Згодом він підводиться, обтрушує плащ і йде, не попрощавшись. Так ти знаєш, що це було важливо.");
 }
 function winStar(){
   const W=winState(),T=WIN_STARS[W.stars];if(!T){winKind();return;}W.stars++;
@@ -7536,10 +7536,10 @@ function winStar(){
   if(kind==='charm'){it.ck=T.ck;it.sub=(T.ck==='ring'?'Ring':'Amulet');}
   it.name=T.n;it.unique=true;it.title=T.title;it.tp=9.5;   /* among the rarest titles there are */
   const tp=tierPow(tier);for(const x in T.bon){let v=T.bon[x];if(typeof v==='string')v=Math.round(tp*parseFloat(v.slice(1)));it.bon[x]=(it.bon[x]||0)+v;}
-  winSay('He holds it out in both hands, the way you hold out something that might break. "This has walked with me a very long way," he says. "It wants to walk with you now. Look after each other."');
-  sfx('legend');flashTerm('gold');winGive(it);out(`{o}*** ${plainTxt(iname(it))} ***{n}`,'huge');out(`{d}${idesc(it)}{n} {o}Worn, it lends you the title "${T.title}".{n}`);
+  winSay("Він простягає це обома руками, як простягають щось, що може розбитися. «Воно пройшло зі мною дуже довгий шлях, — каже він. — Тепер воно хоче йти з тобою. Бережіть одне одного.»");
+  sfx('legend');flashTerm('gold');winGive(it);out(`{o}*** ${plainTxt(iname(it))} ***{n}`,'huge');out(`{d}${idesc(it)}{n} {o}Коли його носиш, дає титул «${T.title}».{n}`);
   liveMoment(`was given ${T.n} by Winston the Starbearer!`);
-  winGone('When you look up from it, he is gone, and the light is the right colour again.');
+  winGone("Коли ти відриваєш від нього погляд, Вінстона вже немає, і світло знову має правильний колір.");
 }
 
 /* ================= PLAYING TOGETHER =================
