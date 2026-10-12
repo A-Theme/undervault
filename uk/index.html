@@ -1902,7 +1902,6 @@ function talentList(){return TALENTS.all.concat(TALENTS[S.cls]);}
 function talRank(k){return (S.tal&&S.tal[k])||0;}
 function talMax(t){return t.max||TAL_MAX;}
 function talCostOf(t,r){return (t.cap?TAL_CAP_COST:TAL_COST)[r]||99;}   /* the cost of rank r+1 */
-function talNext(k){const t=talentList().find(x=>x.k===k);if(!t||(t.lv&&S.lvl<t.lv))return 99;const r=talRank(k);return r>=talMax(t)?99:talCostOf(t,r);}
 function talSpent(){const L=talentList();let n=0;for(const k in (S.tal||{})){const t=L.find(x=>x.k===k);for(let i=0;i<(S.tal[k]||0);i++)n+=t?talCostOf(t,i):1;}return n;}
 function talPoints(){return Math.max(0,Math.floor((S.lvl-1)*LV_GROW)-talSpent());}
 function talBonus(key){let v=0;for(const t of talentList())if(t.per[key])v+=t.per[key]*talRank(t.k);return v;}
@@ -3767,8 +3766,6 @@ const PET_DRAW={
  }
 };
 function petCells(sp,stage,f){const L=PET_LOOK[sp]||PET_LOOK.wolf,B=sprBuf(PET_W,PET_H);PET_DRAW[L.t](B,L,stage||0,f);return B.finish();}
-function petCanvas(sp,stage,scale,frame){scale=scale||3;const cv=document.createElement('canvas');cv.width=PET_W*scale;cv.height=PET_H*scale;cv.className='hero pet';
-  const g=cv.getContext('2d');if(g){g.imageSmoothingEnabled=false;sprPaintCells(g,petCells(sp,stage,frame||0),PET_W,0,scale,PET_SHADOW);}return cv;}
 function petSprite(sp,stage,scale){return stripSprite(PET_W,PET_H,SPR_FRAMES,scale||3,f=>petCells(sp,stage,f),PET_SHADOW,'pet');}
 /* A pet doll for the terminal: its sprite (in its evolved form) with a caption. */
 function petFigure(p,label,scale){const fg=document.createElement('figure');fg.className='doll';fg.appendChild(petSprite(p.sp,p.evo||0,scale||3));
@@ -3909,8 +3906,6 @@ const BOSS_DRAW={
 };
 function bossCells(key,f){const B=sprBuf(BOSS_W,BOSS_H);(BOSS_DRAW[key]||BOSS_DRAW.grisholt)(B,f);return B.finish();}
 function bossSprite(key,scale){return stripSprite(BOSS_W,BOSS_H,SPR_FRAMES,scale||3,f=>bossCells(key,f),BOSS_SHADOW,'boss');}
-function bossCanvas(key,scale,frame){scale=scale||3;const cv=document.createElement('canvas');cv.width=BOSS_W*scale;cv.height=BOSS_H*scale;cv.className='hero boss';
-  const g=cv.getContext('2d');if(g){g.imageSmoothingEnabled=false;sprPaintCells(g,bossCells(key,frame||0),BOSS_W,0,scale,BOSS_SHADOW);}return cv;}
 function bossFigure(m,label,scale){const fg=document.createElement('figure');fg.className='doll';fg.appendChild(bossSprite(bossKey(m),scale||3));
   if(label){const c=document.createElement('figcaption');c.textContent=label;fg.appendChild(c);}return fg;}
 
@@ -3959,8 +3954,6 @@ function chestCells(tier,frame,f){
   if(L.fire)for(let i=0;i<6;i++){const x=6+((i*5+f*3)%21),h=1+((i+f)%3);for(let k=0;k<h;k++)B.FX(x,(frame==='closed'||frame==='half'?5:0)-k+(frame==='half'?-4:0)+4,k===0?'#ffe080':'#ff8a2a',true);}
   return B.finish();
 }
-function chestCanvas(tier,frame,scale,f){scale=scale||4;const cv=document.createElement('canvas');cv.width=CHEST_W*scale;cv.height=CHEST_H*scale;cv.className='hero chest';
-  const g=cv.getContext('2d');if(g){g.imageSmoothingEnabled=false;sprPaintCells(g,chestCells(tier,frame,f),CHEST_W,0,scale,CHEST_SHADOW);}return cv;}
 
 /* ================= CUTSCENES & BANNERS =================
    Full-screen moments over the game: a prologue for a new run, act and dungeon title cards, a quick
@@ -4651,15 +4644,6 @@ function chalkLine(){
   if(S.bosses[3])return 'The chalk has been scrubbed away. Scratched into the stone underneath, so deep it will never wash off: {r}THE TEMPLE DOES.';
   if(S.story.tobias)return 'New chalk on the fountain, in a small careful hand: {g}SHE KEPT US. WHO WILL?';
   return '';
-}
-/* Text version of the quest log (the Expeditions screen shows the same thing). */
-function showQuests(){
-  const q=questNow();
-  out(`{o}${q.C.n}: ${q.C.t}`,'rt');
-  q.C.steps.forEach(s=>out(`${stepDone(s)?'{g}[x]{n} {d}':'{y}[ ]{n} '}${s.o}`+(s===q.st?' {o}<{n}':'')));
-  const ms=Object.entries(MISSIONS).filter(([k])=>S.missions[k]);
-  if(ms.length){out('{o}Missions','rt');ms.forEach(([k,M])=>{const st=S.missions[k];out(`${st==='done'?'{g}[x]{n} {d}':'{y}[ ]{n} '}${M.n}: ${st==='found'?M.back:st==='done'?M.rw:M.obj}`);});}
-  if(S.jobs.length)showJobs();
 }
 
 /* ----- Trials of Legend -----
@@ -7681,7 +7665,6 @@ function livePeer(p){
 }
 function livePlace(p){return (p.f===0?(p.t?"у Соленні":"в Емберфолі"):p.d?`у ${DUNGEONS[p.d].name}, поверх ${p.f}`:`на поверсі ${p.f}`)+(p.x?`, б'ється з ${p.x}`:'');}
 const myTown=()=>S.floor===0&&S.town==='solenne'?1:0;
-const liveWithMe=p=>p.f===S.floor&&(p.t||0)===myTown()&&p.d===(S.dg||'')&&p.r===S.room;
 /* Presence: the full list on joining, then diffs. An update arrives as a leave plus a join for the same key. */
 function livePresence(joins,leaves,full){
   if(!S)return;const before=LIVE.peers,now=full?{}:Object.assign({},before);
@@ -10317,6 +10300,7 @@ function petKennel(sub,i){
   if((sub==='board'||sub==='fetch')&&S.fight){out("Не під час бою.");return;}
   if(sub==='fetch'&&S.floor!==0){out("You can fetch pets from the kennels in town. Tobble's runners do not go below.");return;}
   if(sub==='board'){const p=S.pets[i];if(!p){out('Board which pet? (its number in {@pet|your pets})');return;}
+    if(p.hp<=0&&S.floor!==0){out(`${p.nick} is down and cannot travel. Bring it back with a {@use treat|Pet Treat}, a rest or a shrine first.`);return;}
     if(K.length>=KENNEL_MAX){out(`Tobble's kennels are full (${KENNEL_MAX}).`);return;}
     S.pets.splice(i,1);if(S.pet===i)S.pet=S.pets.length?0:-1;else if(S.pet>i)S.pet--;p.hp=petStats(p).mhp;K.push(p);sfx('pet');
     out(S.floor===0?`{g}${p.nick} trots off to Tobble's kennels, where there is straw, a warm crate and a great deal of fuss.{n} {@pet kennel|the kennels}`:`{g}${p.nick} follows the blue thread home to Tobble's kennels, where there is straw, a warm crate and a great deal of fuss.{n} {d}Fetch it in town.{n}`);save(true);return;}
@@ -10494,7 +10478,7 @@ function ngplus(arg){
 /* Started New Game+ by accident, back when it sat in town after Book I? The seed race board kept your old run (its seed,
    how deep you went, the keepers you felled, the latest ending), so this puts that story back. Your level, gear, pets
    and gold were never touched. What the board never saw (lore scrolls, side dungeons, explored rooms) starts fresh. */
-const END_DEFAULT=['','seal','close','close','share','keeper'];
+const END_DEFAULT=['','seal','close','close','share','keeper'],END_KEYS=[[],['seal','crown','shatter'],['close','name'],['close','tide'],['conquer','shutout','share'],['keeper','bell','talk']];
 function ngUndoable(){return !!(S&&S.ng>0&&!storyDone()&&!S.ngBack&&S.cid);}
 function cmdOldStory(arg){
   if(!ngUndoable()){out('There is no New Game+ to undo.');return;}
@@ -10514,7 +10498,7 @@ function restoreOld(row){
   const n=clamp(row.bosses|0,0,40),books=Math.floor(n/5);for(let bi=0;bi<n;bi++)setBossDone(bi);
   for(let k=1;k<=books;k++){
     if(k===books&&!row.ended&&n===books*5){S.flags[k>1?'choosing'+k:'choosing']=true;break;}   /* they stood at the choice */
-    let e=k===books&&row.ended?String(row.ended):END_DEFAULT[k];if(k===3&&e==='shut')e='close';S.flags[k>1?'ended'+k:'ended']=e;}
+    let e=k===books&&row.ended?String(row.ended):END_DEFAULT[k];if(k===3&&e==='shut')e='close';if(!(END_KEYS[k]||[]).includes(e))e=END_DEFAULT[k];S.flags[k>1?'ended'+k:'ended']=e;}
   S.ngBack=1;S.raceSent=null;S.films=undefined;
   out(`{g}Your story is back.{n} {d}Seed{n} {w}${S.seed}{n}{d}, deepest floor ${S.deepest}, ${n} keeper${n===1?'':'s'} felled.{n}`);
   toTown(0);save(true);render();
@@ -10854,7 +10838,9 @@ function unpackSave(json){
   const o=JSON.parse(json);saveNote='';
   if(!o||!CLASSES[o.cls]||!Array.isArray(o.inv)||typeof o.lvl!=='number'||o.over)throw new Error('not a save');
   o.name=clean(o.name||'').slice(0,16)||'Wanderer';
-  o.pets=(o.pets||[]).filter(p=>PETS[p.sp]);o.pets.forEach(p=>{p.nick=clean(p.nick||'').slice(0,16)||PETS[p.sp].n;});
+  o.pets=(o.pets||[]).filter(p=>p&&PETS[p.sp]);o.pets.forEach(p=>{p.nick=clean(p.nick||'').slice(0,16)||PETS[p.sp].n;});
+  if(o.kennel!=null){o.kennel=(Array.isArray(o.kennel)?o.kennel:[]).filter(p=>p&&PETS[p.sp]).slice(0,KENNEL_MAX);o.kennel.forEach(p=>{p.nick=clean(p.nick||'').slice(0,16)||PETS[p.sp].n;});}
+  if(o.packUp!=null)o.packUp=clamp(o.packUp|0,0,PACK_UPS.length);
   if(o.fz){const hero=Object.assign({},o,{fz:undefined,floors:{}}),fl={};
     for(const k in o.fz){const e=o.fz[k];
       if(e[0]===0){fl[k]=e[1];continue;}
@@ -11145,7 +11131,7 @@ $('#mPads').addEventListener('click',()=>{$('#pads').hidden=!$('#pads').hidden;p
 $('#mLoot').addEventListener('click',()=>{if(S){S.autoloot=!S.autoloot;syncMenu();}});
 $('#mHelp').addEventListener('click',()=>{$('#menu').hidden=true;run('help');});
 function openTitle(){$('#menu').hidden=true;$('#seedIn').value=randomSeed();$('#title').hidden=false;buildTitle();frTrack(true);frBadge();if(accIn())accList().then(()=>{if(!$('#title').hidden)renderSlots();});}
-/* Heroes: back to the title screen to switch or start another. The hero you leave is saved in its slot first. */
+/* Exit to character select: back to the title screen to switch or start another. The hero you leave is saved in its slot first. */
 $('#mNew').addEventListener('click',()=>{if(S&&!S.over)save(true);liveStop();partyClose();openTitle();});
 /* Back: the phone's back button, the browser's Back, and Escape. It closes what is open, top first (the map, a mission,
    the Lore Book, Expeditions...); in the game with nothing open it opens the Menu, which has Exit to character select
