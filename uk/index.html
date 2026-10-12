@@ -7324,39 +7324,39 @@ const WIN_ERRANDS=[
    {ask:"«Принеси мені чашу води з глибин, — каже він, — ще холодну. Якщо баритимешся, вона нагріється, тож: дванадцять створінь темряви звідси дотуди, і жодних зупинок на чай.»",g:'kills',n:12},
    {ask:"«Тепер чаші потрібна кришка. Кажуть, у чемпіона така є. Принеси мені поразку чемпіона, і я якось обійдуся.»",g:'champs',n:1},
    {ask:"«І де її поставити, високо на полиці. Десь глибше, ніж ти будь-коли бував. На два поверхи глибше, гадаю.»",g:'floor',n:2}]},
- {k:'pebbles',n:'Seven Pebbles',steps:[
-   {ask:'"I collect pebbles from places that are hard to get to. Clear one of the side passages for me and bring me a pebble from the bottom."',g:'side',n:1},
-   {ask:'"Twenty more. Pebbles, I mean. The dark keeps them in its creatures. Do not ask me why."',g:'kills',n:20},
-   {ask:'"The last pebble is in the pocket of whatever waits at the end of this chapter of yours. You will know it when you beat it."',g:'boss',n:1}]},
- {k:'letter',n:'A Letter for Nobody',steps:[
-   {ask:'"I have written a letter to someone I cannot find. Take it one floor deeper than you have been and leave it on a step. Someone always finds them."',g:'floor',n:1},
-   {ask:'"The letter needs a stamp, and the stamps down here are champions. Two of them, please. The post is very particular."',g:'champs',n:2},
-   {ask:'"And it needs to go by the long way round, through one of the side passages. Clear one. The letter will know."',g:'side',n:1}]}
+ {k:'pebbles',n:"Сім камінців",steps:[
+   {ask:"«Я збираю камінці з місць, куди важко дістатися. Зачисти для мене один із бічних проходів і принеси камінець із самого дна.»",g:'side',n:1},
+   {ask:"«Ще двадцять. Камінців, я маю на увазі. Темрява ховає їх у своїх створіннях. Не питай чому.»",g:'kills',n:20},
+   {ask:"«Останній камінець — у кишені того, хто чекає наприкінці цього твого розділу. Ти зрозумієш, коли його переможеш.»",g:'boss',n:1}]},
+ {k:'letter',n:"Лист нікому",steps:[
+   {ask:"«Я написав листа комусь, кого не можу знайти. Віднеси його на поверх глибше, ніж ти будь-коли бував, і залиш на сходинці. Хтось завжди їх знаходить.»",g:'floor',n:1},
+   {ask:"«Листу потрібна марка, а марки тут, унизу, — це чемпіони. Двоє, будь ласка. Пошта дуже прискіплива.»",g:'champs',n:2},
+   {ask:"«І він має піти довгим шляхом, через один із бічних проходів. Зачисти один. Лист знатиме.»",g:'side',n:1}]}
 ];
 const WIN_GOAL={kills:()=>S.kills||0,champs:()=>S.champs||0,floor:()=>S.deepest||0,boss:()=>bossCount(),side:()=>Object.values(S.side||{}).reduce((a,b)=>a+b,0)};
-const WIN_GOALTXT={kills:n=>`defeat ${n} monsters`,champs:n=>`defeat ${n} champion${n>1?'s':''}`,floor:n=>`go ${n} floor${n>1?'s':''} deeper than you have been`,boss:()=>'defeat the next boss of the story',side:n=>`clear ${n} side dungeon${n>1?'s':''}`};
+const WIN_GOALTXT={kills:n=>`перемогти чудовиськ: ${n}`,champs:n=>`перемогти чемпіонів: ${n}`,floor:n=>`спуститися глибше, ніж будь-коли, на поверхів: ${n}`,boss:()=>"перемогти наступного боса історії",side:n=>`зачистити бічні підземелля: ${n}`};
 /* ----- his trinkets: odd little charms that exist nowhere else (from his wares, gifts and errands) ----- */
 const WIN_TRINKETS=[
- {n:"Winston's Spare Button",ck:'ring',bon:{gold:15,dodge:3,hp:'t4'}},
- {n:"A Patch from a Kingdom You Haven't Heard Of",ck:'amulet',bon:{hp:'t8',regen:2}},
- {n:'The Teaspoon',ck:'ring',bon:{mp:'t6',healPct:8}},
- {n:'A Key to Somewhere',ck:'amulet',bon:{crit:5,dmgPct:5,hp:'t4'}},
- {n:'A Compass That Points Home',ck:'amulet',bon:{hp:'t6',gold:10,regen:1}},
- {n:'A Pressed Summer Flower',ck:'ring',bon:{hp:'t6',healPct:6,regen:2}},
- {n:'A Shard of Cold Iron',ck:'ring',bon:{defPct:6,hp:'t5'}},
- {n:'A Marble with a Storm in It',ck:'amulet',bon:{crit:6,critDmg:15}}
+ {n:"Запасний ґудзик Вінстона",ck:'ring',bon:{gold:15,dodge:3,hp:'t4'}},
+ {n:"Латка з королівства, про яке ти не чув",ck:'amulet',bon:{hp:'t8',regen:2}},
+ {n:"Чайна ложечка",ck:'ring',bon:{mp:'t6',healPct:8}},
+ {n:"Ключ кудись",ck:'amulet',bon:{crit:5,dmgPct:5,hp:'t4'}},
+ {n:"Компас, що вказує додому",ck:'amulet',bon:{hp:'t6',gold:10,regen:1}},
+ {n:"Засушена літня квітка",ck:'ring',bon:{hp:'t6',healPct:6,regen:2}},
+ {n:"Уламок холодного заліза",ck:'ring',bon:{defPct:6,hp:'t5'}},
+ {n:"Кулька з грозою всередині",ck:'amulet',bon:{crit:6,critDmg:15}}
 ];
 /* ----- the Starbearer's gifts: legendaries that exist nowhere else, each with its own title ----- */
 const WIN_STARS=[
- {n:"The Wanderer's Lantern",title:'Friend of the Wanderer',kind:'charm',ck:'amulet',bon:{hp:'t14',crit:8,regen:3,gold:20}},
- {n:'Bootlaces of the Long Road',title:'the Long-Walked',kind:'charm',ck:'ring',bon:{dodge:8,agi:'t3',regen:3,hp:'t6'}},
- {n:'The Long Road',title:'Who Walks Back Up',kind:'weapon',bon:{crit:8,critDmg:30,ls:6}},
- {n:'A Coat of a Hundred Patches',title:'Patched by Seven Kingdoms',kind:'armor',bon:{hp:'t16',regen:4,defPct:10}}
+ {n:"Ліхтар Мандрівника",title:"Друг Мандрівника",kind:'charm',ck:'amulet',bon:{hp:'t14',crit:8,regen:3,gold:20}},
+ {n:"Шнурки Довгої Дороги",title:"Довгоходець",kind:'charm',ck:'ring',bon:{dodge:8,agi:'t3',regen:3,hp:'t6'}},
+ {n:"Довга дорога",title:"Хто йде назад угору",kind:'weapon',bon:{crit:8,critDmg:30,ls:6}},
+ {n:"Плащ із сотні латок",title:"Залатаний сімома королівствами",kind:'armor',bon:{hp:'t16',regen:4,defPct:10}}
 ];
 
 /* The order the beats were told in before they were spread over every book: turns an old save's count (W.beat) into
    the titles it heard. */
-const WIN_OLD_ORDER=['The Borrowed Name','Seeds for Ilse','A List Like That','Shoulders','The Scratched Name','Letters','Twins','Seven Doors',"Головна"];
+const WIN_OLD_ORDER=["Позичене ім'я","Насіння для Ільзе","Такий самий список","Плечі","Закреслене ім'я","Листи","Двійнята","Семеро дверей","Головна"];
 
 /* ----- state ----- */
 function winState(){
@@ -7406,9 +7406,9 @@ function winMood(town){
 function winMeet(mood,first){
   const W=winState(),M=WIN_MOODS[mood];W.met++;W.books[winKey()]=(W.books[winKey()]||0)+1;W.cool=40+Math.floor(MR()*20);W.seen[mood]=(W.seen[mood]||0)+1;
   W.here={f:S.floor,d:S.dg||'',r:S.room,t:S.town||'',mood,wares:null,bet:0};
-  out('');out(`{${M.c}}A small lantern comes bobbing toward you, burning ${M.lamp}.{n}`);
-  out(`{${M.c}}Winston ${M.t}`,'bossname');
-  try{outDolls([heroFigure('npc:winston',null,'Winston')]);}catch(e){}
+  out('');out(`{${M.c}}До тебе, погойдуючись, наближається маленький ліхтарик, що горить ${M.lamp}.{n}`);
+  out(`{${M.c}}Вінстон ${M.t}`,'bossname');
+  try{outDolls([heroFigure('npc:winston',null,"Вінстон")]);}catch(e){}
   out(first?'{w}A small boy in a coat of a hundred patches, far too big for him, is sitting on the floor eating an apple. He cannot be more than seven. "Hello," he says, as if you were late, in the voice of a very old man. "I am Winston. I wander. You must be the one with the thread. Everybody is talking about you, by which I mean the walls."{n}':`{w}Winston ${pick(MR,WIN_HELLO[mood])}{n}`,'story');
   out(`{@winston|${M.go}}`);sfx('chime');scrollDown();
 }
@@ -9539,7 +9539,7 @@ const NEWS={v:'1.19.0',title:"Легенди, картки здобичі й ч�
  ["Знахідка для кожної книги","Книга II має Жарини пам'яті, Книга III — Мушлі відлуння, Книга IV — Залізні депеші, кожні зі своїм місцем у Книзі знань."],
  ["Бої читаються краще","Кожна зброя б'є власними словами, а сильніші удари виглядають більшими — аж до НИЩИТЬ."],
  ["Рівномірніше зростання","Бічні підземелля, які ти переріс, дають менше досвіду, тож ти ростеш разом з історією, а не обганяєш її."],
- ['Winston',"Тепер він рідкісний. Якщо зустрінеш — не прогав."]]};
+ ["Вінстон","Тепер він рідкісний. Якщо зустрінеш — не прогав."]]};
 const UPD={api:'https://api.github.com/repos/A-Theme/undervault/releases/latest',apk:'https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk'};
 
 function newsShow(){
@@ -9587,7 +9587,7 @@ $('#news').addEventListener('click',e=>{if(e.target.closest('[data-close]'))news
    It shows only what your hero has reached: what lies ahead is locked, as a dark shape or ???. In a game it reads as
    the hero you are playing; on the home screen as your furthest hero (lbWith swaps S while it draws). */
 const LB={tab:'story'};
-const LB_TABS=[['story',"Історія"],['people',"Люди"],['winston','Winston'],['keepers',"Вартові"],['places',"Місця"],['heroes',"Герої"],['lanterns',"Ліхтарі"],['scrolls',"Знахідки"],['legends',"Легенди"]];
+const LB_TABS=[['story',"Історія"],['people',"Люди"],['winston',"Вінстон"],['keepers',"Вартові"],['places',"Місця"],['heroes',"Герої"],['lanterns',"Ліхтарі"],['scrolls',"Знахідки"],['legends',"Легенди"]];
 const lbShip=()=>!!(S.flags.ship||(S.voy&&S.voy.arrived));
 const lbArrived=()=>!!(S.voy&&S.voy.arrived);
 const lbReached=a=>S.deepest>=actStart(a)||bossDone(a);
@@ -9611,7 +9611,7 @@ const LB_PEOPLE=[
  {id:'hale',n:'Watch-Captain Hale',pic:'npc:hale',x:"Тримає Вартову вежу. Читає кожне оголошення двічі й платить за важку роботу, зроблену добре."},
  {id:'ferryman',n:'The ferryman',pic:'npc:ferryman',x:"Доглядає Старі доки. Жоден корабель не приходив, відколи Ліхтар посинів: морські шляхи до далеких королівств згасли тієї ж ночі."},
  {id:'winston',n:"Вінстон Мандрівник",pic:'npc:winston',on:()=>!!(S.win&&S.win.met),x:"Хлопчик років семи в пальті зі ста латок, завеликому для нього, з ціпком, вищим за нього самого, і маленьким ліхтарем, що щоразу горить іншим кольором. Говорить, як старий. Його титул підказує, що він збирається зробити.",
-  more:[[()=>winState().heard.includes('The Borrowed Name'),"Вінстон — ім'я, яке він позичив у надгробка."],[()=>winState().heard.includes('Twins'),"Він близнюк Астер Вейл, син Кая: згодована дитина, що піднялася сходами назад і перестала рости тієї миті, як вийшла. Йому триста років."]]},
+  more:[[()=>winState().heard.includes("Позичене ім'я"),"Вінстон — ім'я, яке він позичив у надгробка."],[()=>winState().heard.includes("Двійнята"),"Він близнюк Астер Вейл, син Кая: згодована дитина, що піднялася сходами назад і перестала рости тієї миті, як вийшла. Йому триста років."]]},
  {sec:"Унизу"},
  {id:'tobias',n:"Тобіас",pic:'lantern',on:()=>bossDone(1),x:"Хлопчик, якого сестра Ільза сховала від печатки в таємному саду. Це він крейдою писав на фонтані ХТО ГОДУЄ СВІТЛО?"},
  {id:'tick',n:"Тік",pic:'lantern',on:()=>bossDone(2),x:"Записувальна машина Ордену. Вона тримає картку на кожного вартового, який будь-коли існував, і на кожній написано ВЕЙЛ. Вона все копіює двічі, бо Голод не може з'їсти написане двічі."},

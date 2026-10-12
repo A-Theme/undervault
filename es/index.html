@@ -7324,39 +7324,39 @@ const WIN_ERRANDS=[
    {ask:"«Tráeme una copa de agua de las profundidades —dice—, todavía fría. Se calienta si te entretienes, así que: doce criaturas de la oscuridad entre aquí y allí, y nada de pararse a tomar el té.»",g:'kills',n:12},
    {ask:"«Ahora la copa quiere una tapa. Dicen que un campeón lleva una. Tráeme la derrota de un campeón y me apañaré.»",g:'champs',n:1},
    {ask:"«Y un sitio donde ponerla, en lo alto de un estante. En algún lugar más hondo de lo que nunca has llegado. Dos pisos más hondo, diría yo.»",g:'floor',n:2}]},
- {k:'pebbles',n:'Seven Pebbles',steps:[
-   {ask:'"I collect pebbles from places that are hard to get to. Clear one of the side passages for me and bring me a pebble from the bottom."',g:'side',n:1},
-   {ask:'"Twenty more. Pebbles, I mean. The dark keeps them in its creatures. Do not ask me why."',g:'kills',n:20},
-   {ask:'"The last pebble is in the pocket of whatever waits at the end of this chapter of yours. You will know it when you beat it."',g:'boss',n:1}]},
- {k:'letter',n:'A Letter for Nobody',steps:[
-   {ask:'"I have written a letter to someone I cannot find. Take it one floor deeper than you have been and leave it on a step. Someone always finds them."',g:'floor',n:1},
-   {ask:'"The letter needs a stamp, and the stamps down here are champions. Two of them, please. The post is very particular."',g:'champs',n:2},
-   {ask:'"And it needs to go by the long way round, through one of the side passages. Clear one. The letter will know."',g:'side',n:1}]}
+ {k:'pebbles',n:"Siete Guijarros",steps:[
+   {ask:"«Colecciono guijarros de sitios difíciles de alcanzar. Despeja uno de los pasajes secundarios por mí y tráeme un guijarro del fondo.»",g:'side',n:1},
+   {ask:"«Veinte más. Guijarros, digo. La oscuridad los guarda dentro de sus criaturas. No me preguntes por qué.»",g:'kills',n:20},
+   {ask:"«El último guijarro está en el bolsillo de lo que te espera al final de este capítulo tuyo. Lo sabrás cuando lo venzas.»",g:'boss',n:1}]},
+ {k:'letter',n:"Una carta para nadie",steps:[
+   {ask:"«He escrito una carta a alguien a quien no encuentro. Llévala un piso más hondo de lo que has llegado nunca y déjala en un escalón. Alguien siempre las encuentra.»",g:'floor',n:1},
+   {ask:"«La carta necesita un sello, y aquí abajo los sellos son campeones. Dos, por favor. Correos es muy quisquilloso.»",g:'champs',n:2},
+   {ask:"«Y tiene que ir por el camino largo, por uno de los pasajes secundarios. Despeja uno. La carta lo sabrá.»",g:'side',n:1}]}
 ];
 const WIN_GOAL={kills:()=>S.kills||0,champs:()=>S.champs||0,floor:()=>S.deepest||0,boss:()=>bossCount(),side:()=>Object.values(S.side||{}).reduce((a,b)=>a+b,0)};
-const WIN_GOALTXT={kills:n=>`defeat ${n} monsters`,champs:n=>`defeat ${n} champion${n>1?'s':''}`,floor:n=>`go ${n} floor${n>1?'s':''} deeper than you have been`,boss:()=>'defeat the next boss of the story',side:n=>`clear ${n} side dungeon${n>1?'s':''}`};
+const WIN_GOALTXT={kills:n=>`derrota a ${n} monstruos`,champs:n=>`derrota campeones: ${n}`,floor:n=>`baja ${n} piso${n>1?'s':''} más hondo que nunca`,boss:()=>"derrota al siguiente jefe de la historia",side:n=>`despeja mazmorras secundarias: ${n}`};
 /* ----- his trinkets: odd little charms that exist nowhere else (from his wares, gifts and errands) ----- */
 const WIN_TRINKETS=[
- {n:"Winston's Spare Button",ck:'ring',bon:{gold:15,dodge:3,hp:'t4'}},
- {n:"A Patch from a Kingdom You Haven't Heard Of",ck:'amulet',bon:{hp:'t8',regen:2}},
- {n:'The Teaspoon',ck:'ring',bon:{mp:'t6',healPct:8}},
- {n:'A Key to Somewhere',ck:'amulet',bon:{crit:5,dmgPct:5,hp:'t4'}},
- {n:'A Compass That Points Home',ck:'amulet',bon:{hp:'t6',gold:10,regen:1}},
- {n:'A Pressed Summer Flower',ck:'ring',bon:{hp:'t6',healPct:6,regen:2}},
- {n:'A Shard of Cold Iron',ck:'ring',bon:{defPct:6,hp:'t5'}},
- {n:'A Marble with a Storm in It',ck:'amulet',bon:{crit:6,critDmg:15}}
+ {n:"El botón de repuesto de Winston",ck:'ring',bon:{gold:15,dodge:3,hp:'t4'}},
+ {n:"Un remiendo de un reino del que nunca has oído hablar",ck:'amulet',bon:{hp:'t8',regen:2}},
+ {n:"La Cucharilla",ck:'ring',bon:{mp:'t6',healPct:8}},
+ {n:"Una llave a algún lugar",ck:'amulet',bon:{crit:5,dmgPct:5,hp:'t4'}},
+ {n:"Una brújula que señala a casa",ck:'amulet',bon:{hp:'t6',gold:10,regen:1}},
+ {n:"Una flor de verano prensada",ck:'ring',bon:{hp:'t6',healPct:6,regen:2}},
+ {n:"Una esquirla de hierro frío",ck:'ring',bon:{defPct:6,hp:'t5'}},
+ {n:"Una canica con una tormenta dentro",ck:'amulet',bon:{crit:6,critDmg:15}}
 ];
 /* ----- the Starbearer's gifts: legendaries that exist nowhere else, each with its own title ----- */
 const WIN_STARS=[
- {n:"The Wanderer's Lantern",title:'Friend of the Wanderer',kind:'charm',ck:'amulet',bon:{hp:'t14',crit:8,regen:3,gold:20}},
- {n:'Bootlaces of the Long Road',title:'the Long-Walked',kind:'charm',ck:'ring',bon:{dodge:8,agi:'t3',regen:3,hp:'t6'}},
- {n:'The Long Road',title:'Who Walks Back Up',kind:'weapon',bon:{crit:8,critDmg:30,ls:6}},
- {n:'A Coat of a Hundred Patches',title:'Patched by Seven Kingdoms',kind:'armor',bon:{hp:'t16',regen:4,defPct:10}}
+ {n:"La Linterna del Caminante",title:"Amigo del Caminante",kind:'charm',ck:'amulet',bon:{hp:'t14',crit:8,regen:3,gold:20}},
+ {n:"Cordones del Largo Camino",title:"el Gran Caminante",kind:'charm',ck:'ring',bon:{dodge:8,agi:'t3',regen:3,hp:'t6'}},
+ {n:"El Largo Camino",title:"Quien vuelve a subir",kind:'weapon',bon:{crit:8,critDmg:30,ls:6}},
+ {n:"Un abrigo de cien remiendos",title:"Remendado por siete reinos",kind:'armor',bon:{hp:'t16',regen:4,defPct:10}}
 ];
 
 /* The order the beats were told in before they were spread over every book: turns an old save's count (W.beat) into
    the titles it heard. */
-const WIN_OLD_ORDER=['The Borrowed Name','Seeds for Ilse','A List Like That','Shoulders','The Scratched Name','Letters','Twins','Seven Doors',"Inicio"];
+const WIN_OLD_ORDER=["El nombre prestado","Semillas para Ilse","Una lista así","Hombros","El nombre tachado","Cartas","Mellizos","Siete puertas","Inicio"];
 
 /* ----- state ----- */
 function winState(){
@@ -7406,7 +7406,7 @@ function winMood(town){
 function winMeet(mood,first){
   const W=winState(),M=WIN_MOODS[mood];W.met++;W.books[winKey()]=(W.books[winKey()]||0)+1;W.cool=40+Math.floor(MR()*20);W.seen[mood]=(W.seen[mood]||0)+1;
   W.here={f:S.floor,d:S.dg||'',r:S.room,t:S.town||'',mood,wares:null,bet:0};
-  out('');out(`{${M.c}}A small lantern comes bobbing toward you, burning ${M.lamp}.{n}`);
+  out('');out(`{${M.c}}Una pequeña linterna se acerca bamboleándose, ardiendo ${M.lamp}.{n}`);
   out(`{${M.c}}Winston ${M.t}`,'bossname');
   try{outDolls([heroFigure('npc:winston',null,'Winston')]);}catch(e){}
   out(first?'{w}A small boy in a coat of a hundred patches, far too big for him, is sitting on the floor eating an apple. He cannot be more than seven. "Hello," he says, as if you were late, in the voice of a very old man. "I am Winston. I wander. You must be the one with the thread. Everybody is talking about you, by which I mean the walls."{n}':`{w}Winston ${pick(MR,WIN_HELLO[mood])}{n}`,'story');
@@ -9611,7 +9611,7 @@ const LB_PEOPLE=[
  {id:'hale',n:'Watch-Captain Hale',pic:'npc:hale',x:"Lleva la Atalaya. Lee cada aviso dos veces y paga por un trabajo duro bien hecho."},
  {id:'ferryman',n:'The ferryman',pic:'npc:ferryman',x:"Cuida los Muelles Viejos. No ha llegado ningún barco desde que la Linterna se volvió azul: las rutas hacia los reinos lejanos se apagaron esa misma noche."},
  {id:'winston',n:"Winston el Errante",pic:'npc:winston',on:()=>!!(S.win&&S.win.met),x:"Un niño de unos siete años con un abrigo de cien remiendos, demasiado grande para él, un bastón más alto que él y una linternita que arde de un color distinto cada vez que lo ves. Habla como un viejo. Su título te dice lo que está a punto de hacer.",
-  more:[[()=>winState().heard.includes('The Borrowed Name'),"Winston es un nombre que tomó prestado de una lápida."],[()=>winState().heard.includes('Twins'),"Es el gemelo de Aster Vale, el hijo de Caius: el niño ofrendado que volvió a subir la escalera y dejó de crecer en el momento en que salió. Tiene trescientos años."]]},
+  more:[[()=>winState().heard.includes("El nombre prestado"),"Winston es un nombre que tomó prestado de una lápida."],[()=>winState().heard.includes("Mellizos"),"Es el gemelo de Aster Vale, el hijo de Caius: el niño ofrendado que volvió a subir la escalera y dejó de crecer en el momento en que salió. Tiene trescientos años."]]},
  {sec:"Abajo"},
  {id:'tobias',n:"Tobías",pic:'lantern',on:()=>bossDone(1),x:"Un niño al que la hermana Ilse escondió del sello en un jardín secreto. Es quien escribía con tiza ¿QUIÉN ALIMENTA LA LUZ? en la fuente."},
  {id:'tick',n:"Tic",pic:'lantern',on:()=>bossDone(2),x:"La máquina registradora de la Orden. Guarda una ficha de cada guardián que haya existido, y cada ficha dice VALE. Lo copia todo dos veces, porque el Hambre no puede comerse lo que está escrito dos veces."},
