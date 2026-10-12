@@ -435,7 +435,20 @@ span .cl{color:inherit}
 #saveTxt{background:var(--panel);border:1px solid var(--line);border-radius:6px;color:var(--fg);font:12px/1.4 var(--mono);padding:9px 10px;width:100%;box-sizing:border-box;word-break:break-all;resize:vertical}
 #sub .hc{color:var(--kr);font-weight:600}
 #sub .down{color:var(--kr);font-style:normal;font-weight:600}
-.abyss-top{text-align:center;color:var(--km);text-wrap:balance}
+/* the Brightest Lanterns on the title screen: the ten strongest heroes of every player, yours marked */
+.hero-board{margin:10px 0 4px;border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:10px 12px}
+.hb-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:2px 8px;margin-bottom:6px}
+.hb-head b{font-family:var(--disp);font-weight:normal;color:var(--accent);font-size:13px;letter-spacing:.06em}
+.hb-head small{color:var(--dim);font-size:11px}
+.hb-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;font-variant-numeric:tabular-nums}
+.hb-list li{display:grid;grid-template-columns:20px minmax(0,1fr) auto auto;gap:8px;align-items:baseline;font-size:12.5px;padding:3px 4px;border-radius:5px}
+.hb-list li.me{background:#eaa94a1f}
+.hb-n{color:var(--dim);text-align:right}
+.hb-list li:nth-child(-n+3) .hb-n{color:var(--accent)}
+.hb-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--fg)}
+.hb-name small{color:var(--dim);margin-left:6px}
+.hb-cls{color:var(--dim)}
+.hb-lv{color:var(--fg);font-weight:600}
 .store-book{border-left:4px solid var(--line);background:var(--panel2);border-radius:6px;padding:8px 12px;margin:6px 0;display:flex;flex-direction:column;gap:2px}.store-book small{color:var(--fg);opacity:.85}.store-o{border-color:var(--ko,#ffa04a)}.store-o b{color:var(--ko,#ffa04a)}.store-c{border-color:var(--kc,#62d6d6)}.store-c b{color:var(--kc,#62d6d6)}.store-r{border-color:var(--kr,#ff6e6e)}.store-r b{color:var(--kr,#ff6e6e)}.store-list{margin:8px 0;padding-left:20px}.store-list li{margin:3px 0}.store-link{text-align:center}
 .lb-set{border-color:var(--ky)!important}.lb-set>b{color:var(--ky)}.lb-set-r{border-color:var(--kr)!important}.lb-set-r>b{color:var(--kr)}.lb-set-b{border-color:var(--kb)!important}.lb-set-b>b{color:var(--kb)}.lb-set-m{border-color:var(--km)!important}.lb-set-m>b{color:var(--km)}.lb-set-g{border-color:var(--kg)!important}.lb-set-g>b{color:var(--kg)}.lb-set-o{border-color:var(--ko)!important}.lb-set-o>b{color:var(--ko)}.lb-set-c{border-color:var(--kc)!important}.lb-set-c>b{color:var(--kc)}.lb-set-w{border-color:var(--kw)!important}
 .news-v{color:var(--accent);margin:0 0 6px;font-size:13px;letter-spacing:.04em}#updNote{margin:8px 0}
@@ -574,7 +587,6 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
       <h1 class="title-words"><span class="tw-big">LANTERNS</span><span class="tw-of">of the</span><span class="tw-big">UNDERVAULT</span><span class="tw-sub">чотири книги · вісімдесят поверхів<br>ще чотири на підході · один рід</span></h1>
     </div>
     <p class="tag">Текстове підземелля в дусі старих MUD. Бийся, збирай здобич, приручай звірів і спускайся під Емберфол, щоб знову розпалити печатки, що згасають, а тоді рушай за темрявою через море.</p>
-    <p class="hint abyss-top" id="abyssTop" hidden></p>
     <div class="title-cards">
       <button id="titleLore" type="button" class="lb-open title-card"><b>Книга знань</b><span>Історія досі, її люди та легенди</span></button>
       <button id="titleFriends" type="button" class="title-card"><b>Загальна зала</b><span>Друзі, гра наживо та рейдові загони</span></button>
@@ -584,6 +596,7 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
     <p class="hint" id="moveInfo" role="status" hidden></p>
     <button id="accLink" class="link acc-link" type="button" hidden>Увійди, щоб мати своїх героїв на кожному пристрої</button>
     <div id="slots"></div>
+    <div class="hero-board" id="abyssTop" hidden aria-live="polite"></div>
     <a id="moveLink" class="link move-link" href="https://a-theme.github.io/move.html" hidden>Грав на a-theme.github.io? Перенеси своїх героїв</a>
     <div class="lbl">Новий герой</div>
     <label for="nameIn">Твоє ім'я</label>
@@ -6824,40 +6837,40 @@ function taleWelcome(){const away=Date.now()-(S.taleAt||0);if(S.flags.gift&&away
 
 const WIN_MOODS={
  wander:{t:'the Wanderer',c:'y',lamp:'gold',go:'Sit with him'},
- tale:{t:'the Storyteller',c:'b',lamp:'a clear evening blue',go:'Listen'},
+ tale:{t:'the Storyteller',c:'b',lamp:"ясно-вечірній синій",go:'Listen'},
  peddler:{t:'the Peddler',c:'o',lamp:'amber',go:'See his wares'},
- kind:{t:'the Kind',c:'g',lamp:'spring green',go:'Say hello'},
+ kind:{t:'the Kind',c:'g',lamp:"весняно-зелений",go:'Say hello'},
  asker:{t:'the Asker',c:'c',lamp:'sea-green',go:'Hear him out'},
- gambler:{t:'the Gambler',c:'r',lamp:'red, and winking',go:'Play'},
- lost:{t:'the Lost',c:'d',lamp:'grey, and very small',go:'Ask if he is all right'},
- trick:{t:'the Trickster',c:'m',lamp:'a colour that will not hold still',go:'Ask what he is up to'},
+ gambler:{t:'the Gambler',c:'r',lamp:"червоний, і підморгує",go:'Play'},
+ lost:{t:'the Lost',c:'d',lamp:"сірий і зовсім маленький",go:'Ask if he is all right'},
+ trick:{t:'the Trickster',c:'m',lamp:"кольору, що ніяк не встоїть на місці",go:'Ask what he is up to'},
  mourner:{t:'the Mourner',c:'w',lamp:'white',go:'Sit with him'},
- star:{t:'the Starbearer',c:'o',lamp:'a colour there is no name for',go:'Go to him'}
+ star:{t:'the Starbearer',c:'o',lamp:"кольору, якому немає назви",go:'Go to him'}
 };
 /* What he says as he arrives, by mood. */
 const WIN_HELLO={
- wander:['sits down on an upturned bucket as if it had been put there for him. "Now then," he says. "Every road goes somewhere. Most of them go here."','is leaning on his stick, admiring a crack in the wall. "Lovely crack," he says. "Took it a hundred years to get like that."'],
- tale:['is blowing soap bubbles through a clay pipe, and every bubble has a little rain in it. "Sit," he says. "I have a story that has been waiting for someone your size."','is turning a pebble over and over in his fingers. "This came from a kingdom you have not been to yet," he says. "Shall I tell you about it?"'],
- peddler:['has spread a blanket on the floor, and on the blanket are things that should not fit in one coat. "Everything has a price," he says, "and some of the prices are even gold."','is unpacking his pockets onto a crate. Several of the pockets are bigger on the inside. "Browse," he says. "Touch nothing that hums."'],
- kind:['beams at you as if you were exactly who he was hoping for. "There you are," he says. "I kept something for you."','is warming his hands at his little lantern. "You look like you could use a kindness," he says. "Most people could. You first."'],
- asker:['is frowning at a list written on the back of his hand. "Ah," he says. "You. You will do nicely. I need a small favour, and you have such capable boots."','is waiting with his hat in his hands, which is how you know it is serious. "I wonder," he says, "if I might ask you something."'],
- gambler:['is tossing a coin and catching it without looking. "Fancy a little wager?" he says. "I never cheat. I say so myself, which is how you know I might."','holds out both fists, knuckles up. "One of these has something in it," he says. "The other has nothing in it. Which is also something, philosophically."'],
- lost:['is turning slowly on the spot, peering at each doorway as if it might have moved. "I seem to have mislaid the stairs," he says. "They were here a moment ago. Or I was."','is sitting against the wall, very small inside his coat, and for a moment he looks like what everyone takes him for: a lost child. "I am not lost," he says, in a voice three hundred years old. "I am only waiting for the way out to come back."'],
- trick:['grins at you with too many of his teeth. "Oh, it is you," he says. "Good. Hold my hand. No, the other one."','has drawn a door on the wall in chalk, and is knocking on it. "Funny," he says. "It usually answers."'],
- mourner:['is sitting in the dark with his lantern turned down low. For once he does not get up. He looks very young, and very tired. "Sit with me a while," he says.','is looking at nothing at all, very hard. "I was remembering," he says. "It is a bad habit, at my age." He is perhaps seven. "Sit down, would you."'],
- star:['is standing very straight, and the light around him is the wrong colour for the world. "I have carried this a long way," he says, "and I think it was always meant to be yours."']
+ wander:["сідає на перекинуте відро, ніби його поставили саме для нього. «Ну що ж, — каже він. — Кожна дорога кудись веде. Більшість веде сюди.»","спирається на палицю й милується тріщиною в стіні. «Гарна тріщина, — каже він. — Сто років знадобилося, щоб такою стати.»"],
+ tale:["пускає мильні бульбашки з глиняної люльки, і в кожній бульбашці трохи дощу. «Сідай, — каже він. — Маю історію, що чекала саме на когось твого зросту.»","крутить у пальцях камінчик. «Це з королівства, де ти ще не бував, — каже він. — Розповісти тобі про нього?»"],
+ peddler:["розстелив на підлозі ковдру, а на ковдрі речі, що не мали б поміститися в одному плащі. «Усе має свою ціну, — каже він, — а деякі ціни навіть у золоті.»","викладає вміст кишень на ящик. Кілька кишень усередині більші, ніж зовні. «Роздивляйся, — каже він. — Тільки не чіпай нічого, що гуде.»"],
+ kind:["сяє тобі назустріч, ніби ти саме той, на кого він чекав. «Ось і ти, — каже він. — Я дещо для тебе приберіг.»","гріє руки біля свого ліхтарика. «Схоже, тобі не завадить трохи доброти, — каже він. — Як і майже всім. Ти перший.»"],
+ asker:["хмуриться на список, записаний на тильному боці долоні. «А, — каже він. — Ти. Ти якраз підійдеш. Мені треба невеличка послуга, а в тебе такі спроможні чоботи.»","чекає з капелюхом у руках, і з цього ти розумієш, що справа серйозна. «Цікаво, — каже він, — чи можна тебе дещо попросити.»"],
+ gambler:["підкидає монету й ловить її, не дивлячись. «Як щодо маленького парі? — питає він. — Я ніколи не шахраю. Сам це кажу, тож ти знаєш, що можу.»","простягає обидва кулаки кісточками догори. «В одному щось є, — каже він. — В іншому нічого немає. Що теж щось, якщо по-філософськи.»"],
+ lost:["повільно крутиться на місці, вдивляючись у кожен прохід, ніби той міг пересунутися. «Здається, я загубив сходи, — каже він. — Вони щойно були тут. Або я був.»","сидить під стіною, зовсім маленький у своєму плащі, і на мить скидається на того, ким його всі вважають: на загублену дитину. «Я не загубився, — каже він голосом, якому триста років. — Я просто чекаю, поки повернеться вихід.»"],
+ trick:["усміхається тобі надто багатьма зубами. «О, це ти, — каже він. — Добре. Тримай мене за руку. Ні, за іншу.»","намалював крейдою на стіні двері й стукає в них. «Дивно, — каже він. — Зазвичай відповідають.»"],
+ mourner:["сидить у темряві, прикрутивши ліхтар. Цього разу він не встає. Він здається дуже юним і дуже втомленим. «Посидь зі мною трохи», — каже він.","пильно дивиться в порожнечу. «Я згадував, — каже він. — Погана звичка в моєму віці.» На вигляд йому років сім. «Сядь, будь ласка.»"],
+ star:["стоїть дуже рівно, і світло довкола нього не того кольору, що має бути в цьому світі. «Я ніс це дуже далеко, — каже він, — і, гадаю, воно завжди мало бути твоїм.»"]
 };
 
 /* ----- his tales (Lore Book > Winston), told one at a time ----- */
 const WIN_TALES=[
- {k:'lamplighter',t:'The Lamplighter Who Lit the Sea',x:['In Solenne, before the violet, there was a lamplighter called Imre who could not bear to see anything dark. He lit every lamp in the city twice a night. When he had run out of lamps he rowed out into the harbour and began lighting the waves.','The waves went out, of course, being waves. But every night he rowed out and lit them again, and every night the fishermen came home by them. When he died they lit a lamp on the water for him, and it did not go out. "That is the trouble with lighting things," Winston says. "Sometimes it takes."']},
- {k:'teeth',t:'Why the Teeth Have Teeth',x:['The mountains north of Emberfall used to be smooth as eggs. Then a giant came who was so hungry he took a bite out of the sky, and the sky, being bigger, bit back.','The Teeth are what is left of the giant. The sky never did heal properly. That is why the weather up there is so bad: it is still angry.']},
- {k:'summers',t:'The Summer That Went South',x:['In the north, in Kaldmark, there used to be summers. Short ones, mind, with mosquitoes. Then one spring a lady came through the villages in a sunhat, buying. She paid in honey and in seeds that grew overnight, and she bought one summer from each village, just one, very politely.','The next year she came back and bought another. The year after, there were none left to sell, and she was sorry about that, and she did not come back. The villages up there have been cold ever since. "She meant no harm," Winston says. "That is the worst kind."']},
- {k:'sunhat',t:'The Lady in the Sunhat',x:['A turnip-farmer in the Sunward Hills once found a woman lying in his field with her wings folded up like a wet umbrella. She asked him where the warm was. He said it was July, and she said, "Is that all of it?"','He gave her his coat, because she was shivering in July. She kept the coat. Years later his grandchildren found a garden on the hill where he had found her, where it was always summer, and nobody would go in. "She was very fond of that farmer," Winston says. "She planted him, at the end. So he would stay."']},
- {k:'widow',t:"The Widow's Other Lantern",x:['Everyone on the Glass Shoals knows the Lamplit Widow dangles a lantern to draw ships onto the rocks. Fewer know she has a second one, in her other hand, that she never lights.','It was her husband\'s. He went out after a ship in a storm and did not come back, and she has been waiting to light it until he does. "Some lanterns are for seeing by," Winston says. "Some are for being seen."']},
- {k:'doorabove',t:'The Door Above',x:['Everyone counts the doors that go down. Hardly anyone counts the one that goes up. It is in the sky over the warmest country in the world, and it is very small, and once in a great while something falls out of it.','"Usually it is a star," Winston says. "Once, it was a person. She has never really forgiven the ground for being so hard."']},
- {k:'tobble',t:"Tobble's First Beast",x:['When Old Tobble was young Tobble he found a beast in the Undervault the size of a teacup and the temper of a bear. He put it in his pocket. It ate the pocket. He put it in his other pocket.','He has been sewing new pockets ever since. "That is why he has so many," Winston says, "and why several of them move. One of them is still the first beast. He will not tell you which."']},
- {k:'bell',t:'The Bell That Rang for Tea',x:['The Order once had a bellringer who believed every hour should have tea in it. The Order disagreed. So he rang the hours with a teaspoon on the great bell, very quietly, and everyone in the tower stopped what they were doing and did not know why.','"That was Tock," Winston says. "Before the clocks got into him. He was a lovely man. Terrible at tea."']},
+ {k:'lamplighter',t:'The Lamplighter Who Lit the Sea',x:["У Соленні, ще до фіолетового, жив ліхтарник на ім'я Імре, який не міг бачити нічого в темряві. Він запалював кожен ліхтар у місті двічі за ніч. Коли ліхтарі скінчилися, він випливав на човні в гавань і почав запалювати хвилі.","Хвилі, звісно, гасли, бо вони хвилі. Та щоночі він випливав і запалював їх знову, і щоночі рибалки поверталися додому за ними. Коли він помер, на воді запалили ліхтар на його честь, і той не згас. «Ось у чому біда із запалюванням, — каже Вінстон. — Іноді воно приживається.»"]},
+ {k:'teeth',t:'Why the Teeth Have Teeth',x:["Гори на північ від Емберфолу колись були гладенькі, як яйця. А тоді прийшов велетень, такий голодний, що відкусив шматок неба, і небо, бувши більшим, укусило його у відповідь.","Зуби — це те, що лишилося від велетня. Небо так і не загоїлося як слід. Ось чому там угорі така погана погода: воно досі сердиться."]},
+ {k:'summers',t:'The Summer That Went South',x:["На півночі, у Кальдмарку, колись бувало літо. Коротке, правда, і з комарами. Аж одної весни селами пройшлася пані в капелюшку від сонця й купувала. Платила медом і насінням, що проростало за ніч, і купила в кожного села по одному літу, лише одному, дуже чемно.","Наступного року вона повернулася й купила ще одне. А ще через рік продавати вже не було чого, і їй було прикро, і вона більше не приходила. Відтоді в тих селах холодно. «Вона не хотіла лихого, — каже Вінстон. — Це найгірший різновид.»"]},
+ {k:'sunhat',t:'The Lady in the Sunhat',x:["Один ріпник із Сонячних Пагорбів якось знайшов у своєму полі жінку, що лежала, склавши крила, наче мокру парасольку. Вона спитала, де тепло. Він сказав, що зараз липень, а вона відповіла: «І це все?»","Він віддав їй свій плащ, бо вона тремтіла в липні. Плащ вона залишила собі. Через багато років його онуки знайшли на тому пагорбі, де він її знайшов, сад, де завжди було літо, і ніхто не хотів туди заходити. «Вона дуже любила того фермера, — каже Вінстон. — Наприкінці вона його посадила. Щоб він лишився.»"]},
+ {k:'widow',t:"The Widow's Other Lantern",x:["На Скляних Мілинах усі знають, що Вдова з Ліхтарем вимахує ліхтарем, щоб заманювати кораблі на скелі. Менше хто знає, що в іншій руці в неї є другий, який вона ніколи не запалює.","Він належав її чоловікові. Той вийшов у шторм рятувати корабель і не повернувся, а вона чекає, поки він вернеться, щоб запалити ліхтар. «Деякі ліхтарі для того, щоб бачити, — каже Вінстон. — А деякі — щоб тебе побачили.»"]},
+ {k:'doorabove',t:'The Door Above',x:["Усі рахують двері, що ведуть униз. Майже ніхто не рахує ті, що ведуть угору. Вони в небі над найтеплішою країною світу, дуже маленькі, і зрідка щось із них випадає.","«Зазвичай це зірка, — каже Вінстон. — Одного разу це була людина. Вона так і не пробачила землі, що та така тверда.»"]},
+ {k:'tobble',t:"Tobble's First Beast",x:["Коли старий Тоббл був молодим Тобблом, він знайшов в Андерволті звіра завбільшки з чайну чашку і з норовом ведмедя. Він сховав його в кишеню. Звір з'їв кишеню. Тоді він сховав його в другу кишеню.","Відтоді він пришиває нові кишені. «Тому їх у нього так багато, — каже Вінстон, — і тому деякі з них ворушаться. В одній досі сидить той перший звір. Він не скаже тобі, в якій.»"]},
+ {k:'bell',t:'The Bell That Rang for Tea',x:["Колись у Ордені був дзвонар, який вважав, що в кожній годині має бути чай. Орден був іншої думки. Тож він відбивав години чайною ложечкою по великому дзвону, зовсім тихо, і всі у вежі зупинялися, самі не знаючи чому.",'"That was Tock," Winston says. "Before the clocks got into him. He was a lovely man. Terrible at tea."']},
  {k:'smith',t:"Hammerhall's Seventh Smith",x:['In Hammerhall the smiths sing in teams of six, because six voices keep a hammer in time. There was once a seventh, who sang alone, and forged alone, and everything she made rang the whole note by itself.','When she died they kept a seventh anvil empty in every forge. They still do. "Odo will tell you it is for luck," Winston says. "It is for her."']},
  {k:'ironcrown',t:'The Iron Crown',x:['Three hundred years ago a king of the north wore a crown of cold iron, and he gave a young knight a lantern and a charter and told him to go south and hold a door. The knight\'s name was Arden.','"The king kept a copy of the charter," Winston says, and for a moment he does not look like he is telling a story. "Kings always keep a copy. That is what makes them dangerous."']},
  {k:'marrowgate',t:'Marrowgate, Where Nobody Speaks',x:['There is a kingdom in the west where people talk only in their hands. They were not born quiet. Something under their city listens, and what it hears it keeps, and they would rather keep their voices.','"I went there once," Winston says. "I said hello at the gate. I have never got it back." He smiles, but not with his eyes.']},
@@ -10261,16 +10274,17 @@ function showLeaderboard(){
     scrollDown();
   }).catch(()=>{out("{d}Не вдалося зв'язатися з таблицею. Ти офлайн?");scrollDown();});
 }
-/* Title-screen teaser: the three strongest heroes (or, until that board is open, the top 3 of the Abyss), so
-   players know the leaderboard exists. */
+/* Title screen: the Brightest Lanterns, the ten strongest heroes of every player on the server, as a list, with this
+   device's own heroes marked. Hidden offline, or until the board is open on the server. */
 function titleLeaderboard(){
   const el=$('#abyssTop');if(!lbReady()){el.hidden=true;return;}
-  lbRows('hero_leaderboard?select=name,cls,lvl,might,player&limit=3').then(rows=>{if(!Array.isArray(rows)||!rows.length)return Promise.reject(0);
-    el.textContent="Найяскравіші Ліхтарі: "+rows.map((x,i)=>(i+1)+'. '+boardName(x)+' ('+((CLASSES[x.cls]||{}).n||'?')+") рівень "+(Number(x.lvl)||0)).join('  ·  ');el.hidden=false;})
-  .catch(()=>lbRows('abyss_leaderboard?select=name,cls,depth,player&limit=3').catch(()=>[]).then(rows=>{
-    if(!Array.isArray(rows)||!rows.length){el.textContent="Таблиця Безодні порожня. Будь першим, хто спуститься.";el.hidden=false;return;}
-    el.textContent="Найглибше в Безодні: "+rows.map((x,i)=>(i+1)+'. '+boardName(x)+' ('+((CLASSES[x.cls]||{}).n||'?')+") поверх "+(Number(x.depth)||0)).join('  ·  ');el.hidden=false;
-  }).catch(()=>{el.hidden=true;}));
+  const mine=new Set(HERO_SLOTS.map(n=>{const s=loadSave(n);return s&&s.cid;}).concat(S&&S.cid).filter(Boolean)),nm=v=>esc(clean(String(v||'?')).slice(0,16));
+  lbRows('hero_leaderboard?select=run_id,name,cls,lvl,might,player&limit=10').then(rows=>{
+    if(!Array.isArray(rows)){el.hidden=true;return;}
+    el.innerHTML='<div class="hb-head"><b>The Brightest Lanterns</b><small>the strongest heroes in the game</small></div>'+(rows.length?'<ol class="hb-list">'+rows.map((x,i)=>
+      `<li${mine.has(x.run_id)?' class="me"':''}><span class="hb-n">${i+1}</span><span class="hb-name">${nm(x.name)}${x.player?`<small>${nm(x.player)}</small>`:''}</span><span class="hb-cls">${esc((CLASSES[x.cls]||{}).n||'?')}</span><span class="hb-lv">Lv ${Number(x.lvl)||0}</span></li>`).join('')+'</ol>'
+      :'<p class="hint">Nobody is on it yet. Be the first.</p>');
+    el.hidden=false;}).catch(()=>{el.hidden=true;});
 }
 function cmdLeaderboard(arg){
   if(arg==='off'){pref('lb','0');out("{d}Ти більше не надсилатимеш результати до таблиці.");return;}
