@@ -4029,7 +4029,7 @@ function sceneCleared(D){return {t:'relit',kicker:"VIDÉ",title:D.name.toUpperCa
 /* Recall: Maren's thread of blue light pulls you up through every floor at once. */
 function sceneRecall(){const sol=S&&S.town==='solenne';return {t:'recall',kicker:"LE FIL DE LA LANTERNE",title:sol?'SOLENNE':'EMBERFALL',sub:sol?"Le fil vous tire jusqu'au Collège de Verre.":"L'obscurité se replie, et vous voilà chez vous.",col:'#7aaeff',fx:'warp',sound:'recall',auto:1800};}
 function sceneDeath(hard,sol){return {t:'death',kicker:hard?'HARDCORE':"VOUS ÊTES TOMBÉ",title:hard?"VOTRE HISTOIRE S'ACHÈVE":"LE FIL TIRE",sub:hard?"Cette fois, rien ne tire.":sol?"À travers la mer et la roche, jusqu'au Collège de Verre.":"À travers le noir, jusqu'au sol du Temple.",col:'#ff6e6e',fx:'ash',auto:2800};}
-function sceneEnding(key){const L=ENDINGS[key].map(plainTxt),last=L[L.length-1];return {t:'act',kicker:"FIN",title:last.replace(/^ENDING:\s*/,''),text:L.slice(0,-1).join('  '),col:'#f3d36b',fx:'spark',art:'lantern',sound:'relit'};}
+function sceneEnding(key){const L=ENDINGS[key].map(plainTxt),last=L[L.length-1];return {t:'act',kicker:'THE END OF BOOK I',title:last.replace(/^ENDING:\s*/,''),text:L.slice(0,-1).join('  '),col:'#f3d36b',fx:'spark',art:'lantern',sound:'relit'};}
 /* Opening a chest: it sits, shakes, the lid pops and the loot comes out. A mimic bares its teeth instead. */
 function sceneChest(tier,loot,mimic){const C=CHESTS[tier]||CHESTS.iron;
   return {t:'chest',chest:tier,mimic:!!mimic,kicker:"TRÉSOR",title:C.n.toUpperCase(),openKicker:mimic?"C'ÉTAIT UN PIÈGE":null,openTitle:mimic?"MIMIQUE !":null,loot:loot||[],col:SC_COL[C.col]||'#f3d36b',fx:mimic?'ash':'spark'};}
@@ -5035,7 +5035,7 @@ function book2Choose(arg){
   const coda={seal:`As the keeper, you feel the seal above go quiet and warm, like a hearth banked for the night.`,crown:`Your crown cools in your hands. For the first time since you took it, it is only a crown.`,shatter:`Caius takes your hand on the long stair home. {r}"Every hand,"{n} he says. {r}"Every single one."`}[S.flags.ended];
   if(coda)out(coda,'story');
   out('');out('{y}THE END OF BOOK II.','huge');out(`{d}Seed ${S.seed}, level ${S.lvl}, ${S.kills} kills, ${S.deaths} deaths.`);
-  out(`{@ngplus|Begin New Game+}{d} keeps your level, gear and pets; new seed, deadlier dungeon.{n} {d}The Abyss still waits beneath the Throne.`);
+  out(`{d}The story goes on: Book III lies across the sea. The Abyss still waits beneath the Throne.{n}`);
   out('');out(`{o}BOOK III: ACROSS THE ASHEN SEA{n}  {d}Word comes up from the harbour: a ship with a candle-coloured sail, the first in years. When you are ready, go down to the Old Docks.`);
   save(true);
 }
@@ -6957,7 +6957,7 @@ function book3Choose(arg){
   out(`Back in the Palace of Dawn, Queen Aurelie unrolls Arden's chart on her table, and the two of you look at it for a long time: seven doors, in seven kingdoms. Two are shut now. Five are not.`,'story');
   out(`{y}"Five,"{n} she says. {y}"Well. We had better find some ships."`,'story');
   out('');out('{y}THE END OF BOOK III.','huge');out('{c}The story continues.','huge');out(`{d}Seed ${S.seed}, level ${S.lvl}, ${S.kills} kills, ${S.deaths} deaths.`);
-  out(`{d}The deep places, their Nightmares, the Underside and the Abyss are all still there.{n} {@ngplus|Begin New Game+}{d} keeps your level, gear and pets.`);
+  out(`{d}The deep places, their Nightmares, the Underside and the Abyss are all still there.{n}`);
   save(true);
 }
 function book3Quick(add){if(book3Lore()>=15)add('Turn the tide','choose tide','gold');add('Close the second door','choose shut','foe');}
@@ -10462,7 +10462,7 @@ function journal(){
   LORE_KINDS.filter(K=>K.from<=loreMax()).forEach(K=>{const L=S.lore.filter(n=>loreKind(n)===K);
     out(`{${K.col}}${K.many} ${L.length}/15:{n} `+(L.length?L.map(n=>`{@lore ${n}|#${n-K.from+1}}`).join(' '):"{d}aucun pour l'instant. Il en est un sur la plupart des étages du Livre "+K.book+'.'));});
   {const E=[S.flags.ended&&"Livre I : "+S.flags.ended,S.flags.ended2&&"Livre II : "+S.flags.ended2,S.flags.ended3&&"Livre III : "+(S.flags.ended3==='close'?'shut':S.flags.ended3),S.flags.ended4&&"Livre IV : "+S.flags.ended4].filter(Boolean);
-   if(E.length)out(`{o}Fins atteintes : ${E.join(', ')}.{n} {@ngplus|Commencer une Nouvelle Partie+}`);}
+   if(E.length)out(`{o}Endings reached: ${E.join(', ')}.{n}`+(storyDone()?' {@ngplus|Begin New Game+}':''));}
 }
 function choose(arg){
   if(S.flags.choosing4)return book4Choose(arg);
@@ -10474,17 +10474,50 @@ function choose(arg){
   S.flags.choosing=false;S.flags.ended=arg;submitRace();liveMoment("a terminé l'histoire : "+plainTxt(ENDINGS[arg][ENDINGS[arg].length-1]).replace(/^ENDING:\s*/,'').toLowerCase()+'.');if(!queueScene(sceneEnding(arg)))sfx('relit');out('');ENDINGS[arg].forEach(t=>out('{w}'+t,'story'));if(VOICE[S.cls])out('{d}'+VOICE[S.cls].ending,'story');
   out('');out(`{m}Loin sous le Trône, quelque chose a remarqué que la porte est ouverte. L'Abîme attend.{n} {d}Pell, à la Porte, peut vous y descendre.`);
   book2Teaser();
-  out('');out("{y}FIN.",'huge');out(`{d}Seed ${S.seed}, level ${S.lvl}, ${S.kills} kills, ${S.deaths} deaths.`);
-  out(`{@ngplus|Commencer une Nouvelle Partie+}{d} garde votre niveau, votre équipement et vos familiers ; nouvelle graine, donjon plus mortel.`);
+  out('');out('{y}THE END OF BOOK I.','huge');out('{c}But not of the story.','huge');out(`{d}Seed ${S.seed}, level ${S.lvl}, ${S.kills} kills, ${S.deaths} deaths.`);
+  out(`{d}The story goes on: Book II begins below the Throne.{n}`);
   save(true);
 }
-function ngplus(){
-  if(!S.flags.ended){out("La Nouvelle Partie+ se débloque une fois l'histoire terminée.");return;}
+/* New Game+ starts the whole story over with your level, gear and pets. It opens only when the whole story is done, at
+   the end of Book VIII, so finishing a book never asks you to start again. */
+const STORY_LAST=8;
+function storyDone(){return !!(S&&S.flags['ended'+STORY_LAST]);}
+function ngplus(arg){
+  if(!storyDone()){out(`New Game+ opens when the whole story is told, at the end of Book ${ROMAN8[STORY_LAST]}. Your story goes on.`);return;}
+  if(arg!=='yes'){out(`{y}Start the whole story again?{n} {d}You keep your level, gear and pets; the story, your seed and every floor begin again.{n} {@ngplus yes|Yes, begin New Game+}`);return;}
   const keep={};['forgeFriend','summer','saltLamp','memTwice','eskFriend','ysolde','ottilie','haleFriend','gateFree','wickOil'].forEach(k=>{if(S.flags[k])keep[k]=1;});   /* mission rewards that say "forever" */
   S.ng++;S.story={};S.dreams={};S.dgOpen={};S.taleL=0;S.b2=[false,false,false,false,false];S.b3=[false,false,false,false,false];S.b4=[false,false,false,false,false];S.b5=[false,false,false,false,false];S.war=null;S.uniq4={};S.voy=voyFresh(S.voy);S.town='emberfall';S.seed=randomSeed();S.layout=2;S.floors={};S.deepest=0;S.dg=null;S.side={};S.dgDone={};S.dgRuns={};S.bosses=[false,false,false,false,false];S.lore=[];S.flags=Object.assign({gift:1},keep);S.smith=null;S.fight=false;S.fx={};
   const st=stats();S.hp=st.mhp;S.mp=st.mmp;
   term.innerHTML='';out(`{o}NOUVELLE PARTIE+${S.ng}{n} {d}Graine ${S.seed}. Les lanternes vacillent à nouveau. Quelque chose, en bas, a remarqué votre retour.`);
   toTown(0);if(S.live){liveStop();liveStart();}
+}
+/* Started New Game+ by accident, back when it sat in town after Book I? The seed race board kept your old run (its seed,
+   how deep you went, the keepers you felled, the latest ending), so this puts that story back. Your level, gear, pets
+   and gold were never touched. What the board never saw (lore scrolls, side dungeons, explored rooms) starts fresh. */
+const END_DEFAULT=['','seal','close','close','share','keeper'];
+function ngUndoable(){return !!(S&&S.ng>0&&!storyDone()&&!S.ngBack&&S.cid);}
+function cmdOldStory(arg){
+  if(!ngUndoable()){out('There is no New Game+ to undo.');return;}
+  if(S.fight){out("Pas pendant un combat.");return;}
+  if(!lbReady()){out('The race board is not reachable from here.');return;}
+  if(arg!=='yes'){out(`{y}Go back to your story from before New Game+?{n} {d}Your seed, how deep you went, the keepers you felled and how your books ended come back from the race board. Your level, gear, pets and gold stay as they are; lore scrolls and side dungeons start fresh.{n} {@oldstory yes|Yes, take me back}`);return;}
+  out('{d}Asking the race board for your old story...{n}');
+  lbFetch(`seed_runs?select=seed,deepest,bosses,ended,ng,created_at&run_id=eq.${encodeURIComponent(S.cid)}&ng=lt.${S.ng|0}&order=created_at.desc&limit=1`)
+    .then(r=>r.ok?r.json():[]).then(rows=>{const row=Array.isArray(rows)&&rows[0];
+      if(!row||!row.seed){out('{r}The race board has no record of your story from before New Game+.{n} {d}If you saved a code before, use Import save on the title screen.{n}');return;}
+      restoreOld(row);})
+    .catch(()=>out('{r}Could not reach the race board. Try again in a moment.{n}'));
+}
+function restoreOld(row){
+  if(!ngUndoable())return;
+  S.ng=Math.max(0,row.ng|0);S.seed=String(row.seed);S.floors={};S.dg=null;S.deepest=clamp(row.deepest|0,0,100);
+  const n=clamp(row.bosses|0,0,40),books=Math.floor(n/5);for(let bi=0;bi<n;bi++)setBossDone(bi);
+  for(let k=1;k<=books;k++){
+    if(k===books&&!row.ended&&n===books*5){S.flags[k>1?'choosing'+k:'choosing']=true;break;}   /* they stood at the choice */
+    let e=k===books&&row.ended?String(row.ended):END_DEFAULT[k];if(k===3&&e==='shut')e='close';S.flags[k>1?'ended'+k:'ended']=e;}
+  S.ngBack=1;S.raceSent=null;S.films=undefined;
+  out(`{g}Your story is back.{n} {d}Seed{n} {w}${S.seed}{n}{d}, deepest floor ${S.deepest}, ${n} keeper${n===1?'':'s'} felled.{n}`);
+  toTown(0);save(true);render();
 }
 function where(){out(`{d}${S.floor?(S.dg?`${theme().name}, floor ${floorLabel()}`:`Étage ${S.floor}, ${theme().name}`):townName()}. Graine {w}${S.seed}{d}. Étage le plus profond : ${S.deepest}.`);}
 function examine(arg){
@@ -10615,7 +10648,7 @@ defc('say chat',(a,raw)=>liveSay(raw));defc('mute',a=>liveMute(a,true));defc('un
 defc('stash',cmdStash);defc('withdraw unstash',cmdWithdraw);
 defc('upgrade up',cmdUpgrade);defc('reforge',cmdReforge);defc('train',cmdTrain);
 defc('talents tal',showTalents);defc('talent',spendTalent);defc('respec',cmdRespec);
-defc('ngplus',ngplus);
+defc('ngplus',ngplus);defc('oldstory',cmdOldStory);
 defc('clear cls',()=>{term.innerHTML='';});
 defc('autoloot',()=>{S.autoloot=!S.autoloot;out("Ramassage auto "+(S.autoloot?'on':'off')+'.');});
 defc('alias',(x,a)=>{
@@ -10949,7 +10982,8 @@ function renderQuick(){
     if(S.floor>0&&r.exits.u==='riftout')add("Remonter",'u','gold');
     if(S.floor>0&&r.type!=='start'&&!r.rested&&!r.mobs.length)add("Repos",'rest');
     const st=stats();const h=findPot('hp');if(h&&S.hp<st.mhp*0.6)add(`Boire un soin x${h.qty}`,'use healing');
-    if(S.flags.ended)add("Nouvelle partie+",'ngplus','gold');
+    if(storyDone())add("Nouvelle partie+",'ngplus','gold');
+    if(S.floor===0&&ngUndoable())add('Back to my old story','oldstory','gold');
     if(S.floor>0&&S.dg!=='underside')add("Rappel",'recall','end');   /* last, at the far right, away from the movement pad */
   }
   $('#quick').innerHTML=q.map(([l,c,k])=>`<button type="button" class="qb ${k}" data-cmd="${esc(c)}">${esc(l)}</button>`).join('');
