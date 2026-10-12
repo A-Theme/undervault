@@ -572,6 +572,11 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
 .sc-stats b{font-family:var(--disp);font-weight:normal;font-size:clamp(28px,9vw,44px);color:var(--kw);text-shadow:0 0 18px var(--sc);font-variant-numeric:tabular-nums}
 .sc-stats span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sc)}
 .sc-hero{filter:drop-shadow(0 0 20px var(--sc));animation:scBoss 1.1s ease-out both}
+/* rare pets: Gilded glows gold; Starborn shimmers through every colour */
+.pet-r1 .hero-anim,.pet-r1>.hero-anim{filter:sepia(.35) saturate(1.7) drop-shadow(0 0 6px #f3d36b)}
+.pet-r2 .hero-anim,.pet-r2>.hero-anim{animation:petStar 3.2s linear infinite}
+@keyframes petStar{0%{filter:hue-rotate(0deg) saturate(1.5) drop-shadow(0 0 8px #fff)}50%{filter:hue-rotate(180deg) saturate(1.8) drop-shadow(0 0 14px #d48cff)}100%{filter:hue-rotate(360deg) saturate(1.5) drop-shadow(0 0 8px #fff)}}
+.pet-r1 figcaption{color:#f3d36b}.pet-r2 figcaption{color:#d48cff}
 @keyframes scIn{from{opacity:0}to{opacity:1}}
 @keyframes scUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes scTitle{0%{opacity:0;transform:scale(.6);letter-spacing:.3em}100%{opacity:1;transform:none;letter-spacing:.04em}}
@@ -952,7 +957,13 @@ const PETS={
  voidling:{n:'Voidling',hp:36,atk:9,ab:'drain',an:'Unmake'}
 };
 /* Pet evolution: each species changes form at level 10 and 20 (+25% stats per stage, +5% ability chance). */
+/* Rare and legendary pets (creatures.js draws them; engine.js rolls them). Any tamed or hatched pet may be Gilded (rare,
+   1 in 120) or Starborn (legendary, 1 in 1500); and three legendary kinds come only from the rarest eggs. */
+const LEGEND_PETS=['phoenix','moonfox','starwyrm'],PET_RARE=['','Gilded','Starborn'],PET_RARE_MUL=[1,1.3,1.7];
+Object.assign(PETS,{phoenix:{n:'Ember Phoenix',hp:40,atk:11,ab:'heal',an:'Rising Flame'},moonfox:{n:'Moon Fox',hp:42,atk:11,ab:'insight',an:'Silver Dream'},
+ starwyrm:{n:'Star Wyrm',hp:50,atk:13,ab:'breath',an:'Starfire Breath'}});
 const PETEVO={
+ phoenix:['Sunfire Phoenix','The Undying Flame'],moonfox:['Silvertail','Fox of a Thousand Moons'],starwyrm:['Comet Wyrm','Wyrm of the Last Sky'],
  wolf:['Dire Wolf','Moonfang Alpha'],raven:['Storm Raven','Omen of Ash'],salamander:['Cinder Salamander','Fireheart Basilisk'],
  wisp:['Lantern Spirit','Last-Light Seraph'],drake:['Ember Wyrm','Sovereign Drake'],mimic:['Greater Mimic','Treasure Hoarder'],
  rat:['Plague Rat','Rat King'],crab:['Ironshell Crab','Siltlord'],leech:['Blood Leech','Gorging Swarm'],spider:['Widow Spider','Silkmother'],
@@ -2082,7 +2093,7 @@ const LORE_KINDS=[
 const loreKind=n=>{let K=LORE_KINDS[0];LORE_KINDS.forEach(k=>{if(n>=k.from)K=k;});return K;};
 function iname(it){
   if(it.kind==='potion')return `{${POT[it.key].c}}${POT[it.key].n}{n}`+(it.qty>1?` x${it.qty}`:'');
-  if(it.kind==='egg')return `{y}${PETS[it.sp].n} Egg{n}`;
+  if(it.kind==='egg')return LEGEND_PETS.includes(it.sp)?`{m}${PETS[it.sp].n} Egg{n} {d}(legendary){n}`:`{y}${PETS[it.sp].n} Egg{n}`;
   if(it.kind==='scroll'){const K=loreKind(it.lore);return `{${K.col}}${K.a}{n}`;}
   return `{${it.set?'y':RAR[it.rar].c}}${it.name}{n}`+(it.up?` {y}+${it.up}{n}`:'');
 }
@@ -2170,14 +2181,21 @@ function petAdd(pt){
 }
 const PET_FULL=()=>`Your menagerie (${PARTY_MAX}) and Tobble's kennels (${KENNEL_MAX}) are both full. Dismiss a pet first.`;
 function petStage(p){return p.lvl>=20?2:p.lvl>=10?1:0;}
-function petForm(p){const s=p.evo||0;return s?PETEVO[p.sp][s-1]:PETS[p.sp].n;}
+function petForm(p){const s=p.evo||0,f=s?PETEVO[p.sp][s-1]:PETS[p.sp].n;return p.rare?PET_RARE[p.rare]+' '+f:f;}
+/* a pet you tame or hatch may be born Gilded or Starborn; the three legendary kinds are always at least Gilded */
+function rollPetRarity(p){
+  const leg=LEGEND_PETS.includes(p.sp),x=MR(),plain=petForm(p);p.rare=leg?(x<0.1?2:1):x<1/1500?2:x<1/120?1:0;
+  if(p.rare&&p.nick===plain)p.nick=petForm(p);   /* its name carries the shine, and keeps it as it grows */
+  if(p.rare){sfx('legend');flashTerm('gold');out(p.rare===2?`{m}*** A STARBORN ${petForm(p).replace(/^Starborn /,'').toUpperCase()}! ***{n} {d}A legendary pet: one in fifteen hundred. Its light does not come from any lamp.{n}`:`{y}*** A GILDED ${petForm(p).replace(/^Gilded /,'').toUpperCase()}! ***{n} {d}A rare pet: stronger, and quicker with its gift.{n}`,'lvlup');}
+  return p;
+}
 /* Moves a pet to the form its level has earned. A pet still wearing its species name takes the new one. */
 function checkEvolve(p,quiet){
   const st=petStage(p);if(st<=(p.evo||0))return;
   const was=petForm(p);p.evo=st;const now=petForm(p);if(p.nick===was||p.nick===PETS[p.sp].n)p.nick=now;
   p.hp=petStats(p).mhp;if(!quiet)out(`{g}*** ${was===p.nick?was:p.nick} evolves into ${/^[aeiou]/i.test(now)?'an':'a'} ${now}! ***{n} {d}(+25% health and attack, uses its ability more often)`);if(!quiet)outDolls([petFigure(p,now,3)]);if(!quiet)liveMoment(`watched ${was} evolve into ${/^[aeiou]/i.test(now)?'an':'a'} ${now}.`);
 }
-function petStats(p){const b=PETS[p.sp],t=(1+(stats().petPct||0)/100)*(1+0.25*(p.evo||0));return{mhp:Math.round(b.hp*(1+0.2*(p.lvl-1))*t),atk:Math.round(b.atk*(1+0.18*(p.lvl-1))*t)};}
+function petStats(p){const b=PETS[p.sp],t=(1+(stats().petPct||0)/100)*(1+0.25*(p.evo||0))*(PET_RARE_MUL[p.rare|0]||1);return{mhp:Math.round(b.hp*(1+0.2*(p.lvl-1))*t),atk:Math.round(b.atk*(1+0.18*(p.lvl-1))*t)};}
 function newPet(sp,lvl){const p={sp,nick:PETS[sp].n,lvl:Math.max(1,lvl),xp:0,hp:0};checkEvolve(p,true);p.hp=petStats(p).mhp;return p;}
 function healPets(frac,passive){S.pets.forEach(p=>{if(p.hp<=0&&passive)return;const m=petStats(p).mhp;if(p.hp<=0&&S.floor>0)out(`{g}${p.nick} stirs, and gets back up.`);p.hp=Math.min(m,p.hp+Math.ceil(m*frac));});}
 /* A downed pet has until you leave the floor: a Pet Treat, a rest, a shrine or a well brings it back.
@@ -2598,7 +2616,7 @@ function petTurn(m){
   const p=activePet();if(!p||p.hp<=0||m.hp<=0)return;
   const ps=petStats(p),B=PETS[p.sp];const a=ps.atk*(0.8+MR()*0.4)*(S.fx.petbuff?1.5:1);
   const deal=(x,l)=>{const d=Math.max(1,Math.round(x));m.hp-=d;sfx('pet');out(`{g}${petLine(p,l,m)}{n} {d}(${d})`);return d;};
-  if(chance((S.cls==='ranger'?0.4:0.3)+(stats().petAbil||0)/100+0.05*(p.evo||0))){
+  if(chance((S.cls==='ranger'?0.4:0.3)+(stats().petAbil||0)/100+0.05*(p.evo||0)+0.08*(p.rare|0))){
     const st=stats();
     switch(B.ab){
       case 'bite':deal(a*2,B.an);break;
@@ -2743,6 +2761,7 @@ function victory(m){
   else if(m.boss){
     drops.push(randomGear(MR,depth()+1,tl,rarCap(MR()<(m.dg?(DUNGEONS[m.dg].endless?0.01:0.02):0.04)+(tb?tb.leg:0)?4:3,depth()+1)));   /* story bosses 4%, side 2%, Abyss heralds 1% */drops.push(randomGear(MR,depth(),15+tl));drops.push({kind:'potion',key:'hp',qty:2});
     if(m.bi===1)drops.push({kind:'egg',sp:'wisp'});if(m.bi===3)drops.push({kind:'egg',sp:'drake'});
+    if(!m.dg&&m.bi%5===4&&chance(0.02))drops.push({kind:'egg',sp:pick(MR,LEGEND_PETS)});   /* each book's last keeper: one in fifty, a legendary egg */
   }else{
     if(chance((m.elite?0.6:0.2)+0.05*(m.party||0)+(tb?0.05:0)))drops.push(randomGear(MR,depth(),(m.elite?12:0)+tl));
     if(chance(0.16))drops.push({kind:'potion',key:chance(0.65)?'hp':'mp',qty:1});
@@ -3592,6 +3611,9 @@ const PET_LOOK={
  rimefox:{t:'dog',c:C3('#f2faff','#c0dcf0','#86a8c8'),b:C3('#ffffff','#e6f4ff','#b8d2ea'),eye:'#4ac8c8',ear:'big',tail:'bush',frost:true},
  ferret:{t:'dog',c:C3('#dcb486','#b48a58','#7c5a36'),b:C3('#f6e8cc','#e2caa2','#b29a72'),eye:'#22202e',ear:'round',tail:'thin',long:true,mask:true},
  rat:{t:'dog',c:C3('#aca4a4','#827a7a','#585252'),b:C3('#dccccc','#bcacac','#8e7e7e'),eye:'#ff5050',ear:'round',tail:'rat',small:true},
+ phoenix:{t:'bird',c:C3('#ffd86a','#ff9a2e','#c4501a'),b:C3('#fff4c0','#ffd070','#e89a3a'),eye:'#ffffff',beak:'#ffe9a8'},
+ moonfox:{t:'dog',c:C3('#f4f6ff','#cfd6ee','#9aa4c8'),b:C3('#ffffff','#eef2ff','#c8d0ea'),eye:'#9ab8ff',ear:'big',tail:'bush',frost:true,glow:'#cfe0ff'},
+ starwyrm:{t:'lizard',c:C3('#7a5ad8','#4c34a0','#2a1c66'),b:C3('#c8b8ff','#9a84f0','#6a54c0'),eye:'#ffffff',wings:true,horns:true,glow:'#b8a8ff'},
  raven:{t:'bird',c:C3('#545872','#33374e','#1c1e2e'),b:C3('#727694','#50546e','#33374e'),eye:'#eef0ff',beak:'#3e3e4e'},
  owl:{t:'bird',c:C3('#a69476','#806e52','#544632'),b:C3('#eadfc2','#cbbc98','#9e8e6c'),eye:'#ffd060',beak:'#d0a848',owl:true},
  salamander:{t:'lizard',c:C3('#ffa458','#e8702e','#a8441c'),b:C3('#ffd88a','#f4aa56','#c47634'),eye:'#ffe870',spots:'#a8301a',flame:true},
@@ -3768,7 +3790,7 @@ const PET_DRAW={
 function petCells(sp,stage,f){const L=PET_LOOK[sp]||PET_LOOK.wolf,B=sprBuf(PET_W,PET_H);PET_DRAW[L.t](B,L,stage||0,f);return B.finish();}
 function petSprite(sp,stage,scale){return stripSprite(PET_W,PET_H,SPR_FRAMES,scale||3,f=>petCells(sp,stage,f),PET_SHADOW,'pet');}
 /* A pet doll for the terminal: its sprite (in its evolved form) with a caption. */
-function petFigure(p,label,scale){const fg=document.createElement('figure');fg.className='doll';fg.appendChild(petSprite(p.sp,p.evo||0,scale||3));
+function petFigure(p,label,scale){const fg=document.createElement('figure');fg.className='doll'+(p&&p.rare?' pet-r'+p.rare:'');fg.appendChild(petSprite(p.sp,p.evo||0,scale||3));
   const c=document.createElement('figcaption');c.textContent=label!=null?label:p.nick;fg.appendChild(c);return fg;}
 
 /* ---------------- bosses ---------------- */
@@ -10149,7 +10171,7 @@ function cmdTame(){
   round(()=>{
     const p=clamp(0.35+(S.cls==='ranger'?0.3:0)+(effLvl()-m.lvl)*0.03,0.1,0.9);
     if(chance(p)){const r=cur();r.mobs.splice(r.mobs.indexOf(m),1);S.fight=false;S.fx={};
-      const pt=newPet(m.beast,m.lvl);const went=petAdd(pt);
+      const pt=rollPetRarity(newPet(m.beast,m.lvl));const went=petAdd(pt);
       sfx('tame');out(`{g}Ти простягаєш розкриту долоню. ${The(m)} обнюхує її, тремтить і схиляє голову. Ти приручив: ${PETS[m.beast].n}!{n}`);outDolls([petFigure(pt,pt.nick,3)]);
       if(went==='party')out(`{d}Перейменуй командою «pet name ${S.pets.length} <ім'я>».{n} {@pet|керувати улюбленцями}`);
       gainXp(Math.round(m.xp/2));jobProgress('tame');save(true);return;}
@@ -10181,7 +10203,7 @@ function cmdUse(arg){
   if(it.kind==='scroll'){readScroll(it);return;}
   if(it.kind==='egg'){
     if(!petRoom()){out(PET_FULL());return;}
-    S.inv.splice(S.inv.indexOf(it),1);const pt=newPet(it.sp,S.lvl-1);petAdd(pt);
+    S.inv.splice(S.inv.indexOf(it),1);const pt=rollPetRarity(newPet(it.sp,LEGEND_PETS.includes(it.sp)?S.lvl-1:1));petAdd(pt);
     sfx('hatch');out(`{y}Яйце тріскає. Крихітне створіння — ${PETS[it.sp].n} — кліпає на тебе й твердо вирішує, що ти його мама.{n} {@pet|керувати улюбленцями}`);outDolls([petFigure(pt,pt.nick,3)]);return;}
   if(slotOf(it)){equip(it);return;}
   const doIt=()=>{
@@ -10359,7 +10381,8 @@ function cmdOpen(){
   if(C){const L=depth();g=rnd(C.gold[0],C.gold[1])*L;it=[];const n=ri(MR,C.items[0],C.items[1]);
     for(let k=0;k<n;k++){let rar=rarEarly(MR,rollRar(MR,C.bonus+(S.hard?5:0)),L);if(k===0&&C.minRar!=null)rar=Math.max(rar,C.minRar);it.push(randomGear(MR,L,0,rar));}
     if(chance(C.pot))it.push({kind:'potion',key:chance(0.7)?'hp':'mp',qty:rnd(1,2)});
-    if(chance(C.egg))it.push({kind:'egg',sp:pick(MR,['raven','salamander','wisp','drake'])});}
+    if(chance(C.egg))it.push({kind:'egg',sp:pick(MR,['raven','salamander','wisp','drake'])});
+    if(C.minRar>=3&&chance(0.04)||C.minRar===2&&chance(0.005))it.push({kind:'egg',sp:pick(MR,LEGEND_PETS)});}   /* the rarest eggs: a Legendary Coffer one in twenty-five, an Epic Chest one in two hundred */
   else{g=rnd(10,30)*depth();it=[randomGear(MR,depth(),10)];if(chance(0.35))it.push(randomGear(MR,depth(),5));if(chance(0.4))it.push({kind:'potion',key:'hp',qty:rnd(1,2)});if(chance(0.06))it.push({kind:'egg',sp:pick(MR,['raven','salamander','wisp','drake'])});}
   S.gold+=g;if(!anim){sfx('chest');sfx('coins');}
   out(`{${C?C.col:'y'}}Зі скрипом відчиняється ${C?C.n.toLowerCase():'lid'}.{n} {y}Ти знаходиш ${g} золота.`,'gold');
