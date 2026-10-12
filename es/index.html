@@ -1865,7 +1865,7 @@ function findPot(key){return S.inv.find(i=>i.kind==='potion'&&i.key===key);}
 function addPot(key,q){const p=findPot(key);if(p)p.qty+=q;else S.inv.push({kind:'potion',key,qty:q});}
 function addItem(it,silent){
   if(it.kind==='potion'){addPot(it.key,it.qty||1);sfx('pickup');if(!silent)out(`You get ${iname(it)}.`);return true;}
-  if(S.inv.length>=20){sfx('fail');out('{r}Your pack is full (20). Drop or sell something.');return false;}
+  if(S.inv.length>=packMax()){sfx('fail');out(`{r}Your pack is full (${packMax()}). Drop or sell something.{n}`+(S.floor===0&&packNext()?' {d}Or buy a {@pack|bigger pack}.{n}':''));return false;}
   const fine=it.unique||it.rar>=4;
   if(it.rar>=4&&!it.unique)out(it.set?`{y}*** SET PIECE: ${SETS[it.set].n} ***`:'{o}*** LEGENDARY ***','legend');
   S.inv.push(it);sfx(fine?'legend':it.rar>=3?'loot':'pickup');if(fine)liveMoment('found '+clean(it.name)+'!');if(!silent)out(`You get ${iname(it)}. {d}${idesc(it)}`,fine?'legend':'');return true;
@@ -1896,6 +1896,25 @@ function powerWith(sl,it){const old=S.eq[sl];S.eq[sl]=it;try{return heroPower();
 
 /* ================= PETS ================= */
 function activePet(){return S.pet>=0?S.pets[S.pet]||null:null;}
+/* Your pack starts at 20 and grows by 5 with each bigger pack bought in town, one more on offer as each book ends. */
+const PACK_UPS=[
+ {n:'a Stitched Satchel',cost:400,ok:()=>true,why:''},
+ {n:"a Riveted Delver's Pack",cost:2500,ok:()=>!!S.flags.ended,why:'after Book I'},
+ {n:'a Saltproof Sea-Bag',cost:9000,ok:()=>!!S.flags.ended2,why:'after Book II'},
+ {n:"a Quartermaster's Frame Pack",cost:25000,ok:()=>!!S.flags.ended3,why:'after Book III'},
+ {n:"a Lamp-Keeper's Bottomless Bag",cost:60000,ok:()=>!!S.flags.lily,why:'after Book IV'}];
+function packMax(){return 20+5*(S.packUp||0);}
+function packNext(){return PACK_UPS[S.packUp||0]||null;}
+/* Your six travel with you; Tobble's kennels keep more. A new pet with no room at your side goes to the kennels. */
+const PARTY_MAX=6,KENNEL_MAX=24;
+function petRoom(){return S.pets.length<PARTY_MAX||(S.kennel||[]).length<KENNEL_MAX;}
+function petAdd(pt){
+  if(S.pets.length<PARTY_MAX){S.pets.push(pt);if(!activePet())S.pet=S.pets.length-1;return 'party';}
+  S.kennel=S.kennel||[];if(S.kennel.length>=KENNEL_MAX)return '';
+  pt.hp=petStats(pt).mhp;S.kennel.push(pt);
+  out(`{d}Your six are all with you, so ${pt.nick} goes to Tobble's kennels in Emberfall. Fetch it in any town:{n} {@pet kennel|the kennels}`);return 'kennel';
+}
+const PET_FULL=()=>`Your menagerie (${PARTY_MAX}) and Tobble's kennels (${KENNEL_MAX}) are both full. Dismiss a pet first.`;
 function petStage(p){return p.lvl>=20?2:p.lvl>=10?1:0;}
 function petForm(p){const s=p.evo||0;return s?PETEVO[p.sp][s-1]:PETS[p.sp].n;}
 /* Moves a pet to the form its level has earned. A pet still wearing its species name takes the new one. */
@@ -9590,6 +9609,8 @@ function listShop(){
     out(` ${i+1}. ${nm} {y}${p}g{n} `+(lock?"{d}(tras la primera Piedra guardiana)":`{@buy ${i+1}|comprar}`));
   });
   if(sh.sells)out(`{d}Vende con{n} {@sell junk|vender lo común} {d}(todo el equipo común) o «sell <objeto>». Paga el 35 %.`);
+  if(cur().npc==='brakka'&&packNext())out(`{d}Brakka also sells{n} {@pack|bigger packs}{d}.{n}`);
+  if(cur().npc==='tobble')out(`{d}Tobble keeps your other pets too:{n} {@kennel|the kennels}`);
 }
 function buy(arg){
   const sh=getShop();if(!sh){out("Aquí no hay nadie a quien comprarle.");return;}
@@ -9598,7 +9619,7 @@ function buy(arg){
   if(e.pet==='wisp'&&!S.bosses[0]){out("Tobble niega con la cabeza. «No hasta que la primera piedra vuelva a arder.»");return;}
   if(S.gold<p){sfx('fail');out(`{r}Necesitas ${p} de oro. Tienes ${S.gold}.`);return;}
   if(e.pot){S.gold-=p;addPot(e.pot,q);sfx('coinsBuy');sfx('bottle');out(`Compras ${q} × ${POT[e.pot].n} por ${p} de oro.`);return;}
-  if(e.pet){if(S.pets.length>=6){out("Tu casa de fieras está llena (6). Despide antes a una mascota.");return;}S.gold-=p;const pt=newPet(e.pet,S.lvl-1);S.pets.push(pt);if(!activePet())S.pet=S.pets.length-1;sfx('coinsBuy');sfx('tame');out(`{g}${PETS[e.pet].n} se une a ti y ya te sigue a todas partes.{n} {@pet|gestionar mascotas}`);outDolls([petFigure(pt,pt.nick,3)]);return;}
+  if(e.pet){if(!petRoom()){out(PET_FULL());return;}S.gold-=p;const pt=newPet(e.pet,S.lvl-1);petAdd(pt);sfx('coinsBuy');sfx('tame');out(`{g}${PETS[e.pet].n} se une a ti y ya te sigue a todas partes.{n} {@pet|gestionar mascotas}`);outDolls([petFigure(pt,pt.nick,3)]);return;}
   if(!addItem(e.item,true))return;S.gold-=p;sfx('coinsBuy');sh.list.splice(sh.list.indexOf(e),1);out(`Compras ${iname(e.item)} por ${p} de oro. {@equip ${S.inv.length}|equiparlo}`);
 }
 /* What a shop pays: 35% of an item's value (potions: of their base price). */
@@ -9794,7 +9815,7 @@ function cmdStash(arg){
 function cmdWithdraw(arg){
   if(!atNpc('inn')){out("Tu alijo está en la posada: la Vela Consumida, o la Lámpara de Sal en Solenne.");return;}
   const it=findIn(S.stash,arg);if(!it){out("¿Qué sacas del alijo? Prueba {@stash|stash}.");return;}
-  if(it.kind!=='potion'&&S.inv.length>=20){out("{r}Tu mochila está llena (20).");return;}
+  if(it.kind!=='potion'&&S.inv.length>=packMax()){out(`{r}Your pack is full (${packMax()}).`);return;}
   S.stash.splice(S.stash.indexOf(it),1);if(it.kind==='potion')addPot(it.key,it.qty);else S.inv.push(it);sfx('pickup');
   out(`Sacas ${iname(it)} de tu alijo.`);
 }
@@ -9856,13 +9877,13 @@ function cmdTame(){
   const m=curFoe();if(!m){out("Solo puedes domar a una bestia con la que estés luchando.");return;}
   if(!m.beast){out(`${The(m)} no se puede domar.`);return;}
   if(m.hp>m.mhp*0.35){sfx('fail');out(`${The(m)} es demasiado salvaje. Antes déjalo por debajo del 35 % de vida.`);return;}
-  if(S.pets.length>=6){out("Tu casa de fieras está llena (6). Despide antes a una mascota.");return;}
+  if(!petRoom()){out(PET_FULL());return;}
   round(()=>{
     const p=clamp(0.35+(S.cls==='ranger'?0.3:0)+(effLvl()-m.lvl)*0.03,0.1,0.9);
     if(chance(p)){const r=cur();r.mobs.splice(r.mobs.indexOf(m),1);S.fight=false;S.fx={};
-      const pt=newPet(m.beast,m.lvl);S.pets.push(pt);if(!activePet())S.pet=S.pets.length-1;
+      const pt=newPet(m.beast,m.lvl);const went=petAdd(pt);
       sfx('tame');out(`{g}Tiendes una mano abierta. ${The(m)} la olfatea, tiembla y agacha la cabeza. Has domado: ${PETS[m.beast].n}.{n}`);outDolls([petFigure(pt,pt.nick,3)]);
-      out(`{d}Cámbiale el nombre con «pet name ${S.pets.length} <nombre>».{n} {@pet|gestionar mascotas}`);
+      if(went==='party')out(`{d}Cámbiale el nombre con «pet name ${S.pets.length} <nombre>».{n} {@pet|gestionar mascotas}`);
       gainXp(Math.round(m.xp/2));jobProgress('tame');save(true);return;}
     sfx('fail');out(`{r}${The(m)} lanza un mordisco a tu mano. La doma fracasa.`);
   });
@@ -9891,8 +9912,8 @@ function cmdUse(arg){
   if(!it){out("No tienes eso.");return;}
   if(it.kind==='scroll'){readScroll(it);return;}
   if(it.kind==='egg'){
-    if(S.pets.length>=6){out("Tu casa de fieras está llena (6).");return;}
-    S.inv.splice(S.inv.indexOf(it),1);const pt=newPet(it.sp,S.lvl-1);S.pets.push(pt);if(!activePet())S.pet=S.pets.length-1;
+    if(!petRoom()){out(PET_FULL());return;}
+    S.inv.splice(S.inv.indexOf(it),1);const pt=newPet(it.sp,S.lvl-1);petAdd(pt);
     sfx('hatch');out(`{y}El huevo se rompe. ${PETS[it.sp].n} te mira parpadeando y decide, con firmeza, que eres su madre.{n} {@pet|gestionar mascotas}`);outDolls([petFigure(pt,pt.nick,3)]);return;}
   if(slotOf(it)){equip(it);return;}
   const doIt=()=>{
@@ -9938,12 +9959,12 @@ function cmdRemove(arg){
   const a=arg==='charm'?'amulet':arg==='ring'?(S.eq.ring1?'ring1':'ring2'):arg;
   const sl=SLOTS.find(s=>s.startsWith(a||'x'))||SLOTS.find(s=>S.eq[s]&&findIn([S.eq[s]],arg))||null;
   if(!sl||!S.eq[sl]){out("¿Quitar qué? (weapon, armor, amulet, ring1, ring2)");return;}
-  if(S.inv.length>=20){out("Tu mochila está llena.");return;}
+  if(S.inv.length>=packMax()){out("Tu mochila está llena.");return;}
   S.inv.push(S.eq[sl]);sfx('equip');out(`Te quitas ${iname(S.eq[sl])}.`);S.eq[sl]=null;capVitals();
 }
 function showInv(){
   const sh=getShop();
-  out(`{o}Inventario{n} {d}(${S.inv.length}/20){n}  {y}${S.gold} de oro`,'rt');
+  out(`{o}Inventory{n} {d}(${S.inv.length}/${packMax()}){n}  {y}${S.gold} gold{n}`+(S.floor===0&&packNext()&&S.inv.length>=packMax()-3?'  {@pack|bigger pack}':''),'rt');
   if(!S.inv.length)out("{d}  Tu mochila está vacía.");
   S.inv.forEach((it,i)=>{
     const acts=[];
@@ -9993,12 +10014,49 @@ function cmdPet(arg,raw){
   if(sub==='name'){const i=parseInt(a[1])-1;const nm=clean(a.slice(2).join(' ')).slice(0,16);if(!S.pets[i]||!nm){out("Uso: pet name <número> <nombre>");return;}out(`{g}${S.pets[i].nick} ahora se llama ${nm}.`);S.pets[i].nick=nm;return;}
   if(sub==='dismiss'){const i=parseInt(a[1])-1;if(!S.pets[i]){out("¿Qué mascota?");return;}if(S.fight){out("No durante un combate.");return;}const p=S.pets.splice(i,1)[0];if(S.pet===i)S.pet=-1;else if(S.pet>i)S.pet--;out(`{d}${p.nick} se marcha a lo de Tobble, donde lo malcriarán.`);return;}
   if(sub==='stay'){S.pet=-1;out("Tus mascotas esperan detrás de ti.");return;}
-  out("{o}Tus compañeros{n} {d}(máx. 6)",'rt');
+  if(sub==='board'||sub==='fetch'||sub==='kennel'||sub==='kennels'){petKennel(sub,parseInt(a[1])-1);return;}
+  out(`{o}Your companions{n} {d}(${PARTY_MAX} travel with you)`,'rt');
   if(!S.pets.length){out(`{d}  Ninguno todavía. Compra uno en la Casa de Fieras de Tobble o doma una bestia con «tame».`);return;}
   outDolls(S.pets.map((p,i)=>petFigure(p,(i===S.pet?'* ':'')+p.nick,2)));
   S.pets.forEach((p,i)=>{const ps=petStats(p),B=PETS[p.sp];
     out(`${i===S.pet?'{y}*{n}':' '}${i+1}. {g}${p.nick}{n} {d}${p.nick!==petForm(p)?petForm(p)+', ':''}nv. ${p.lvl}${p.lvl<20?`, evoluciona en el nivel ${p.lvl<10?10:20}`:''},  PV ${p.hp}/${ps.mhp}  atq. ${ps.atk}  ${B.an}: ${ABTXT[B.ab]}{n}`+(i===S.pet?'{d}active{n}':`{@pet call ${i+1}|llamar}`)+` {@pet dismiss ${i+1}|despedir}`);});
   out(`{d}Renombrar: pet name <número> <nombre>`);
+  {const k=(S.kennel||[]).length;out(`{d}Tobble's kennels keep ${k?k+' of yours':'up to '+KENNEL_MAX}.{n} `+(k?'{@pet kennel|visit the kennels}':S.floor===0&&S.pets.length?'{d}Board a pet there with "pet board <number>".{n}':''));}
+}
+/* Tobble's kennels: pets you are not taking down. Board and fetch in any town (Tobble's runners are quick); they wait,
+   fed and safe, without levelling. */
+function petKennel(sub,i){
+  const K=S.kennel=S.kennel||[];
+  if(sub==='board'||sub==='fetch'){
+    if(S.floor!==0){out("You can board or fetch pets in town. Tobble's runners do not go below.");return;}
+    if(S.fight){out("No durante un combate.");return;}}
+  if(sub==='board'){const p=S.pets[i];if(!p){out('Board which pet? (its number in {@pet|your pets})');return;}
+    if(K.length>=KENNEL_MAX){out(`Tobble's kennels are full (${KENNEL_MAX}).`);return;}
+    S.pets.splice(i,1);if(S.pet===i)S.pet=S.pets.length?0:-1;else if(S.pet>i)S.pet--;p.hp=petStats(p).mhp;K.push(p);sfx('pet');
+    out(`{g}${p.nick} trots off to Tobble's kennels, where there is straw, a warm crate and a great deal of fuss.{n} {@pet kennel|the kennels}`);save(true);return;}
+  if(sub==='fetch'){const p=K[i];if(!p){out('Fetch which pet? (its number in {@pet kennel|the kennels})');return;}
+    if(S.pets.length>=PARTY_MAX){out(`You already have ${PARTY_MAX} with you. Board one first.`);return;}
+    K.splice(i,1);S.pets.push(p);if(!activePet())S.pet=S.pets.length-1;sfx('pet');sfx('tame');
+    out(`{g}${p.nick} bounds out of the kennels and nearly knocks you over.{n} {@pet|your pets}`);save(true);return;}
+  out(`{o}Tobble's kennels{n} {d}(${K.length}/${KENNEL_MAX})`,'rt');
+  if(!K.length){out(`{d}  Empty. Board a pet in town with "pet board <number>", and a pet you tame or hatch with all ${PARTY_MAX} at your side comes here on its own.{n}`);return;}
+  outDolls(K.slice(0,12).map(p=>petFigure(p,p.nick,2)));
+  K.forEach((p,j)=>out(` ${j+1}. {g}${p.nick}{n} {d}${p.nick!==petForm(p)?petForm(p)+', ':''}lv ${p.lvl}{n}  `+(S.floor===0?`{@pet fetch ${j+1}|fetch}`:'{d}(fetch in town){n}')));
+}
+/* A bigger pack, bought in town: Brakka stitches it in Emberfall, the sailmakers on the quay in Solenne. */
+function cmdPack(arg){
+  const nx=packNext();
+  if(!/^buy/.test(arg||'')){
+    out(`{o}Your pack{n} {d}holds ${packMax()} (${S.inv.length} in it).{n}`,'rt');
+    if(!nx){out("{d}  It is as big as packs come.{n}");return;}
+    if(!nx.ok()){out(`{d}  A bigger one, ${nx.n} (+5), is sold in town ${nx.why}.{n}`);return;}
+    out(`  Next: {y}${nx.n}{n} {d}(+5 slots){n} {y}${nx.cost}g{n} `+(S.floor===0?'{@pack buy|buy}':'{d}(in town){n}'));return;}
+  if(!nx){out('Your pack is already as big as packs come.');return;}
+  if(S.floor!==0){out(S.town==='solenne'?'The sailmakers on the quay sell bigger packs. Go back to town.':'Brakka sells bigger packs in Emberfall. Go back to town.');return;}
+  if(!nx.ok()){out(`Not yet: ${nx.n} goes on sale ${nx.why}.`);return;}
+  if(S.gold<nx.cost){sfx('fail');out(`{r}Necesitas ${nx.cost} de oro. Tienes ${S.gold}.`);return;}
+  S.gold-=nx.cost;S.packUp=(S.packUp||0)+1;sfx('coinsBuy');sfx('equip');
+  out(`{y}You buy ${nx.n}.{n} `+(S.town==='solenne'?'A sailmaker on the quay stitches your things across into it.':'Brakka throws it on the counter. "These rivets will hold," she says. "Mind you do."')+` {d}Your pack now holds ${packMax()}.{n}`);save(true);
 }
 function cmdRest(){
   if(S.fight){out("¡No puedes descansar en mitad de un combate!");return;}
@@ -10189,6 +10247,7 @@ function help(arg){
   `{w}Ciudad{n}   {@talk|talk}, {@list|list}, buy <nº>, sell <nº>|junk,`,
   `         {@recall|recall} para volver, {@delve|delve} en la Puerta`,
   `         upgrade, reforge (forja); train (Tobble); stash (posada)`,
+  `         {@pack|pack} (a bigger one); pet board/fetch ({@kennel|kennels})`,
   `         fortune (Colina de la Linterna), polish (joyero), contract (Atalaya)`,
   `{w}Travesía{n} tras el Libro II: {@sail|sail} (Muelles Viejos), {@walk|walk} (Puerta Norte), {@gate|gate} (Faro del Puerto)`,
   `         {@provision|provision <n>} compra provisiones, {@supplies|supplies} muestra el viaje`,
@@ -10244,7 +10303,7 @@ defc('open',cmdOpen);defc('pray',cmdPray);
 defc('rest sleep',cmdRest);
 defc('recall home',()=>{if(S.fight){out("El hilo no te sacará de un combate. Primero {@flee|huye}.");return;}if(S.flags.choosing){out("Ahora no. Elige.");return;}if(S.floor===0){out(`Ya estás en ${townName()}.`+(S.town==='solenne'?" El hilo está atado a la Linterna de Emberfall, a un mar de distancia; para volver a casa, usa la Puerta de la Linterna, un barco o el camino.":''));return;}if(S.dg==='underside'){out("{m}Tiras del hilo de la Linterna. Se tensa y luego se afloja. No llega tan abajo.{n} {d}Encuentra el Ancla.");return;}if(petHold())return;if(belowSolenne()){toSolenneFromBelow();if(!queueScene(sceneRecall()))sfx('recall');return;}out("{b}Tiras del hilo de la Linterna. La oscuridad se pliega y ya estás en casa.");toTown(1);if(!queueScene(sceneRecall()))sfx('recall');});
 defc('sc score stats st',score);
-defc('pet pets',cmdPet);
+defc('pet pets',cmdPet);defc('pack bag',cmdPack);defc('kennel kennels',()=>petKennel('kennel'));
 defc('talk greet ask',talk);
 defc('list shop wares',listShop);
 defc('buy',buy);defc('sell',sell);
