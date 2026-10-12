@@ -651,7 +651,8 @@ canvas.hero{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
       <button id="mBigger" type="button">Більший текст</button>
       <button id="mPads" type="button">Сховати сенсорні кнопки</button>
       <button id="mLoot" type="button">Автозбір: увімк.</button>
-      <button id="mNew" type="button">Герої</button>
+      <button id="mNew" type="button">Exit to character select</button>
+      <button id="mExit" type="button" hidden>Exit game</button>
       <button id="mHelp" type="button">Довідка</button>
       <button id="mSound" type="button">Звук: увімк.</button>
       <button id="mVib" type="button">Вібрація: увімк.</button>
@@ -10635,7 +10636,7 @@ function resume(sv){
 /* ----- menu ----- */
 let fs=parseFloat(pref('fs'))||13;document.documentElement.style.setProperty('--fs',fs+'px');
 if(pref('pads')==='0')$('#pads').hidden=true;
-function syncMenu(){$('#mPads').textContent=$('#pads').hidden?"Показати сенсорні кнопки":"Сховати сенсорні кнопки";$('#mLoot').textContent="Автозбір: "+(S&&S.autoloot===false?'off':'on');$('#menuInfo').textContent=S?`${fullName()}, рівень ${S.lvl} ${CLASSES[S.cls].n}. Зерно ${S.seed}.`:'';$('#mNew').textContent="Герої";$('#mExport').disabled=!S;$('#mLbSend').textContent="Надсилати результати: "+(lbOn()?'on':'off');$('#mLbSend').hidden=!lbReady();$('#mSound').textContent="Звук: "+(soundOn()?'on':'off');$('#mScenes').textContent="Заставки: "+(pref('scenes')==='0'?'off':'on');$('#mTale').textContent="Слайди історії: "+(pref('tale')==='0'?'off':'on');$('#mTale').disabled=pref('scenes')==='0';$('#mMini').textContent="Міні-мапа: "+(miniOn()?'on':'off');$('#mMusic').textContent="Музика: "+(musicOn()?'on':'off');$('#mLive').textContent="Наживо: "+(S&&S.live?'on':'off');$('#mLive').hidden=$('#mRace').hidden=!lbReady();$('#mLive').disabled=$('#mShare').disabled=$('#mRace').disabled=!S;$('#mVib').textContent=canVibrate()?"Вібрація: "+(vibOn()?'on':'off'):"Вібрація: недоступна";$('#mVib').disabled=!canVibrate();}
+function syncMenu(){$('#mPads').textContent=$('#pads').hidden?"Показати сенсорні кнопки":"Сховати сенсорні кнопки";$('#mLoot').textContent="Автозбір: "+(S&&S.autoloot===false?'off':'on');$('#menuInfo').textContent=S?`${fullName()}, рівень ${S.lvl} ${CLASSES[S.cls].n}. Зерно ${S.seed}.`:'';$('#mNew').textContent='Exit to character select';$('#mExport').disabled=!S;$('#mLbSend').textContent="Надсилати результати: "+(lbOn()?'on':'off');$('#mLbSend').hidden=!lbReady();$('#mSound').textContent="Звук: "+(soundOn()?'on':'off');$('#mScenes').textContent="Заставки: "+(pref('scenes')==='0'?'off':'on');$('#mTale').textContent="Слайди історії: "+(pref('tale')==='0'?'off':'on');$('#mTale').disabled=pref('scenes')==='0';$('#mMini').textContent="Міні-мапа: "+(miniOn()?'on':'off');$('#mMusic').textContent="Музика: "+(musicOn()?'on':'off');$('#mLive').textContent="Наживо: "+(S&&S.live?'on':'off');$('#mLive').hidden=$('#mRace').hidden=!lbReady();$('#mLive').disabled=$('#mShare').disabled=$('#mRace').disabled=!S;$('#mVib').textContent=canVibrate()?"Вібрація: "+(vibOn()?'on':'off'):"Вібрація: недоступна";$('#mVib').disabled=!canVibrate();}
 $('#menuBtn').addEventListener('click',()=>{syncMenu();$('#menu').hidden=false;});
 $('#mResume').addEventListener('click',()=>{$('#menu').hidden=true;});
 $('#mSave').addEventListener('click',()=>{if(S){save(false);scrollDown();}$('#menu').hidden=true;});
@@ -10647,6 +10648,26 @@ $('#mHelp').addEventListener('click',()=>{$('#menu').hidden=true;run('help');});
 function openTitle(){$('#menu').hidden=true;$('#seedIn').value=randomSeed();$('#title').hidden=false;buildTitle();frTrack(true);frBadge();if(accIn())accList().then(()=>{if(!$('#title').hidden)renderSlots();});}
 /* Heroes: back to the title screen to switch or start another. The hero you leave is saved in its slot first. */
 $('#mNew').addEventListener('click',()=>{if(S&&!S.over)save(true);liveStop();partyClose();openTitle();});
+/* Back: the phone's back button, the browser's Back, and Escape. It closes what is open, top first (the map, a mission,
+   the Lore Book, Expeditions...); in the game with nothing open it opens the Menu, which has Exit to character select
+   (and, in the app, Exit game). On the title screen there is nothing left to go back from, so the app may close. */
+const BACK_ORDER=['mapView','saveDlg','friends','mission','store','lore','account','news','expo','menu'];
+function backStep(){
+  if(!$('#splash').hidden)return true;
+  if(sceneNow){sceneTap();return true;}
+  for(const id of BACK_ORDER){const el=$('#'+id);if(!el||el.hidden)continue;
+    if(id==='menu'){$('#mResume').click();return true;}
+    if(id==='mapView'){el.hidden=true;return true;}
+    if(id==='saveDlg'){$('#saveClose').click();return true;}
+    const b=el.querySelector('[data-close]');if(b)b.click();else el.hidden=true;return true;}
+  if(S&&$('#title').hidden){$('#menuBtn').click();return true;}
+  return false;
+}
+const NATIVE_APP=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
+{const App=NATIVE_APP&&window.Capacitor.Plugins&&window.Capacitor.Plugins.App;
+ if(App){App.addListener('backButton',()=>{if(!backStep())App.exitApp();});$('#mExit').hidden=false;$('#mExit').addEventListener('click',()=>{if(S&&!S.over)save(true);App.exitApp();});}
+ else try{history.pushState({uvBack:1},'');window.addEventListener('popstate',()=>{if(backStep())history.pushState({uvBack:1},'');});}catch(e){}}   /* the web: one step of history held, so Back stays in the game */
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sceneNow&&$('#splash').hidden&&backStep())e.preventDefault();});
 /* An imported hero takes a free slot. With all three full, it replaces the hero you are playing, but not from the
    title screen, where you delete one yourself. */
 const importSlot=()=>freeSlot()||(S&&!S.over&&$('#title').hidden?curSlot:0);
