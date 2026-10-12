@@ -10216,12 +10216,37 @@ function submitAbyss(){
   lbFetch('abyss_scores',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(row)})
     .then(r=>{if(r.ok&&S&&S.cid===row.run_id){S.abyssSent=Math.max(S.abyssSent||0,depth);save(true);}}).catch(()=>{});
 }
+/* The Brightest Lanterns, the strongest heroes: each hero's level and might, sent whenever either goes up (tools/supabase.sql v1.20.0,
+   hero_scores). Might is the square root of heroPower (damage, health and armor in one number), so it reads in the
+   hundreds and thousands. The board ranks by level, then might; it comes first, with the Abyss under it. */
+const heroMight=()=>Math.round(Math.sqrt(Math.max(0,heroPower())));
+function booksDone(){let b=S.flags.ended?1:0;for(let n=2;n<=8;n++)if(S.flags['ended'+n])b++;return b;}
+function submitHero(){
+  if(!S||!lbReady()||!lbOn()||S.over||!S.flags||!S.flags.gift)return;
+  const might=heroMight(),sent=S.heroSent||{};
+  if(S.lvl<=(sent.lvl||0)&&might<=(sent.might||0)*1.05)return;   /* only when the hero is stronger: a level, or 5% more might */
+  if(!S.cid)S.cid=newRunId();
+  const row={run_id:S.cid,name:clean(S.name).replace(/[<>]/g,'').slice(0,16)||"Vagabond",cls:S.cls,lvl:S.lvl,might,books:booksDone(),deepest:S.deepest||0,hard:!!S.hard,ng:S.ng||0};
+  S.heroSent={lvl:Math.max(S.lvl,sent.lvl||0),might:Math.max(might,sent.might||0)};   /* at once, so a slow answer is not sent twice */
+  const undo=()=>{if(S&&S.cid===row.run_id)S.heroSent=sent;};
+  lbFetch('hero_scores',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(row)}).then(r=>{if(!r.ok)undo();}).catch(undo);
+}
 function showLeaderboard(){
-  out("{m}-- Classement de l'Abîme --{n} {d}(étage le plus profond atteint, meilleure descente par personnage)",'rt');
+  out('{m}-- The Brightest Lanterns --{n} {d}(the strongest heroes: highest level, then might)','rt');
   if(!lbReady()){out("{d}Le classement en ligne n'est pas configuré pour cette copie du jeu.");return;}
   if(!lbOn())out("{d}Vous n'envoyez pas vos scores.{n} {@leaderboard on|envoyer les miens}");
   out("{d}On interroge les ténèbres...");
-  lbRows('abyss_leaderboard?select=run_id,name,cls,depth,lvl,hard,ng,player&limit=20').then(rows=>{
+  const heroes=lbRows('hero_leaderboard?select=run_id,name,cls,lvl,might,books,hard,ng,player&limit=10').catch(()=>null),
+    abyss=lbRows('abyss_leaderboard?select=run_id,name,cls,depth,lvl,hard,ng,player&limit=10');
+  heroes.then(rows=>{
+    if(rows===null)out('{d}The Brightest Lanterns open soon.');
+    else if(!Array.isArray(rows)||!rows.length)out('{d}Nobody is on it yet. Be the first.');
+    else rows.forEach((x,i)=>{const me=S&&x.run_id===S.cid,c=CLASSES[x.cls];
+      out(`${me?'{y}':''}${String(i+1).padStart(2)}. ${boardName(x).padEnd(16)} ${(c?c.n:'?').padEnd(11)} lv ${Number(x.lvl)||0}  might ${Number(x.might)||0}${x.books?'  Book '+['','I','II','III','IV','V','VI','VII','VIII'][Math.min(8,Number(x.books)||0)]+' done':''}${x.hard?'  {r}[HC]{n}':''}${x.ng?'  NG+'+(Number(x.ng)||0):''}${me?"  {y}<- vous{n}":''}`);});
+    if(S&&S.flags&&S.flags.gift)out(`{d}Your hero: level ${S.lvl}, might ${heroMight()}.{n}`);
+    out('');out('{m}-- Abyss --{n} {d}(deepest floor reached, best run per character)');
+    return abyss;
+  }).then(rows=>{
     if(!Array.isArray(rows)||!rows.length){out("{d}Personne n'a encore bravé l'Abîme. Soyez le premier.");scrollDown();return;}
     rows.forEach((x,i)=>{const me=S&&x.run_id===S.cid,c=CLASSES[x.cls];
       out(`${me?'{y}':''}${String(i+1).padStart(2)}. ${boardName(x).padEnd(16)} ${(c?c.n:'?').padEnd(11)} étage ${Number(x.depth)||0}  niv. ${Number(x.lvl)||0}${x.hard?'  {r}[HC]{n}':''}${x.ng?'  NG+'+(Number(x.ng)||0):''}${me?"  {y}<- vous{n}":''}`);});
@@ -10229,17 +10254,20 @@ function showLeaderboard(){
     scrollDown();
   }).catch(()=>{out("{d}Impossible de joindre le classement. Êtes-vous hors ligne ?");scrollDown();});
 }
-/* Title-screen teaser: the current top 3 of the Abyss, so players know the leaderboard exists. */
+/* Title-screen teaser: the three strongest heroes (or, until that board is open, the top 3 of the Abyss), so
+   players know the leaderboard exists. */
 function titleLeaderboard(){
   const el=$('#abyssTop');if(!lbReady()){el.hidden=true;return;}
-  lbRows('abyss_leaderboard?select=name,cls,depth,player&limit=3').catch(()=>[]).then(rows=>{
+  lbRows('hero_leaderboard?select=name,cls,lvl,might,player&limit=3').then(rows=>{if(!Array.isArray(rows)||!rows.length)return Promise.reject(0);
+    el.textContent='The Brightest Lanterns: '+rows.map((x,i)=>(i+1)+'. '+boardName(x)+' ('+((CLASSES[x.cls]||{}).n||'?')+') level '+(Number(x.lvl)||0)).join('  ·  ');el.hidden=false;})
+  .catch(()=>lbRows('abyss_leaderboard?select=name,cls,depth,player&limit=3').catch(()=>[]).then(rows=>{
     if(!Array.isArray(rows)||!rows.length){el.textContent="Le classement de l'Abîme est vide. Soyez le premier à descendre.";el.hidden=false;return;}
     el.textContent="Le plus profond dans l'Abîme : "+rows.map((x,i)=>(i+1)+'. '+boardName(x)+' ('+((CLASSES[x.cls]||{}).n||'?')+") étage "+(Number(x.depth)||0)).join('  ·  ');el.hidden=false;
-  }).catch(()=>{el.hidden=true;});
+  }).catch(()=>{el.hidden=true;}));
 }
 function cmdLeaderboard(arg){
   if(arg==='off'){pref('lb','0');out("{d}Vous n'enverrez plus de scores au classement.");return;}
-  if(arg==='on'){pref('lb','1');out("{d}Votre profondeur dans l'Abîme sera envoyée au classement.");submitAbyss();return;}
+  if(arg==='on'){pref('lb','1');out('{d}Your level, might and Abyss depth will be sent to the leaderboard.');submitHero();submitAbyss();return;}
   showLeaderboard();
 }
 
@@ -10251,6 +10279,7 @@ function save(quiet){
   if(!S||S.over)return;
   if(S.flags&&S.flags.gift)S.taleAt=Date.now();   /* for the recap a hero gets after half a day away (tale.js) */
   S.savedAt=Date.now();   /* which copy is newer, here or in the cloud (account.js) */
+  submitHero();
   try{localStorage.setItem(slotKey(curSlot),JSON.stringify(S));if(!quiet)out("{g}Partie sauvegardée."+(accIn()&&!S.hard?" {d}Elle rejoint le cloud d'ici une minute.":''));}
   catch(e){if(!quiet||!saveWarned){saveWarned=true;out("{y}La sauvegarde n'est pas disponible dans cette vue du navigateur : la progression ne dure que tant que cette page reste ouverte.");}}
   accQueue();
