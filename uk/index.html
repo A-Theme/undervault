@@ -1618,6 +1618,207 @@ function musicVictory(){
   setTimeout(()=>{MUS.theme=null;musicUpdate();},4300);
 }
 
+/* ================= FIGHT WORDS =================
+   The language of a fight. Fighting is most of the game, so it must not read the same way twice in a row.
+   - Every weapon has its own words for a blow, in six strengths (engine.js hitBand), from a scratch to a huge hit.
+     Even the biggest only says the blow was huge, never that the foe died ("obliterates", "runs through"): the foe is
+     often still standing, and the death line says when it falls.
+   - A plain attack may open with how you threw it, or say where it landed. A good hit can leave an aftermath that
+     suits what you hit: bone chips off a skeleton, smoke off a wraith, sparks off a golem, brine off the drowned.
+   - A monster keeps its own verb ("bites", "claws", "shield-bashes"), but how it lands changes with how much it hurt.
+   - vary() never hands back one of the last few lines it gave from the same list. */
+const VARY={};
+function vary(key,arr){
+  if(!arr||!arr.length)return '';if(arr.length<3)return pick(MR,arr);
+  const last=VARY[key]||(VARY[key]=[]),keep=Math.min(4,arr.length-2),pool=arr.filter(x=>!last.includes(x));
+  const x=pick(MR,pool.length?pool:arr);last.push(x);while(last.length>keep)last.shift();return x;
+}
+/* Words for a blow, by weapon, weakest band first. dmgWord() colours and capitalises the top three bands. */
+const HIT_WORDS={
+ sword:[['scratches','nicks','glances off','skims','flicks across','kisses'],
+  ['grazes','clips','scores','nips','catches','licks across'],
+  ['cuts','slices','strikes','opens a line on','bites into','finds'],
+  ['carves into','lays open','slashes across','rips across','runs a red line down','opens up'],
+  ['slashes','rends','shears into','carves into','rips open','splits'],
+  ['cleaves into','savages','tears into','cuts deep into','hews deep into','lays wide open']],
+ axe:[['chips','nicks','glances off','scuffs','knocks against','clanks off'],
+  ['chips into','clips','notches','catches','scrapes','bites at'],
+  ['chops','hacks','hews','bites into','strikes','thunks into'],
+  ['chops deep into','hews into','splits','wedges into','bites hard into','hacks open'],
+  ['hacks into','chops down into','splits','hews','wedges deep into','bites to the bone in'],
+  ['cleaves into','splits open','bites to the haft in','chops clean into','hews a great wedge from','buries itself in']],
+ scythe:[['whispers across','skims','grazes','brushes','flicks','sighs past'],
+  ['nicks','scores','catches','hooks','clips','tugs at'],
+  ['reaps at','slices','sweeps across','hooks into','scythes','shaves a sliver off'],
+  ['reaps','hooks deep into','scythes across','carves a crescent in','sweeps into','threshes'],
+  ['reaps','harvests','scythes across','hooks and rips','threshes','winnows'],
+  ['reaps deep into','harvests','gathers in','tears a crescent in','scythes the legs from under','hooks deep and rips']],
+ claw:[['scratches','paws at','scuffs','swipes at','nicks','snags'],
+  ['rakes','claws','scores','swipes across','catches','snatches at'],
+  ['rips at','tears at','slashes','gouges','claws into','rakes across'],
+  ['rakes open','tears into','gouges','rips into','mauls','shreds the hide of'],
+  ['mauls','shreds','rends','savages','gouges','flays'],
+  ['tears into','rakes to the bone','rends and rips','mauls savagely','tears strips from','rends to the bone']],
+ mace:[['taps','bumps','glances off','knocks','thunks','bonks'],
+  ['jolts','clips','knocks','thumps','raps','clunks off'],
+  ['strikes','thumps','batters','clubs','bashes','wallops'],
+  ['cracks','staggers','dents','rocks','clobbers','bludgeons'],
+  ['pounds','smashes','hammers','thuds into','crunches','wallops'],
+  ['crushes','slams','bludgeons','breaks the guard of','jars to the bone','smashes into']],
+ fist:[['taps','pats','pokes','brushes','flicks','nudges'],
+  ['jabs','pops','bops','cuffs','swats','clips'],
+  ['punches','socks','slugs','belts','clocks','cracks'],
+  ['rocks','slugs hard','wallops','staggers','snaps back','rattles'],
+  ['pounds','wallops','hammers','batters','pummels','clobbers'],
+  ['decks','floors','rocks','splits the guard of','piledrives','rocks back']],
+ dagger:[['pricks','nicks','glances off','scratches','tickles','needles'],
+  ['grazes','clips','jabs','sticks','nips','pinks'],
+  ['pierces','punctures','stabs','sticks','slips into','finds a gap in'],
+  ['skewers','sinks into','slips between the ribs of','punches into','sticks deep in','goes in deep on'],
+  ['stabs deep into','drives into','gores','punctures','sinks to the hilt in','slips under the guard of'],
+  ['spears','lances into','bites deep into','skewers','sinks deep into','buries itself in']],
+ bow:[['grazes','whistles past','nicks','skims','clips','scuffs'],
+  ['clips','nicks','catches','grazes','stings','scores'],
+  ['strikes','hits','punches into','thuds into','sticks in','finds'],
+  ['thuds into','buries itself in','punches into','sinks into','pins','skewers'],
+  ['punches into','skewers','pins','spears','drills into','slams into'],
+  ['lances into','nails','drives deep into','skewers','spears','hammers into']],
+ staff:[['fizzles against','sparks off','tingles','flickers over','crackles on','prickles'],
+  ['singes','zaps','stings','jolts','buffets','nips'],
+  ['scorches','blasts','sears','batters','shocks','buffets'],
+  ['blisters','burns into','blasts','rocks','scalds','hurls back'],
+  ['engulfs','scalds','withers','blasts','hurls back','scourges'],
+  ['scours','flays','blazes into','detonates on','erupts over','blows back']],
+ wand:[['fizzles against','sparks off','tingles','pops on','flickers at','crackles over'],
+  ['zaps','singes','stings','nips','pricks','sizzles on'],
+  ['sears','scorches','crackles across','burns','jolts','lances'],
+  ['blisters','burns into','lances into','arcs into','crackles across','scalds'],
+  ['arcs into','sears','lances into','scorches','blasts','electrifies'],
+  ['blazes into','scours','strikes like lightning into','flays','detonates on','burns a hole in']]};
+const HIT_TOP=['{r}*** DEVASTATES ***{n}','{r}*** WRECKS ***{n}','{m}*** BRUTALIZES ***{n}','{o}*** RAVAGES ***{n}','{r}*** MANGLES ***{n}',
+ '{m}*** SAVAGES ***{n}','{o}*** BATTERS ***{n}','{r}*** HAMMERS ***{n}','{m}*** MAULS ***{n}'];
+const hitFam=()=>S.eq.weapon&&HIT_WORDS[S.eq.weapon.wt]?S.eq.weapon.wt:'fist';
+function dmgWord(d,mhp){
+  const b=hitBand(d,mhp);if(b>5)return vary('top',HIT_TOP);const wt=hitFam(),w=vary('hw'+wt+b,HIT_WORDS[wt][b]);
+  return b===3?`{y}${w}{n}`:b===4?`{o}${w.toUpperCase()}{n}`:b===5?`{r}${w.toUpperCase()}{n}`:w;
+}
+const CRIT_FLAIR={
+ sword:['Steel sings.','A bright, clean arc.','The blade hums in your hand.','A perfect line, drawn in red.','You feel it all the way up your arm.'],
+ axe:['The haft shivers in your grip.','Like splitting oak.','The blow echoes off the walls.','Chips fly.','That one will leave a mark for life.'],
+ scythe:['The blade sighs.','A cold wind follows the arc.','The harvest comes early.','The crescent flashes pale.','Somewhere, a bell tolls once.'],
+ claw:['Something feral wakes in you.','Your hackles rise.','The hunt sings in your blood.','Four bright lines.','You taste copper on the air.'],
+ mace:['Something cracks.','The floor shudders.','Bones remember that one.','The sound carries a long way.','Dust sifts from the ceiling.'],
+ fist:['Knuckles crack.','Right on the button.','The crowd would have roared.','Your whole weight behind it.','Clean as a bell.'],
+ dagger:['Right between the plates.','A perfect line.','It never saw it coming.','In and out before it knows.','Exactly where you meant it.'],
+ bow:['Dead center.','The string thrums.','A shot for the songs.','Flight true to the feather.','You barely felt the release.'],
+ staff:['The air tastes of thunder.','Light floods the room.','The shadows flinch.','Your hair stands on end.','The runes on your staff blaze.'],
+ wand:['Static crawls over your skin.','A crack like a snapped branch.','Afterimages swim in your eyes.','The wand grows hot.','The smell of a summer storm.']};
+/* How you threw it: some openers suit any weapon, some only one. */
+const HIT_OPEN=['Stepping in, ','In one smooth motion, ','Quick as thought, ','With a grunt, ','Reading its guard, ','Low and fast, ','Off the back foot, ',
+ 'Seeing an opening, ','Without a wasted move, ','Pivoting hard, ','Before it can recover, ','Pressing your advantage, '];
+const HIT_OPEN_W={sword:['Point first, ','With a flourish, ','Blade flashing, '],axe:['Both hands on the haft, ',"With a woodcutter's swing, ",'Axe high, '],
+ scythe:['In a long, low arc, ',"With a reaper's patience, ",'Blade sweeping, '],claw:['With a snarl, ','Lunging low, ','Hackles up, '],
+ mace:['Shoulder behind it, ','With an overhand swing, ','Swinging wide, '],fist:['Ducking in, ','Off a quick feint, ','Weaving inside, '],
+ dagger:['Slipping inside its reach, ','From an angle it never guarded, ','Quick as a cutpurse, '],bow:['Drawing to your cheek, ','Loosing on the exhale, ','Snap-shooting, '],
+ staff:['Words of power on your lips, ','Staff raised high, ','Calling the light, '],wand:['Trailing sparks, ','With a flick of the wrist, ','Muttering the word, ']};
+/* What you hit, read from its name: it decides where a blow lands, what a good one leaves behind, and how it dies. */
+const BODY_RX=[['paper',/paper|page|grimoire|\bink\b/],['construct',/golem|gear|mannequin|sentinel|engine|clockwork|automaton|brass hound/],
+ ['bone',/skelet|bone|ossuary|lich/],['ice',/frost|\brime|\bice|frozen|snow/],['spirit',/wraith|shade|ghost|spirit|wight|hush\b|choir|reflection/],
+ ['void',/void|hunger|abyss|nothing|lightless|eaten light|name-eater|maw|gnawing light|mnemophage/],['ooze',/spore|puffball|myconid|shambler|slime|ooze|jelly|fung/],
+ ['swarm',/swarm|flock/],['fire',/cinder|ember|magma|slag|flame|fire|ash knight/],['sea',/drowned|\beel|brine|coral|reef|siren|shark|sailor|silt|tide/]];
+function bodyOf(m){if(m.boss||m.mini)return 'big';const n=(m.name||'').toLowerCase();const b=BODY_RX.find(([k,rx])=>rx.test(n));return b?b[0]:'flesh';}
+const HIT_WHERE={flesh:[' in the side',' across the back',' along the flank',' at the shoulder',' across the face',' low and hard',' high and hard',' on the leg'],
+ bone:[' at the collarbone',' across the ribs',' at the hip joint',' on the skull',' along the spine'],
+ spirit:[' through its middle',' where its heart should be',' across its shifting edge',' through the cold core of it'],
+ ooze:[' square in its middle',' through its quivering bulk',' deep in its jelly'],
+ construct:[' at a seam',' across its plating',' in the joints',' along a rivet line',' dead center'],
+ swarm:[' in the thick of it',' through the middle of the cloud',' at its densest knot'],
+ paper:[' across its spine',' through a dozen pages',' along its binding'],
+ fire:[' through the glowing cracks',' where the embers burn hottest',' across its smouldering hide'],
+ ice:[' across its frosted hide',' at a crack in the ice',' through the rime'],
+ sea:[' across its sodden hide',' where the barnacles are thickest',' in the side'],
+ void:[' somewhere in the dark of it',' where it is thinnest',' at its edge'],
+ big:[' square on',' hard and true',' right through its guard',' where it is weakest',' at last']};
+const HIT_AFTER={flesh:['Blood spatters the stones.','It reels back.','A spray of red hits the wall.','It lets out a ragged cry.','It staggers, off balance.','It hisses in pain.','It shakes its head, snarling.'],
+ bone:['Bone chips skitter across the floor.','Something cracks like a dry branch.','Its jaw clatters.','A rib spins away into the dark.','Grave-dust puffs from the cracks.'],
+ spirit:['Its edges fray like smoke in a draught.','It wails, a sound like wind in a keyhole.','Cold mist bleeds from the wound.','For a moment you can see right through it.'],
+ ooze:['Gobbets of it splatter the walls.','It quivers and slops back together.','A smell like rotten mushrooms fills the air.','It sags, then bulges again.','Spores burst from the wound in a yellow cloud.'],
+ construct:['Rivets ping off into the dark.','Sparks shower from the joint.','Something inside it grinds.','A plate buckles with a shriek of metal.','A spring whirs loose and rattles away.'],
+ swarm:['A dozen of them drop, twitching.','The cloud scatters, then knits back together.','Pieces of it rain down, still twitching.',"The swarm's hum climbs to a whine."],
+ paper:['Pages flutter down like snow.','Ink bleeds from the cut.','A torn page spins away, half a word still on it.','A smell of old libraries.'],
+ fire:['Embers spill from the wound.','Ash puffs out in a grey cloud.','Sparks gutter and die on the stones.','The heat off it flares, then dims.'],
+ ice:['Frost cracks and flakes away.','Shards of ice skitter across the floor.','Cold steam hisses from the wound.','A long crack runs through it with a sound like a frozen lake.'],
+ sea:['Brine sprays from the wound.','Seawater gushes out of it.','It smells suddenly of low tide.','Weed and water slop onto the floor.'],
+ void:['The dark around it shudders.','It bleeds a darkness thicker than the dark.','Where you cut it, there is less of it.','The lamplight steadies, just for a moment.'],
+ big:['It roars.','It reels.','The blow echoes off the walls.','It staggers back a step.','For a heartbeat, it falters.','The ground shakes as it stumbles.']};
+/* the sentence for one of your blows; o.flair (a plain attack) lets it open with how you threw it, or say where it landed */
+const bare=w=>w.replace(/\{[a-z]\}|\*/g,'').trim().toLowerCase();
+function hitText(label,d,m,band,o){
+  /* the word never echoes the move ("your pierce pierces", "your Shield Bash bashes") */
+  const stem=String(label).toLowerCase().split(/\s+/).pop().slice(0,4);let word=dmgWord(d,m.mhp);
+  for(let i=0;i<5&&bare(word).slice(0,4)===stem;i++)word=dmgWord(d,m.mhp);
+  const wt=hitFam(),r=MR();let s=`your ${label} \x02${word}\x03 ${the(m)}`;
+  /* where it landed, only after a plain verb: "slashes the rat across the face", never "tears at the rat across its hide" */
+  if(o.flair&&band>=2&&r<0.3&&!/\b(across|into|in|on|at|off|over|through|along|under|of|against|past|from|down|up|back)$/.test(bare(word)))s+=vary('wh'+bodyOf(m),HIT_WHERE[bodyOf(m)]);
+  s+='!';
+  if(o.flair&&r>=0.3&&r<0.55)s=vary('op',MR()<0.5?HIT_OPEN:HIT_OPEN_W[wt]||HIT_OPEN)+s;
+  return cap(s);
+}
+function hitAfter(m,band){return band>=3&&MR()<0.35||band===2&&MR()<0.12?vary('af'+bodyOf(m),HIT_AFTER[bodyOf(m)]):'';}
+/* A monster's blow. hitPlayer() calls this once it knows how hard the blow landed. */
+const FOE_LIGHT=[', barely.',' but only just.','; it stings, nothing more.',', but your armor takes most of it.',', a shallow one.',', not deeply.','. You hardly feel it.'];
+const FOE_OPEN=['','','','Darting in, ','Before you can react, ','From your blind side, ','With a sudden lunge, ','Low and fast, ','Out of nowhere, ','Pressing in, ','Circling, '];
+const FOE_MID=['.','.','!',' hard.',' and you grunt.',' and you stagger a step.',' across the arm.',' in the side.',' on the shoulder.',' and it hurts.',' and you taste blood.'];
+const FOE_HEAVY_OPEN=['','','With all its weight, ','Rearing up, ','In a sudden fury, ','Too fast to stop, '];
+const FOE_HEAVY=[' with terrible force!',' and drives the breath from you!',' and the world flashes white!',' and you feel something give!',' and knocks you off your feet!',' so hard your ears ring!',' and you reel back, gasping!'];
+function foeBlow(subj,v){
+  return (d,st)=>{const p=d/st.mhp;
+    if(p<0.06)return `${subj} ${v} you${vary('fl',FOE_LIGHT)}`;
+    if(p>=0.2)return `${vary('fho',FOE_HEAVY_OPEN)}${subj} ${v} you${vary('fh',FOE_HEAVY)}`;
+    return `${vary('fo',FOE_OPEN)}${subj} ${v} you${vary('fm',FOE_MID)}`;};
+}
+const foeLine=m=>foeBlow(the(m),m.v||'strikes');
+const BOSS_V=['strikes','batters','hammers','tears at','smashes into','rakes','slams into','lashes out at','drives into','crashes into','catches','rocks','mauls','pounds'];
+const bossLine=m=>foeBlow(m.short,vary('bv',BOSS_V));
+const FRENZY=['{T} {v} you again in a frenzy!','Frothing, {t} {v} you again in a frenzy!','{T} will not stop: it {v} you again in a frenzy!','Wild-eyed, {t} {v} you again in a frenzy!'];
+const SP_LINE={poison:['with a venomous strike!','and venom burns in the wound!','and you feel the poison go in!','and the wound turns an ugly green!'],
+ burn:['with searing flame!','and fire licks across your skin!','and your clothes start to smoulder!','in a gout of flame!'],
+ drain:['and drinks your strength!','and something warm leaves you!','and you feel yourself fade a little!','and grows stronger as you weaken!'],
+ stun:['with a crushing blow!','so hard your vision swims!','and your head rings like a bell!','and the room tilts!']};
+const spLine=(m,k)=>`${The(m)} ${m.v} you ${vary('sp'+k,SP_LINE[k])}`;
+const fill=(t,m)=>t.replace(/\{T\}/g,The(m)).replace(/\{t\}/g,the(m)).replace(/\{v\}/g,m.v||'strikes');
+/* when a blow does not land */
+const DODGE=["You dodge {t}'s attack.",'You twist aside, and {t} hits only air.','You sidestep; {t} stumbles past.','{T} lunges, and you are not there.',"You duck under {t}'s attack.",
+ 'You roll clear of {t}.',"You slip {t}'s attack by a hair.",'You lean back; {t} misses by an inch.'];
+const BLOCK=["You catch {t}'s blow on your armor and it glances away.",'Your armor rings, but holds.',"{T}'s attack skids off your armor.",'Your armor turns the blow.',
+ '{T} hits armor and nothing else.','The blow slides off your armor with a shriek.'];
+const EVADE=['You melt into shadow; {t} strikes only smoke.','{T} tears through the place you were a heartbeat ago.','You are a shadow among shadows; {t} swings at nothing.',
+ '{T} strikes, and the darkness where you stood swallows the blow.'];
+const BLIND=['{T} lashes out blindly and misses.','{T} swings wild at nothing.','{T} paws at the dark where it thinks you are.','Blind, {t} strikes the wall beside you.'];
+const STUN_REEL=['{T} is stunned and reels.','{T} staggers, dazed.','{T} sways on the spot, seeing double.','{T} reels, unable to find its feet.','{T} shakes itself, still stunned.'];
+/* your pet's blows ({P} its name, {l} the move, {L} the move with a capital) and your skeleton's */
+const PET_HIT=["{P}'s {l} hits {t}.",'{P} darts in. {L}!',"{P}'s {l} catches {t}.","{T} never sees {P}'s {l} coming.",'{P} hurls itself at {t}. {L}!',
+ '{P} circles, then strikes. {L}!',"{P}'s {l} finds its mark."];
+/* a plain move (bite, swipe, pounce) reads differently from a named one (Savage Bite, Ember Spit) */
+const PET_PLAIN=["{P}'s {l} catches {t}.",'{P} darts in with a {l}.','{P} gets a {l} in on {t}.','{P} goes for {t} with a quick {l}.',"{P}'s {l} finds its mark.",
+ '{P} worries at {t}, then lands a {l}.','{P} slips past your legs with a {l}.'];
+const petLine=(p,l,m)=>fill(/^[a-z]/.test(l)?vary('pp',PET_PLAIN):vary('ph',PET_HIT),m).replace(/\{P\}/g,p.nick).replace(/\{L\}/g,cap(l)).replace(/\{l\}/g,l);
+const SKEL=['Your risen skeleton hacks at {t}.','Your skeleton rattles in and strikes {t}.','Bones clacking, your skeleton swings at {t}.','Your skeleton claws at {t} with fleshless fingers.'];
+/* how a foe dies: the old lines for anything, and some that suit what it was */
+const KILL_ANY=['is DEAD!','collapses, dead.','crumples and lies still.','falls and does not rise.','goes down hard.','drops like a cut puppet.','breathes its last.','crashes to the floor.','is no more.','folds up and is still.'];
+const KILL_BODY={flesh:['topples over and is still.','sags to the ground with a last, long breath.','drops in a heap.','shudders once and goes slack.'],
+ bone:['comes apart in a clatter of bones.','collapses into a pile of bones.','falls to pieces, and the pieces stop moving.','rattles apart across the floor.'],
+ spirit:['unravels into cold mist.','comes apart like smoke in a wind.','fades with a long, thin sigh.','is gone, leaving only a chill.'],
+ ooze:['collapses into a spreading puddle.','bursts and slops across the floor.','deflates with a wet sigh.'],
+ construct:['grinds, sparks, and stops.','locks up and topples with a crash.','shudders apart in a spray of rivets.','goes still, its last gear ticking down.'],
+ swarm:['breaks apart and scatters into the dark.','rains to the floor, every last one.','falls silent all at once.'],
+ paper:['tears apart into a blizzard of pages.','crumples and is still.','comes apart, its words run out.'],
+ fire:['gutters out in a puff of ash.','collapses into cooling embers.','burns down to nothing.'],
+ ice:['shatters into a hundred pieces.','cracks apart and lies still.','splits along a hundred lines and falls to pieces.'],
+ sea:['slumps into a puddle of brine.','goes limp, smelling of the deep.','sinks down and does not rise.'],
+ void:['folds into itself and is gone.','tears like a curtain, and there is only dark behind it.','winks out.']};
+function killLine(m){const b=bodyOf(m),own=KILL_BODY[b];return `${The(m)} ${own&&MR()<0.6?vary('kb'+b,own):vary('ka',KILL_ANY)}`;}
+
 /* ================= OUTPUT ================= */
 const $=s=>document.querySelector(s);
 const term=$('#term');
@@ -2292,26 +2493,9 @@ function weaponDmg(st){
   if(w&&!suits(w))d*=OFF_CLASS;
   return d*(1+(st.dmgPct||0)/100);
 }
-/* How a hit reads: seven bands by how much of the foe it took, worded for the kind of weapon that landed it
-   (blades carve, blunt weapons crack, points skewer, spells sear), with bigger and brighter text as the bands climb.
-   Even the top band only says the blow was huge: no word may sound like a kill (no "obliterates", "massacres",
-   "erases"), because the foe is often still standing. The death line says when it falls. */
-const HIT_FAM={sword:'blade',axe:'blade',scythe:'blade',claw:'blade',mace:'blunt',fist:'blunt',dagger:'pierce',bow:'pierce',staff:'arcane',wand:'arcane'};
-const HIT_WORDS={
- blade:[['scratches','nicks','glances off'],['grazes','clips','scores'],['cuts','slices','strikes'],['{y}carves into{n}','{y}lays open{n}','{y}wounds{n}'],
-  ['{o}SLASHES{n}','{o}RENDS{n}','{o}HACKS INTO{n}'],['{r}CLEAVES INTO{n}','{r}SAVAGES{n}','{r}TEARS INTO{n}']],
- blunt:[['taps','bumps','glances off'],['jolts','clips','knocks'],['strikes','thumps','batters'],['{y}cracks{n}','{y}staggers{n}','{y}wounds{n}'],
-  ['{o}POUNDS{n}','{o}SMASHES{n}','{o}HAMMERS{n}'],['{r}CRUSHES{n}','{r}SLAMS{n}','{r}BLUDGEONS{n}']],
- pierce:[['pricks','nicks','glances off'],['grazes','clips','catches'],['pierces','punctures','strikes'],['{y}skewers{n}','{y}sinks into{n}','{y}wounds{n}'],
-  ['{o}STABS DEEP INTO{n}','{o}DRIVES INTO{n}','{o}GORES{n}'],['{r}SPEARS{n}','{r}LANCES INTO{n}','{r}BITES DEEP INTO{n}']],
- arcane:[['fizzles against','sparks off','tingles'],['singes','zaps','stings'],['scorches','blasts','sears'],['{y}blisters{n}','{y}burns into{n}','{y}wounds{n}'],
-  ['{o}ENGULFS{n}','{o}SCALDS{n}','{o}WITHERS{n}'],['{r}SCOURS{n}','{r}FLAYS{n}','{r}BLAZES INTO{n}']]};
-const HIT_TOP=['{r}*** DEVASTATES ***{n}','{r}*** WRECKS ***{n}','{m}*** BRUTALIZES ***{n}','{o}*** RAVAGES ***{n}'];
-const CRIT_FLAIR={blade:['Steel sings.','A bright, clean arc.','Clean through.'],blunt:['Something cracks.','The floor shudders.','Bones remember that one.'],
- pierce:['Right between the plates.','A perfect line.','It never saw it coming.'],arcane:['The air tastes of thunder.','Light floods the room.','The shadows flinch.']};
+/* How a hit reads: seven bands by how much of the foe it took. The words for each band, weapon by weapon, and the
+   rest of the language of a fight live in fightwords.js. */
 const hitBand=(d,mhp)=>{const p=d/mhp;return p<0.04?0:p<0.08?1:p<0.14?2:p<0.22?3:p<0.32?4:p<0.45?5:6;};
-const hitFam=()=>HIT_FAM[S.eq.weapon&&S.eq.weapon.wt]||'blunt';
-function dmgWord(d,mhp){const b=hitBand(d,mhp);return b>5?pick(MR,HIT_TOP):pick(MR,HIT_WORDS[hitFam()][b]);}
 /* the line's size: small for scratches, plain, bold, then bigger and bigger (crit keeps the pop) */
 const HIT_CLS=['hit-s','hit-s','','hit-m','crit','crit hit-l','crit hit-xl'];
 function stunFoe(m,n){
@@ -2326,8 +2510,8 @@ function hitFoe(mult,label,o){
   if(st.exec&&m.hp<m.mhp*0.3)d*=1+st.exec/100;
   d=Math.max(1,Math.round(d));m.hp-=d;
   const huge=d/m.mhp>=0.22,band=hitBand(d,m.mhp),cls=HIT_CLS[band]+(crit&&band<4?' crit':'');
-  out(`${crit?'{o}*CRIT*{n} ':''}Your ${label} \x02${dmgWord(d,m.mhp)}\x03 ${the(m)}! {d}(${d})`,cls.trim());   /* only the action word grows with the blow */
-  if(crit&&chance(0.3))out('{d}'+pick(MR,CRIT_FLAIR[hitFam()]),'flair');if(!(inSkill&&/^sp/.test(skSnd)))sfx(WPN_SND[S.eq.weapon&&S.eq.weapon.wt]||'wFist');if(crit)sfx('crit');else if(huge)sfx('impact');
+  out(`${crit?'{o}*CRIT*{n} ':''}${hitText(label,d,m,band,o)} {d}(${d})`,cls.trim());   /* only the action word grows with the blow */
+  {const fl=crit&&chance(0.3)?vary('cf'+hitFam(),CRIT_FLAIR[hitFam()]):m.hp>0?hitAfter(m,band):'';if(fl)out('{d}'+fl,'flair');}if(!(inSkill&&/^sp/.test(skSnd)))sfx(WPN_SND[S.eq.weapon&&S.eq.weapon.wt]||'wFist');if(crit)sfx('crit');else if(huge)sfx('impact');
   if(m.trait==='thorny'){const t=Math.min(S.hp-1,Math.max(1,Math.round(d*0.12)));if(t>0){S.hp-=t;out(`{g}Its thorns bite into you.{n} {d}(-${t})`);}}
   if(o.procs!==false){
     if(st.ls){const h=healP(d*st.ls/100);if(h)out(`{r}You drink ${h} life from the wound.`,'proc');}
@@ -2340,21 +2524,21 @@ function hitFoe(mult,label,o){
 }
 function basicAttack(){
   const w=S.eq.weapon,V=VOICE[S.cls];const verb=w?(V&&suits(w)&&MR()<0.4?pick(MR,V.hits):pick(MR,WT[w.wt].v)):'punch';
-  hitFoe(1,verb);
+  hitFoe(1,verb,{flair:true});
   const st=stats();const m=curFoe();
   if(m&&m.hp>0&&st.extraCh&&chance(st.extraCh/100))hitFoe(0.6,'follow-up '+verb,{procs:false});
 }
 function hitPlayer(m,raw,txt,o){
   o=o||{};const st=stats();if(m.tt&&m.ttN>1)raw*=0.85;   /* a tag-team boss's attention is split */
-  if(m.eff.blind){m.eff.blind=0;sfx('miss');out(`{d}${The(m)} lashes out blindly and misses.`);return 0;}
-  if(S.fx.evade>0){S.fx.evade--;sfx('dodge');out(`{c}You melt into shadow; ${the(m)} strikes only smoke.`);return 0;}
-  if(st.block&&chance(st.block/100)){sfx('block');out(`{b}You catch ${the(m)}'s blow on your armor and it glances away.`);return 0;}
-  if(!o.sure&&chance(st.dodge/100)){sfx('dodge');out(`{c}You dodge ${the(m)}'s attack.`);return 0;}
+  if(m.eff.blind){m.eff.blind=0;sfx('miss');out('{d}'+fill(vary('bl',BLIND),m));return 0;}
+  if(S.fx.evade>0){S.fx.evade--;sfx('dodge');out('{c}'+fill(vary('ev',EVADE),m));return 0;}
+  if(st.block&&chance(st.block/100)){sfx('block');out('{b}'+fill(vary('bk',BLOCK),m));return 0;}
+  if(!o.sure&&chance(st.dodge/100)){sfx('dodge');out('{c}'+fill(vary('dg',DODGE),m));return 0;}
   /* Layout 2 armor is relative to the attacker's level: typical gear stops about 20%, great armor about 40%. */
   /* Telegraphed heavy blows (o.sure) go straight through armor: Defend is the answer to those. */
   let d=raw*(o.sure?1:1-st.def/(st.def+4*(m.lvl||1)+20));if(S.fx.defend)d*=0.45-(st.guard||0)/100;d=Math.max(1,Math.round(d));
   if(S.fx.shield>0){const a=Math.min(S.fx.shield,d);S.fx.shield-=a;d-=a;sfx('block');out(`{b}Your ward absorbs ${a}.`);}
-  S.hp-=d;const big=o.sure||d>=st.mhp*0.2,brutal=d>=st.mhp*0.35;
+  S.hp-=d;const big=o.sure||d>=st.mhp*0.2,brutal=d>=st.mhp*0.35;if(typeof txt==='function')txt=txt(d,st);
   out(`{r}${cap(txt)}{n} {d}(-${d})`,brutal?'heavy hit-l':big?'heavy':d<st.mhp*0.05?'hit-s':'');if(d>0){sfx(big?'heavy':'hurt');if(big)flashTerm('hit');}
   if(m.trait==='vampiric'&&d>0&&m.hp>0){const h=Math.min(m.mhp-m.hp,Math.round(d*0.5));if(h>0){m.hp+=h;out(`{r}${The(m)} drinks from the wound.{n} {d}(+${h})`);}}
   if(st.thorns&&d>0){const t=Math.max(1,Math.round(d*st.thorns/100));m.hp-=t;out(`{g}Thorns bite back at ${the(m)}. {d}(${t})`);}
@@ -2363,7 +2547,7 @@ function hitPlayer(m,raw,txt,o){
 function petTurn(m){
   const p=activePet();if(!p||p.hp<=0||m.hp<=0)return;
   const ps=petStats(p),B=PETS[p.sp];const a=ps.atk*(0.8+MR()*0.4)*(S.fx.petbuff?1.5:1);
-  const deal=(x,l)=>{const d=Math.max(1,Math.round(x));m.hp-=d;sfx('pet');out(`{g}${p.nick}'s ${l} hits ${the(m)}.{n} {d}(${d})`);return d;};
+  const deal=(x,l)=>{const d=Math.max(1,Math.round(x));m.hp-=d;sfx('pet');out(`{g}${petLine(p,l,m)}{n} {d}(${d})`);return d;};
   if(chance((S.cls==='ranger'?0.4:0.3)+(stats().petAbil||0)/100+0.05*(p.evo||0))){
     const st=stats();
     switch(B.ab){
@@ -2379,7 +2563,7 @@ function petTurn(m){
       case 'drain':{const d=deal(a*1.2,B.an);p.hp=Math.min(ps.mhp,p.hp+d);break;}
       case 'insight':{deal(a,B.an);const g=Math.min(st.mmp-S.mp,5+p.lvl);if(g>0){S.mp+=g;out(`{b}You feel clearer. {d}(+${g} ${CLASSES[S.cls].res.toLowerCase()})`);}break;}
     }
-  } else deal(a,pick(MR,['bite','claw','strike','lunge']));
+  } else deal(a,pick(MR,['bite','swipe','snap','lunge','pounce','nip']));
 }
 function petHurt(p,atk,m){
   const d=Math.max(1,Math.round(atk*0.8));p.hp-=d;sfx('block');out(`{r}${The(m)} ${m.v} ${p.nick}!{n} {d}(-${d})`);
@@ -2396,7 +2580,7 @@ function playerTick(){
   S.mp=Math.min(st.mmp,S.mp+2+Math.floor(st.int/10)+(st.regenMp||0));
 }
 function foeTurn(m){
-  if(m.eff.stun>0){m.eff.stun--;out(`{y}${The(m)} is stunned and reels.`);return;}
+  if(m.eff.stun>0){m.eff.stun--;out('{y}'+fill(vary('sr',STUN_REEL),m));return;}
   if(m.boss||m.mini)return bossTurn(m);
   const atk=m.atk*(m.eff.curse?0.7:1)*(0.8+MR()*0.4)*(fortuneOn('doom')?1.15:1);
   const p=activePet();
@@ -2405,16 +2589,16 @@ function foeTurn(m){
   if(m.sp&&chance(0.25)){
     let d;
     switch(m.sp){
-      case 'poison':d=hitPlayer(m,atk,`${The(m)} ${m.v} you with a venomous strike!`);if(d){sfx('poison');S.fx.poison={n:3,d:Math.max(1,Math.round(m.atk*0.25))};out('{g}You are poisoned!');}return;
-      case 'burn':d=hitPlayer(m,atk,`${The(m)} ${m.v} you with searing flame!`);if(d){sfx('burn');S.fx.burn={n:3,d:Math.max(1,Math.round(m.atk*0.25))};out('{o}You are burning!');}return;
-      case 'drain':d=hitPlayer(m,atk,`${The(m)} ${m.v} you and drinks your strength!`);m.hp=Math.min(m.mhp,m.hp+d);return;
-      case 'stun':d=hitPlayer(m,atk,`${The(m)} ${m.v} you with a crushing blow!`);if(d&&!(S.fx.sImm>0)&&chance(0.4)){S.fx.stun=1;S.fx.sImm=3;sfx('stun');out('{y}You are stunned!');}return;
+      case 'poison':d=hitPlayer(m,atk,spLine(m,'poison'));if(d){sfx('poison');S.fx.poison={n:3,d:Math.max(1,Math.round(m.atk*0.25))};out('{g}You are poisoned!');}return;
+      case 'burn':d=hitPlayer(m,atk,spLine(m,'burn'));if(d){sfx('burn');S.fx.burn={n:3,d:Math.max(1,Math.round(m.atk*0.25))};out('{o}You are burning!');}return;
+      case 'drain':d=hitPlayer(m,atk,spLine(m,'drain'));m.hp=Math.min(m.mhp,m.hp+d);return;
+      case 'stun':d=hitPlayer(m,atk,spLine(m,'stun'));if(d&&!(S.fx.sImm>0)&&chance(0.4)){S.fx.stun=1;S.fx.sImm=3;sfx('stun');out('{y}You are stunned!');}return;
       case 'pilfer':{if(m.loot||fortuneOn('guard'))break;const it=takeFromPack();if(!it)break;m.loot=it;const r=cur();r.mobs.splice(r.mobs.indexOf(m),1);thiefHides(m,r);S.fight=false;S.target=0;sfx('fail');
         out(`{r}${The(m)} snatches ${iname(it)} from your pack and bolts into the dark!{n} {d}It is somewhere on this floor. Hunt it down to get it back.`,'heavy');return;}
     }
   }
-  hitPlayer(m,atk,`${The(m)} ${m.v} you.`);
-  if(m.trait==='frenzied'&&S.hp>0&&chance(0.5))hitPlayer(m,atk*0.6,`${The(m)} ${m.v} you again in a frenzy!`);
+  hitPlayer(m,atk,foeLine(m));
+  if(m.trait==='frenzied'&&S.hp>0&&chance(0.5))hitPlayer(m,atk*0.6,fill(vary('fz',FRENZY),m));
 }
 function bossTurn(m){
   const B=bossDef(m);
@@ -2430,7 +2614,7 @@ function bossTurn(m){
   if(m.charging){m.charging=false;hitPlayer(m,atk*(m.raid?3:2.4),B.heavy,{sure:true});return;}
   const mv=B.moves[m.mi++%B.moves.length];let d;
   switch(mv.t){
-    case 'hit':hitPlayer(m,atk,`${m.short} ${pick(MR,['strikes','batters','hammers','tears at'])} you!`);break;
+    case 'hit':hitPlayer(m,atk,bossLine(m));break;
     case 'charge':m.charging=true;sfx('warn');out(`{${B.col}}${mv.m}{n} {w}(Heavy attack next turn. {@defend|Defend} to brace!)`);break;
     case 'dot':d=hitPlayer(m,atk*0.7,mv.m);if(d){sfx(mv.k);S.fx[mv.k]={n:3,d:Math.max(1,Math.round(m.atk*0.3))};}break;
     case 'heal':{const h=Math.round(m.mhp*(mv.p||0.07));m.hp=Math.min(m.mhp,m.hp+h);sfx('heal');out(`{${B.col}}${mv.m}{n} {g}(+${h})`);break;}
@@ -2448,7 +2632,7 @@ function round(act){
   m=curFoe();if(!m)return;
   if(m.hp<=0)return victory(m);
   petTurn(m);liveAssist(m);warAssist(m);
-  if(S.fx.skel>0&&m.hp>0){const d=Math.max(1,Math.round(weaponDmg(stats())*0.6*(1+(stats().skelPct||0)/100)));m.hp-=d;sfx('bone');out(`{w}Your risen skeleton hacks at ${the(m)}.{n} {d}(${d})`);}
+  if(S.fx.skel>0&&m.hp>0){const d=Math.max(1,Math.round(weaponDmg(stats())*0.6*(1+(stats().skelPct||0)/100)));m.hp-=d;sfx('bone');out(`{w}${fill(vary('sk',SKEL),m)}{n} {d}(${d})`);}
   if(m.hp<=0)return victory(m);
   foeTick(m);if(m.hp<=0)return victory(m);
   if(m.raid)raidDealt(m);else if(m.tt)ttDealt(m);
@@ -2482,7 +2666,7 @@ function gainXp(n){
 function victory(m){
   if(m.raid)raidDealt(m);else if(m.tt){ttDealt(m);if(m.helper)return ttHelperWon(m);ttShares(m);delete TT.fights[m.tt];delete TT.told[m.tt];delete m.tt;}
   const r=cur();const idx=r.mobs.indexOf(m);
-  out(m.boss||m.mini?`{${bossDef(m).col}}${m.short} falls!`:`{y}${The(m)} ${pick(MR,['is DEAD!','collapses, dead.','crumples and lies still.','falls and does not rise.','goes down hard.','drops like a cut puppet.','breathes its last.','crashes to the floor.','is no more.','folds up and is still.'])}`,m.boss?'huge':'kill');
+  out(m.boss||m.mini?`{${bossDef(m).col}}${m.short} falls!`:`{y}${killLine(m)}`,m.boss?'huge':'kill');
   if(idx>=0)r.mobs.splice(idx,1);
   if((m.boss||m.mini||m.elite)&&!m.minion&&VOICE[S.cls])out('{d}'+pick(MR,VOICE[S.cls].kill));
   if((m.boss||m.mini)&&r.mobs.some(x=>x.minion)){r.mobs=r.mobs.filter(x=>!x.minion);out(`{d}With ${m.short} fallen, the rest scatter into the dark.`);}
