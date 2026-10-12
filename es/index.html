@@ -1156,11 +1156,11 @@ const TOWN=[
    Four floors per act, and monster levels that climb to meet you. Books II and III add their floors (book2.js, book3b.js). */
 const ZONE2=[1,2,3,5, 7,8,10,11, 14,15,17,18, 21,22,24,25, 28,29,31,32];   /* monster level on each main floor */
 const BOSS_LVL2=[6,13,20,27,35];
-const BOSS_K2=[[5,1.4],[7.5,1.7],[8,2.1],[9,2.4],[10,2.6]];   /* boss [health, attack] as multiples of a same-level monster */
+const BOSS_K2=[[5,1.4],[8,2.0],[8.5,2.6],[9.5,2.85],[11,3.25]];   /* boss [health, attack] as multiples of a same-level monster; v1.21: hit ~20% harder after Grisholt, so most heroes fall at least once in Book I */
 const BOSS_ADDS=['leech swarm','spore shambler','gearbound skeleton','paper golem','ember imp'];   /* who each boss calls for help */
 /* Side dungeons: monster level on floor 1, boss multiples and helpers. */
-Object.entries({warren:{lvl2:8,k2:[5.5,1.5],adds:'dock cutthroat'},rime:{lvl2:15,k2:[6.5,1.9],adds:'frozen novice'},
-  market:{lvl2:27,k2:[8.5,2.4],adds:'mannequin guard'},abyss:{lvl2:34,k2:[7,2.2],adds:'hungering shade'}}).forEach(([k,v])=>Object.assign(DUNGEONS[k],v));
+Object.entries({warren:{lvl2:8,k2:[5.5,1.7],adds:'dock cutthroat'},rime:{lvl2:15,k2:[6.5,2.0],adds:'frozen novice'},
+  market:{lvl2:27,k2:[8.5,2.7],adds:'mannequin guard'},abyss:{lvl2:34,k2:[7,2.2],adds:'hungering shade'}}).forEach(([k,v])=>Object.assign(DUNGEONS[k],v));
 /* Mini-bosses: champions that turn up on deeper floors, named from their dungeon. */
 const MINI={
  'The Drowned Cellars':{n:['Old Gullet','Bloatfin','Mother Silt','Captain Drip','Sludge-Eye'],t:['the Cistern Tyrant','the Drowned King','Lord of the Sluice','the Sunken Glutton']},
@@ -5950,7 +5950,7 @@ orchard:{name:'The Sunken Orchard',col:'g',floors:3,lvl2:12,req:1,shape:'caves',
   heavy:'The roots come down like spears all around you!',
   p2:`The Keeper tears herself free of the ground, and the whole orchard tears free with her.`,
   death:[`The old tree splits from crown to root. Inside it, curled up as if asleep, is a woman in a gardening apron.`,`{g}"Tell Mott,"{n} she whispers, {g}"the apples came in well this year."{n} Then she is only wood.`]},
- reward:{kind:'charm',ck:'amulet',name:"Ada Mott's Golden Apple",bon:{hp:'t10',regen:2,healPct:15}},egg:'owl',k2:[6,1.8],adds:'rootling'},
+ reward:{kind:'charm',ck:'amulet',name:"Ada Mott's Golden Apple",bon:{hp:'t10',regen:2,healPct:15}},egg:'owl',k2:[6,2.0],adds:'rootling'},
 
 belfry:{name:'The Bellfounder\'s Undercroft',col:'y',floors:4,lvl2:20,req:2,shape:'tower',sprite:'bellringer',
  blurb:'The Order\'s bell foundry, a tower turned upside down, still ringing the hours for nobody.',
@@ -5969,7 +5969,7 @@ belfry:{name:'The Bellfounder\'s Undercroft',col:'y',floors:4,lvl2:20,req:2,shap
   heavy:'The pendulum comes through the room like the end of the world!',
   p2:`Tock tears the clapper out of the great bell and swings it like a club. Every bell in the tower answers.`,
   death:[`The great bell cracks with a sound you will hear for the rest of your life, and Tock goes very still.`,`{y}"Oh,"{n} says Tock, softly. {y}"Quiet. I had forgotten quiet."{n} And the tower stops ringing.`]},
- reward:{kind:'charm',ck:'ring',name:"Tock's Last Hour",bon:{crit:6,extraCh:6,agi:'t2'}},egg:'brasshound',k2:[7,2.0],adds:'clapper imp'},
+ reward:{kind:'charm',ck:'ring',name:"Tock's Last Hour",bon:{crit:6,extraCh:6,agi:'t2'}},egg:'brasshound',k2:[7,2.3],adds:'clapper imp'},
 
 inkwells:{name:'The Ink Wells',col:'b',floors:4,lvl2:24,req:3,shape:'maze',sprite:'blot',
  blurb:'Pits of black ink beneath the Shattered Library, where unwritten words collect.',
@@ -5988,7 +5988,7 @@ inkwells:{name:'The Ink Wells',col:'b',floors:4,lvl2:24,req:3,shape:'maze',sprit
   heavy:'The ink comes down on you like the end of a story!',
   p2:`The Blot splits into a hundred letters, and they spell your name, and then they spell THE END.`,
   death:[`The Blot thins and runs and soaks away into the floor, and the wells go still.`,`On the surface of the deepest well, in perfect handwriting, a single line floats up: {b}Thank you for reading.`]},
- reward:{kind:'charm',ck:'amulet',name:'The Unblotted Page',bon:{int:'t3',mp:'t8',crit:5,dotPct:15}},egg:'leech',k2:[7,2.1],adds:'inkling'},
+ reward:{kind:'charm',ck:'amulet',name:'The Unblotted Page',bon:{int:'t3',mp:'t8',crit:5,dotPct:15}},egg:'leech',k2:[7,2.35],adds:'inkling'},
 
 nursery:{name:'The Nursery of Small Beds',col:'y',floors:4,lvl2:46,need:()=>bossDone(6),needTxt:'opens when the First Fed is laid to rest',shape:'caves',sprite:'matron',
  blurb:'Where the Order kept the children it fed to the seal. Somebody still tucks them in.',
