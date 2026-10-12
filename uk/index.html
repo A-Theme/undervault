@@ -9615,7 +9615,7 @@ function listShop(){
   });
   if(sh.sells)out(`{d}Продавай через{n} {@sell junk|продати мотлох} {d}(усе звичайне спорядження) або «sell <предмет>». Платять 35%.`);
   if(cur().npc==='brakka'&&packNext())out(`{d}Brakka also sells{n} {@pack|bigger packs}{d}.{n}`);
-  if(cur().npc==='tobble')out(`{d}Tobble keeps your other pets too:{n} {@kennel|the kennels}`);
+  if(cur().npc==='tobble')out(`{g}Kennels{n} {d}Tobble boards the pets you are not taking down (${(S.kennel||[]).length}/${KENNEL_MAX} kept).{n} {@kennel|open the kennels}`);
 }
 function buy(arg){
   const sh=getShop();if(!sh){out("Тут нема в кого купувати.");return;}
@@ -10024,27 +10024,28 @@ function cmdPet(arg,raw){
   if(!S.pets.length){out(`{d}  Поки нікого. Купи когось у Звіринці Тоббла або приручи звіра командою «tame».`);return;}
   outDolls(S.pets.map((p,i)=>petFigure(p,(i===S.pet?'* ':'')+p.nick,2)));
   S.pets.forEach((p,i)=>{const ps=petStats(p),B=PETS[p.sp];
-    out(`${i===S.pet?'{y}*{n}':' '}${i+1}. {g}${p.nick}{n} {d}${p.nick!==petForm(p)?petForm(p)+', ':''}рів. ${p.lvl}${p.lvl<20?`, еволюціонує на ${p.lvl<10?10:20}`:''},  ОЗ ${p.hp}/${ps.mhp}  атк ${ps.atk}  ${B.an}: ${ABTXT[B.ab]}{n}`+(i===S.pet?'{d}active{n}':`{@pet call ${i+1}|покликати}`)+` {@pet dismiss ${i+1}|відпустити}`);});
+    out(`${i===S.pet?'{y}*{n}':' '}${i+1}. {g}${p.nick}{n} {d}${p.nick!==petForm(p)?petForm(p)+', ':''}рів. ${p.lvl}${p.lvl<20?`, еволюціонує на ${p.lvl<10?10:20}`:''},  ОЗ ${p.hp}/${ps.mhp}  атк ${ps.atk}  ${B.an}: ${ABTXT[B.ab]}{n}`+(i===S.pet?'{d}active{n}':`{@pet call ${i+1}|покликати}`)+` {@pet board ${i+1}|send to kennels} {@pet dismiss ${i+1}|dismiss}`);});
   out(`{d}Перейменувати: pet name <номер> <ім'я>`);
-  {const k=(S.kennel||[]).length;out(`{d}Tobble's kennels keep ${k?k+' of yours':'up to '+KENNEL_MAX}.{n} `+(k?'{@pet kennel|visit the kennels}':S.floor===0&&S.pets.length?'{d}Board a pet there with "pet board <number>".{n}':''));}
+  {const k=(S.kennel||[]).length;out(`{d}Tobble's kennels keep ${k?k+' of yours':'up to '+KENNEL_MAX+' more'}.{n} {@kennel|the kennels}`);}
 }
 /* Tobble's kennels: pets you are not taking down. Board and fetch in any town (Tobble's runners are quick); they wait,
    fed and safe, without levelling. */
 function petKennel(sub,i){
   const K=S.kennel=S.kennel||[];
-  if(sub==='board'||sub==='fetch'){
-    if(S.floor!==0){out("You can board or fetch pets in town. Tobble's runners do not go below.");return;}
-    if(S.fight){out("Не під час бою.");return;}}
+  if((sub==='board'||sub==='fetch')&&S.fight){out("Не під час бою.");return;}
+  if(sub==='fetch'&&S.floor!==0){out("You can fetch pets from the kennels in town. Tobble's runners do not go below.");return;}
   if(sub==='board'){const p=S.pets[i];if(!p){out('Board which pet? (its number in {@pet|your pets})');return;}
     if(K.length>=KENNEL_MAX){out(`Tobble's kennels are full (${KENNEL_MAX}).`);return;}
     S.pets.splice(i,1);if(S.pet===i)S.pet=S.pets.length?0:-1;else if(S.pet>i)S.pet--;p.hp=petStats(p).mhp;K.push(p);sfx('pet');
-    out(`{g}${p.nick} trots off to Tobble's kennels, where there is straw, a warm crate and a great deal of fuss.{n} {@pet kennel|the kennels}`);save(true);return;}
+    out(S.floor===0?`{g}${p.nick} trots off to Tobble's kennels, where there is straw, a warm crate and a great deal of fuss.{n} {@pet kennel|the kennels}`:`{g}${p.nick} follows the blue thread home to Tobble's kennels, where there is straw, a warm crate and a great deal of fuss.{n} {d}Fetch it in town.{n}`);save(true);return;}
   if(sub==='fetch'){const p=K[i];if(!p){out('Fetch which pet? (its number in {@pet kennel|the kennels})');return;}
     if(S.pets.length>=PARTY_MAX){out(`You already have ${PARTY_MAX} with you. Board one first.`);return;}
     K.splice(i,1);S.pets.push(p);if(!activePet())S.pet=S.pets.length-1;sfx('pet');sfx('tame');
     out(`{g}${p.nick} bounds out of the kennels and nearly knocks you over.{n} {@pet|your pets}`);save(true);return;}
   out(`{o}Tobble's kennels{n} {d}(${K.length}/${KENNEL_MAX})`,'rt');
-  if(!K.length){out(`{d}  Empty. Board a pet in town with "pet board <number>", and a pet you tame or hatch with all ${PARTY_MAX} at your side comes here on its own.{n}`);return;}
+  if(S.pets.length)out(`{d}With you:{n} `+S.pets.map((p,j)=>`{g}${p.nick}{n} {@pet board ${j+1}|send to kennels}`).join('  '));
+  if(!K.length){out(`{d}  The kennels are empty. Send a pet here from the list above or from {@pet|your pets}, and a pet you tame or hatch with all ${PARTY_MAX} at your side comes here on its own.{n}`);return;}
+  out(`{d}In the kennels:{n}`);
   outDolls(K.slice(0,12).map(p=>petFigure(p,p.nick,2)));
   K.forEach((p,j)=>out(` ${j+1}. {g}${p.nick}{n} {d}${p.nick!==petForm(p)?petForm(p)+', ':''}lv ${p.lvl}{n}  `+(S.floor===0?`{@pet fetch ${j+1}|fetch}`:'{d}(fetch in town){n}')));
 }
@@ -10650,6 +10651,7 @@ function renderQuick(){
     if(getShop())add("Крамниця",'list','gold');
     if(r.npc==='brakka'){add("Покращити",'upgrade','gold');add("Перекувати",'reforge','gold');}
     if(r.npc==='tobble'&&S.pets.length)add("Тренувати улюбленців",'train','pet');
+    if(r.npc==='tobble')add('Kennels','kennel','pet');
     if(S.floor===0&&r.id===1)add("Дошка нагород",'bounties','gold');
     if(r.npc==='inn')add("Схованка",'stash','gold');
     if(r.npc==='inn')add("Загальна зала",'friends','pet');   /* the inn's common room: friends, live play, raid parties */
