@@ -7138,7 +7138,7 @@ function applyLink(search){
 const RACE_ORDER='order=finished.desc,bosses.desc,deepest.desc,deaths.asc,created_at.asc';
 const END_NAME={conquer:"узяв залізну корону",shutout:"зачинив холодні двері",share:"поділився світлом",seal:"знову запалив печатку",crown:"узяв корону",shatter:"проказав третю клятву",name:"дав Голодові ім'я",close:"зачинив двері",shut:"зачинив другі двері",tide:"повернув приплив"};
 /* The furthest ending reached: Book III's (sent as shut or tide, since Book II also has a close), then Book II's, then Book I's. */
-function raceEnd(){const f=S.flags;return f.ended4?f.ended4:f.ended3?(f.ended3==='close'?'shut':'tide'):f.ended2||f.ended||null;}
+function raceEnd(){const f=S.flags;return f.ended5?f.ended5:f.ended4?f.ended4:f.ended3?(f.ended3==='close'?'shut':'tide'):f.ended2||f.ended||null;}
 function raceRow(){return {run_id:S.cid,seed:S.seed,name:clean(S.name).replace(/[<>]/g,'').slice(0,16)||"Мандрівник",cls:S.cls,lvl:S.lvl,
   deepest:Math.min(100,S.deepest),bosses:bossCount(),deaths:Math.min(100000,S.deaths||0),ended:raceEnd(),fallen:!!S.over,hard:!!S.hard,ng:S.ng||0};}
 let raceBusy=false,raceAgain=false;
