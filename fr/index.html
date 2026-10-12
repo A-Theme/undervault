@@ -247,6 +247,7 @@ button.ex-open{background:none;border:0;padding:0 18px 0 0;text-align:left;color
 @media (max-width:420px){.dg-head{flex-direction:column;align-items:center}}
 .fr-body{display:flex;flex-direction:column;gap:10px;margin-top:10px}
 .lb-tabs{display:flex;gap:6px;overflow-x:auto;margin-top:10px;padding-bottom:4px;scrollbar-width:none}.lb-tabs::-webkit-scrollbar{display:none}
+@media (min-width:640px),(hover:hover) and (pointer:fine){.lb-tabs{flex-wrap:wrap;overflow-x:visible}}   /* a mouse cannot swipe: every tab shows, on two rows if need be */
 .lb-tab{flex:none;padding:8px 12px;font-size:12px;min-height:0}.lb-tab.on{border-color:var(--accent);color:var(--accent)}
 .lb-card{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
 .lb-pic{flex:none;min-width:68px;display:flex;justify-content:center}.lb-pic:empty{display:none}.lb-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
@@ -306,9 +307,11 @@ button.ex-mis.done{border-left-color:var(--kg)}button.ex-mis::after{content:'\20
 .ln.heavy{font-size:calc(var(--fs) + 2px);font-weight:600;animation:lnShake .35s}
 .ln.kill{font-size:calc(var(--fs) + 2px);font-weight:600;animation:lnPop .35s ease-out}
 .ln.hit-s{font-size:calc(var(--fs) - 1px);opacity:.8}
-.ln.hit-m{font-weight:600}
-.ln.hit-l{font-size:calc(var(--fs) + 5px);font-weight:700;letter-spacing:.01em;text-shadow:0 0 10px rgba(255,120,90,.45)}
-.ln.hit-xl{font-family:var(--disp);font-size:calc(var(--fs) + 8px);line-height:1.25;letter-spacing:.02em;text-shadow:0 0 16px rgba(255,90,80,.65);animation:lnShake .4s,lnPop .4s ease-out}
+.ln .hw{font-weight:700}   /* a hit's action word: the line stays its normal size, the word grows with the blow */
+.ln.hit-m .hw{font-size:calc(var(--fs) + 2px)}
+.ln.hit-l .hw{font-size:calc(var(--fs) + 6px);letter-spacing:.02em;text-shadow:0 0 10px rgba(255,120,90,.5)}
+.ln.hit-xl{line-height:1.5;animation:lnShake .4s}
+.ln.hit-xl .hw{font-family:var(--disp);font-weight:400;font-size:calc(var(--fs) + 10px);letter-spacing:.03em;text-shadow:0 0 16px rgba(255,90,80,.7);display:inline-block;animation:lnPop .4s ease-out}
 .ln.flair{font-style:italic;font-size:calc(var(--fs) - 1px);margin-left:14px}
 .ln.proc{text-shadow:0 0 8px currentColor}
 .ln.gold{font-weight:600}
@@ -1534,7 +1537,7 @@ const $=s=>document.querySelector(s);
 const term=$('#term');
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function fmt(s){
-  s=esc(s);
+  s=esc(s).replace(/\x02/g,'<b class="hw">').replace(/\x03/g,'</b>');   /* \x02...\x03: the action word of a hit, emphasized (hitFoe) */
   s=s.replace(/\{@([^|}]+)\|([^}]+)\}/g,(m,c,l)=>`<a class="cl" role="button" tabindex="0" data-cmd="${c}">${l}</a>`);
   let open=false;
   s=s.replace(/\{([rgybmcwdo])\}|\{n\}/g,(m,code)=>{let h=open?'</span>':'';open=false;if(code){h+=`<span class="k${code}">`;open=true;}return h;});
@@ -2199,7 +2202,7 @@ function hitFoe(mult,label,o){
   if(st.exec&&m.hp<m.mhp*0.3)d*=1+st.exec/100;
   d=Math.max(1,Math.round(d));m.hp-=d;
   const huge=d/m.mhp>=0.22,band=hitBand(d,m.mhp),cls=HIT_CLS[band]+(crit&&band<4?' crit':'');
-  out(`${crit?'{o}*CRIT*{n} ':''}Your ${label} ${dmgWord(d,m.mhp)} ${the(m)}! {d}(${d})`,cls.trim());
+  out(`${crit?'{o}*CRIT*{n} ':''}Your ${label} \x02${dmgWord(d,m.mhp)}\x03 ${the(m)}! {d}(${d})`,cls.trim());   /* only the action word grows with the blow */
   if(crit&&chance(0.3))out('{d}'+pick(MR,CRIT_FLAIR[hitFam()]),'flair');if(!(inSkill&&/^sp/.test(skSnd)))sfx(WPN_SND[S.eq.weapon&&S.eq.weapon.wt]||'wFist');if(crit)sfx('crit');else if(huge)sfx('impact');
   if(m.trait==='thorny'){const t=Math.min(S.hp-1,Math.max(1,Math.round(d*0.12)));if(t>0){S.hp-=t;out(`{g}Its thorns bite into you.{n} {d}(-${t})`);}}
   if(o.procs!==false){
