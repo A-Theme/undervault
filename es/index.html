@@ -2027,9 +2027,28 @@ function enterRoom(){
     if(!m.introduced){m.introduced=true;sfx('roar');out('');out(`{o}${m.name}`,'bossname');out(`{o}${m.def.intro[0]}`,'story');out('{d}A champion: it hits hard and telegraphs its heaviest blow. {@defend|Defend} when it winds up.');}
     else{sfx('roar');out(`{o}${m.short} turns toward you again.`);}
     engage(mi,true);return;}
-  const ag=r.mobs?r.mobs.findIndex(m=>m.aggro):-1;
+  if(ambushOk(r)&&chance(ambushCh())){ambush(r);return;}
+  let ag=r.mobs?r.mobs.findIndex(m=>m.aggro):-1;
+  if(ag<0&&S.floor>1&&r.mobs&&r.mobs.length&&!S.raid&&chance(noticeCh()))ag=0;   /* more of the dark is awake: a room's monsters may notice you as you come in */
   if(ag>=0){sfx('alert');out(`{r}${cap(A(r.mobs[ag]))} notices you and attacks!`);engage(ag,true);}
   else winMaybe(r);   /* Winston the Wanderer, now and then */
+}
+/* Exploring a dungeon full of enemies: fights you cannot step around. A room's monsters may notice you as you walk in
+   (noticeCh, from floor 2, more the deeper you go), and from floor 3 (and in the side dungeons) an empty room can hide
+   an ambush, once a room. Decided as you enter, never in floor generation, so saved floors stay as they are. */
+const noticeCh=()=>Math.min(0.4,0.15+depth()*0.006);
+const ambushCh=()=>Math.min(0.12,0.07+depth()*0.0005);
+function ambushOk(r){
+  const D=S.dg&&DUNGEONS[S.dg];
+  return S.floor>0&&(S.dg||S.floor>=3)&&!S.raid&&!(D&&(D.voyage||D.raid||D.story||D.endless))&&!/start$/.test(r.type||'')&&!r.story&&!r.npc&&!r.ambushed&&!(r.mobs&&r.mobs.length)&&!(r.ev&&!r.ev.used)&&!S.fight;
+}
+function ambush(r){
+  r.ambushed=true;const n=depth()>=10&&chance(0.35)?2:1;
+  for(let i=0;i<n;i++){const m=makeMob(MR,depth(),null,theme());m.aggro=true;r.mobs.push(m);}
+  sfx('alert');flashTerm('hit');
+  out(pick(MR,['Something was waiting in here. {r}It is an ambush!{n}','The shadows in the corners stand up. {r}Ambush!{n}','You hear it a moment too late: breathing, right behind you. {r}Ambush!{n}','The ceiling moves. {r}Ambush!{n}']),'heavy');
+  out(`{r}${cap(A(r.mobs[0]))} springs at you${n>1?', and it is not alone':''}!`);
+  engage(0,true);
 }
 function move(d){
   if(S.fight){out(`{r}You are fighting! {@flee|Flee} first.`);return;}
@@ -9773,6 +9792,11 @@ function cmdFlee(){
     const m=curFoe();const p=m.boss?0.3:clamp(0.55+stats().agi*0.005,0.55,0.85);
     if(chance(p)){
       const r=cur();const dirs=['n','s','e','w'].filter(d=>typeof r.exits[d]==='number');
+      /* running costs: a parting blow (never quite fatal), a tenth of your gold spilled in the dark, and the foe gets
+         its breath back */
+      hitPlayer(m,m.atk*(m.boss?1.6:1.2),`As you turn to run, ${the(m)} ${m.v||'strikes'} you in the back!`,{sure:true});if(S.hp<1)S.hp=1;
+      const lost=Math.floor(S.gold*0.1);if(lost>0){S.gold-=lost;sfx('coins');out(`{y}You drop ${lost} gold in the dark as you run.{n}`);}
+      m.hp=m.mhp;
       S.fight=false;S.fx={};sfx('run');out("{c}¡Huyes a trompicones!");
       if(dirs.length){const d=pick(MR,dirs);S.room=r.exits[d];out(`{d}Sales a trompicones hacia: ${DN[d]}.`);enterRoom();}
       return;}
