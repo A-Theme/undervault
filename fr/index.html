@@ -1633,75 +1633,89 @@ function vary(key,arr){
   const last=VARY[key]||(VARY[key]=[]),keep=Math.min(4,arr.length-2),pool=arr.filter(x=>!last.includes(x));
   const x=pick(MR,pool.length?pool:arr);last.push(x);while(last.length>keep)last.shift();return x;
 }
-/* Words for a blow, by weapon, weakest band first. dmgWord() colours and capitalises the top three bands. */
+/* Words for a blow, by weapon: six strengths, weakest first, 108 or so to a weapon. dmgWord() colours and capitalises
+   the top three strengths. None may sound like a kill: the foe is often still standing. */
 const HIT_WORDS={
- sword:[['scratches','nicks','glances off','skims','flicks across','kisses'],
-  ['grazes','clips','scores','nips','catches','licks across'],
-  ['cuts','slices','strikes','opens a line on','bites into','finds'],
-  ['carves into','lays open','slashes across','rips across','runs a red line down','opens up'],
-  ['slashes','rends','shears into','carves into','rips open','splits'],
-  ['cleaves into','savages','tears into','cuts deep into','hews deep into','lays wide open']],
- axe:[['chips','nicks','glances off','scuffs','knocks against','clanks off'],
-  ['chips into','clips','notches','catches','scrapes','bites at'],
-  ['chops','hacks','hews','bites into','strikes','thunks into'],
-  ['chops deep into','hews into','splits','wedges into','bites hard into','hacks open'],
-  ['hacks into','chops down into','splits','hews','wedges deep into','bites to the bone in'],
-  ['cleaves into','splits open','bites to the haft in','chops clean into','hews a great wedge from','buries itself in']],
- scythe:[['whispers across','skims','grazes','brushes','flicks','sighs past'],
-  ['nicks','scores','catches','hooks','clips','tugs at'],
-  ['reaps at','slices','sweeps across','hooks into','scythes','shaves a sliver off'],
-  ['reaps','hooks deep into','scythes across','carves a crescent in','sweeps into','threshes'],
-  ['reaps','harvests','scythes across','hooks and rips','threshes','winnows'],
-  ['reaps deep into','harvests','gathers in','tears a crescent in','scythes the legs from under','hooks deep and rips']],
- claw:[['scratches','paws at','scuffs','swipes at','nicks','snags'],
-  ['rakes','claws','scores','swipes across','catches','snatches at'],
-  ['rips at','tears at','slashes','gouges','claws into','rakes across'],
-  ['rakes open','tears into','gouges','rips into','mauls','shreds the hide of'],
-  ['mauls','shreds','rends','savages','gouges','flays'],
-  ['tears into','rakes to the bone','rends and rips','mauls savagely','tears strips from','rends to the bone']],
- mace:[['taps','bumps','glances off','knocks','thunks','bonks'],
-  ['jolts','clips','knocks','thumps','raps','clunks off'],
-  ['strikes','thumps','batters','clubs','bashes','wallops'],
-  ['cracks','staggers','dents','rocks','clobbers','bludgeons'],
-  ['pounds','smashes','hammers','thuds into','crunches','wallops'],
-  ['crushes','slams','bludgeons','breaks the guard of','jars to the bone','smashes into']],
- fist:[['taps','pats','pokes','brushes','flicks','nudges'],
-  ['jabs','pops','bops','cuffs','swats','clips'],
-  ['punches','socks','slugs','belts','clocks','cracks'],
-  ['rocks','slugs hard','wallops','staggers','snaps back','rattles'],
-  ['pounds','wallops','hammers','batters','pummels','clobbers'],
-  ['decks','floors','rocks','splits the guard of','piledrives','rocks back']],
- dagger:[['pricks','nicks','glances off','scratches','tickles','needles'],
-  ['grazes','clips','jabs','sticks','nips','pinks'],
-  ['pierces','punctures','stabs','sticks','slips into','finds a gap in'],
-  ['skewers','sinks into','slips between the ribs of','punches into','sticks deep in','goes in deep on'],
-  ['stabs deep into','drives into','gores','punctures','sinks to the hilt in','slips under the guard of'],
-  ['spears','lances into','bites deep into','skewers','sinks deep into','buries itself in']],
- bow:[['grazes','whistles past','nicks','skims','clips','scuffs'],
-  ['clips','nicks','catches','grazes','stings','scores'],
-  ['strikes','hits','punches into','thuds into','sticks in','finds'],
-  ['thuds into','buries itself in','punches into','sinks into','pins','skewers'],
-  ['punches into','skewers','pins','spears','drills into','slams into'],
-  ['lances into','nails','drives deep into','skewers','spears','hammers into']],
- staff:[['fizzles against','sparks off','tingles','flickers over','crackles on','prickles'],
-  ['singes','zaps','stings','jolts','buffets','nips'],
-  ['scorches','blasts','sears','batters','shocks','buffets'],
-  ['blisters','burns into','blasts','rocks','scalds','hurls back'],
-  ['engulfs','scalds','withers','blasts','hurls back','scourges'],
-  ['scours','flays','blazes into','detonates on','erupts over','blows back']],
- wand:[['fizzles against','sparks off','tingles','pops on','flickers at','crackles over'],
-  ['zaps','singes','stings','nips','pricks','sizzles on'],
-  ['sears','scorches','crackles across','burns','jolts','lances'],
-  ['blisters','burns into','lances into','arcs into','crackles across','scalds'],
-  ['arcs into','sears','lances into','scorches','blasts','electrifies'],
-  ['blazes into','scours','strikes like lightning into','flays','detonates on','burns a hole in']]};
+ sword:[
+  ["scratches","nicks","glances off","skims","flicks across","kisses","brushes","whispers across","tickles","skips off","barely touches","scuffs","snicks","feathers","shaves","pinks","tips","ticks across"],
+  ["grazes","clips","scores","nips","catches","licks across","notches","snags","marks","scrapes","stings","flicks open","catches the edge of","nips at","scratches deep","kisses red","tags","draws a bead of blood from"],
+  ["cuts","slices","strikes","opens a line on","bites into","finds","slashes","catches clean","cuts into","draws blood from","slices across","sweeps across","lashes","scores deep","cuts a groove in","opens a cut on","punishes","whips across"],
+  ["carves into","lays open","slashes across","rips across","runs a red line down","opens up","cuts deep","slices open","opens a gash in","bites deep into","slices deep into","drives the edge into","parts the hide of","lays a gash across","sabers","carves a line in","cuts a long red line in","slices a flap from"],
+  ["slashes savagely","rends","shears into","carves up","rips open","splits","hacks open","tears open","slices deep","lays into","rakes open","gashes","carves a red arc across","slashes wide open","hews into","blazes across","cuts a red ruin in","opens a great gash in"],
+  ["cleaves into","savages","tears into","cuts deep into","hews deep into","lays wide open","carves deep into","shears deep into","splits wide","brings the saber down on","cuts % to the bone","opens a terrible wound in","brings the edge down on","cuts a canyon in","slices % to the bone","hacks deep into","sends a red arc from","tears a red rift in"]],
+ axe:[
+  ["chips","nicks","glances off","scuffs","knocks against","clanks off","bounces off","taps","raps","scrapes","skids off","clips the edge of","chatters off","dinks","knocks","kisses","grazes","flats"],
+  ["chips into","clips","notches","catches","bites at","nicks deep","gouges","snags","scores","raps hard","thwacks","dents","chops at","nips","scuffs deep","marks","scrapes deep","chips a splinter from"],
+  ["chops","hacks","hews","bites into","strikes","thunks into","hacks at","splits the skin of","whacks","cuts","wedges","sinks into","thwacks hard","chunks into","bites","chops into","cracks","hacks a notch in"],
+  ["chops deep into","hews into","splits","wedges into","bites hard into","hacks open","notches deep","chunks deep into","hacks into","lops at","splits the hide of","bites a wedge from","hews a notch in","thunks deep into","chops a groove in","hacks a gash in","buries the bit in","carves a wedge in"],
+  ["hacks deep into","chops down into","splits wide","hews mightily into","wedges deep into","bites to the bone in","cleaves","chops open","hews deep","smashes the bit into","lays open","hacks a chunk from","hews a slab from","bites deep","chops hard into","rips the bit across","splinters the guard of","sinks the axe into"],
+  ["cleaves into","splits open","bites to the haft in","chops clean into","hews a great wedge from","buries itself in","cleaves deep into","splits % to the bone","hews down into","brings the full weight down on","chops a canyon in","bites a great chunk from","hacks % to the bone","drives the bit deep into","cleaves a red line down","lands like a falling tree on","hews % like an oak","splits the guard and the hide of"]],
+ scythe:[
+  ["whispers across","skims","grazes","brushes","flicks","sighs past","ghosts across","kisses","trails across","wisps past","tickles","combs","sweeps past","feathers","tips","barely touches","breathes on","sighs across"],
+  ["nicks","scores","catches","hooks","clips","tugs at","snags","curls round","scratches","licks across","marks","pricks","skims deep","draws a line on","nips","hooks at","plucks at","gleans from"],
+  ["reaps at","slices","sweeps across","hooks into","scythes","shaves a sliver off","mows at","cuts","sickles","curves into","gleans a sliver from","swathes","sweeps into","draws a crescent on","bites into","slices across","trims","rakes"],
+  ["reaps","hooks deep into","scythes across","carves a crescent in","sweeps deep into","threshes","mows into","sickles deep into","hooks % and drags","cuts a pale arc in","harvests a strip from","scythes deep","curves deep into","swathes into","reaps a strip from","draws the long blade across","carves a harvest-moon in","gathers a red crescent from"],
+  ["harvests","scythes low across","hooks % and rips","winnows","mows down into","reaps deep","sickles hard","gathers","cuts a grave-arc across","hooks % deep and drags","threshes hard","reaps a red row in","sheaves","harvests a wide strip from","swings the full arc into","scythes wide across","reaps hard","draws a cold arc across"],
+  ["reaps deep into","harvests the strength from","gathers in","tears a crescent in","scythes the legs from under","hooks % deep and rips","reaps a terrible harvest from","brings the long blade round into","threshes % to the bone","winnows half the fight from","cuts a reaper's arc across","sweeps the blade deep into","hooks the blade under the guard of","takes a full harvest from","sickles deep","draws the moon-blade across","lays a grave-cold arc across","reaps % to the bone"]],
+ claw:[
+  ["scratches","paws at","scuffs","swipes at","nicks","snags","flicks","scrapes","brushes","prickles","catches at","plucks at","scrabbles at","skitters across","tickles","grazes","taps","bats at"],
+  ["rakes","claws","scores","swipes across","catches","snatches at","scrapes deep","snags deep","nicks deep","scratches deep","marks","slashes at","hooks","tears at the edge of","scrabbles into","furrows","rips at the fur of","scores three lines on"],
+  ["rips at","tears at","slashes","gouges","claws into","rakes across","lacerates","carves furrows in","hooks into","scores deep","rends","rips across","slashes across","claws open","digs into","tears a strip from","bites in with every claw","furrows deep"],
+  ["rakes open","tears into","gouges deep","rips into","mauls","shreds the hide of","rakes deep","tears open","gashes","claws deep into","rakes red lines down","digs deep into","rips a flap from","scores % to the bone","lashes open","savages","sinks claws into","tears furrows in"],
+  ["mauls hard","shreds","rends wide open","flays","tears deep into","rips open","claws savagely","shreds deep","rips furrows in","hooks % and tears","rakes bloody","mangles","tears red strips from","rips into the flank of","slashes savagely","gouges savagely","rakes wide open","worries"],
+  ["tears ruinously into","rakes % to the bone","rends % and rips","mauls savagely","tears strips from","rends % to the bone","flays % wide open","mauls % and shakes it","sinks every claw into","savages the flank of","rips a great flap from","tears a red ruin in","shreds % to the bone","rakes four deep gashes in","mauls % like a wild thing","tears at % and worries it","rends deep","opens four red trenches in"]],
+ mace:[
+  ["taps","bumps","glances off","knocks","thunks","bonks","raps","nudges","dinks","plinks off","bounces off","tocks","pats","clacks off","clinks off","brushes","clunks against","thumps lightly"],
+  ["jolts","clips","knocks hard","thumps","raps hard","clunks off","bangs","whacks","bumps hard","jars","thuds against","clouts","cuffs","rattles","dings","bops","conks","dents"],
+  ["strikes","batters","clubs","bashes","wallops","cracks","thuds into","smacks","drubs","pummels","knocks back","thrashes","clobbers","belts","thwacks","hits hard","slams","beats"],
+  ["cracks hard","staggers","dents deep","rocks","bludgeons","jars hard","smacks down","rattles hard","batters hard","jolts hard","knocks sideways","bangs a dent in","rings % like a bell","drives back","clubs hard","buckles","whams","thumps hard"],
+  ["pounds","smashes","hammers","crunches","wallops hard","slams hard","bashes in the guard of","batters down","drives the head into","pile-drives","clangs off the skull of","smashes back","thunders into","staggers badly","crunches into","hammers down on","bludgeons hard","rocks % back on its heels"],
+  ["crushes","slams the full head into","bludgeons brutally","breaks the guard of","jars % to the bone","smashes into","hammers flat","crunches deep into","brings the full weight down on","pounds % to its knees","rings % like a temple bell","batters % senseless","smashes sideways","drives % to one knee","sends % sprawling","clangs like a forge on","staves a dent in","crashes down on"]],
+ fist:[
+  ["taps","pats","pokes","brushes","flicks","nudges","prods","bumps","jostles","tags lightly","grazes","dabs at","swipes at","shoves","paws","pushes","tickles","boops"],
+  ["jabs","pops","bops","cuffs","swats","clips","smacks","pings","tags","stings","raps","nicks","bumps hard","shoves hard","flicks hard","pecks","buffets","biffs"],
+  ["punches","socks","slugs","belts","clocks","cracks","thumps","whacks","clobbers","smacks hard","hooks","jabs hard","pastes","tags clean","catches clean","rocks back","hits square","drills"],
+  ["rocks","slugs hard","wallops","staggers","snaps back","rattles","tags flush","socks hard","clocks hard","lamps","belts hard","drives back","hammers","jolts","rocks % on its heels","catches % on the chin","snaps the head of","buckles"],
+  ["pounds","wallops hard","hammers hard","batters","pummels","clobbers hard","drills hard","smashes","rocks hard","lands flush on","slams a fist into","rattles the teeth of","buries a fist in","blasts","staggers hard","rains blows on","drives a knee into","whips a hook into"],
+  ["decks","floors","splits the guard of","piledrives","sends % flying back","sends % reeling","knocks % silly","lays a haymaker on","drops a hammer-fist on","blows the wind out of","lands a thunderclap on","rings the bell of","puts the full weight into","sends % spinning","buckles the knees of","unloads on","smashes flush into","lands the punch of a lifetime on"]],
+ dagger:[
+  ["pricks","nicks","glances off","scratches","tickles","needles","flicks","pinks","grazes","skims","skips off","scuffs","snicks","tips","kisses","teases","plucks at","barely touches"],
+  ["clips","jabs","sticks","nips","pinks deep","pricks deep","stings","catches","scores","slits","nicks deep","pecks","flicks open","marks","dabs","snags","punctures lightly","draws a bead from"],
+  ["pierces","punctures","stabs","slips into","finds a gap in","sticks deep","pokes a hole in","slices","jabs hard","pricks to the quick","darts into","sinks in","needles into","spikes","slits open","lances","pins","stabs at the side of"],
+  ["skewers","sinks into","slips between the ribs of","punches into","sticks deep in","goes in deep on","stabs hard","punctures deep","spikes deep","lances deep","finds the soft spot in","sinks home in","slides into","pins hard","darts deep into","needles deep into","opens a slit in","twists into"],
+  ["stabs deep into","drives into","gores","sinks to the hilt in","slips under the guard of","buries the point in","punches deep into","goes home in","lances hard into","stabs % to the hilt","twists deep into","drives the point home in","finds the heart-side of","skewers deep","stabs % and twists","opens a deep slit in","pins % and twists","spears deep"],
+  ["spears","lances into","bites deep into","skewers % cleanly","sinks deep into","buries itself in","sinks to the guard in","plunges into","strikes home in","finds a vital spot in","drives to the hilt into","stabs % again and again","twists the blade in","opens a deep wound in","skewers to the hilt","sinks in and rips at","finds every gap in","punches the point deep into"]],
+ bow:[
+  ["grazes","whistles past","nicks","skims","clips","scuffs","skips off","kisses","feathers","glances off","fans past","tickles","buzzes past","scrapes","sings past","brushes","barely clips","hisses past"],
+  ["clips hard","catches","stings","scores","nips","snags","pricks","sticks lightly in","pinks","raps","tags","wings","marks","scratches","skims deep","pecks","grazes deep","nicks deep"],
+  ["strikes","hits","punches into","thuds into","sticks in","finds","plinks into","pierces","spikes","stabs into","lodges in","snaps into","thwips into","sticks","strikes true on","tags clean","bites into","takes"],
+  ["buries itself in","sinks into","pins","skewers","sinks deep","lodges deep in","strikes hard","thunks into","drives into","sticks deep in","spikes hard","pierces deep","hammers into","nails","takes square","lances","finds the mark on","smacks into"],
+  ["skewers deep","spears","drills into","slams into","pins hard","punches deep into","buries to the fletching in","lances deep","strikes dead centre on","drives deep","snaps deep into","sinks to the feathers in","spikes deep","hammers deep into","drives home in","nails hard","pierces % cleanly","thunders into"],
+  ["lances into","nails % dead centre","drives deep into","skewers % cleanly","spears deep","slams with a crack into","buries to the feathers in","punches clean into","pins % to the spot","strikes home in","takes % full in the body","thunders deep into","drives home hard in","plants a shaft deep in","sinks the whole head in","buries itself deep in","drills deep into","nails % to the wall behind it"]],
+ staff:[
+  ["fizzles against","sparks off","tingles","flickers over","crackles on","prickles","fizzes on","glimmers on","twinkles off","puffs against","hums over","sputters on","wisps across","glows on","dances off","pops against","flutters over","winks off"],
+  ["singes","zaps","stings","jolts","buffets","nips","warms","crackles over","sparks against","scorches lightly","tingles hard","thumps","prickles hard","bumps","frosts","fizzes into","nettles","smokes"],
+  ["scorches","blasts","sears","batters","shocks","burns","bolts into","strikes","rocks","frosts over","chars","pummels","thumps hard","lashes","scalds lightly","flashes into","ripples into","knocks back"],
+  ["blisters","burns into","blasts hard","scalds","hurls back","sears deep","scorches deep","batters hard","blazes over","sends % reeling","chars deep","frosts deep","rocks hard","lights up","flares across","splashes fire over","rattles % with force","bolts hard into"],
+  ["engulfs","withers","scourges","blasts back","hammers","scorches black","sears % to the bone","drowns % in light","flings back","hurls aside","blazes into","engulfs % in force","frosts solid","rakes % with fire","thunders into","batters % with force","chars black","floods % with light"],
+  ["scours","flays","detonates on","erupts over","blows back","blasts % off its feet","sears to the core","engulfs % in white fire","hammers % with raw force","hurls % across the room","drowns % in starfire","lights % up like a bonfire","blazes white over","rends with force","scorches % to the bone","erupts in light against","breaks over % like a wave","hits % like a falling star"]],
+ wand:[
+  ["fizzles against","sparks off","tingles","pops on","flickers at","crackles over","fizzes on","snaps against","glints off","prickles","twinkles at","zips past","sputters on","sizzles off","flecks","ticks against","glimmers on","spits at"],
+  ["zaps","singes","stings","nips","pricks","sizzles on","jolts","sparks","fizzes into","snaps at","crackles on","needles","smokes","scorches lightly","buzzes","flashes","tags","snipes"],
+  ["sears","scorches","crackles across","burns","lances","zaps hard","bolts","arcs into","snaps into","shocks","fries","singes deep","stings hard","pierces","spits fire at","flashes into","strikes","blasts"],
+  ["blisters","burns into","lances into","crackles hard across","scalds","sears deep","arcs hard into","fries hard","scorches deep","bolts hard","snaps hard into","zaps % rigid","stabs light into","burns a line on","shocks hard","splits the air into","torches","singes black"],
+  ["arcs viciously into","lances hard into","electrifies","sears black","fries the nerves of","blasts hard","bolts deep into","crackles through the guard of","scorches % to the bone","torches the hide of","burns a channel in","spears % with light","zaps % senseless","jolts rigid","splits % with lightning","hammers % with sparks","sears to the core","stuns % with light"],
+  ["blazes into","scours","strikes like lightning into","flays","detonates on","burns a hole in","fries % to the bone","torches black","stabs a bolt deep into","lances white-hot into","crackles like a storm over","arcs again and again into","burns a smoking hole in","sears % white","shatters the air around","splits the dark over","spikes % with lightning","blasts a crater in"]]};
 const HIT_TOP=['{r}*** DEVASTATES ***{n}','{r}*** WRECKS ***{n}','{m}*** BRUTALIZES ***{n}','{o}*** RAVAGES ***{n}','{r}*** MANGLES ***{n}',
  '{m}*** SAVAGES ***{n}','{o}*** BATTERS ***{n}','{r}*** HAMMERS ***{n}','{m}*** MAULS ***{n}'];
 const hitFam=()=>S.eq.weapon&&HIT_WORDS[S.eq.weapon.wt]?S.eq.weapon.wt:'fist';
-function dmgWord(d,mhp){
-  const b=hitBand(d,mhp);if(b>5)return vary('top',HIT_TOP);const wt=hitFam(),w=vary('hw'+wt+b,HIT_WORDS[wt][b]);
-  return b===3?`{y}${w}{n}`:b===4?`{o}${w.toUpperCase()}{n}`:b===5?`{r}${w.toUpperCase()}{n}`:w;
-}
+/* A word may hold the foe inside it: "%" marks where it goes ("rocks % back on its heels", "cuts % to the bone"), and a
+   last word like "open", "hard" or "back" goes after the foe on its own ("lays the rat open", "knocks the rat back"). */
+const HW_TAIL=/ ((?:wide )?open|hard|deep|clean|cleanly|badly|savagely|wildly|brutally|square|flush|wide|back|aside|sideways|black|solid|rigid|white|silly|senseless|bloody|down|up|flat)$/;
+function hitWord(d,mhp){const b=hitBand(d,mhp);if(b>5)return {w:vary('top',HIT_TOP),b,top:1};const wt=hitFam();return {w:vary('hw'+wt+b,HIT_WORDS[wt][b]),b};}
+const hwCol=(w,b)=>b===3?`{y}${w}{n}`:b===4?`{o}${w.toUpperCase()}{n}`:b===5?`{r}${w.toUpperCase()}{n}`:w;
+/* the word on its own, foe left out ("rocks back on its heels"): for anything that only needs the word */
+function dmgWord(d,mhp){const h=hitWord(d,mhp);return h.top?h.w:hwCol(h.w.replace(' % ',' '),h.b);}
 const CRIT_FLAIR={
  sword:['Steel sings.','A bright, clean arc.','The blade hums in your hand.','A perfect line, drawn in red.','You feel it all the way up your arm.'],
  axe:['The haft shivers in your grip.','Like splitting oak.','The blow echoes off the walls.','Chips fly.','That one will leave a mark for life.'],
@@ -1755,11 +1769,13 @@ const HIT_AFTER={flesh:['Blood spatters the stones.','It reels back.','A spray o
 const bare=w=>w.replace(/\{[a-z]\}|\*/g,'').trim().toLowerCase();
 function hitText(label,d,m,band,o){
   /* the word never echoes the move ("your pierce pierces", "your Shield Bash bashes") */
-  const stem=String(label).toLowerCase().split(/\s+/).pop().slice(0,4);let word=dmgWord(d,m.mhp);
-  for(let i=0;i<5&&bare(word).slice(0,4)===stem;i++)word=dmgWord(d,m.mhp);
-  const wt=hitFam(),r=MR();let s=`your ${label} \x02${word}\x03 ${the(m)}`;
+  const stem=String(label).toLowerCase().split(/\s+/).pop().slice(0,4);let h=hitWord(d,m.mhp);
+  for(let i=0;i<5&&bare(h.w).slice(0,4)===stem;i++)h=hitWord(d,m.mhp);
+  let w=h.w,post='';
+  if(!h.top){if(w.includes(' % '))[w,post]=w.split(' % ');else{const t=w.match(HW_TAIL);if(t){post=t[1];w=w.slice(0,t.index);}}}
+  const wt=hitFam(),r=MR();let s=`your ${label} \x02${h.top?w:hwCol(w,band)}\x03 ${the(m)}`+(post?` \x02${hwCol(post,band)}\x03`:'');
   /* where it landed, only after a plain verb: "slashes the rat across the face", never "tears at the rat across its hide" */
-  if(o.flair&&band>=2&&r<0.3&&!/\b(across|into|in|on|at|off|over|through|along|under|of|against|past|from|down|up|back)$/.test(bare(word)))s+=vary('wh'+bodyOf(m),HIT_WHERE[bodyOf(m)]);
+  if(o.flair&&band>=2&&r<0.3&&!post&&!/\b(across|into|in|on|at|off|over|through|along|under|of|against|past|from|down|up|back|around)$/.test(bare(w)))s+=vary('wh'+bodyOf(m),HIT_WHERE[bodyOf(m)]);
   s+='!';
   if(o.flair&&r>=0.3&&r<0.55)s=vary('op',MR()<0.5?HIT_OPEN:HIT_OPEN_W[wt]||HIT_OPEN)+s;
   return cap(s);
