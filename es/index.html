@@ -9834,8 +9834,11 @@ const sellTag=(it,end='')=>{const sh=getShop(),v=sellValue(it);return sh&&sh.sel
 function sell(arg){
   const sh=getShop();if(!sh||!sh.sells){out("Aquí nadie compra equipo. Prueba con Brakka o con algún buhonero errante.");return;}
   if(arg==='junk'){let n=0,g=0;S.inv=S.inv.filter(it=>{if(it.rar===0&&slotOf(it)){n++;g+=sellValue(it);return false;}return true;});S.gold+=g;sfx(n?'coins':'fail');out(n?`Vendes tu equipo común (${n}) por ${g} de oro.`:"No tienes equipo común que vender.");return;}
+  /* "sell 3 5" or "sell healing all": a stack of potions sells several at a time */
+  let q=1;{const mq=String(arg||'').match(/^(.+?)\s+(all|\d+)$/);if(mq&&findIn(S.inv,mq[1])){arg=mq[1];q=mq[2];}}
   const it=findIn(S.inv,arg);if(!it){out("¿Vender qué?");return;}
-  if(it.kind==='potion'){const g=sellValue(it);it.qty--;if(it.qty<=0)S.inv.splice(S.inv.indexOf(it),1);S.gold+=g;sfx('gold');out(`Vendes ${POT[it.key].n} por ${g} de oro.`);return;}
+  if(it.kind==='potion'){const n=q==='all'?it.qty:clamp(parseInt(q)||1,1,it.qty),g=sellValue(it)*n;it.qty-=n;if(it.qty<=0)S.inv.splice(S.inv.indexOf(it),1);S.gold+=g;sfx(n>1?'coins':'gold');
+    out(n>1?`You sell ${n} ${POT[it.key].n}s for ${g} gold.`:`Vendes ${POT[it.key].n} por ${g} de oro.`);return;}
   if(!it.value){out("Nadie lo quiere.");return;}
   const g=sellValue(it);S.inv.splice(S.inv.indexOf(it),1);S.gold+=g;sfx('coins');out(`Vendes ${iname(it)} por {y}${g} de oro{n}.`);
 }
@@ -10176,7 +10179,7 @@ function showInv(){
     if(slotOf(it))acts.push(`{@equip ${i+1}|equipar}`,`{@preview ${i+1}|probar}`);
     if(it.kind==='potion'||it.kind==='egg')acts.push(`{@use ${i+1}|usar}`);
     const sv=sellValue(it);
-    if(sh&&sh.sells&&sv)acts.push(`{@sell ${i+1}|vender ${sv} mo}`);
+    if(sh&&sh.sells&&sv)acts.push(it.kind==='potion'&&it.qty>1?`{d}sell{n} {@sell ${i+1}|1}`+(it.qty>=4?` {@sell ${i+1} ${Math.floor(it.qty/2)}|half}`:'')+` {@sell ${i+1} all|all}`:`{@sell ${i+1}|vender ${sv} mo}`);   /* a stack: 1, half or all, on one short line */
     acts.push(`{@drop ${i+1}|tirar}`);
     out(`${String(i+1).padStart(2)}. ${iname(it)}${slotOf(it)?cmpTag(it):''}\n    {d}${idesc(it)}${sellTag(it,'{d}')}{n}  ${acts.join(' ')}`);
   });

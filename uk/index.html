@@ -9834,8 +9834,11 @@ const sellTag=(it,end='')=>{const sh=getShop(),v=sellValue(it);return sh&&sh.sel
 function sell(arg){
   const sh=getShop();if(!sh||!sh.sells){out("Тут ніхто не купує спорядження. Спробуй у Бракки або в мандрівного торговця.");return;}
   if(arg==='junk'){let n=0,g=0;S.inv=S.inv.filter(it=>{if(it.rar===0&&slotOf(it)){n++;g+=sellValue(it);return false;}return true;});S.gold+=g;sfx(n?'coins':'fail');out(n?`Ти продаєш звичайне спорядження (${n}) за ${g} золота.`:"У тебе немає звичайного спорядження на продаж.");return;}
+  /* "sell 3 5" or "sell healing all": a stack of potions sells several at a time */
+  let q=1;{const mq=String(arg||'').match(/^(.+?)\s+(all|\d+)$/);if(mq&&findIn(S.inv,mq[1])){arg=mq[1];q=mq[2];}}
   const it=findIn(S.inv,arg);if(!it){out("Продати що?");return;}
-  if(it.kind==='potion'){const g=sellValue(it);it.qty--;if(it.qty<=0)S.inv.splice(S.inv.indexOf(it),1);S.gold+=g;sfx('gold');out(`Ти продаєш ${POT[it.key].n} за ${g} золота.`);return;}
+  if(it.kind==='potion'){const n=q==='all'?it.qty:clamp(parseInt(q)||1,1,it.qty),g=sellValue(it)*n;it.qty-=n;if(it.qty<=0)S.inv.splice(S.inv.indexOf(it),1);S.gold+=g;sfx(n>1?'coins':'gold');
+    out(n>1?`You sell ${n} ${POT[it.key].n}s for ${g} gold.`:`Ти продаєш ${POT[it.key].n} за ${g} золота.`);return;}
   if(!it.value){out("Це нікому не потрібно.");return;}
   const g=sellValue(it);S.inv.splice(S.inv.indexOf(it),1);S.gold+=g;sfx('coins');out(`Ти продаєш ${iname(it)} за {y}${g} золота{n}.`);
 }
@@ -10176,7 +10179,7 @@ function showInv(){
     if(slotOf(it))acts.push(`{@equip ${i+1}|спорядити}`,`{@preview ${i+1}|приміряти}`);
     if(it.kind==='potion'||it.kind==='egg')acts.push(`{@use ${i+1}|використати}`);
     const sv=sellValue(it);
-    if(sh&&sh.sells&&sv)acts.push(`{@sell ${i+1}|продати ${sv} зол.}`);
+    if(sh&&sh.sells&&sv)acts.push(it.kind==='potion'&&it.qty>1?`{d}sell{n} {@sell ${i+1}|1}`+(it.qty>=4?` {@sell ${i+1} ${Math.floor(it.qty/2)}|half}`:'')+` {@sell ${i+1} all|all}`:`{@sell ${i+1}|продати ${sv} зол.}`);   /* a stack: 1, half or all, on one short line */
     acts.push(`{@drop ${i+1}|викинути}`);
     out(`${String(i+1).padStart(2)}. ${iname(it)}${slotOf(it)?cmpTag(it):''}\n    {d}${idesc(it)}${sellTag(it,'{d}')}{n}  ${acts.join(' ')}`);
   });
