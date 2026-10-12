@@ -10160,6 +10160,7 @@ function equip(it){
   const old=S.eq[sl];S.inv.splice(S.inv.indexOf(it),1);S.eq[sl]=it;if(old)S.inv.push(old);sfx('equip');
   out(`Ти споряджаєш: ${iname(it)}`+(it.kind==='charm'?` {d}(${SLOTNAME[sl].toLowerCase()})`:'')+'.'+(old?` {d}(${plainName(old).trim()} — у торбу)`:''));
   if(!suits(it))out(`{o}${offNote(it)}.{n}`);
+  if(it.title&&heroTitles().length>1&&heroTitle()!==it.title)out(`{d}It carries the title{n} {o}${it.title}{n}{d}.{n} {@title|choose your title}`);
   if(!S.fight)outDolls([heroFigure(heroKey(S.cls,S.body),S.eq,null,2)]);
   capVitals();
 }
@@ -10204,6 +10205,7 @@ function showEq(){
   for(const s of SLOTS){const it=S.eq[s];out(`${SLOTNAME[s].padEnd(7)}: `+(it?`${iname(it)}
          {d}${idesc(it)}{n} {@remove ${s}|зняти}`:'{d}(nothing)'));}
   const sc=setCounts();for(const k in sc){const T=SETS[k];out(`{y}${T.n} ${sc[k]}/4{n} {d}2: ${T.d2}${sc[k]>=2?' (active)':''}. 4: ${T.d4}${sc[k]>=4?' (active)':''}.`);}
+  {const n=heroTitles().length;if(n>1)out(`{d}Title:{n} {o}${heroTitle()}{n} {d}(${n} earned){n} {@title|change}`);}   /* two titled pieces, or a title from a deed: choose which to wear */
 }
 function boxLines(lines){const w=38;out(['.'+'-'.repeat(w)+'.',...lines.map(l=>'| '+(l.length>w-2?l.slice(0,w-2):l.padEnd(w-2))+' |'),"'"+'-'.repeat(w)+"'"].join('\n'),'box');}
 function score(){
