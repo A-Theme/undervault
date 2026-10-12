@@ -715,6 +715,8 @@ const SITE_URL='https://playundervault.com/';
 const LATER_LEGENDS=[];
 /* ...and their pages of the story in the Lore Book: each adds a function (has) returning that book's HTML. */
 const LATER_STORY=[];
+/* ...their people (LB_PEOPLE entries) and their keepers' section ([title, first boss, end]) in the Lore Book. */
+const LATER_PEOPLE=[],LATER_BOSSES=[];
 const LEADERBOARD={url:'https://uxlkammmhdtsizylsahc.supabase.co',key:'sb_publishable_yNyx9DKntsGXJ0_cSCB1NQ_y0lAsp6E'};
 
 'use strict';
@@ -9196,6 +9198,7 @@ const LB_PEOPLE=[
  {id:'lily',n:'Lily the Sweethang',pic:'boss:lily',on:()=>!!S.flags.south,x:"Пані в широкому капелюсі від сонця, що п'ятдесят років тому дуже чемно купила по одному літу в кожного села Кальдмарку й забрала їх на південь, до свого саду.",
   more:[[()=>!!S.flags.lily,"Вона впала з неба, через сьомі двері, ті, яких ніхто не лічить, і спробувала жити в цьому світі. Усе, що любить, вона береже, а все, що береже, садить, і їй ніколи не буває досить тепло. Вона відпустила літа. Її сад відростає."]]}
 ];
+LB_PEOPLE.push(...LATER_PEOPLE);   /* the books held back (config.js), in a build that has them */
 
 /* ----- which hero the book reads as ----- */
 function lbHero(){
@@ -9276,8 +9279,8 @@ const LB_RENDER={
  keepers(has){
   const card=(key,B,done,met)=>{const q=B.intro&&B.intro[1]?plainTxt(B.intro[1]):'',d=B.death&&B.death.length?plainTxt(B.death[B.death.length-1]):'';
     return done?lbCard('boss:'+key,B.n,(q?`<p class="lb-q">${esc(q)}</p>`:'')+(d?`<p><i>Падаючи:</i> ${esc(d)}</p>`:'')):lbCard('boss:'+key,met?B.n:'???',`<p>${met?"Ще не переможено.":"Десь унизу."}</p>`,true);};
-  let h='';const secs=[["Книга I: вартові Каменів-оберегів",0,5],["Книга II: під Троном",5,10],["Книга III: під морем",10,15],["Книга IV: Війна Ліхтарів",15,20]];
-  secs.forEach(([t,a,b])=>{if(a>=5&&!(has&&(a<10?S.flags.ended:a<15?S.flags.ended2:S.flags.ended3)))return;h+=`<div class="ex-sec">${t}</div>`;
+  let h='';const secs=[["Книга I: вартові Каменів-оберегів",0,5],["Книга II: під Троном",5,10],["Книга III: під морем",10,15],["Книга IV: Війна Ліхтарів",15,20],...LATER_BOSSES];
+  secs.forEach(([t,a,b])=>{if(a>=5&&!(has&&S.flags[a<10?'ended':'ended'+Math.floor(a/5)]))return;h+=`<div class="ex-sec">${t}</div>`;
     for(let i=a;i<b;i++)h+=card(BOSS_SPR[i]||'herald',BOSSES[i],has&&bossDone(i),has&&lbReached(i));});
   h+="<div class=\"ex-sec\">Бічні підземелля й переправа</div>";
   Object.entries(DUNGEONS).forEach(([k,D])=>{if(D.raid||!D.boss)return;if(D.voyage&&!(has&&lbShip()))return;if(D.story&&!(has&&S.flags.south))return;

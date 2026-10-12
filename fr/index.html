@@ -715,6 +715,8 @@ const SITE_URL='https://playundervault.com/';
 const LATER_LEGENDS=[];
 /* ...and their pages of the story in the Lore Book: each adds a function (has) returning that book's HTML. */
 const LATER_STORY=[];
+/* ...their people (LB_PEOPLE entries) and their keepers' section ([title, first boss, end]) in the Lore Book. */
+const LATER_PEOPLE=[],LATER_BOSSES=[];
 const LEADERBOARD={url:'https://uxlkammmhdtsizylsahc.supabase.co',key:'sb_publishable_yNyx9DKntsGXJ0_cSCB1NQ_y0lAsp6E'};
 
 'use strict';
@@ -9196,6 +9198,7 @@ const LB_PEOPLE=[
  {id:'lily',n:'Lily the Sweethang',pic:'boss:lily',on:()=>!!S.flags.south,x:"Une dame au grand chapeau de soleil qui a acheté un été à chaque village de Kaldmark, il y a cinquante ans, très poliment, et les a emportés au sud, dans son jardin.",
   more:[[()=>!!S.flags.lily,"Elle est tombée du ciel, par la septième porte, celle que personne ne compte, et a tenté de vivre dans ce monde. Tout ce qu'elle aime, elle le garde, et tout ce qu'elle garde, elle le plante, et elle n'a jamais eu assez chaud. Elle a laissé partir les étés. Son jardin repousse."]]}
 ];
+LB_PEOPLE.push(...LATER_PEOPLE);   /* the books held back (config.js), in a build that has them */
 
 /* ----- which hero the book reads as ----- */
 function lbHero(){
@@ -9276,8 +9279,8 @@ const LB_RENDER={
  keepers(has){
   const card=(key,B,done,met)=>{const q=B.intro&&B.intro[1]?plainTxt(B.intro[1]):'',d=B.death&&B.death.length?plainTxt(B.death[B.death.length-1]):'';
     return done?lbCard('boss:'+key,B.n,(q?`<p class="lb-q">${esc(q)}</p>`:'')+(d?`<p><i>Au moment de tomber :</i> ${esc(d)}</p>`:'')):lbCard('boss:'+key,met?B.n:'???',`<p>${met?"Pas encore vaincu.":"Quelque part en bas."}</p>`,true);};
-  let h='';const secs=[["Livre I : les gardiens des Pierres de garde",0,5],["Livre II : sous le Trône",5,10],["Livre III : sous la mer",10,15],["Livre IV : la Guerre des Lanternes",15,20]];
-  secs.forEach(([t,a,b])=>{if(a>=5&&!(has&&(a<10?S.flags.ended:a<15?S.flags.ended2:S.flags.ended3)))return;h+=`<div class="ex-sec">${t}</div>`;
+  let h='';const secs=[["Livre I : les gardiens des Pierres de garde",0,5],["Livre II : sous le Trône",5,10],["Livre III : sous la mer",10,15],["Livre IV : la Guerre des Lanternes",15,20],...LATER_BOSSES];
+  secs.forEach(([t,a,b])=>{if(a>=5&&!(has&&S.flags[a<10?'ended':'ended'+Math.floor(a/5)]))return;h+=`<div class="ex-sec">${t}</div>`;
     for(let i=a;i<b;i++)h+=card(BOSS_SPR[i]||'herald',BOSSES[i],has&&bossDone(i),has&&lbReached(i));});
   h+="<div class=\"ex-sec\">Donjons annexes et traversée</div>";
   Object.entries(DUNGEONS).forEach(([k,D])=>{if(D.raid||!D.boss)return;if(D.voyage&&!(has&&lbShip()))return;if(D.story&&!(has&&S.flags.south))return;
