@@ -1910,7 +1910,10 @@ function clean(s){return String(s).replace(/[{}|]/g,'').trim();}
 /* ================= STATE ================= */
 let S=null;
 const SAVE_KEY='undervault-save-v1';   /* the single save from before hero slots; moved into a slot on first load */
-const HERO_SLOTS=[1,2,3],slotKey=n=>'undervault-slot-'+n;
+/* Three hero slots for playing signed out, and three more for each account that signs in on this device (its shelf,
+   SHELF: the account id, '' signed out; account.js moves between them). */
+let SHELF='';
+const HERO_SLOTS=[1,2,3],shelfKey=(sh,n)=>sh?'undervault-a-'+sh+'-'+n:'undervault-slot-'+n,slotKey=n=>shelfKey(SHELF,n);
 function freshState(name,cls,seed){
   return {v:1,name,cls,seed,ng:0,lvl:1,xp:0,hp:1,mp:1,gold:40,inv:[],eq:{weapon:null,armor:null,amulet:null,ring1:null,ring2:null},pets:[],pet:-1,
    bonus:{hp:0,mp:0,str:0,agi:0,int:0},floor:0,room:1,floors:{},deepest:0,dg:null,side:{},dgDone:{},dgRuns:{},abyssBest:0,hard:false,wellRested:false,bosses:[false,false,false,false,false],lore:[],flags:{},
@@ -9003,11 +9006,15 @@ async function accDeleteAccount(){
     if(r.status===404){ACC.note="La suppression des comptes n'est pas encore activée sur ce serveur.";return;}
     if(!r.ok){ACC.note="Impossible de supprimer votre compte pour l'instant. Réessayez.";return;}}
   catch(e){ACC.note="Impossible de joindre le serveur. Êtes-vous hors ligne ?";return;}
-  accForget("Votre compte, votre profil et vos sauvegardes dans le cloud sont supprimés. Les héros de cet appareil sont toujours là.");
+  /* this account's heroes on the device are nobody's now: they go back to the signed-out slots */
+  const sh=SHELF;if(sh){shelfMove(sh,()=>'',o=>{delete o.acc;delete o.cloudBase;});pref('shelves',JSON.stringify(shelfList().filter(u=>u!==sh)));}
+  pref('accUid','');shelfUse('');
+  accForget('Your account, profile and cloud saves are deleted. Its heroes on this device are still here.');
 }
 async function accSignOut(){
   try{if(ACC.sess)await accFetch('/auth/v1/logout',{method:'POST'});}catch(e){}
-  accForget("Déconnecté. Vos héros restent sur cet appareil.");
+  shelfUse('');
+  accForget('Signed out. Your heroes are put away on this device: they come back when you sign in again.');
 }
 /* Coming back from the provider: the fragment holds the session, or an error. */
 function accFromFragment(frag){
@@ -9018,6 +9025,7 @@ function accFromFragment(frag){
 }
 /* At boot: a session coming back in the page address, or one kept on this device. */
 async function accBoot(){
+  SHELF=lbReady()&&pref('shelf')||'';   /* your heroes, before the server answers (or offline) */
   if(!lbReady())return;
   let fresh=false;
   if(/access_token=|error=/.test(location.hash)){fresh=accFromFragment(location.hash);try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}}
@@ -9045,12 +9053,10 @@ async function accProfile(){
   const uid=ACC.user.id;let row=null;
   /* A different account on this device: the last one's player name, friend code and friends stay with it, so this one
      starts as itself (its own name from Google or Discord, a fresh code). The first account on a device adopts what
-     was set up before signing in. */
+     was set up before signing in. Then this account's own heroes come out (accShelve). */
   {const last=pref('accUid');
-   if(last&&last!==uid){
-     /* the heroes already here are the last account's too: they stay on the device but are not sent to this one */
-     HERO_SLOTS.forEach(n=>{const o=loadSave(n);if(o&&!o.acc){o.acc=last;try{localStorage.setItem(slotKey(n),JSON.stringify(o));}catch(e){}}});if(S&&!S.acc)S.acc=last;
-     pref('pname','');pref('fcode','');frSave([],true);if(FR.ch){frStop();frStart();}}
+   accShelve(uid,last);
+   if(last&&last!==uid){pref('pname','');pref('fcode','');frSave([],true);if(FR.ch){frStop();frStart();}}
    pref('accUid',uid);}
   try{const r=await accFetch('/rest/v1/profiles?id=eq.'+uid+'&select=id,name,friend_code,friends');const j=r.ok?await r.json():[];row=j[0]||null;}catch(e){return;}
   const meta=ACC.user.user_metadata||{},local=frList(),given=clean(String(meta.full_name||meta.name||meta.user_name||'')).replace(/[<>]/g,'').slice(0,16);
@@ -9076,6 +9082,42 @@ function accSaveProfile(now){
     body:JSON.stringify({id:ACC.user.id,name:ACC.prof.name,friend_code:ACC.prof.friend_code,friends:ACC.prof.friends})}).catch(()=>{});
   clearTimeout(ACC.profT);if(now)return go();ACC.profT=setTimeout(go,1500);return Promise.resolve();
 }
+
+/* ----- each account's own heroes on a shared device -----
+   Signed in, you see your account's three slots; signed out, the device's own three. Signing in moves the heroes
+   played signed out onto your shelf (whoever signs in next gets them); a hero already synced with an account goes to
+   that account's shelf. Signing out puts yours away until you sign in again. Each shelf has three slots of its own,
+   so one account's heroes never fill up another's. */
+const shelfRaw=(sh,n)=>{try{const t=localStorage.getItem(shelfKey(sh,n));const o=t?JSON.parse(t):null;return o&&o.cls&&!o.over?o:null;}catch(e){return null;}};
+function shelfList(){try{const l=JSON.parse(pref('shelves')||'[]');return Array.isArray(l)?l:[];}catch(e){return [];}}
+/* Each hero on shelf from goes to the shelf to(o) picks, into a free slot (one that is full keeps it where it was). */
+function shelfMove(from,to,edit){
+  const seen=shelfList();
+  for(const n of HERO_SLOTS){const o=shelfRaw(from,n);if(!o)continue;const dest=to(o);if(dest===from)continue;
+    const k=HERO_SLOTS.find(m=>!shelfRaw(dest,m));if(!k)continue;if(edit)edit(o);
+    try{localStorage.setItem(shelfKey(dest,k),JSON.stringify(o));localStorage.removeItem(shelfKey(from,n));}catch(e){continue;}
+    if(dest&&!seen.includes(dest))seen.push(dest);}
+  pref('shelves',JSON.stringify(seen));
+}
+/* Signing in as uid: the signed-out heroes go where they belong, then uid's shelf comes out. Heroes from before
+   shelves (none recorded yet) that no account has claimed are the last account's when a different one signs in. */
+function accShelve(uid,last){
+  const old=!shelfList().length;
+  shelfMove('',o=>o.acc||(old&&last&&last!==uid?last:uid));
+  if(!shelfList().includes(uid))pref('shelves',JSON.stringify(shelfList().concat([uid])));
+  shelfUse(uid);
+}
+/* Out comes shelf sh. The hero in play follows if it is there (moved with its shelf: its next save lands there). If
+   not, its latest is saved where it was, and you go back to the home screen. */
+function shelfUse(sh){
+  const was=SHELF;SHELF=sh;pref('shelf',sh);
+  if(!S)return;const k=HERO_SLOTS.find(n=>{const v=loadSave(n);return v&&v.cid===S.cid;});
+  if(k){curSlot=k;return;}
+  if(!S.over&&$('#title').hidden){SHELF=was;save(true);SHELF=sh;}
+  liveStop();partyClose();S=null;if($('#title').hidden)openTitle();else renderSlots();
+}
+/* Heroes put away on this device by accounts that are signed out. */
+const shelvedHeroes=()=>shelfList().filter(u=>u!==SHELF).reduce((t,u)=>t+HERO_SLOTS.filter(n=>shelfRaw(u,n)).length,0);
 
 /* ----- cloud saves ----- */
 /* What a hero looks like on the list, without its whole save. */
@@ -9168,7 +9210,7 @@ function renderAccount(){
     h+=`<div class="ex-sec">Sauvegardes dans le cloud</div><p class="mis-p">${n?`Héros dans le cloud : ${n}.`:"Aucun héros dans le cloud pour l'instant."} Le héros que vous jouez y monte environ une fois par minute, et chaque fois que vous rangez le jeu. Les héros Hardcore restent sur leur propre appareil.</p>`;
     accElsewhere().forEach(c=>{h+=`<div class="ex-row"><div class="ex-main"><b>${esc(c.name)}</b><small>Niveau ${Number(c.lvl)||1} ${esc((CLASSES[c.cls]||{}).n||'?')} · ${esc(c.place||'')}</small></div><button type="button" class="ex-go" data-acc="pull ${esc(c.hero)}">Télécharger</button></div>`;});
     h+=`<div class="row"><button type="button" data-acc="sync">Synchroniser</button><button type="button" data-acc="out">Se déconnecter</button></div>`+
-      `<p class="hint">Pour utiliser un autre compte Google ou Discord, déconnectez-vous puis reconnectez-vous. Vos héros restent sur cet appareil.</p>`+
+      `<p class="hint">To use a different Google or Discord account, sign out, then sign in again. Each account keeps its own heroes on this device; signing out puts yours away until you sign in.</p>`+
       `<button type="button" class="link acc-del" data-acc="${ACC.delArmed?'delete':'arm'}">${ACC.delArmed?(storeCache().web?"Touchez encore : supprimer mon compte, toutes les sauvegardes du cloud et mon achat du jeu complet, pour toujours":"Touchez encore : supprimer mon compte et toutes les sauvegardes du cloud, pour toujours"):"Supprimer mon compte"}</button>`;}
   else{const P=ACC.providers;
     h+=`<div class="ex-story"><b>Se connecter</b><p>Gardez vos héros, vos amis et votre nom de joueur sur chaque appareil : commencez sur votre téléphone, continuez sur le Steam Deck. Votre nom figure dans les classements. Les héros Hardcore restent sur l'appareil où ils sont nés.</p></div>`;
@@ -9191,7 +9233,7 @@ async function accAct(a){
 /* The account's line on the home screen and in the menu. */
 function accRefreshUi(){
   const t=$('#accLink'),m=$('#mAccount');
-  if(t){t.hidden=!lbReady();t.textContent=accIn()?`Connecté${accName()?' as '+accName():''} · Compte et déconnexion`:"Connectez-vous pour garder vos héros sur chaque appareil";}
+  if(t){const away=accIn()?0:shelvedHeroes();t.hidden=!lbReady();t.textContent=accIn()?`Connecté${accName()?' as '+accName():''} · Compte et déconnexion`:away?`Sign in to see your heroes (${away} put away on this device)`:"Connectez-vous pour garder vos héros sur chaque appareil";}
   if(m)m.textContent=accIn()?"Compte et déconnexion":"Se connecter";
   if(!$('#account').hidden)renderAccount();
   if(!$('#title').hidden&&typeof renderSlots==='function')renderSlots();
