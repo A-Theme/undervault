@@ -8989,7 +8989,10 @@ async function accProviders(){
 function accSignIn(p){
   if(!lbReady()||!ACC_PROVIDERS[p])return;
   if(S&&!S.over)save(true);
-  const url=accBase()+'/auth/v1/authorize?provider='+p+'&redirect_to='+encodeURIComponent(accNative()?AUTH_LINK:location.origin+location.pathname);
+  /* prompt: Google shows its account picker and Discord its "Not you?" screen every time, so signing out of one account
+     and into another works; without it the provider quietly signs the last account straight back in */
+  const url=accBase()+'/auth/v1/authorize?provider='+p+'&redirect_to='+encodeURIComponent(accNative()?AUTH_LINK:location.origin+location.pathname)+
+    (p==='google'?'&prompt=select_account':p==='discord'?'&prompt=consent':'');
   const B=accNative()&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Browser;
   if(B)B.open({url});else if(accNative())window.open(url,'_system');else location.href=url;
 }
