@@ -9043,19 +9043,29 @@ function accProviderName(){const m=(ACC.user&&ACC.user.app_metadata)||{},ps=[].c
 /* ----- the profile: friend code, friends and player name ----- */
 async function accProfile(){
   const uid=ACC.user.id;let row=null;
+  /* A different account on this device: the last one's player name, friend code and friends stay with it, so this one
+     starts as itself (its own name from Google or Discord, a fresh code). The first account on a device adopts what
+     was set up before signing in. */
+  {const last=pref('accUid');
+   if(last&&last!==uid){
+     /* the heroes already here are the last account's too: they stay on the device but are not sent to this one */
+     HERO_SLOTS.forEach(n=>{const o=loadSave(n);if(o&&!o.acc){o.acc=last;try{localStorage.setItem(slotKey(n),JSON.stringify(o));}catch(e){}}});if(S&&!S.acc)S.acc=last;
+     pref('pname','');pref('fcode','');frSave([],true);if(FR.ch){frStop();frStart();}}
+   pref('accUid',uid);}
   try{const r=await accFetch('/rest/v1/profiles?id=eq.'+uid+'&select=id,name,friend_code,friends');const j=r.ok?await r.json():[];row=j[0]||null;}catch(e){return;}
-  const meta=ACC.user.user_metadata||{},local=frList();
-  if(!row){row={id:uid,name:(frPlayer()||clean(String(meta.full_name||meta.name||meta.user_name||'')).replace(/[<>]/g,'').slice(0,16))||null,friend_code:frCode(),friends:local};
+  const meta=ACC.user.user_metadata||{},local=frList(),given=clean(String(meta.full_name||meta.name||meta.user_name||'')).replace(/[<>]/g,'').slice(0,16);
+  if(!row){row={id:uid,name:(frPlayer()||given)||null,friend_code:frCode(),friends:local};
     ACC.prof=row;if(row.name&&!frPlayer())pref('pname',row.name);
     const r=await accSaveProfile(true);   /* this device's code may already be another account's (codes are unique): then a fresh one */
     if(r&&r.status===409){pref('fcode','');row.friend_code=frCode();await accSaveProfile(true);if(FR.ch){frStop();frStart();}}}
   else{ACC.prof=row;
     /* the account's code and name win; friends from both are kept */
     if(row.friend_code&&row.friend_code!==pref('fcode')){pref('fcode',row.friend_code);if(FR.ch){frStop();frStart();}}
-    if(row.name)pref('pname',row.name);else if(frPlayer()){row.name=frPlayer();}
+    const unnamed=!row.name;
+    if(row.name)pref('pname',row.name);else{row.name=frPlayer()||given||null;if(row.name&&!frPlayer())pref('pname',row.name);}
     const all=(Array.isArray(row.friends)?row.friends:[]).filter(f=>f&&/^[A-Z2-9]{6}$/.test(f.c)),seen=new Set(all.map(f=>f.c));
     local.forEach(f=>{if(!seen.has(f.c)&&f.c!==row.friend_code){all.push(f);seen.add(f.c);}});
-    frSave(all.slice(0,50),true);if(all.length!==(row.friends||[]).length||!row.friend_code||(!row.name&&frPlayer()))await accSaveProfile(true);}
+    frSave(all.slice(0,50),true);if(all.length!==(row.friends||[]).length||!row.friend_code||(unnamed&&row.name))await accSaveProfile(true);}
   frTrack(true);
 }
 /* Called when the friends list or the player name changes on this device. */
@@ -9078,11 +9088,14 @@ async function accList(){
 async function accCloudAt(hero){
   try{const r=await accFetch('/rest/v1/saves?hero=eq.'+encodeURIComponent(hero)+'&select=saved_at');if(!r.ok)return null;const j=await r.json();return j[0]?Number(j[0].saved_at)||0:0;}catch(e){return null;}
 }
+/* A hero belongs to the account it was last synced with (o.acc). One from another account on this device stays here
+   and is never sent to this one; a hero nobody has synced yet goes to whoever is signed in. */
+const accMine=o=>!o.acc||!ACC.user||o.acc===ACC.user.id;
 /* Send one hero. A copy remembers the cloud's saved_at from when this device last synced it (cloudBase). If the cloud
    has moved on since, the hero was played on another device, and this older line of play is not sent over it unless
    you say so (force): the hero you are playing asks you (accConflict); a hero on the home screen just waits. */
 async function accPush(o,force){
-  if(!accIn()||!o||!o.cid||o.hard||o.over)return false;
+  if(!accIn()||!o||!o.cid||o.hard||o.over||!accMine(o))return false;
   const at=await accCloudAt(o.cid);if(at==null)return false;
   const base=o.cloudBase!=null?o.cloudBase:(o.savedAt||0);
   if(at&&!force&&at>base){if(o===S)accConflict();return false;}
@@ -9091,11 +9104,11 @@ async function accPush(o,force){
   const m=accMeta(o),row={user_id:ACC.user.id,hero:o.cid,name:m.name,cls:o.cls,lvl:m.lvl,place:m.where,saved_at:o.savedAt||Date.now(),data};
   try{const r=await accFetch('/rest/v1/saves',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(row)});
     if(!r.ok)return false;ACC.cloud=(ACC.cloud||[]).filter(x=>x.hero!==o.cid).concat([{hero:o.cid,name:m.name,cls:o.cls,lvl:m.lvl,place:m.where,saved_at:row.saved_at}]);ACC.pushAt[o.cid]=Date.now();
-    o.cloudBase=row.saved_at;if(ACC.conflict===o.cid)ACC.conflict='';accKeepLocal(o);return true;}
+    o.cloudBase=row.saved_at;o.acc=ACC.user.id;if(ACC.conflict===o.cid)ACC.conflict='';accKeepLocal(o);return true;}
   catch(e){return false;}
 }
 /* A copy's cloudBase is kept on the device too (without saving again, which would send it again). */
-function accKeepLocal(o){const n=HERO_SLOTS.find(k=>{const v=loadSave(k);return v&&v.cid===o.cid;});if(n)try{localStorage.setItem(slotKey(n),JSON.stringify(o===S?S:Object.assign(loadSave(n),{cloudBase:o.cloudBase})));}catch(e){}}
+function accKeepLocal(o){const n=HERO_SLOTS.find(k=>{const v=loadSave(k);return v&&v.cid===o.cid;});if(n)try{localStorage.setItem(slotKey(n),JSON.stringify(o===S?S:Object.assign(loadSave(n),{cloudBase:o.cloudBase,acc:o.acc})));}catch(e){}}
 /* The hero you are playing was played on another device since you loaded it: say so once, and offer both ways out. */
 function accConflict(){
   if(!S||ACC.conflict===S.cid)return;ACC.conflict=S.cid;sfx('warn');
@@ -9110,14 +9123,14 @@ async function cmdCloud(a){
 }
 /* Continuing a hero: if the cloud has a newer copy (played on another device), that is the one you get. */
 async function accFresh(n){
-  const sv=loadSave(n);if(!accIn()||!sv||sv.hard)return null;
+  const sv=loadSave(n);if(!accIn()||!sv||sv.hard||!accMine(sv))return null;
   const at=await Promise.race([accCloudAt(sv.cid),new Promise(r=>setTimeout(()=>r(null),4000))]);   /* offline: carry on with this copy */
   if(!at||at<=(sv.savedAt||0)+2000)return null;
   return await accPull(sv.cid,n)===''?loadSave(n):null;
 }
 /* From save(): the hero you are playing goes up at most once a minute, and at once when the page is put away. */
 function accQueue(){
-  if(!accIn()||!S||S.hard||S.over)return;const wait=60000-(Date.now()-(ACC.pushAt[S.cid]||0));
+  if(!accIn()||!S||S.hard||S.over||!accMine(S))return;const wait=60000-(Date.now()-(ACC.pushAt[S.cid]||0));
   clearTimeout(ACC.pushT);if(wait<=0)accPush(S);else ACC.pushT=setTimeout(()=>{if(S)accPush(S);},wait);
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&accIn()&&S&&!S.hard&&!S.over){clearTimeout(ACC.pushT);accPush(S);}});
@@ -9130,14 +9143,15 @@ async function accSyncAll(){
 /* A hero from the cloud, into a slot on this device (its own, a free one, or n). */
 async function accPull(hero,n){
   try{const r=await accFetch('/rest/v1/saves?hero=eq.'+encodeURIComponent(hero)+'&select=data,saved_at');const j=r.ok?await r.json():[];if(!j[0])return "Ce héros n'est plus dans le cloud.";
-    const o=await decodeSave(j[0].data);o.savedAt=Number(j[0].saved_at)||o.savedAt;o.cloudBase=Number(j[0].saved_at)||0;
+    const o=await decodeSave(j[0].data);o.savedAt=Number(j[0].saved_at)||o.savedAt;o.cloudBase=Number(j[0].saved_at)||0;o.acc=ACC.user.id;
     const slot=n||HERO_SLOTS.find(k=>{const v=loadSave(k);return v&&v.cid===hero;})||freeSlot();if(!slot)return "Les trois emplacements de héros sont pris. Supprimez-en un pour faire de la place.";
     localStorage.setItem(slotKey(slot),JSON.stringify(o));return '';}
   catch(e){return e&&e.message==='old browser'?"Ce navigateur est trop ancien pour lire cette sauvegarde.":"Impossible de récupérer ce héros. Êtes-vous hors ligne ?";}
 }
 async function accDrop(hero){if(!accIn()||!hero)return;try{await accFetch('/rest/v1/saves?hero=eq.'+encodeURIComponent(hero),{method:'DELETE'});}catch(e){}ACC.cloud=(ACC.cloud||[]).filter(x=>x.hero!==hero);}
-/* How a local hero stands against the cloud: 'newer' (the cloud has a newer copy), 'synced', or '' (not there). */
-function accState(o){const c=o&&(ACC.cloud||[]).find(x=>x.hero===o.cid);if(!c)return '';return Number(c.saved_at)>(o.savedAt||0)+2000?'newer':'synced';}
+/* How a local hero stands against the cloud: 'newer' (the cloud has a newer copy), 'synced', '' (not there), or
+   'other' (another account's hero). */
+function accState(o){if(o&&!accMine(o))return 'other';const c=o&&(ACC.cloud||[]).find(x=>x.hero===o.cid);if(!c)return '';return Number(c.saved_at)>(o.savedAt||0)+2000?'newer':'synced';}
 /* Cloud heroes that are not on this device. */
 function accElsewhere(){const here=new Set(HERO_SLOTS.map(n=>{const o=loadSave(n);return o&&o.cid;}).filter(Boolean));return (ACC.cloud||[]).filter(c=>!here.has(c.hero));}
 
@@ -11062,7 +11076,7 @@ function renderSlots(){
   HERO_SLOTS.forEach(n=>{
     const sv=loadSave(n),d=document.createElement('div');d.className='slot'+(sv?'':' empty');
     if(sv){any=true;const where=sv.floor?(sv.dg&&DUNGEONS[sv.dg]?DUNGEONS[sv.dg].name+", étage "+sv.floor:'Floor '+sv.floor):sv.town==='solenne'?'Solenne':'Emberfall',nb=(sv.bosses||[]).concat(sv.b2||[],sv.b3||[]).filter(Boolean).length;
-      d.innerHTML=`<div class="slot-txt"><b>${esc(sv.name)} ${esc(sv.title||sv.lastTitle||'')}</b><small>Niveau ${Number(sv.lvl)||1} ${CLASSES[sv.cls].n} · ${esc(where)} · ${nb} boss${sv.hard?' · <span class="hc">Hardcore</span>':''}${sv.ng?' · NG+'+(Number(sv.ng)||0):''}</small>`+(accIn()?`<small class="cloud">${sv.hard?"reste sur cet appareil (Hardcore)":accState(sv)==='newer'?"<b>une sauvegarde plus récente est dans le cloud</b>":accState(sv)==='synced'?"dans le cloud":"en route vers le cloud"}</small>`:'')+`</div>`
+      d.innerHTML=`<div class="slot-txt"><b>${esc(sv.name)} ${esc(sv.title||sv.lastTitle||'')}</b><small>Niveau ${Number(sv.lvl)||1} ${CLASSES[sv.cls].n} · ${esc(where)} · ${nb} boss${sv.hard?' · <span class="hc">Hardcore</span>':''}${sv.ng?' · NG+'+(Number(sv.ng)||0):''}</small>`+(accIn()?`<small class="cloud">${sv.hard?"reste sur cet appareil (Hardcore)":accState(sv)==='other'?'from another account: stays on this device':accState(sv)==='newer'?"<b>une sauvegarde plus récente est dans le cloud</b>":accState(sv)==='synced'?"dans le cloud":"en route vers le cloud"}</small>`:'')+`</div>`
         +`<div class="slot-btns">`+(accIn()&&accState(sv)==='newer'?`<button type="button" class="slot-pull" data-slot="${n}" data-hero="${esc(sv.cid||'')}">Charger la sauvegarde récente</button>`:'')+`<button type="button" class="slot-go" data-slot="${n}">Continuer</button><button type="button" class="slot-del link" data-slot="${n}">Supprimer</button></div>`;
       try{d.prepend(heroCanvas(heroKey(sv.cls,sv.body),sv.eq||{},1));}catch(e){}}
     else d.innerHTML=`<div class="slot-txt"><small>L'emplacement ${n} est vide</small></div>`;
