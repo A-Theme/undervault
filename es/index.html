@@ -10554,29 +10554,30 @@ function choose(arg){
   out(`{d}La historia continúa: el Libro II empieza bajo el Trono.{n}`);
   save(true);
 }
-/* New Game+ starts the whole story over with your level, gear and pets. It opens only when the whole story is done, at
+/* New Game+ starts the whole story over with your level, gear, pets and Lore Book (lore you have found stays found). It opens only when the whole story is done, at
    the end of Book VIII, so finishing a book never asks you to start again. */
 const STORY_LAST=8;
 function storyDone(){return !!(S&&S.flags['ended'+STORY_LAST]);}
 function ngplus(arg){
   if(!storyDone()){out(`La Nueva Partida+ se abre cuando se ha contado toda la historia, al final del Libro ${ROMAN8[STORY_LAST]}. Tu historia continúa.`);return;}
-  if(arg!=='yes'){out(`{y}¿Empezar toda la historia de nuevo?{n} {d}Conservas tu nivel, tu equipo y tus mascotas; la historia, tu semilla y cada piso empiezan de nuevo.{n} {@ngplus yes|Sí, empezar Nueva Partida+}`);return;}
+  if(arg!=='yes'){out(`{y}Start the whole story again?{n} {d}You keep your level, gear, pets and your Lore Book; the story, your seed and every floor begin again.{n} {@ngplus yes|Yes, begin New Game+}`);return;}
   const keep={};['forgeFriend','summer','saltLamp','memTwice','eskFriend','ysolde','ottilie','haleFriend','gateFree','wickOil'].forEach(k=>{if(S.flags[k])keep[k]=1;});   /* mission rewards that say "forever" */
-  S.ng++;S.story={};S.dreams={};S.dgOpen={};S.taleL=0;S.b2=[false,false,false,false,false];S.b3=[false,false,false,false,false];S.b4=[false,false,false,false,false];S.b5=[false,false,false,false,false];S.war=null;S.uniq4={};S.voy=voyFresh(S.voy);S.town='emberfall';S.seed=randomSeed();S.layout=2;S.floors={};S.deepest=0;S.dg=null;S.side={};S.dgDone={};S.dgRuns={};S.bosses=[false,false,false,false,false];S.lore=[];S.flags=Object.assign({gift:1},keep);S.smith=null;S.fight=false;S.fx={};
+  S.ng++;S.story={};S.dreams={};S.dgOpen={};S.taleL=0;S.b2=[false,false,false,false,false];S.b3=[false,false,false,false,false];S.b4=[false,false,false,false,false];S.b5=[false,false,false,false,false];S.war=null;S.uniq4={};S.voy=voyFresh(S.voy);S.town='emberfall';S.seed=randomSeed();S.layout=2;S.floors={};S.deepest=0;S.dg=null;S.side={};S.dgDone={};S.dgRuns={};S.bosses=[false,false,false,false,false];S.flags=Object.assign({gift:1},keep);S.smith=null;S.fight=false;S.fx={};
   const st=stats();S.hp=st.mhp;S.mp=st.mmp;
   term.innerHTML='';out(`{o}NUEVA PARTIDA+${S.ng}{n} {d}Semilla ${S.seed}. Las linternas vuelven a titilar. Algo, ahí abajo, se ha dado cuenta de que has vuelto.`);
   toTown(0);if(S.live){liveStop();liveStart();}
 }
 /* Started New Game+ by accident, back when it sat in town after Book I? The seed race board kept your old run (its seed,
    how deep you went, the keepers you felled, the latest ending), so this puts that story back. Your level, gear, pets
-   and gold were never touched. What the board never saw (lore scrolls, side dungeons, explored rooms) starts fresh. */
+   and gold were never touched. The lore of every book you finished comes back too (restoredMend). What the board never
+   saw (side dungeons, explored rooms) starts fresh. */
 const END_DEFAULT=['','seal','close','close','share','keeper'],END_KEYS=[[],['seal','crown','shatter'],['close','name'],['close','tide'],['conquer','shutout','share'],['keeper','bell','talk']];
 function ngUndoable(){return !!(S&&S.ng>0&&!storyDone()&&!S.ngBack&&S.cid);}
 function cmdOldStory(arg){
   if(!ngUndoable()){out("No hay ninguna Nueva Partida+ que deshacer.");return;}
   if(S.fight){out("No durante un combate.");return;}
   if(!lbReady()){out("No se puede contactar con el tablero de la carrera desde aquí.");return;}
-  if(arg!=='yes'){out(`{y}¿Volver a tu historia de antes de la Nueva Partida+?{n} {d}Tu semilla, lo hondo que llegaste, los guardianes que abatiste y cómo terminaron tus libros vuelven del tablero de la carrera. Tu nivel, tu equipo, tus mascotas y tu oro se quedan como están; los pergaminos de saber y las mazmorras secundarias empiezan de nuevo.{n} {@oldstory yes|Sí, llévame de vuelta}`);return;}
+  if(arg!=='yes'){out(`{y}Go back to your story from before New Game+?{n} {d}Your seed, how deep you went, the keepers you felled and how your books ended come back from the race board. Your level, gear, pets and gold stay as they are, and the lore of every book you finished comes back; side dungeons start fresh.{n} {@oldstory yes|Yes, take me back}`);return;}
   out("{d}Consultando tu antigua historia en el tablero de la carrera...{n}");
   lbFetch(`seed_runs?select=seed,deepest,bosses,ended,ng,created_at&run_id=eq.${encodeURIComponent(S.cid)}&ng=lt.${S.ng|0}&order=created_at.desc&limit=1`)
     .then(r=>r.ok?r.json():[]).then(rows=>{const row=Array.isArray(rows)&&rows[0];
@@ -10592,8 +10593,22 @@ function restoreOld(row){
     if(k===books&&!row.ended&&n===books*5){S.flags[k>1?'choosing'+k:'choosing']=true;break;}   /* they stood at the choice */
     let e=k===books&&row.ended?String(row.ended):END_DEFAULT[k];if(k===3&&e==='shut')e='close';if(!(END_KEYS[k]||[]).includes(e))e=END_DEFAULT[k];S.flags[k>1?'ended'+k:'ended']=e;}
   S.ngBack=1;S.raceSent=null;S.films=undefined;
-  out(`{g}Tu historia ha vuelto.{n} {d}Semilla{n} {w}${S.seed}{n}{d}, piso más hondo ${S.deepest}, guardianes abatidos: ${n}.{n}`);
+  out(`{g}Tu historia ha vuelto.{n} {d}Semilla{n} {w}${S.seed}{n}{d}, piso más hondo ${S.deepest}, guardianes abatidos: ${n}.{n}`);mendNote(restoredMend());
   toTown(0);save(true);render();
+}
+/* What the race board never kept, a story brought back from before New Game+ gets back once: the lore of every book it
+   finished (New Game+ had emptied the Lore Book; finishing a book means you walked every floor of it), and the way on
+   into Book II, as if Maren had already sent you. Heroes restored before this was added get it when they next load. */
+function restoredMend(){
+  if(!S||S.ngBack!==1)return null;S.ngBack=2;
+  const done=k=>!!S.flags[k>1?'ended'+k:'ended'],had=S.lore.length;
+  LORE_KINDS.forEach((K,i)=>{if(done(i+1))for(let n=K.from;n<K.from+15;n++)if(!S.lore.includes(n))S.lore.push(n);});S.lore.sort((a,b)=>a-b);
+  const open=done(1)&&!S.flags.call2;if(open){S.flags.call2=1;const fl=S.floors[20];if(fl){const br=fl.rooms[fl.exitRoom];if(br&&!br.exits.d)br.exits.d='down';}}
+  return {got:S.lore.length-had,open};
+}
+function mendNote(m){
+  if(!m||(!m.got&&!m.open))return;
+  out(`{g}Your story is mended.{n} {d}${m.got?`${m.got} lost lore piece${m.got>1?'s are':' is'} back in your Lore Book. `:''}${book2On()?'Book II is open: Pell at the Gate can lower you to the Unlit Stair (floor 21).':''}{n}`);
 }
 function where(){out(`{d}${S.floor?(S.dg?`${theme().name}, floor ${floorLabel()}`:`Piso ${S.floor}, ${theme().name}`):townName()}. Semilla {w}${S.seed}{d}. Piso más hondo: ${S.deepest}.`);}
 function examine(arg){
@@ -11205,6 +11220,7 @@ function resume(sv){
   const fam=CLASS_ARMOR[S.cls];[S.eq.armor].concat(S.inv,S.stash).forEach(it=>{if(it&&it.kind==='armor'&&!it.at){it.at=fam;const o=ARM[it.tier],n=ARMN[fam][it.tier];if(o&&n){it.name=it.name.replace(o,n);if(it.sub)it.sub=it.sub.replace(o,n);}}});
   S.pets.forEach(p=>checkEvolve(p,true));$('#title').hidden=true;term.innerHTML='';
   S.lastTitle=heroTitle();out(`{o}Bienvenido de nuevo, ${fullName()}.{n} {d}semilla ${S.seed}`,'rt');
+  {const m=restoredMend();if(m){mendNote(m);save(true);}}
   if(moved){out(`{y}El Undervault ha cambiado desde tu última visita.{n} El camino al Trono de Ascuas tiene ahora veinte pisos, los monstruos suben a tu altura y la armadura los aguanta peor. Conservas tu nivel, tu equipo, tus mascotas, tus Piedras guardianas y tu saber. Los pisos antiguos han desaparecido: despiertas en el suelo del Templo, y Pell puede bajarte al comienzo de cualquier acto al que hayas llegado. Tu piso más hondo es ahora el ${S.deepest}.`,'story');save(true);}
   if(talReset)out(`{y}Los talentos han cambiado.{n} Los rangos cuestan más a medida que suben y hay más para elegir, con un talento más hondo en el nivel 25 y una cumbre en el 40. Te devolvemos los puntos: tienes ${talPoints()} por gastar. {@talents|gastarlos}`);
   dgAnnounce(true);

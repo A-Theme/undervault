@@ -10554,29 +10554,30 @@ function choose(arg){
   out(`{d}L'histoire continue : le Livre II commence sous le Trône.{n}`);
   save(true);
 }
-/* New Game+ starts the whole story over with your level, gear and pets. It opens only when the whole story is done, at
+/* New Game+ starts the whole story over with your level, gear, pets and Lore Book (lore you have found stays found). It opens only when the whole story is done, at
    the end of Book VIII, so finishing a book never asks you to start again. */
 const STORY_LAST=8;
 function storyDone(){return !!(S&&S.flags['ended'+STORY_LAST]);}
 function ngplus(arg){
   if(!storyDone()){out(`La Nouvelle Partie+ s'ouvre quand toute l'histoire est racontée, à la fin du Livre ${ROMAN8[STORY_LAST]}. Votre histoire continue.`);return;}
-  if(arg!=='yes'){out(`{y}Recommencer toute l'histoire ?{n} {d}Vous gardez votre niveau, votre équipement et vos compagnons ; l'histoire, votre graine et chaque étage recommencent.{n} {@ngplus yes|Oui, commencer la Nouvelle Partie+}`);return;}
+  if(arg!=='yes'){out(`{y}Start the whole story again?{n} {d}You keep your level, gear, pets and your Lore Book; the story, your seed and every floor begin again.{n} {@ngplus yes|Yes, begin New Game+}`);return;}
   const keep={};['forgeFriend','summer','saltLamp','memTwice','eskFriend','ysolde','ottilie','haleFriend','gateFree','wickOil'].forEach(k=>{if(S.flags[k])keep[k]=1;});   /* mission rewards that say "forever" */
-  S.ng++;S.story={};S.dreams={};S.dgOpen={};S.taleL=0;S.b2=[false,false,false,false,false];S.b3=[false,false,false,false,false];S.b4=[false,false,false,false,false];S.b5=[false,false,false,false,false];S.war=null;S.uniq4={};S.voy=voyFresh(S.voy);S.town='emberfall';S.seed=randomSeed();S.layout=2;S.floors={};S.deepest=0;S.dg=null;S.side={};S.dgDone={};S.dgRuns={};S.bosses=[false,false,false,false,false];S.lore=[];S.flags=Object.assign({gift:1},keep);S.smith=null;S.fight=false;S.fx={};
+  S.ng++;S.story={};S.dreams={};S.dgOpen={};S.taleL=0;S.b2=[false,false,false,false,false];S.b3=[false,false,false,false,false];S.b4=[false,false,false,false,false];S.b5=[false,false,false,false,false];S.war=null;S.uniq4={};S.voy=voyFresh(S.voy);S.town='emberfall';S.seed=randomSeed();S.layout=2;S.floors={};S.deepest=0;S.dg=null;S.side={};S.dgDone={};S.dgRuns={};S.bosses=[false,false,false,false,false];S.flags=Object.assign({gift:1},keep);S.smith=null;S.fight=false;S.fx={};
   const st=stats();S.hp=st.mhp;S.mp=st.mmp;
   term.innerHTML='';out(`{o}NOUVELLE PARTIE+${S.ng}{n} {d}Graine ${S.seed}. Les lanternes vacillent à nouveau. Quelque chose, en bas, a remarqué votre retour.`);
   toTown(0);if(S.live){liveStop();liveStart();}
 }
 /* Started New Game+ by accident, back when it sat in town after Book I? The seed race board kept your old run (its seed,
    how deep you went, the keepers you felled, the latest ending), so this puts that story back. Your level, gear, pets
-   and gold were never touched. What the board never saw (lore scrolls, side dungeons, explored rooms) starts fresh. */
+   and gold were never touched. The lore of every book you finished comes back too (restoredMend). What the board never
+   saw (side dungeons, explored rooms) starts fresh. */
 const END_DEFAULT=['','seal','close','close','share','keeper'],END_KEYS=[[],['seal','crown','shatter'],['close','name'],['close','tide'],['conquer','shutout','share'],['keeper','bell','talk']];
 function ngUndoable(){return !!(S&&S.ng>0&&!storyDone()&&!S.ngBack&&S.cid);}
 function cmdOldStory(arg){
   if(!ngUndoable()){out("Il n'y a pas de Nouvelle Partie+ à annuler.");return;}
   if(S.fight){out("Pas pendant un combat.");return;}
   if(!lbReady()){out("Le tableau de la course est injoignable d'ici.");return;}
-  if(arg!=='yes'){out(`{y}Revenir à votre histoire d'avant la Nouvelle Partie+ ?{n} {d}Votre graine, la profondeur atteinte, les gardiens abattus et la fin de vos livres reviennent du tableau de la course. Votre niveau, votre équipement, vos compagnons et votre or restent tels quels ; les parchemins de lore et les donjons annexes repartent de zéro.{n} {@oldstory yes|Oui, ramenez-moi}`);return;}
+  if(arg!=='yes'){out(`{y}Go back to your story from before New Game+?{n} {d}Your seed, how deep you went, the keepers you felled and how your books ended come back from the race board. Your level, gear, pets and gold stay as they are, and the lore of every book you finished comes back; side dungeons start fresh.{n} {@oldstory yes|Yes, take me back}`);return;}
   out("{d}On interroge le tableau de la course sur votre ancienne histoire...{n}");
   lbFetch(`seed_runs?select=seed,deepest,bosses,ended,ng,created_at&run_id=eq.${encodeURIComponent(S.cid)}&ng=lt.${S.ng|0}&order=created_at.desc&limit=1`)
     .then(r=>r.ok?r.json():[]).then(rows=>{const row=Array.isArray(rows)&&rows[0];
@@ -10592,8 +10593,22 @@ function restoreOld(row){
     if(k===books&&!row.ended&&n===books*5){S.flags[k>1?'choosing'+k:'choosing']=true;break;}   /* they stood at the choice */
     let e=k===books&&row.ended?String(row.ended):END_DEFAULT[k];if(k===3&&e==='shut')e='close';if(!(END_KEYS[k]||[]).includes(e))e=END_DEFAULT[k];S.flags[k>1?'ended'+k:'ended']=e;}
   S.ngBack=1;S.raceSent=null;S.films=undefined;
-  out(`{g}Votre histoire est de retour.{n} {d}Graine{n} {w}${S.seed}{n}{d}, étage le plus profond ${S.deepest}, gardiens abattus : ${n}.{n}`);
+  out(`{g}Votre histoire est de retour.{n} {d}Graine{n} {w}${S.seed}{n}{d}, étage le plus profond ${S.deepest}, gardiens abattus : ${n}.{n}`);mendNote(restoredMend());
   toTown(0);save(true);render();
+}
+/* What the race board never kept, a story brought back from before New Game+ gets back once: the lore of every book it
+   finished (New Game+ had emptied the Lore Book; finishing a book means you walked every floor of it), and the way on
+   into Book II, as if Maren had already sent you. Heroes restored before this was added get it when they next load. */
+function restoredMend(){
+  if(!S||S.ngBack!==1)return null;S.ngBack=2;
+  const done=k=>!!S.flags[k>1?'ended'+k:'ended'],had=S.lore.length;
+  LORE_KINDS.forEach((K,i)=>{if(done(i+1))for(let n=K.from;n<K.from+15;n++)if(!S.lore.includes(n))S.lore.push(n);});S.lore.sort((a,b)=>a-b);
+  const open=done(1)&&!S.flags.call2;if(open){S.flags.call2=1;const fl=S.floors[20];if(fl){const br=fl.rooms[fl.exitRoom];if(br&&!br.exits.d)br.exits.d='down';}}
+  return {got:S.lore.length-had,open};
+}
+function mendNote(m){
+  if(!m||(!m.got&&!m.open))return;
+  out(`{g}Your story is mended.{n} {d}${m.got?`${m.got} lost lore piece${m.got>1?'s are':' is'} back in your Lore Book. `:''}${book2On()?'Book II is open: Pell at the Gate can lower you to the Unlit Stair (floor 21).':''}{n}`);
 }
 function where(){out(`{d}${S.floor?(S.dg?`${theme().name}, floor ${floorLabel()}`:`Étage ${S.floor}, ${theme().name}`):townName()}. Graine {w}${S.seed}{d}. Étage le plus profond : ${S.deepest}.`);}
 function examine(arg){
@@ -11205,6 +11220,7 @@ function resume(sv){
   const fam=CLASS_ARMOR[S.cls];[S.eq.armor].concat(S.inv,S.stash).forEach(it=>{if(it&&it.kind==='armor'&&!it.at){it.at=fam;const o=ARM[it.tier],n=ARMN[fam][it.tier];if(o&&n){it.name=it.name.replace(o,n);if(it.sub)it.sub=it.sub.replace(o,n);}}});
   S.pets.forEach(p=>checkEvolve(p,true));$('#title').hidden=true;term.innerHTML='';
   S.lastTitle=heroTitle();out(`{o}Bon retour, ${fullName()}.{n} {d}graine ${S.seed}`,'rt');
+  {const m=restoredMend();if(m){mendNote(m);save(true);}}
   if(moved){out(`{y}L'Undervault a changé depuis votre dernière visite.{n} Le chemin vers le Trône de Braise compte désormais vingt étages, les monstres se hissent à votre niveau, et l'armure les retient moins bien. Vous gardez votre niveau, votre équipement, vos familiers, vos Pierres de garde et votre savoir. Les anciens étages ont disparu : vous vous réveillez sur le sol du Temple, et Pell peut vous descendre au début de chaque acte atteint. Votre étage le plus profond est désormais ${S.deepest}.`,'story');save(true);}
   if(talReset)out(`{y}Les talents ont changé.{n} Les rangs coûtent plus cher en montant, et il y a davantage de choix, avec un talent plus profond au niveau 25 et une apogée au niveau 40. Vos points vous sont rendus : vous en avez ${talPoints()} à dépenser. {@talents|les dépenser}`);
   dgAnnounce(true);
