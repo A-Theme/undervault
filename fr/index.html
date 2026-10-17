@@ -10600,11 +10600,16 @@ function restoreOld(row){
    finished (New Game+ had emptied the Lore Book; finishing a book means you walked every floor of it), and the way on
    into Book II, as if Maren had already sent you. Heroes restored before this was added get it when they next load. */
 function restoredMend(){
-  if(!S||S.ngBack!==1)return null;S.ngBack=2;
+  if(!S||!S.ngBack)return null;
+  /* each time it loads (so heroes mended before this part came in get it too): every keeper it felled was reported
+     home to Maren, and its act was reached, so the chapter and the journal show where the story really is */
+  let fixed=0;for(let bi=0;bi<40;bi++)if(bossDone(bi)){if(bi%5!==4&&!S.flags['home'+bi]){S.flags['home'+bi]=1;fixed++;}if(!S.flags['act'+bi]){S.flags['act'+bi]=1;fixed++;}}
+  if(S.deepest&&!S.flags['act'+actOf(S.deepest)]){S.flags['act'+actOf(S.deepest)]=1;fixed++;}
+  if(S.ngBack!==1)return fixed?{got:0,open:false,fixed}:null;S.ngBack=2;
   const done=k=>!!S.flags[k>1?'ended'+k:'ended'],had=S.lore.length;
   LORE_KINDS.forEach((K,i)=>{if(done(i+1))for(let n=K.from;n<K.from+15;n++)if(!S.lore.includes(n))S.lore.push(n);});S.lore.sort((a,b)=>a-b);
   const open=done(1)&&!S.flags.call2;if(open){S.flags.call2=1;const fl=S.floors[20];if(fl){const br=fl.rooms[fl.exitRoom];if(br&&!br.exits.d)br.exits.d='down';}}
-  return {got:S.lore.length-had,open};
+  return {got:S.lore.length-had,open,fixed};
 }
 function mendNote(m){
   if(!m||(!m.got&&!m.open))return;
