@@ -24,7 +24,7 @@ Every room is written prose. Every command is a word you type, or a button you t
 - **A story in eight books, four of them here** (Books V to VIII are on the way, starting with *The Quiet Kingdom*): five chapters down to the Ember Throne, then **Book II: The Hunger Below**, five more acts beneath it, then **Book III**: the crossing to **Solenne**, a far kingdom, and five acts down the **Drowned Stair** beneath it, then **Book IV: The Lantern War**, five acts at war with the iron king of Kaldmark, and a garden at the top of the world where **Lily the Sweethang** keeps the stolen summers
 - **80 seeded floors**, 20 story bosses, the crossing to Solenne, **11 side dungeons** with four **difficulty tiers** up to Nightmare, an endless **Abyss**, random **champions**, and **Winston the Wanderer**, who turns up when you least expect him
 - A **Lore Book** with every chapter you have reached and a portrait of everyone in it
-- **12 classes**, 60 skills, talents, and **titles** that grow from Squire to God-Slayer
+- **12 classes**, 96 skills (eight a class, four carried at a time and swapped at the Temple), talents, and **titles** that grow from Squire to God-Slayer
 - **Loot you can see**: every weapon and suit of armor shows up on your pixel-art hero; rare **legendaries** and class **sets**
 - **Chests** from rusty to legendary, each with its own opening
 - **24 pets** to buy, hatch or tame, and they evolve
@@ -97,20 +97,20 @@ On the title screen and in every menu, the stick moves between buttons, **A** pr
 
 Every class comes as a male or a female hero: pick on the title screen. Each class also has its own voice: why your hero answered Maren's call, how she greets you, your own moves in a fight, a line for every big kill, how you fall, and how your story is remembered.
 
-| Class | Plays like | Weapons | Armor | Skills |
+| Class | Plays like | Weapons | Armor | Skills (learned from level 1 to 60) |
 |---|---|---|---|---|
-| **Warrior** | Steel and stubbornness. Most health, crushing melee, stuns. | sword · axe · mace | heavy | Shield Bash, Cleave, War Cry, Whirlwind, Last Stand |
-| **Mage** | Fire, frost and time. Fragile, but hits like a falling star. | staff · wand | cloth | Firebolt, Frost Lance, Arcane Shield, Meteor, Time Warp |
-| **Rogue** | Crits, poison and vanishing tricks. Strikes first. | dagger · sword · bow | light | Backstab, Poison Blade, Smoke Bomb, Shadowstep, Death Mark |
-| **Cleric** | Lantern-light made fist. Heals, wards and smites. | mace · staff | heavy | Smite, Mend, Lantern Ward, Purge, Divine Wrath |
-| **Ranger** | Starts with a wolf. Best tamer; empowers pets. | bow · dagger · axe | light | Aimed Shot, Beast Bond, Volley, Snare, Call of the Wild |
-| **Necromancer** | Drains life, raises skeletons, curses the living. | scythe · wand · staff | cloth | Drain Life, Bone Spear, Raise Dead, Withering Curse, Soul Harvest |
-| **Druid** | Thorns, healing, and a bear's hide when it counts. | staff · scythe | light | Thornlash, Rejuvenate, Bear Form, Entangle, Wrath of the Grove |
-| **Brawler** | Fists and footwork. Hits fast and keeps hitting. | fists · mace | light | One-Two, Uppercut, Second Wind, Haymaker, Hundred Fists |
-| **Demon** | Half-born of the Hunger. Burns and drains. | axe · scythe · sword | heavy | Hellfire, Soul Rend, Infernal Hide, Brimstone, Unleashed |
-| **Scion** | Heir of the Order. Blade, ward and judgement. | sword · mace | heavy | Crown's Edge, Aegis, Rally, Judgement, Ascendance |
-| **Elementalist** | Fire, frost and storm. Fragile, always has an answer. | wand · staff | cloth | Flame Lash, Ice Shard, Stoneskin, Chain Lightning, Elemental Storm |
-| **Worg** | A wolf in a person's skin. Rends, howls, heals on the hunt. | claws · axe | light | Rend, Howl, Pounce, Feral Frenzy, Blood Moon |
+| **Warrior** | Steel and stubbornness. Most health, crushing melee, stuns. | sword · axe · mace | heavy | Shield Bash, Cleave, War Cry, Whirlwind, Last Stand, Sunder, Shield Wall, Execute |
+| **Mage** | Fire, frost and time. Fragile, but hits like a falling star. | staff · wand | cloth | Firebolt, Frost Lance, Arcane Shield, Meteor, Time Warp, Arcane Missiles, Blink, Pyroclasm |
+| **Rogue** | Crits, poison and vanishing tricks. Strikes first. | dagger · sword · bow | light | Backstab, Poison Blade, Smoke Bomb, Shadowstep, Death Mark, Fan of Knives, Pocket Sand, Assassinate |
+| **Cleric** | Lantern-light made fist. Heals, wards and smites. | mace · staff | heavy | Smite, Mend, Lantern Ward, Purge, Divine Wrath, Consecrate, Blessed Light, Radiance |
+| **Ranger** | Starts with a wolf. Best tamer; empowers pets. | bow · dagger · axe | light | Aimed Shot, Beast Bond, Volley, Snare, Call of the Wild, Hunter's Mark, Disengage, Rain of Arrows |
+| **Necromancer** | Drains life, raises skeletons, curses the living. | scythe · wand · staff | cloth | Drain Life, Bone Spear, Raise Dead, Withering Curse, Soul Harvest, Corpse Burst, Bone Armor, Plague |
+| **Druid** | Thorns, healing, and a bear's hide when it counts. | staff · scythe | light | Thornlash, Rejuvenate, Bear Form, Entangle, Wrath of the Grove, Moonfire, Barkskin, Hurricane |
+| **Brawler** | Fists and footwork. Hits fast and keeps hitting. | fists · mace | light | One-Two, Uppercut, Second Wind, Haymaker, Hundred Fists, Counter, Iron Body, Dragon Kick |
+| **Demon** | Half-born of the Hunger. Burns and drains. | axe · scythe · sword | heavy | Hellfire, Soul Rend, Infernal Hide, Brimstone, Unleashed, Shadowflame, Dark Pact, Apocalypse |
+| **Scion** | Heir of the Order. Blade, ward and judgement. | sword · mace | heavy | Crown's Edge, Aegis, Rally, Judgement, Ascendance, Royal Decree, Shield of Kings, Sovereign Strike |
+| **Elementalist** | Fire, frost and storm. Fragile, always has an answer. | wand · staff | cloth | Flame Lash, Ice Shard, Stoneskin, Chain Lightning, Elemental Storm, Tidal Wave, Obsidian Shell, Cataclysm |
+| **Worg** | A wolf in a person's skin. Rends, howls, heals on the hunt. | claws · axe | light | Rend, Howl, Pounce, Feral Frenzy, Blood Moon, Hamstring, Thick Pelt, Pack Strike |
 
 As you level, your hero earns titles: a warrior starts as *the Squire* and climbs through *the Champion* and *the Legendary Warrior* to *the Titan* and, at level 70, *the God-Slayer*. Every class has its own fifteen. Deeds earn rarer ones (*Keeper of the Five*, *the Oathkeeper*, *the Hunger-Slayer*), and so does rare gear: epics and legendaries carry titles, the deepest tiers' rarer still, the Underside's relics their own, and a whole class set its set's title. Type `title` to choose which you wear.
 
