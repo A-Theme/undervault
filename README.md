@@ -27,11 +27,12 @@ Every room is written prose. Every command is a word you type, or a button you t
 - **12 classes**, 96 skills (eight a class, four carried at a time and swapped at the Temple), talents, and **titles** that grow from Squire to God-Slayer
 - **Loot you can see**: every weapon and suit of armor shows up on your pixel-art hero; rare **legendaries** and class **sets**
 - **Chests** from rusty to legendary, each with its own opening
-- **24 pets** to buy, hatch or tame, and they evolve
-- **Animated cutscenes**, boss reveals, about **55 sound effects** and **ambient music**
+- **27 pets** to buy, hatch or tame, and they evolve
+- A two-minute **opening** that tells the story so far, **animated cutscenes**, boss reveals, about **80 sound effects** and **ambient music**
 - A **mini-map** that follows you, and an **Expeditions** screen for picking where to go
 - **Sign in with Google or Discord** to keep your heroes, friends and name on every device (cloud saves)
-- **Play with friends**: add friends by code, see who is online, send them your seed to race or play live together, or invite them to a **raid** as a party of four
+- **Play with friends**: add friends by code, see who is online, talk in the **Common Room** (a chatroom for everyone, with the last day kept), send them your seed to race or play live together, or invite them to a **raid** as a party of four. No one free? The ghosts of your line fill the empty seats
+- A **legacy** that outlasts your heroes: heirlooms that grow with whoever carries them, a family crypt with a card for every fallen Hardcore hero, ghosts who wait where they fell, and the **Echo Hall** of every keeper you have beaten
 - An online **leaderboard** for the Abyss, a **daily dungeon**, **Hardcore mode**
 - Installs on your phone and **plays offline**
 
@@ -54,7 +55,7 @@ Every room is written prose. Every command is a word you type, or a button you t
 | **Android** | Open the link in Chrome, then **Install app**. Or download **[undervault.apk](https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk)** and open it on your phone. |
 | **Steam Deck** | One command in Desktop Mode puts it in your Steam library, controller and all. See [Steam Deck](#steam-deck) below. |
 
-Keep up to **three heroes** and switch between them from the title screen (or **Menu → Heroes**). Use **Menu → Export save** to back up a hero or move it to another device: you get a short code to paste into **Import save** there.
+Keep up to **three heroes** and switch between them from the title screen (or **Menu → Exit to character select**). Use **Menu → General → Export save** to back up a hero or move it to another device: you get a short code to paste into **Import save** there.
 
 ### Steam Deck
 
@@ -101,13 +102,13 @@ Every class comes as a male or a female hero: pick on the title screen. Each cla
 |---|---|---|---|---|
 | **Warrior** | Steel and stubbornness. Most health, crushing melee, stuns. | sword · axe · mace | heavy | Shield Bash, Cleave, War Cry, Whirlwind, Last Stand, Sunder, Shield Wall, Execute |
 | **Mage** | Fire, frost and time. Fragile, but hits like a falling star. | staff · wand | cloth | Firebolt, Frost Lance, Arcane Shield, Meteor, Time Warp, Arcane Missiles, Blink, Pyroclasm |
-| **Rogue** | Crits, poison and vanishing tricks. Strikes first. | dagger · sword · bow | light | Backstab, Poison Blade, Smoke Bomb, Shadowstep, Death Mark, Fan of Knives, Pocket Sand, Assassinate |
+| **Rogue** | Crits, poison and vanishing tricks. Strikes first, and from level 5 can `sneak`: unseen for a few moves, then a sneak attack. | dagger · sword · bow | light | Backstab, Poison Blade, Smoke Bomb, Shadowstep, Death Mark, Fan of Knives, Pocket Sand, Assassinate |
 | **Cleric** | Lantern-light made fist. Heals, wards and smites. | mace · staff | heavy | Smite, Mend, Lantern Ward, Purge, Divine Wrath, Consecrate, Blessed Light, Radiance |
-| **Ranger** | Starts with a wolf. Best tamer; empowers pets. | bow · dagger · axe | light | Aimed Shot, Beast Bond, Volley, Snare, Call of the Wild, Hunter's Mark, Disengage, Rain of Arrows |
+| **Ranger** | Starts with a wolf. Best tamer; empowers pets, and finds tracks of beasts nobody else can. | bow · dagger · axe | light | Aimed Shot, Beast Bond, Volley, Snare, Call of the Wild, Hunter's Mark, Disengage, Rain of Arrows |
 | **Necromancer** | Drains life, raises skeletons, curses the living. | scythe · wand · staff | cloth | Drain Life, Bone Spear, Raise Dead, Withering Curse, Soul Harvest, Corpse Burst, Bone Armor, Plague |
 | **Druid** | Thorns, healing, and a bear's hide when it counts. | staff · scythe | light | Thornlash, Rejuvenate, Bear Form, Entangle, Wrath of the Grove, Moonfire, Barkskin, Hurricane |
 | **Brawler** | Fists and footwork. Hits fast and keeps hitting. | fists · mace | light | One-Two, Uppercut, Second Wind, Haymaker, Hundred Fists, Counter, Iron Body, Dragon Kick |
-| **Demon** | Half-born of the Hunger. Burns and drains. | axe · scythe · sword | heavy | Hellfire, Soul Rend, Infernal Hide, Brimstone, Unleashed, Shadowflame, Dark Pact, Apocalypse |
+| **Demon** | Half-born of the Hunger. Burns and drains, and hatches demons from Hungering Eggs. | axe · scythe · sword | heavy | Hellfire, Soul Rend, Infernal Hide, Brimstone, Unleashed, Shadowflame, Dark Pact, Apocalypse |
 | **Scion** | Heir of the Order. Blade, ward and judgement. | sword · mace | heavy | Crown's Edge, Aegis, Rally, Judgement, Ascendance, Royal Decree, Shield of Kings, Sovereign Strike |
 | **Elementalist** | Fire, frost and storm. Fragile, always has an answer. | wand · staff | cloth | Flame Lash, Ice Shard, Stoneskin, Chain Lightning, Elemental Storm, Tidal Wave, Obsidian Shell, Cataclysm |
 | **Worg** | A wolf in a person's skin. Rends, howls, heals on the hunt. | claws · axe | light | Rend, Howl, Pounce, Feral Frenzy, Blood Moon, Hamstring, Thick Pelt, Pack Strike |
@@ -116,7 +117,7 @@ As you level, your hero earns titles: a warrior starts as *the Squire* and climb
 
 ## Gear you can see
 
-Your hero is a pixel-art paper doll drawn from what you're actually wearing. Each class has its own weapons and armor family (heavy, light or cloth). Gear from another class still works, but 30% weaker. Seven tiers of armor change your silhouette. Ten weapon types each have four designs that improve with their material.
+Your hero is a pixel-art paper doll drawn from what you're actually wearing. Each class has its own weapons and armor family (heavy, light or cloth). Gear from another class still works, but 30% weaker. Seven tiers of armor change your silhouette, and every piece is dyed and marked by its own name (a set's pieces match), plainer for commons and worked in gold for legendaries. Ten weapon types each have four designs that improve with their material.
 
 Legendaries are rare, and worth it. Hardly any drop by chance: they come from quests, first clears and the six **Trials of Legend** (type `trials`). A legendary hits about twice as hard as anything else of its tier and carries a power (lightning strikes, executing the wounded, blocking blows, cheating death). Some legendaries are pieces of a **class set** (weapon, armor, amulet and ring) with bonuses for wearing two and all four. Rarity adds glows and sparkles, and enchantments wreathe your weapon in flame, frost, venom or blood. Tap **preview** on anything in your pack to see yourself wearing it, plus every stat it changes, before you commit.
 
@@ -138,7 +139,7 @@ Chests are described as what they are, and the better ones turn up deeper: rusty
 
 ## Bosses and beasts
 
-Fifteen story bosses, across three books, guard the way down, and every side dungeon, the crossing, the Underside and the Abyss has its own. Here are the first nine. Each one gets a reveal when you find it. Every pet you buy, hatch or tame has its own sprite, and it changes when the pet evolves.
+Twenty story bosses, across four books, guard the way down, and every side dungeon, the crossing, the Underside and the Abyss has its own. Here are the first nine. Each one gets a reveal when you find it. Every pet you buy, hatch or tame has its own sprite, and it changes when the pet evolves.
 
 <p align="center">
 <img src="media/bosses.gif" alt="The nine bosses, animated: Grisholt, Mother Mycelia, the Bone Engine, Venn, the Sovereign, Mag Ratchet, Abbess Hild, the Auctioneer and the Herald" width="690"><br>
@@ -160,6 +161,8 @@ Three hundred years ago the Lantern Order chained the **Ashen Sovereign** beneat
 Descend through the **Drowned Cellars**, the **Mycelial Deep**, the **Clockwork Ossuary**, the **Shattered Library** and the **Ember Throne**: five chapters, each with its own story to follow. The goal under the status bar always says what to do next. Rescue a boy from the cellars, find out who has been chalking the fountain, and learn what the Order has been feeding the seal. The townsfolk have missions of their own once the Wardstones burn again. Find all fifteen lore scrolls and choose how it ends.
 
 Then the story goes on. Beneath the Throne, where the histories end, a stair goes down into **the Hunger Below**: the Unlit Stair, the Hall of the Fed where the Order's lost orphans still wait, the Archive of Ash, Arden's Watch, and the Heart of the Hunger itself. What Maren tells you when you set out depends on how you ended Book I.
+
+Then a ship comes. **Book III: Across the Ashen Sea** takes you to **Solenne**, a kingdom whose lanterns burn violet and whose people walk into the sea in their sleep, and down the **Drowned Stair** to the Hunger's second door. In **Book IV: The Lantern War**, the iron king of Kaldmark claims Emberfall and its Lantern by an old charter, and the war goes from the cellars to his frozen throne, and on to a garden at the top of the world where it is always summer.
 
 **[Read the full lore guide →](LORE.md)** (the spoilers are folded away)
 
@@ -202,7 +205,10 @@ Then the story goes on. Beneath the Throne, where the histories end, a stair goe
 <details>
 <summary><b>Pets</b></summary>
 
-- 20 species to buy, hatch from eggs or tame (beat a beast below a third of its health, then `tame` it).
+- 38 species to buy, hatch from eggs or tame (beat a beast below a third of its health, then `tame` it).
+- **Beasts only a ranger finds.** Two in the deeps of each book, from an Ash Stag with ember antlers to a Storm Eagle above the war. A ranger walking the floors may come across their tracks; `track` them to the beast, wear it down and tame it. Nobody else sees the tracks or can tame what made them. They keep their own page in the Lore Book (Wild).
+- **A Demon raises its own.** Hunger-touched monsters (Book II's, the Abyss's, anything that carries the Hunger's name) sometimes leave a Demon a Hungering Egg. It hatches on Wrath, not on time: it drinks half of every bit you burn on your skills, or `feed` it from what you have. What comes out is a Hunger Imp, a Gnawling or a Shadeling, which only a Demon can raise.
+- Every form has its own colours, and Gilded and Starborn pets have theirs.
 - Pets fight beside you with their own abilities: bites, blinds, burns, heals, shields, stuns and more.
 - Every pet evolves at levels 10 and 20. Your Wolf Pup becomes a Dire Wolf, then a Moonfang Alpha.
 - **Pets can die.** One that goes down has until you leave the floor: a Pet Treat, a rest, a shrine or a well brings it back. Leave it, or let a monster finish it, and it is gone for good.
@@ -215,19 +221,21 @@ Then the story goes on. Beneath the Throne, where the histories end, a stair goe
 - **Hardcore**: one life. If you fall, the save is gone. In return: +20% XP and gold, and better loot.
 - **Daily dungeon**: tap *Today* on the title screen and everyone plays the same dungeon that day.
 - **New Game+**: keep your hero; the dark gets deadlier.
-- The story is told as it happens: short slideshows when a chapter starts, when a boss falls and when you reach a new city, with what has happened and what comes next, and why the lanterns matter. `recap` replays them.
+- A two-minute **opening** the first time you play tells the story so far (watch it again from the Lore Book, or type `opening`). After that the story is told as it happens: short slideshows when a chapter starts, when a boss falls and when you reach a new city, with what has happened and what comes next, and why the lanterns matter. `recap` replays them.
 - Each book ends with a choice: three endings for Book I, two for Book II, two for Book III and three for Book IV, one of each hidden behind that book's fifteen lore scrolls.
 - **Trials of Legend** for every book: eighteen feats, each with a legendary for certain.
+- **The legacy**: everything your heroes do adds to your line's legacy, and its ranks give every new hero a small start. A hero can lay one piece of gear in the family crypt as an **heirloom** (and take it back while it is unclaimed); the next hero claims it and it grows with them. A fallen **Hardcore** hero is remembered in the crypt with a card like a trading card, leaves their weapon there, and waits as a ghost on the floor where they fell.
+- **The Echo Hall**: under the Temple, face the echoes of every keeper you have beaten, one after another, for gold, gear and your best run.
 
 </details>
 
 <details>
 <summary><b>Made for phones</b></summary>
 
-- Context buttons that change with what you're doing, optional touch pads, and tappable words in the story text.
+- Context buttons that change with what you're doing, optional touch pads, and tappable words in the story text. In a fight on a phone the pads fold away and the combat buttons take their place, so every action shows and the story keeps its room.
 - A pixel **mini-map** in the corner that follows you; tap it for the whole floor.
 - An **Expeditions** screen (tap the goal line) for the story, your missions, every act and side dungeon, raids and bounties. Tap a mission for its own screen: its story, where it is, how hard it is for your level, the reward, **Start**, and **Invite a friend**.
-- About 55 sound effects, ambient music for the village, every act, bosses and raids, vibration and cutscenes, each with a toggle in the menu.
+- About 80 sound effects, ambient music for the village, every act, bosses and raids, vibration and cutscenes, each with a toggle in the menu.
 - Installs to your home screen and plays offline. Native Android and iOS app projects are included.
 - Command chaining (`n;e;kill`), speedwalking (`.3n2e`) and aliases for veterans.
 
@@ -237,21 +245,22 @@ Then the story goes on. Beneath the Throne, where the histories end, a stair goe
 
 Every dungeon is built from its seed, so a friend on the same seed gets the same floors, rooms and monsters.
 
-- **Share a seed.** Tap *Share this seed with a friend* on the title screen, or type `share` in the game (also **Menu → Share seed**). Your friend opens the link and the seed is already filled in.
+- **Share a seed.** Tap *Share this seed with a friend* on the title screen, or type `share` in the game (also from the **Common Room**). Your friend opens the link and the seed is already filled in.
 - **Race.** `race` shows everyone who has played your seed: how deep they got, how many Wardstones they relit, how often they died and who finished. The daily dungeon is one big race.
 - **Play live.** Tick *Play live* when you start, or type `live on`.
   - Friends live on the same seed show up on your map as a magenta `@`, and in any room you share.
   - Their big moments (a boss down, a death, a legendary find) appear in your log.
   - Talk with `say`.
   - You each have your own monsters and loot. Monsters get tougher (and pay more) when friends are on your floor, and friends in the same room fight beside you.
+- **The Common Room** (at the inn, or at the top of the Menu): your friends and who is online, a chatroom for everyone playing, and messages to any player, whatever seed they are on. The last 24 hours are kept, so you can catch up on what was said while you were away, and a message to a friend who is offline waits for them (when you are both signed in). Reply to a message from the game's own text box. Ignore or report anyone; take messages from friends only if you like.
 
 ### Raids
 
-Four raids, each a short dungeon with a mega boss and a long story of its own (the hardest is **Lily's Everlasting Summer**, which opens once you have faced Lily in Book IV), for a party of 2 to 4 friends playing at the same time (built for four). One of you forms a party from the Expeditions screen and shares its five-letter code; when everyone is in, the leader starts. The boss's health is shared by the whole party, but its blows land on each of you, so a smaller party takes a beating. Defend against its cataclysms, deal with its helpers, and finish it before it loses patience. Everyone who hurt it gets their own loot, and clearing a raid earns a title.
+Four raids, each a short dungeon with a mega boss and a long story of its own (the hardest is **Lily's Everlasting Summer**, which opens once you have faced Lily in Book IV), for a party of 2 to 4 friends playing at the same time (built for four). One of you forms a party from the Expeditions screen and shares its five-letter code; when everyone is in, the leader starts. The boss's health is shared by the whole party, but its blows land on each of you, so a smaller party takes a beating. Defend against its cataclysms, deal with its helpers, and finish it before it loses patience. Everyone who hurt it gets their own loot, and clearing a raid earns a title. No one free? **Raid with ghosts**: Old Mott wakes the ghosts of your line, your own fallen Hardcore heroes first, then old keepers from the cemetery, to fill the empty seats. They strike beside you, a healer among them, and work offline too.
 
 ## The Abyss and the leaderboard
 
-Beat the Sovereign and the Gate opens onto **the Abyss**: endless floors where the monsters keep getting stronger and a **Herald of the Hunger** waits every fifth floor. Your deepest floor goes to an online leaderboard. The current top three are on the title screen; the top twenty are under **Menu → Leaderboard**.
+Beat the Sovereign and the Gate opens onto **the Abyss**: endless floors where the monsters keep getting stronger and a **Herald of the Hunger** waits every fifth floor. Your deepest floor goes to an online leaderboard, and your level and might go to the **Brightest Lanterns**, the strongest heroes of every player. The home screen shows the Brightest Lanterns (and, on a wide screen, the Abyss's top five under them); both full boards are under **Menu → Online → Leaderboard**.
 
 <details>
 <summary><b>How to play: the commands</b></summary>
@@ -265,18 +274,22 @@ Beat the Sovereign and the Gate opens onto **the Abyss**: endless floors where t
 | Crossing | `descend` (the Drowned Stair in Solenne), `sail`, `walk`, `gate`, `provision <n>`, `supplies`; on the way `hail`, `salvage`, `explore`, `follow`, `pay`, `enter` |
 | Town | `talk`, `list`, `buy <#>`, `sell <#>`, `sell junk`, `upgrade`, `reforge`, `train`, `stash`, `bounties`, `fortune`, `polish <charm>`, `contract` |
 | You | `score`, `skills`, `talents`, `pet`, `journal`, `title`, `trials`, `leaderboard` |
-| Account | Menu > **Sign in** (Google or Discord): cloud saves, your friends and name on every device |
+| Legacy | `crypt` (at Old Mott's), `bequeath`, `claim`, `takeback`, `grave <n>`; the Echo Hall is on the Expeditions screen |
+| Account | Menu > General > **Sign in** (Google or Discord): cloud saves, your friends and name on every device |
 | Friends | `friends` (your code and player name, add a friend, send them your seed or raid party), `friend add CODE`, `friend accept` |
-| Story | `quests` (the Expeditions screen), `recap` (the story so far), `lanterns` (why they matter), `talk` to the townsfolk for missions |
+| Story | `quests` (the Expeditions screen), `recap` (the story so far), `opening` (the opening again), `lanterns` (why they matter), `talk` to the townsfolk for missions |
 | Side dungeons | `delve <dungeon> <tier>` at the Gate (tiers: normal, veteran, heroic, nightmare), or the Expeditions screen |
 | Places | `open` chests, `pray` at shrines, `rest`, `recall` home, `delve` at the Gate, `pick`, `trace`, `answer`, `solve` (challenges) |
-| Together | `share`, `race`, `live on` / `live off`, `who`, `say <words>`, `mute <name>`, `raid` |
+| Together | `share`, `race`, `live on` / `live off`, `who`, `say <words>`, `mute <name>`, `raid`, `raid ghosts <raid>` |
+| Common Room | `shout <words>` (everyone), `tell <name> <words>`, `reply`, `ignore <name>`, `report <name>` |
 
 Type `help` in the game for the full list.
 
 </details>
 
 ## License
+
+Combat sounds are mixed from free-to-use (CC0) sounds by [Kenney](https://kenney.nl), and by artisticdude and rubberduck on [OpenGameArt](https://opengameart.org).
 
 © 2026 A-Theme. All rights reserved. You're welcome to play it, stream it and share videos of it; copying, modifying or redistributing any part of it needs permission. See [LICENSE](LICENSE). Copies published earlier under the MIT License keep that license.
 

@@ -208,6 +208,25 @@ Some things below Emberfall are too big for one lantern: **the Choir Below**, ev
 
 Some of them can be tamed. Many of them shouldn't be.
 
+### Beasts only a ranger finds
+
+Two in the deeps of each book, rarer than any keeper. Their tracks show only to a ranger, and only a ranger can win their trust.
+
+| Book | Beast | What the tracks look like |
+|---|---|---|
+| I | **Ash Stag**, then Emberhorn Stag, then King of the Kindled Wood | cloven prints pressed into the ash, each one still warm. *Its antlers burned like candles when the Wardstones were first lit.* |
+| I | **Lantern Hare**, then Glowfoot Hare, then Hare of the Last Lantern | tiny paw-prints that glow, then go out. *Follow one far enough and it leads you home, or in circles, very fast.* |
+| II | **Ink Cat**, then Inkshadow Cat, then The Unwritten Cat | small round prints in black ink, still wet. *Every word the Hunger spilled in the Archive of Ash, walking.* |
+| II | **Echo Bat**, then Hollow Bat, then Bat of the Deep Stair | a second set of footsteps, a beat behind your own. *It eats echoes, and below the Throne it is never hungry.* |
+| III | **Salt Heron**, then Tide Heron, then Heron of the Drowned Bells | long three-toed prints crusted with salt. *When it strikes, the sunken bells of Solenne ring.* |
+| III | **Reef Turtle**, then Coral Turtle, then Grandmother of the Reef | a wide flat trail, barnacles scraped off on the stone. *She has watched the second door stand open, and was not impressed.* |
+| IV | **Rime Boar**, then Iron-Tusk Boar, then Boar of the Winter War | split-hoof prints in the frost, a pine gored to the heartwood. *It charged a patrol on the High Pass and kept a helmet.* |
+| IV | **Storm Eagle**, then Thunder Eagle, then Eagle of the High Pass | one grey feather that crackles in your hand. *It nests above the war, where the storms are born.* |
+
+### What a Demon raises
+
+Hunger-touched things (Book II's, the Abyss's, anything that carries the Hunger's name) sometimes leave a Demon a **Hungering Egg**, warm as a fever and cold as a grave to anyone else. It hatches on Wrath. What comes out knows where it came from: a **Hunger Imp** on bat wings (then Ashwing Imp, then Imp of the Last Ash), a **Gnawling** that is mostly mouth (then Gnasher, then Mouth of the Fed), or a **Shadeling**, a hood with nothing in it (then Hollow Shade, then Shade of a Thousand Names).
+
 ---
 
 ## Spoilers
@@ -274,7 +293,7 @@ At the bottom of the world, on a throne of black glass, waits the Ashen Sovereig
 
 **Its keeper: The Ashen Sovereign.**
 
-- **What the king knew.** The Ashen Sovereign is Caius Vale, Arden's brother, and your cousin. Beneath the world is the Hunger, which eats light, names and memory. Arden sealed Caius below to hold its door shut, and the Order fed the seal with Vales to keep him strong. For three hundred years.
+- **What the king knew.** The Ashen Sovereign is Caius Vale, Arden's brother, and of your own blood. Beneath the world is the Hunger, which eats light, names and memory. Arden sealed Caius below to hold its door shut, and the Order fed the seal with Vales to keep him strong. For three hundred years.
 - **The choice.** Relight the seal with your blood and become its keeper, as Caius was. Take the crown and hold the Hunger back alone, as a king. Or, if you carry all fifteen scrolls, speak the third oath the Order cut from every book: to share the burden, so no one carries it alone.
 
 </details>
@@ -533,7 +552,7 @@ You faced Lily the Sweethang in her garden at the top of the world, and she let 
 
 </details>
 
-*Arden's chart shows seven doors. Three are shut now. One of the four that are not is in the sky, and something fell out of it once. Lily's garden is already growing back, and she is waiting for you, and your friends.*
+*Arden's chart shows seven doors. Three are shut now. One of the four that are not is in the sky, and something fell out of it once. Lily's garden is already growing back, and she is waiting for you, and your friends. And a ship has come in from the west, and nobody aboard will say a word.*
 
 
 ## More spoilers
@@ -580,6 +599,8 @@ The Ashen Sovereign is **Caius Vale**, and you are his blood. Caius never tried 
 The Lantern Order kept the seal fed so Caius would stay strong enough to hold it, and what it fed the seal was the Vale line, by blood or by adoption. For thirty years Sister Maren has sent orphans down through the Gate and told herself the light was worth it. *"I have been sorry every day."*
 
 There were three oaths: **to seal, to rule, and to share the burden.** The Order struck the third from every book.
+
+**The question on the fountain.** WHO FEEDS THE LIGHT? was chalked by Winston, the small boy in a coat of patches. Venn saw him write it; Winston owns up to it the next time you meet him (*"Somebody had to ask"*). He has more reason than anyone to ask: it pays off in Book VIII.
 
 </details>
 
