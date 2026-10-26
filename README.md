@@ -191,7 +191,7 @@ Then a ship comes. **Book III: Across the Ashen Sea** takes you to **Solenne**, 
 <details>
 <summary><b>Progression</b></summary>
 
-- Levels come slowly, and each one counts: stats and talent points (1.4 a level) grow fast. The cap is 80.
+- Levels come slowly, and each one counts: stats and talent points (one a level, two a level past 40) grow fast. The cap is 80.
 - Talents: 14 general talents and 4 per class (a deeper one at level 25 and a capstone at 40). Ranks cost more as they climb (1, 1, 2, 2, 3), so you choose. Sister Maren resets them for a fee.
 - 14 material tiers that keep pace with the monsters to the end of Book IV (Lanternforged in Book II, then Ashglass, Tideforged, Dawnforged and Doorwrought, then the war's Rimesteel and Sunforged), 5 rarities, enchantments, legendaries and one-of-a-kind uniques.
 - Weapons come in sub-kinds: a sword can be a sabre, falchion or greatsword, a mace a flail or warhammer. That is over a thousand weapon designs before rarity and enchantments, and gear sometimes carries the name of where it was made.
