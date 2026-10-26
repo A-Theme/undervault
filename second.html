@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Undervault: the map</title>
+<!-- The second screen (v1.26.1): the Android app shows this page on a second display (the AYN Thor's bottom screen),
+     and the game (minimap.js, sec2Push) keeps it fed through uvShow: the floor's map, its name, your health, power,
+     level and gold, and the room you are in. A tap on the map goes back to the game, which walks you there. uvTurn
+     turns the picture to match how the game's screen is held; "turn" turns it a quarter more, and is remembered. -->
+<style>
+html,body{margin:0;height:100%;background:#0b0d15;color:#d9dcea;font:13px/1.4 ui-monospace,Menlo,Consolas,monospace;overflow:hidden;-webkit-user-select:none;user-select:none}
+#box{position:absolute;left:50%;top:50%;display:flex;flex-direction:column;align-items:center;gap:8px;transform:translate(-50%,-50%)}
+#title{color:#eaa94a;letter-spacing:.08em;text-transform:uppercase;font-size:13px;text-align:center}
+#map{display:block;image-rendering:pixelated;border:1px solid #262d4d;border-radius:8px;background:#0e1222}
+#map:not([src]){visibility:hidden}
+#bars{display:flex;gap:12px;font-size:12px;flex-wrap:wrap;justify-content:center}
+.hp{color:#ff6e8a}.mp{color:#62a8ff}.lv{color:#eaa94a}.gd{color:#f3d36b}
+#room{color:#8a93b8;font-size:12px;text-align:center}
+#turn{position:fixed;right:6px;bottom:6px;background:none;border:1px solid #262d4d;color:#8a93b8;border-radius:6px;font:inherit;font-size:11px;padding:4px 8px}
+</style>
+</head>
+<body>
+<div id="box"><div id="title">Lanterns of the Undervault</div><img id="map" alt="The map of this floor"><div id="bars"></div><div id="room"></div></div>
+<button id="turn" type="button" aria-label="Turn the map a quarter turn">turn</button>
+<script>
+var rot=0,auto=0,man=0,$=function(i){return document.getElementById(i);};
+try{man=(+localStorage.getItem('uv-turn')||0)%4;}catch(e){}
+function fit(){var side=rot%2?[innerHeight,innerWidth]:[innerWidth,innerHeight],s=Math.max(80,Math.min(side[0]-24,side[1]-84));
+  $('map').style.width=$('map').style.height=s+'px';$('room').style.maxWidth=(side[0]-24)+'px';
+  $('box').style.transform='translate(-50%,-50%) rotate('+rot*90+'deg)';}
+function uvTurn(n){auto=(n|0)%4;rot=(auto+man)%4;fit();}
+function uvShow(d){
+  if(!d)return;
+  if(d.title!=null)$('title').textContent=String(d.title);
+  if(d.img)$('map').src=d.img;else if(d.img==='')$('map').removeAttribute('src');
+  if(d.bars){var b=$('bars');b.textContent='';d.bars.forEach(function(x){var e=document.createElement('b');e.className=String(x[0]);e.textContent=String(x[1]);b.appendChild(e);});}
+  if(d.room!=null)$('room').textContent=String(d.room);
+}
+$('map').addEventListener('click',function(e){var m=e.currentTarget;if(!m.getAttribute('src')||!window.UVSecond)return;
+  UVSecond.tap(JSON.stringify({x:e.offsetX/m.clientWidth,y:e.offsetY/m.clientHeight}));});
+$('turn').addEventListener('click',function(){man=(man+1)%4;try{localStorage.setItem('uv-turn',man);}catch(e){}rot=(auto+man)%4;fit();});
+addEventListener('resize',fit);fit();
+if(window.UVSecond)UVSecond.ready();
+</script>
+</body>
+</html>

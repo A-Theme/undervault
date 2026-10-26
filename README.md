@@ -289,7 +289,7 @@ Type `help` in the game for the full list.
 
 ## License
 
-Combat sounds are mixed from free-to-use (CC0) sounds by [Kenney](https://kenney.nl), and by artisticdude and rubberduck on [OpenGameArt](https://opengameart.org).
+Combat sounds are mixed from free-to-use (CC0) sounds by [Kenney](https://kenney.nl), and by artisticdude and rubberduck on [OpenGameArt](https://opengameart.org). The spells are made from lentikula's [Basic Spell Impacts](https://lentikula.itch.io/freecc0-basic-spell-impacts-sfx) and Julien Matthey's [fireball](https://opengameart.org/content/fireball-1), both CC0.
 
 © 2026 A-Theme. All rights reserved. You're welcome to play it, stream it and share videos of it; copying, modifying or redistributing any part of it needs permission. See [LICENSE](LICENSE). Copies published earlier under the MIT License keep that license.
 
