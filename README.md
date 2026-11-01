@@ -119,7 +119,7 @@ As you level, your hero earns titles: a warrior starts as *the Squire* and climb
 
 Your hero is a pixel-art paper doll drawn from what you're actually wearing. Each class has its own weapons and armor family (heavy, light or cloth). Gear from another class still works, but 30% weaker. Seven tiers of armor change your silhouette, and every piece is dyed and marked by its own name (a set's pieces match), plainer for commons and worked in gold for legendaries. Ten weapon types each have four designs that improve with their material.
 
-Legendaries are rare, and worth it. Hardly any drop by chance: they come from quests, first clears and the six **Trials of Legend** (type `trials`). A legendary hits about twice as hard as anything else of its tier and carries a power (lightning strikes, executing the wounded, blocking blows, cheating death). Some legendaries are pieces of a **class set** (weapon, armor, amulet and ring) with bonuses for wearing two and all four. Rarity adds glows and sparkles, and enchantments wreathe your weapon in flame, frost, venom or blood. Tap **preview** on anything in your pack to see yourself wearing it, plus every stat it changes, before you commit.
+Legendaries are rare, and worth it. Hardly any drop by chance: they come from quests, first clears and the six **Trials of Legend** (type `trials`). A legendary hits about twice as hard as anything else of its tier and carries a power (lightning strikes, executing the wounded, blocking blows, cheating death). Some legendaries are pieces of a **class set** (weapon, armor, amulet and ring; from Book III, weapon, helm, armor and boots) with bonuses for wearing two and all four. Rarity adds glows and sparkles, and enchantments wreathe your weapon in flame, frost, venom or blood. Tap **preview** on anything in your pack to see yourself wearing it, plus every stat it changes, before you commit.
 
 <p align="center">
 <img src="media/gear-armor.png" alt="Three armor families with seven tiers each: heavy from Padded Jerkin to Voidmail, light from Leather Jerkin to Voidhide, cloth from Linen Tunic to Voidsilk" width="760"><br>
@@ -195,8 +195,8 @@ Then a ship comes. **Book III: Across the Ashen Sea** takes you to **Solenne**, 
 - Talents: 14 general talents and 4 per class (a deeper one at level 25 and a capstone at 40). Ranks cost more as they climb (1, 1, 2, 2, 3), so you choose. Sister Maren resets them for a fee.
 - 14 material tiers that keep pace with the monsters to the end of Book IV (Lanternforged in Book II, then Ashglass, Tideforged, Dawnforged and Doorwrought, then the war's Rimesteel and Sunforged), 5 rarities, enchantments, legendaries and one-of-a-kind uniques.
 - Weapons come in sub-kinds: a sword can be a sabre, falchion or greatsword, a mace a flail or warhammer. That is over a thousand weapon designs before rarity and enchantments, and gear sometimes carries the name of where it was made.
-- Two class sets for every class (one from the first books, one from the war), each with its own title.
-- Five gear slots: weapon, armor, amulet and two rings.
+- Three class sets for every class (one from the first books, one from Book III with a helm and boots, one from the war), each with its own title.
+- Five gear slots: weapon, armor, amulet and two rings. From Book III, two more: a helm and boots.
 - Brakka's forge upgrades gear to +5 and reforges enchantments. Tobble trains your pets. A stash at the inn holds what you can't carry.
 - A bounty board in the Square with rotating jobs.
 
