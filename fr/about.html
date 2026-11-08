@@ -67,7 +67,7 @@ nav a{margin-right:12px}
 <li>You buy the full game inside the game: open the menu and choose <b>Get the full game</b>. Checkout is handled by <a href="https://stripe.com">Stripe</a> (you will see it as <b>Link</b>), the merchant of record, which also handles sales tax and receipts. Cards, Apple Pay and Google Pay work.</li>
 <li>In the Android app you can also buy an Android-only unlock through Google Play, at the price shown there.</li>
 <li>Stories beyond the seven doors may be sold later as separate expansions. Anything already bought stays yours.</li>
-<li>The store opens soon. Until it does, every book is free to play, and heroes made before it opens keep Books I to IV for good.</li>
+<li><span data-launch="before">The store opens on Tuesday 24 November 2026, at 6 pm Toronto time. Until then every book is free to play, and every account made before then, and every hero on its own device before then, keeps Books I to IV for good. Sign in before then to be a Founder on every device.</span><span data-launch="after" hidden>The store opened on 24 November 2026. Accounts made before then, and heroes that were on their own device before then, are Founders and keep Books I to IV for good.</span></li>
 </ul>
 <p>Refunds: within 14 days of purchase, for any reason. See the <a href="refund.html">refund policy</a>.</p>
 
@@ -77,7 +77,7 @@ nav a{margin-right:12px}
 <li><b>PC, Mac, Linux or Chromebook:</b> open <a href="./">playundervault.com</a> in any browser. To install it as an app, use Chrome or Edge and click the install icon in the address bar. Controllers work.</li>
 <li><b>Steam Deck:</b> press the Steam button, then Power, Switch to Desktop. Open the app menu at the bottom left, then System, Konsole, and paste <code>curl -fsSL https://playundervault.com/steamdeck.sh | bash</code> (Steam + X brings up the keyboard). When it says Done, double-click Return to Gaming Mode: the game is in your Library, under Non-Steam.</li>
 <li><b>iPhone and iPad:</b> open playundervault.com in Safari, tap Share, then Add to Home Screen. It runs full-screen and offline, like an app.</li>
-<li><b>Android:</b> open playundervault.com in Chrome, tap the menu (⋮), then Install app. Or download <a href="https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk">undervault.apk</a>. The Google Play version is in testing and coming soon.</li>
+<li><b>Android:</b> open playundervault.com in Chrome, tap the menu (⋮), then Install app. Or download <a href="https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk">undervault.apk</a>. <span data-launch="before">It comes to Google Play on 24 November.</span><span data-launch="after" hidden>Or get it on <a href="https://play.google.com/store/apps/details?id=ca.atheme.undervault">Google Play</a>.</span></li>
 </ul>
 
 <h2>Contact</h2>
@@ -85,5 +85,7 @@ nav a{margin-right:12px}
 
 <nav><a href="./">Play</a><a href="about.html">About</a><a href="terms.html">Terms</a><a href="refund.html">Refunds</a><a href="privacy.html">Privacy</a><a href="mailto:support@playundervault.com">Contact</a></nav>
 </main>
+<script>/* the launch: lines marked data-launch="before" show until the store opens, "after" from then on (tools/build.js stamps the moment from STORE_OPENS in src/store.js) */
+(function(){var a=Date.now()>=1795561200000;[].forEach.call(document.querySelectorAll('[data-launch]'),function(e){e.hidden=(e.getAttribute('data-launch')==='after')!==a;});})();</script>
 </body>
 </html>

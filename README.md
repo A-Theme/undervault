@@ -46,13 +46,13 @@ Every room is written prose. Every command is a word you type, or a button you t
 
 ## Play
 
-**Book I is free:** the whole first story, floors 1 to 20, seven side dungeons and the endless Abyss. Books II to IV, their dungeons and the raids are the **full game**: CA$6.99 (about US$5) on the website unlocks it everywhere, every browser and the Android app; or buy it inside the Android app for that app alone. The store isn't open yet. Everyone who plays before it opens becomes a **Founder** and keeps the full game.
+**Book I is free:** the whole first story, floors 1 to 20, seven side dungeons and the endless Abyss. Books II to IV, their dungeons and the raids are the **full game**: CA$6.99 (about US$5) on the website unlocks it everywhere, every browser and the Android app; or buy it inside the Android app for that app alone. The store opens on **Tuesday 24 November 2026** (6 pm Toronto time), and until then every book is free. Every account made before then, and every hero on its own device before then, is a **Founder** and keeps Books I to IV for good: sign in before then to be a Founder on every device.
 
 | Where | How |
 |---|---|
 | **Any browser** | Open **https://playundervault.com/**. Your save stays on your device. |
 | **iPhone / iPad** | Open the link in Safari, then **Share → Add to Home Screen**. It runs full-screen and offline. |
-| **Android** | Open the link in Chrome, then **Install app**. Or download **[undervault.apk](https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk)** and open it on your phone. |
+| **Android** | Open the link in Chrome, then **Install app**. Or download **[undervault.apk](https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk)** and open it on your phone. From 24 November it is on **[Google Play](https://play.google.com/store/apps/details?id=ca.atheme.undervault)** too. |
 | **Steam Deck** | One command in Desktop Mode puts it in your Steam library, controller and all. See [Steam Deck](#steam-deck) below. |
 
 Keep up to **three heroes** and switch between them from the title screen (or **Menu → Exit to character select**). Use **Menu → General → Export save** to back up a hero or move it to another device: you get a short code to paste into **Import save** there.
@@ -197,7 +197,7 @@ Then a ship comes. **Book III: Across the Ashen Sea** takes you to **Solenne**, 
 - Weapons come in sub-kinds: a sword can be a sabre, falchion or greatsword, a mace a flail or warhammer. That is over a thousand weapon designs before rarity and enchantments, and gear sometimes carries the name of where it was made.
 - Three class sets for every class (one from the first books, one from Book III with a helm and boots, one from the war), each with its own title.
 - Five gear slots: weapon, armor, amulet and two rings. From Book III, two more: a helm and boots.
-- Brakka's forge upgrades gear to +5 and reforges enchantments. Tobble trains your pets. A stash at the inn holds what you can't carry.
+- Brakka's forge upgrades gear, one more level with each book you open (none in Book I), and reforges enchantments. Tobble trains your pets. A stash at the inn holds what you can't carry.
 - A bounty board in the Square with rotating jobs.
 
 </details>

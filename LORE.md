@@ -247,6 +247,7 @@ The first Wardstone lies in the Drowned Cellars, under the city's old cisterns. 
 
 - **What the Warden knew.** Grisholt drank the poisoned water for thirty years so nobody else would have to. The stone wanted a lantern a month, Maren told him, and she would not say what was in the lanterns. So he sent the children who carried them back up. Why would anyone need sending back?
 - **What comes next.** The first Wardstone burns, and far above, the Last Lantern brightens. Tell Maren, and see what she says about the Warden. Then the Mycelial Deep, below the cisterns, where Sister Ilse keeps the second stone.
+- **Reporting to Sister Maren.** "Grisholt." Maren closes her eyes. "He was a good man. He chose that water so no one else would have to. The stones ask a great deal of their keepers." She does not meet your eyes. "The Mycelial Deep is next. Ilse is down there. Whatever is left of her."
 
 </details>
 
@@ -259,6 +260,7 @@ Below the cisterns lies the Mycelial Deep, a garden gone to rot. Sister Ilse, th
 
 - **What the gardener knew.** Mother Mycelia was Ilse, the Order's gardener. She grew the seal out of her own body so the stone would eat her instead of the children, and it hurt her for years. Her last words: the seal eats, child. Ask Maren what she feeds it.
 - **What comes next.** Two stones burn. Tell Maren, and watch her face when you say Ilse's name. Below lies the Clockwork Ossuary, where the Order's founding knights still keep watch in brass and bone.
+- **Reporting to Sister Maren.** When you say Ilse's name, Maren's hands begin to shake. "She taught me every prayer I know. Whatever she told you, she was dying for a very long time, and the dying say things." She turns back to the altar. "The Ossuary next. The old knights. Be respectful. Be quick."
 
 </details>
 
@@ -271,6 +273,7 @@ The Order buried its founding knights in the Clockwork Ossuary, fused into machi
 
 - **What the bones knew.** The founding knights, fused into one machine, still checked the blood of everyone who came. It checked yours: DESCENDANT OF ARDEN VALE CONFIRMED. WELCOME HOME, VALE. You are of the family the whole Order was built around.
 - **What comes next.** Three stones burn. Maren knows what Vale means, if she will say it. Below lies the Shattered Library, where every oath the Order swore was written down, and someone has been unwriting them.
+- **Reporting to Sister Maren.** Maren studies your face in the lantern light for a long time. "Vale," she says at last. "Of course. I should have seen it in your eyes. It changes nothing. The Library is next. Do not believe everything you read there." "You know what the histories say. Arden Vale founded our Order and chained a mad king beneath the city: his own brother, Caius, who crowned himself in the dark and tried to burn the world." She says it the way you say a prayer you have stopped believing. "That is what the histories say."
 
 </details>
 
@@ -283,6 +286,7 @@ Every oath the Order swore was written in the Shattered Library, and someone has
 
 - **What the archivist knew.** The seal was never a prison. It is a mouth. Every keeper fed to it was a Vale by blood or by adoption, and Maren adopts a great many orphans. Venn unwrote the Order's oaths so that no one else would have to die for it.
 - **What comes next.** Four stones burn. Maren is waiting, and she knows what you know now. Below the Library lies the Ember Throne, and the king the Order chained there three hundred years ago. The last Wardstone takes a Vale.
+- **Reporting to Sister Maren.** Maren is sitting on the Temple steps when you find her. "Venn told you." It is not a question. "Yes. The last stone takes a Vale. I have sent thirty years of orphans down that Gate. Not one of them came back up. And I told myself the light was worth it. You can still walk away. I would not blame you." "But if you go down, go knowing I am sorry. I have been sorry every day."
 
 </details>
 
@@ -318,6 +322,7 @@ Beneath the Ember Throne, where the histories end, a stair goes down. Everything
 
 - **The names go home.** The Herald wore a thousand names the Hunger had stolen. When it fell they flew back up the stair to whoever they belonged to, and one of them was yours. Whatever is below has been learning you.
 - **What comes next.** Tell Maren what you saw on the stair. Below lies the Hall of the Fed, where the Hunger keeps what it has eaten.
+- **Reporting to Sister Maren.** Maren lights a candle on the altar, and then another, and then she does not stop. "The children we gave it," she says. "Three hundred years of them. If the Hunger keeps what it eats, then they are down there still. Go and find them. Tell them somebody came."
 
 </details>
 
@@ -330,6 +335,7 @@ The Hunger does not let go of what it eats. It keeps it. Below the stair lies th
 
 - **The First Fed.** Aster Vale was six when the Order gave her to the seal at its making, so it would know its keeper's blood. She was Caius's daughter. For three hundred years she grew vast and hungry in the dark, waiting for her father. Now she is asleep.
 - **What comes next.** Tell Maren. Below the hall lies the Archive of Ash, where the Hunger leaves what it has made the world forget.
+- **Reporting to Sister Maren.** "Aster Vale," Maren says, very quietly. "Six years old. Caius's own daughter, and we gave her to the seal first, so it would know the blood." She is quiet for a long time. "Below the hall there is only ash: everything the Hunger has made the world forget. Go and find out what it made us forget."
 
 </details>
 
@@ -342,6 +348,7 @@ The Hunger eats memory the way fire eats paper, and it leaves ash. In the Archiv
 
 - **The ash remembers.** The Unwriter only ever took. When it fell, every page it had eaten came loose at once: birthdays, faces, voices, and the third oath, which went up the stair as fast as it could. The Hunger cannot eat what is written twice.
 - **What comes next.** Tell Maren what Caius asked of Arden at the door. Below the archive a wall runs off into the dark, and someone has been keeping watch on it for a very long time.
+- **Reporting to Sister Maren.** Maren reads the true charter twice, her thumb under the third oath. "To share the burden, so no one keeper ever carries it alone," she reads aloud. "Three hundred years, and we cut that line out of every book." She looks down toward the Gate. "Go carefully below the ash. If anyone has kept watch down there all this time, they will not be used to visitors."
 
 </details>
 
@@ -354,6 +361,7 @@ The histories say Arden Vale founded the Lantern Order. They are wrong. Arden we
 
 - **The watch is kept.** Arden Vale did not found the Order. He went down to hold the door from the far side, alone, one more day at a time, for three hundred years, until the watch was all that was left of him. You gave him his name back. He gave you his lantern.
 - **What comes next.** Tell Maren. Then go down to the Heart of the Hunger, with Arden's light and every name you carry.
+- **Reporting to Sister Maren.** When you show her Arden's lantern, Maren sits down on the altar step. "The Order taught us he went home and lit the first lantern in this Temple," she says. "He never came home at all. He was down there the whole time, keeping watch for us." She folds your hands round the lantern. "Take his light all the way down. And then come back up. That is not a request."
 
 </details>
 
@@ -399,6 +407,7 @@ Behind the Palace of Dawn a stair goes down under the sea, and the sea makes roo
 
 - **The stair is open.** Ondine the Tide-Warden was Ondine Marsh, an apprentice lamplighter, drowned and made into the stair's guard. The sleepers walk down because something below calls them, and the lamps are part of it.
 - **What comes next.** Tell the Queen. Below the Gate of Shells lie the lamplighters' lost works, and the violet light grows brighter.
+- **Reporting to Queen Aurelie.** "The lamps, then," the Queen says. "Old Wick has lit them by hand for three years and waited for his guild master to come back up. Aurel Fenn went down into the works to see why the oil turned violet. Find him. Whatever he found, I want to hear it before Wick does."
 
 </details>
 
@@ -411,6 +420,7 @@ Solenne's lamps were fed from below, by the lamplighters' guild works: brass pip
 
 - **The lamps go gold.** The violet light was never oil. It is the light of people the sea took, pumped up through the guild's pipes to burn in Solenne's lamps. Aurel Fenn made it brighter, and it burned him hollow. With the works quiet, a few lamps above burn gold again.
 - **What comes next.** Tell the Queen, and Old Wick. Below the works lies the drowned city of the first kings, and the bargain that started all of this.
+- **Reporting to Queen Aurelie.** Queen Aurelie stands at the palace window, where she can see a gold lamp burning on the Row. "People," she says. "We have been lighting our streets with people." She does not turn round. "King Solen went down to the sea before he led anyone up the cliff. The histories leave that out. Go and find out what he promised it."
 
 </details>
 
@@ -423,6 +433,7 @@ Solenne was not always where it stands. Nine hundred years ago the sea took the 
 
 - **The treaty breaks.** King Solen bought his city back from the sea for one light a year, then a month, then a day, then whatever it asked. Every king after him paid. He only ever meant to buy one more day.
 - **What comes next.** Tell the Queen. Below the court the current pulls harder, as if it felt the treaty break, and somewhere at the bottom of it the old Queen is holding.
+- **Reporting to Queen Aurelie.** "My mother went down to stop the paying," the Queen says. "Three years ago. Alone. Of course she did." She looks out at the grey sea. "Below the court the current runs down to something thirsty. If she is still holding it back, bring her home. If she is not, bring me her light."
 
 </details>
 
@@ -435,6 +446,7 @@ Below the court the sea turns into a current, and the current pulls everything t
 
 - **The keeper lets go.** Queen Ysmay held the Undertow back with her own light for three years, so it would not take the city. When she let go, she told you what she had learned: it was never the lamps. It was the door.
 - **What comes next.** Take her lantern to Aurelie. Then go down the current, faster now, toward a door you can feel from here: open, and thirsty.
+- **Reporting to Queen Aurelie.** "It was never the lamps," Queen Aurelie says. "It was the door." She puts her mother's lantern back in your hands and folds your fingers round it. "She held it shut with this for three years. Take it down, and do whatever the scrolls tell you. Only do not stay down there with it."
 
 </details>
 
@@ -478,6 +490,7 @@ Kaldmark's sappers came up through the Smugglers' Warren and are digging toward 
 
 - **What the general knew.** Brune's sappers were not cruel, only cold. Someone in the Warren sold them the tunnels for warm coats and salt pork. The king, she said, is not a bad man. He is a cold one.
 - **What comes next.** Report to the war table. Kaldmark is coming out of the ground: the siege of the Gate has begun, and the iron king has built something to throw at the Lantern.
+- **Reporting to Watch-Captain Hale.** Hale pushes a new marker onto the map, right up against the Gate. "That's the rest of them, out of the ground," he says. "Kaldmark's laying siege. And they've built something: the scouts call it the Breaker, and it's pointed at the Lantern." He reads the map again. "Hold the Gate. I'll hold everything behind it."
 
 </details>
 
@@ -490,6 +503,7 @@ Kaldmark is out of the ground and the siege has begun. Emberfall holds the Squar
 
 - **What the engineer knew.** Marta Vey had never missed. The Breaker threw ice because there is nothing left in Kaldmark that burns. When it fell, men all along the lines looked at it, and then north, and then at each other.
 - **What comes next.** Report to the war table. Kaldmark is falling back to the Greywold, and Solenne's ships are coming up the coast.
+- **Reporting to Watch-Captain Hale.** "They're falling back north to the Greywold," Hale says, and taps the open grass on his map. "No walls out there. No cellars. Just the Frost Marshal on a hill, waiting for you. Solenne's fleet is off the coast, waiting for our signal."
 
 </details>
 
@@ -502,6 +516,7 @@ Kaldmark has pulled back north to the Greywold, and the war is in the open. Sole
 
 - **What the Marshal knew.** Isolde Rhyne went to the third door thirty years ago, and the cold went into her. The king opened the door to get warm: it gave Kaldmark one summer, and then asked for all of them. She was warm at the end. She wanted the king to know.
 - **What comes next.** Report to the war table. Then over the Teeth, into Kaldmark, to see what Osric has been fighting for.
+- **Reporting to Watch-Captain Hale.** Hale rolls the map north, past the Greywold, to a line of mountains marked only THE TEETH. "It's been winter over there for fifty years," he says. "Go and see what Osric's been fighting for. And take a coat."
 
 </details>
 
@@ -514,6 +529,7 @@ Over the Teeth is Kaldmark, and it has been winter there for fifty years. Red la
 
 - **What the bishop knew.** The red lamps took the warmth of every hearth in Kaldmark and fed it to the door under the king's throne, a little from everyone, so the rest could live. But the door does not want warmth. It wants to be warm. Nothing has ever shared with it.
 - **What comes next.** Report to the war table. Then Hollowcrown, and the king, and the third door.
+- **Reporting to Watch-Captain Hale.** Hale takes the last iron marker off the map and puts it in your hand. It is cold. "Hollowcrown," he says. "The king, and the door under his throne. However this ends, it ends there." He clears his throat. "And come back. That's an order."
 
 </details>
 
