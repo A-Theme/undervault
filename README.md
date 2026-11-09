@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="media/banner.gif" alt="Lanterns of the Undervault: six pixel-art heroes in glowing gear" width="860">
+<img src="media/banner.gif" alt="Lanterns of the Undervault: the twelve classes as pixel-art heroes in glowing gear" width="860">
 
 **A text dungeon crawler in the old MUD style, built for your phone.**<br>
 Fight, loot, tame beasts and descend beneath Emberfall to relight the failing seals.
@@ -14,7 +14,7 @@ Fight, loot, tame beasts and descend beneath Emberfall to relight the failing se
 
 <table>
 <tr>
-<td width="310" valign="top"><img src="media/demo.gif" width="300" alt="Gameplay: typing commands, fighting a cultist, previewing and equipping a legendary flaming sword"></td>
+<td width="310" valign="top"><img src="media/demo.gif" width="300" alt="Gameplay: typing commands, talking to Sister Maren, going down into the Drowned Cellars, a fight, then previewing and equipping a legendary flaming sword"></td>
 <td valign="top">
 
 ### Type like it's 1995. Tap like it's now.
@@ -23,13 +23,15 @@ Every room is written prose. Every command is a word you type, or a button you t
 
 - **A story in eight books, four of them here** (Books V to VIII are on the way, starting with *The Quiet Kingdom*): five chapters down to the Ember Throne, then **Book II: The Hunger Below**, five more acts beneath it, then **Book III**: the crossing to **Solenne**, a far kingdom, and five acts down the **Drowned Stair** beneath it, then **Book IV: The Lantern War**, five acts at war with the iron king of Kaldmark, and a garden at the top of the world where **Lily the Sweethang** keeps the stolen summers
 - **80 seeded floors**, 20 story bosses, the crossing to Solenne, **11 side dungeons** with four **difficulty tiers** up to Nightmare, an endless **Abyss**, random **champions**, and **Winston the Wanderer**, who turns up when you least expect him
+- **Bosses you learn to read**: every keeper warns you before it strikes, with its own pose and its own answer (**Defend**, **Dodge**, or break it with a skill or a stun), a feint that punishes answering on autopilot, a signature move to beat once a fight, and **Footing** to knock out from under it. Each book's last keeper has more: lanterns to relight, faces to free, strands to cut. Champions have warnings, a feint and Footing too
 - A **Lore Book** with every chapter you have reached and a portrait of everyone in it
 - **12 classes**, 96 skills (eight a class, four carried at a time and swapped at the Temple), talents, and **titles** that grow from Squire to God-Slayer
-- **Loot you can see**: every weapon and suit of armor shows up on your pixel-art hero; rare **legendaries** and class **sets**
+- **Loot you can see**: every weapon, suit of armor, helm and pair of boots shows up on your pixel-art hero; rare **legendaries**, class **sets**, and one-of-a-kind pieces from the keepers
 - **Chests** from rusty to legendary, each with its own opening
-- **27 pets** to buy, hatch or tame, and they evolve
-- A two-minute **opening** that tells the story so far, **animated cutscenes**, boss reveals, about **80 sound effects** and **ambient music**
-- A **mini-map** that follows you, and an **Expeditions** screen for picking where to go
+- **38 pets** to buy, hatch or tame, and they evolve
+- A two-minute **opening** that tells the story so far, **animated cutscenes**, boss reveals, chapter hand-overs (report a chapter's end and whoever sent you speaks it as slides), about **80 sound effects** and **ambient music**
+- A **mini-map** that follows you, a full **floor map** in the book's colours with a picture for what each room holds, and an **Expeditions** screen for picking where to go
+- On a **wide screen**, your hero card sits beside the story (you in your gear, your pet, and what you are fighting), and every monster's picture shows beside its name in the story
 - **Sign in with Google or Discord** to keep your heroes, friends and name on every device (cloud saves)
 - **Play with friends**: add friends by code, see who is online, talk in the **Common Room** (a chatroom for everyone, with the last day kept), send them your seed to race or play live together, or invite them to a **raid** as a party of four. No one free? The ghosts of your line fill the empty seats
 - A **legacy** that outlasts your heroes: heirlooms that grow with whoever carries them, a family crypt with a card for every fallen Hardcore hero, ghosts who wait where they fell, and the **Echo Hall** of every keeper you have beaten
@@ -117,7 +119,7 @@ As you level, your hero earns titles: a warrior starts as *the Squire* and climb
 
 ## Gear you can see
 
-Your hero is a pixel-art paper doll drawn from what you're actually wearing. Each class has its own weapons and armor family (heavy, light or cloth). Gear from another class still works, but 30% weaker. Seven tiers of armor change your silhouette, and every piece is dyed and marked by its own name (a set's pieces match), plainer for commons and worked in gold for legendaries. Ten weapon types each have four designs that improve with their material.
+Your hero is a pixel-art paper doll drawn from what you're actually wearing. Each class has its own weapons and armor family (heavy, light or cloth). Gear from another class still works, but 30% weaker. Seven tiers of armor change your silhouette (the deeper tiers, fourteen in all, keep the last shape in colours of their own), and every piece is dyed and marked by its own name (a set's pieces match), plainer for commons and worked in gold for legendaries. Ten weapon types each have four designs that improve with their material. From Book III you wear a **helm and boots** too, drawn on your hero, and every keeper of the war leaves a one-of-a-kind helm or pair of boots made for your class, and Lily's garden leaves her old straw sunhat on a hook by the potting shed.
 
 Legendaries are rare, and worth it. Hardly any drop by chance: they come from quests, first clears and the six **Trials of Legend** (type `trials`). A legendary hits about twice as hard as anything else of its tier and carries a power (lightning strikes, executing the wounded, blocking blows, cheating death). Some legendaries are pieces of a **class set** (weapon, armor, amulet and ring; from Book III, weapon, helm, armor and boots) with bonuses for wearing two and all four. Rarity adds glows and sparkles, and enchantments wreathe your weapon in flame, frost, venom or blood. Tap **preview** on anything in your pack to see yourself wearing it, plus every stat it changes, before you commit.
 
@@ -139,18 +141,34 @@ Chests are described as what they are, and the better ones turn up deeper: rusty
 
 ## Bosses and beasts
 
-Twenty story bosses, across four books, guard the way down, and every side dungeon, the crossing, the Underside and the Abyss has its own. Here are the first nine. Each one gets a reveal when you find it. Every pet you buy, hatch or tame has its own sprite, and it changes when the pet evolves.
+Twenty story bosses, across four books, guard the way down, and every side dungeon, the crossing, the Underside and the Abyss has its own. Here are the first nine. Each one gets a reveal when you find it.
 
-<p align="center">
-<img src="media/bosses.gif" alt="The nine bosses, animated: Grisholt, Mother Mycelia, the Bone Engine, Venn, the Sovereign, Mag Ratchet, Abbess Hild, the Auctioneer and the Herald" width="690"><br>
-<img src="media/pets.png" alt="All twenty pets in their three forms, from Wolf Pup to Moonfang Alpha" width="900">
-</p>
+<p align="center"><img src="media/bosses.gif" alt="Book I's five keepers and four other bosses, animated: Grisholt, Mother Mycelia, the Bone Engine, Venn, the Sovereign, Mag Ratchet, Abbess Hild, the Auctioneer and the Herald" width="690"></p>
+
+<details>
+<summary><b>The keepers of Books II to IV, and Lily</b> (spoilers: who you will face)</summary>
+<p align="center"><img src="media/bosses-books.gif" alt="The fifteen keepers of Books II to IV, animated, from the Herald of Names to King Osric, and Lily the Sweethang in her garden" width="690"></p>
+</details>
+
+Every pet you buy, hatch or tame has its own sprite, and it changes when the pet evolves.
+
+<p align="center"><img src="media/pets.png" alt="All thirty-eight pets in their three forms, from Wolf Pup to Storm Petrel" width="900"></p>
+
+### Read the boss
+
+Every story boss and side-dungeon boss warns you before it strikes, and the warning is in the picture as well as the words. A heavy blow wants **Defend**, an aimed one wants **Dodge**, and when it starts to drink or gather its strength you **break it** with a damaging skill or a stun, or it heals and its helpers come up. Once it's hurt it starts to **feint**: it opens like a warning you know, with a tell that it isn't, and the answer that warning usually wants is the wrong one. Once a fight it tries its **signature** move, a quick challenge (time a tap, tap fast, answer it, turn a dial), and every right answer costs it **Footing** until it goes down for two rounds. Read it and you win clearly more often than if you Defend at everything. It's still a hard fight.
+
+<p align="center"><img src="media/boss-warnings.gif" alt="Grisholt and Lily the Sweethang pose by pose: each warning with its answer (Defend, Dodge, break it), the feint and how to read it, Lily's signature move, and Grisholt down when his Footing is gone" width="900"></p>
 
 ## Screenshots
 
-<p align="center"><img src="media/cutscenes.png" alt="Cutscenes: the Act II title card, the Bone Engine's boss reveal, and the level-up banner" width="900"></p>
+<p align="center"><img src="media/gallery.png" alt="On a phone: the class showcase on the title screen; a room in the Mycelial Deep with its monsters' pictures; Grisholt aiming his bile, with Dodge among the buttons; the floor map with its icons and key; a legendary bow previewed on the hero; and the Lore Book's people" width="900"></p>
 
-<p align="center"><img src="media/gallery.png" alt="Title screen with the class showcase, exploring with the map, a boss fight, a gear preview, talents and the bounty board" width="900"></p>
+<p align="center"><img src="media/cutscenes.png" alt="Cutscenes: the Act II title card, the Bone Engine's boss reveal, Sister Maren handing over the first chapter, and the level-up banner" width="900"></p>
+
+On a wide screen the story has the room it needs, with the map, your hero card (you, your pet and the monsters in the room) and the pads beside it:
+
+<p align="center"><img src="media/wide.png" alt="The wide-screen layout in Book IV: a scion in the war's gear walks the sappers' tunnels, the monsters' pictures beside their names in the story, and her hero card with her pet drake and the monsters" width="900"></p>
 
 ## The world
 
@@ -173,8 +191,8 @@ Then a ship comes. **Book III: Across the Ashen Sea** takes you to **Solenne**, 
 
 - 80 big floors across 20 acts in four books, each act with its own hand-written rooms, monsters, story encounters and music. Every floor is built from your **seed**: share it, and a friend gets the exact same dungeon.
 - Monsters level up to meet you, and the later acts are a real fight: come under-levelled or under-geared and they will kill you.
-- 20 story bosses with move patterns, telegraphed heavy attacks (hit **Defend**!), second phases, helpers they call in, and a last enrage.
-- Random **champions**: named mini-bosses that turn up on deeper floors and always drop something good.
+- 20 story bosses, and every side-dungeon boss, fight with **warnings** you can read. Each warning has its own pose and its own answer: a heavy blow to **Defend**, an aimed one to **Dodge**, something it gathers or drinks to **break** with a damaging skill or a stun (finish it and it heals, and its helpers come up). Once it's hurt it has a **feint** that opens like a warning you know but wants a different answer, and once a fight a **signature** move you beat in a quick challenge. Every right answer costs it **Footing**, and with none left it goes down for two rounds. Each book's last keeper fights by more: the Sovereign and the Undertow by lanterns you relight, the Hunger by faces you free, King Osric by strands of stolen warmth you cut.
+- Random **champions**: named mini-bosses that turn up on deeper floors. They fight like small bosses, with their own warnings, a feint and Footing, hit hard and last long, and always drop something good.
 - 11 side dungeons that open as the story goes on and grow deeper every time you clear them: the **Smugglers' Warren**, the **Rime Vaults**, the **Moth Market**, the **Sunken Orchard**, the **Bellfounder's Undercroft**, the **Ink Wells**, the **Nursery of Small Beds**, the **Unwritten Stacks**, the **Watch-Wall**, and in Solenne the **Glass Catacombs** and the **Salt Mines**. Each has its own boss, a unique item and a pet egg, some have their own shape of floor (caves, mazes, towers, long galleries), and you can replay them.
 - **Difficulty tiers**: run any side dungeon at **Normal, Veteran, Heroic or Nightmare**. Each tier opens when you clear the one before, is much harder, and pays much better, up to a legendary for a first Nightmare clear.
 - **Missions** from the people of Emberfall and Solenne, with lasting rewards, then harder requests for every dungeon at every tier.
@@ -233,7 +251,8 @@ Then a ship comes. **Book III: Across the Ashen Sea** takes you to **Solenne**, 
 <summary><b>Made for phones</b></summary>
 
 - Context buttons that change with what you're doing, optional touch pads, and tappable words in the story text. In a fight on a phone the pads fold away and the combat buttons take their place, so every action shows and the story keeps its room.
-- A pixel **mini-map** in the corner that follows you; tap it for the whole floor.
+- A pixel **mini-map** in the corner that follows you. Tap it for the whole floor, drawn in the book's colours: a picture for what each room holds (monsters, a champion, the boss, the stairs, chests in their tier's colour, shrines, someone to talk to), the rooms you have only glimpsed, you with your lantern, and a key of what this map shows.
+- On a **wide screen** (a laptop, a tablet, a Chromebook) the story gets the room it needs, with the map, your hero card and the pads beside it.
 - An **Expeditions** screen (tap the goal line) for the story, your missions, every act and side dungeon, raids and bounties. Tap a mission for its own screen: its story, where it is, how hard it is for your level, the reward, **Start**, and **Invite a friend**.
 - About 80 sound effects, ambient music for the village, every act, bosses and raids, vibration and cutscenes, each with a toggle in the menu.
 - Installs to your home screen and plays offline. Native Android and iOS app projects are included.
