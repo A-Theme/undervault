@@ -54,7 +54,7 @@ Every room is written prose. Every command is a word you type, or a button you t
 |---|---|
 | **Any browser** | Open **https://playundervault.com/**. Your save stays on your device. |
 | **iPhone / iPad** | Open the link in Safari, then **Share → Add to Home Screen**. It runs full-screen and offline. |
-| **Android** | Open the link in Chrome, then **Install app**. Or download **[undervault.apk](https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk)** and open it on your phone. From 24 November it is on **[Google Play](https://play.google.com/store/apps/details?id=ca.atheme.undervault)** too. |
+| **Android** | Open the link in Chrome, then **Install app**. Or get it on **[Google Play](https://play.google.com/store/apps/details?id=ca.atheme.undervault)**, or download **[undervault.apk](https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk)** and open it on your phone. |
 | **Steam Deck** | One command in Desktop Mode puts it in your Steam library, controller and all. See [Steam Deck](#steam-deck) below. |
 
 Keep up to **three heroes** and switch between them from the title screen (or **Menu → Exit to character select**). Use **Menu → General → Export save** to back up a hero or move it to another device: you get a short code to paste into **Import save** there.
