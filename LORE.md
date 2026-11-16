@@ -190,6 +190,15 @@ At the front you march with a squad that fights beside you, and every floor has 
 
 Each can be run at four tiers, **Normal, Veteran, Heroic and Nightmare**: the deeper the tier, the more the dark has filled back in.
 
+## Behind the walls
+
+Some walls give themselves away to the right hero: newer stonework, a seam, a dark glyph, a hollow sound, a draught with roots in it. Behind a few of them is a place of its own, where something other than a fight is waiting. These are the **side challenges**; the deep places above stay as they are.
+
+| Place | Where | Who you face |
+|---|---|---|
+| **The Drowned Board** | the Chequered Hall, behind a wall in the Sunken Court (Book III) | **Quince, the King's Fool**: the one man at King Solen's court allowed to tell him no. He played the king at chess every night for thirty years and had him beaten every night, and every night the king bought one more move. He drowned at the board with a game unfinished, and sets out the king's games still, the drowned court for pieces (courtiers in gowns of weed for pawns, coral guards for rooks, tide priests for bishops, sea-horses for knights, and a king with a violet lantern). *"You are not his subject. You play the pearl."* His own piece, **the Pearl Pawn**, is the only one on the board that ever reached the far side. |
+| **The Cold Lane** | the Old Barbican, Arden Vale's bricked-up gatehouse, behind a wall at the Siege of the Gate (Book IV) | **Hask, the Drummer of Kaldmark**: given a drum at twelve, the winter the cold came, because he was too small for a pike. He has beaten the advance at every wall Kaldmark ever marched on, fifty winters of it, and every night of the siege he beats a column down the Cold Lane toward the Gate's flank. You hold the lane with Pell's bakers and their ovens, children slinging stones hot from the coals, Temple sisters with lanterns, and carts and pews across the road; Kaldmark's soldiers are cold, not cruel, and one warmed through sits down by the fire. Nobody ever ordered Hask to beat the retreat, so he never learned it. *"I had to make it up."* His **Drumsticks** have fifty winters of the advance in them, and one retreat. |
+
 ## Raids
 
 Some things below Emberfall are too big for one lantern: **the Choir Below**, every keeper the water ever took, singing with one voice; **the Founders' Colossus**, the Order's first machine; and, under the Abyss, **the Maw** of the Hunger itself. They take a party of friends.
