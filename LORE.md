@@ -69,6 +69,15 @@ Pell can take you down three older, stranger tunnels once the right Wardstone bu
 - **The Rime Vaults**: the Order's ice-house, where relics and the honoured dead were kept from rotting. **Abbess Hild** kept the vaults for sixty years. *She is keeping them still.*
 - **The Moth Market**: below the Library, where unwritten words drift down and settle, ghosts trade in memories, names and the warmth of old summers. **The Auctioneer** *has had his eye on you since you were born.*
 
+### Behind the walls
+
+Some of the descent's walls are newer than the rest, or hollow, or hum. Behind four of them, people of the Order are still at the work they were doing when the dark came:
+
+- **The Lamplighters' Walk** (the Drowned Cellars): **Hobb** lit the cistern lamps for forty years, and the night the water came up black he went on lighting them. *He has walked the round every night for thirty years since.*
+- **The Runners' Niche** (the Mycelial Deep): **Sorrel**, nine years old and the fastest runner of the lantern relay that carried a flame down to Sister Ilse, was halfway down the night the relay stopped. *She kept the flame lit.*
+- **The Reliquary Door** (the Clockwork Ossuary): **Odile**, Locksmith to the Order, made every lock it owned and then put herself into the best of them. *In three hundred years nobody has picked her.*
+- **The Runners' Stair** (the Shattered Library): **Wren**, the fastest page who ever carried an oath down the Library, raced the stair while the Library grew. *She never reached the bottom bell.*
+
 ## The Abyss
 
 Beneath the Ember Throne the world simply stops. Whatever lies behind that door has no shape and no bottom, only hunger, and *it has noticed that you are made of light.* Every fifth floor, a **Herald of the Hunger** waits, *"wearing the faces of every keeper the seal ever swallowed."* How deep you go is posted to the [online leaderboard](README.md#the-abyss-and-the-leaderboard).
@@ -101,6 +110,8 @@ Below the Ember Throne, where the histories end, a stair goes on. No one built i
 | X | **The Hunger Below** | The Heart of the Hunger | The first Wardstone, and every name you carry. |
 
 Tobble wants the collar of a dog that followed a child down the Gate; Wenna, her husband's face; Brakka, a glimpse of the shield her great-grandmother forged for Arden Vale.
+
+Behind two walls below the Throne: in the Hall of the Fed, **Dorrit**, one of the given children, reads her painted cards for the others every night, and every card means *somebody comes*; in the Archive of Ash, **Orla Quire**, the Order's disputant, who won the argument to feed the seal, waits at her lectern with only the first half of every saying she ever won with, *for somebody to disagree with her*.
 
 ## The rest of Emberfall
 

@@ -1,7 +1,7 @@
 {
   "name": "Lanterns of the Undervault",
   "short_name": "Undervault",
-  "description": "A text dungeon crawler in the old MUD style.",
+  "description": "Текстова гра про підземелля в стилі старих MUD.",
   "lang": "uk",
   "id": "./",
   "start_url": "./",
