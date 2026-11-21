@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Say It Back — record the spell</title>
+  <style>
+    :root {
+      --bg: #0c0907;
+      --bg-2: #14100c;
+      --panel: #1a140e;
+      --ink: #ead9b8;
+      --muted: #8d7a5c;
+      --gold: #e8c060;
+      --gold-dim: #b8923a;
+      --line: #3a2c18;
+      --danger: #c45c4a;
+      --ok: #7aaf62;
+      --shadow: 0 0 60px rgba(232, 192, 96, 0.07);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: Georgia, "Palatino Linotype", Palatino, "Times New Roman", serif;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(232, 192, 96, 0.09), transparent 55%),
+        var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    a { color: var(--gold); }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .skip {
+      position: absolute; left: -999px; top: 0;
+    }
+    .skip:focus {
+      left: 1rem; top: 1rem; z-index: 10;
+      background: var(--panel); color: var(--gold);
+      padding: 0.4rem 0.7rem; text-decoration: none;
+    }
+    main {
+      max-width: 40rem;
+      margin: 0 auto;
+      padding: 2.2rem 1.2rem 4rem;
+    }
+    .eyebrow {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: var(--gold-dim);
+      margin: 0 0 0.4rem;
+      font-family: system-ui, sans-serif;
+    }
+    h1 {
+      font-weight: 400;
+      font-size: 1.15rem;
+      margin: 0 0 1.6rem;
+      color: var(--muted);
+    }
+    .phrase {
+      text-align: center;
+      padding: 1.6rem 1rem 1.3rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+    .old {
+      font-size: clamp(1.6rem, 6vw, 2.35rem);
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin: 0 0 0.55rem;
+      text-shadow: 0 0 24px rgba(232, 192, 96, 0.25);
+      font-weight: 400;
+    }
+    .sounds {
+      margin: 0;
+      font-style: italic;
+      color: var(--ink);
+      font-size: 1.15rem;
+    }
+    .means {
+      margin: 0.55rem 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    form, .takes, .how, details.guide {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      padding: 1rem 1.05rem 1.15rem;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--gold);
+      margin: 0 0 0.75rem;
+      letter-spacing: 0.04em;
+    }
+    label.field, .kind legend {
+      display: block;
+      font-family: system-ui, sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    input[type="text"], select {
+      width: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 0.55rem 0.65rem;
+      font: inherit;
+      font-size: 1rem;
+    }
+    .kind {
+      border: 0;
+      padding: 0;
+      margin: 0.9rem 0 0.5rem;
+    }
+    .kind label {
+      display: block;
+      font-family: system-ui, sans-serif;
+      font-size: 0.9rem;
+      margin: 0.25rem 0;
+      color: var(--ink);
+    }
+    .hint, .file-preview, #wrong-prompt, #next-hint, #status, #timer, #counter {
+      font-family: system-ui, sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0.45rem 0 0;
+    }
+    #wrong-prompt, #next-hint { color: var(--ink); }
+    .meter-wrap {
+      margin: 1rem 0 0.4rem;
+    }
+    .meter-wrap .label {
+      font-family: system-ui, sans-serif;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    .meter {
+      height: 0.7rem;
+      background: #2a1c10;
+      border: 1px solid var(--line);
+      position: relative;
+    }
+    .meter > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #7a5a20, var(--gold));
+      transition: width 60ms linear;
+    }
+    .meter.hot > span { background: var(--gold); }
+    .actions {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    button {
+      font-family: system-ui, sans-serif;
+      font-size: 0.95rem;
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 0.55rem 1rem;
+      cursor: pointer;
+      min-height: 2.5rem;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      button:hover:not(:disabled) { background: rgba(232, 192, 96, 0.12); }
+    }
+    button:active:not(:disabled) { background: rgba(232, 192, 96, 0.16); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    button.primary {
+      background: #2a2010;
+      border-color: var(--gold);
+    }
+    button.danger { color: var(--danger); border-color: #7a3a30; }
+    button.recording, button[aria-pressed="true"].primary {
+      background: #4a2018;
+      border-color: var(--danger);
+      color: #f0d0c8;
+    }
+    #status.err { color: var(--danger); }
+    #status.ok { color: var(--ok); }
+    .banner {
+      background: #2a1810;
+      border: 1px solid var(--gold-dim);
+      color: var(--ink);
+      padding: 0.7rem 0.85rem;
+      margin-bottom: 1rem;
+      font-family: system-ui, sans-serif;
+      font-size: 0.9rem;
+    }
+    .banner[hidden], [hidden] { display: none !important; }
+    .banner code, .how code, footer code {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.85em;
+      color: var(--gold);
+    }
+    ul.list {
+      list-style: none;
+      padding: 0;
+      margin: 0.6rem 0 0;
+    }
+    ul.list li {
+      border-top: 1px solid var(--line);
+      padding: 0.7rem 0;
+    }
+    ul.list .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.7rem;
+      align-items: center;
+    }
+    ul.list .meta {
+      flex: 1 1 12rem;
+      min-width: 0;
+    }
+    ul.list .name {
+      display: block;
+      color: var(--ink);
+      font-family: system-ui, sans-serif;
+      font-size: 0.9rem;
+    }
+    ul.list .sub {
+      display: block;
+      color: var(--muted);
+      font-family: system-ui, sans-serif;
+      font-size: 0.78rem;
+    }
+    ul.list .btns { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+    ul.list button { min-height: 2.2rem; padding: 0.35rem 0.65rem; font-size: 0.85rem; }
+    #counter { margin-top: 0; margin-bottom: 0.4rem; color: var(--ink); }
+    details.guide summary {
+      cursor: pointer;
+      color: var(--gold);
+      font-family: system-ui, sans-serif;
+    }
+    details.guide table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+    }
+    details.guide th, details.guide td {
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      padding: 0.35rem 0.4rem 0.35rem 0;
+      vertical-align: top;
+    }
+    .how p, footer p { margin: 0.4rem 0; font-size: 0.92rem; }
+    footer {
+      color: var(--muted);
+      font-family: system-ui, sans-serif;
+      font-size: 0.82rem;
+      margin-top: 1.2rem;
+    }
+    button, ul.list button {
+      touch-action: manipulation;
+    }
+    @supports (padding: env(safe-area-inset-bottom)) {
+      body { padding-bottom: env(safe-area-inset-bottom); }
+    }
+    @media (pointer: coarse) {
+      button { min-height: 2.75rem; padding: 0.7rem 1rem; }
+      ul.list button { min-height: 2.75rem; padding: 0.5rem 0.75rem; }
+      input[type="text"], select { min-height: 2.75rem; font-size: 16px; }
+      .kind label { min-height: 2.75rem; display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0; }
+      #btn-rec, #btn-stop { flex: 1 1 8rem; min-height: 3.2rem; font-size: 1.05rem; }
+    }
+    @media (max-width: 800px) {
+      main {
+        padding: 1.2rem 0.85rem calc(5.6rem + env(safe-area-inset-bottom, 0px));
+      }
+      .actions { gap: 0.5rem; }
+      .actions button { flex: 1 1 calc(50% - 0.5rem); }
+      form#rec-form .actions {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--bg-2);
+        border-top: 1px solid var(--line);
+        padding: 0.65rem 0.85rem calc(0.45rem + env(safe-area-inset-bottom, 0px));
+        margin: 0;
+        z-index: 5;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#who">Skip to speaker name</a>
+  <main>
+    <p class="eyebrow">The thirteenth secret</p>
+    <h1>A recorder for the Herald’s name</h1>
+
+    <div id="secure-banner" class="banner" hidden>
+      The browser would not open the microphone on this page. Browsers only allow the mic on
+      HTTPS or localhost (Chrome and Edge also block it on <code>file://</code>). On a computer,
+      in the repo folder run <code>node say-it-back/serve.js</code>
+      and open <a href="http://127.0.0.1:8765/recorder.html">http://127.0.0.1:8765/recorder.html</a>.
+      A plain <code>http://</code> address over Wi-Fi will usually be blocked on a phone; this
+      page is a single file, so you can send it to the phone and open it there instead.
+    </div>
+
+    <section class="phrase" aria-label="The line to read">
+      <p class="old">ILVAREN OSSA VEN</p>
+      <p class="sounds">ill-VAH-ren  ·  OSS-ah  ·  ven</p>
+      <p class="means">“Ilvaren, be kept.”</p>
+    </section>
+
+    <details class="guide">
+      <summary>How to say it, and the four good takes</summary>
+      <table>
+        <thead><tr><th>Word</th><th>Say it</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>ILVAREN</td><td>ill-<strong>VAH</strong>-ren</td><td>“ill” as in <em>ill</em>, <strong>VAH</strong> as in <em>father</em>, “ren” as in <em>wren</em>. Three syllables, not “il-VAIR-en”.</td></tr>
+          <tr><td>OSSA</td><td><strong>OSS</strong>-ah</td><td>“oss” as in <em>moss</em>, then a soft “ah”. Stress on the first part.</td></tr>
+          <tr><td>VEN</td><td>ven</td><td>as in <em>seven</em>, said plainly. Don’t drop it.</td></tr>
+        </tbody>
+      </table>
+      <p class="hint">Read it plainly, the way a careful person reads three strange words aloud: clear, at an easy pace, no whisper, no chant. A brief breath between the words is fine; don’t leave a long pause. The line is about two to three seconds.</p>
+      <p class="hint">Each voice: (1) an easy, normal pace, (2) a little slower and more careful, (3) a little quicker, as if you know it well, (4) a little quieter, as if reading it to yourself. Aim for three or four voices.</p>
+    </details>
+
+    <form id="rec-form" action="#" method="get">
+      <label class="field" for="who">Speaker’s name or label</label>
+      <input id="who" name="who" type="text" autocomplete="name" spellcheck="false" placeholder="e.g. Demian" required>
+
+      <fieldset class="kind">
+        <legend>Kind of take</legend>
+        <label><input type="radio" name="kind" value="good" checked> Good take — the spell, said properly</label>
+        <label><input type="radio" name="kind" value="wrong"> Wrong take — for the pass threshold</label>
+      </fieldset>
+
+      <div id="wrong-wrap" hidden>
+        <label class="field" for="wrong-name">Which wrong take</label>
+        <select id="wrong-name"></select>
+        <p id="wrong-prompt"></p>
+      </div>
+
+      <p id="next-hint"></p>
+      <p class="file-preview" id="file-preview"></p>
+
+      <div class="meter-wrap">
+        <div class="label" id="meter-label">Microphone level</div>
+        <div class="meter" id="meter" role="meter" aria-labelledby="meter-label" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+      </div>
+      <p id="status" aria-live="polite">Ready. Type a name, then record.</p>
+      <p id="timer" aria-live="off"></p>
+
+      <div class="actions">
+        <button type="button" class="primary" id="btn-rec" aria-pressed="false">Record</button>
+        <button type="button" id="btn-stop" disabled>Stop</button>
+      </div>
+      <p class="hint">On a phone, tap Record to start and stop. On a computer, Space does the same, unless you are typing a name; you can also press and hold Record. Takes stay in this page until you download them; a refresh clears the list.</p>
+    </form>
+
+    <section class="takes" aria-labelledby="takes-heading">
+      <h2 id="takes-heading">Takes</h2>
+      <p id="counter"></p>
+      <ul class="list" id="list"></ul>
+      <div class="actions">
+        <button type="button" id="btn-all" disabled>Download all</button>
+      </div>
+    </section>
+
+    <section class="how" aria-labelledby="how-heading">
+      <h2 id="how-heading">After you record</h2>
+      <p>Each file is a 16 kHz mono 16-bit PCM WAV, named <code>good/ilvaren-&lt;who&gt;-&lt;n&gt;.wav</code> (or <code>wrong/&lt;name&gt;.wav</code>). Put the folders in <code>say-it-back/</code>, then from the repo root:</p>
+      <p><code>node tools/spell-prints.js say-it-back/good --wrong say-it-back/wrong --dry</code></p>
+      <p>If the report looks right, run it again without <code>--dry</code> to write the fingerprints into <code>src/secrets.js</code>, then <code>npm run build &amp;&amp; npm test</code>. The recordings themselves stay out of the repo. Full notes are in <code>SAY-IT-BACK-RECORDING.md</code>.</p>
+    </section>
+
+    <footer>
+      <p>Lanterns of the Undervault — Say It Back. This page is a single file, so you can send it to a phone and record there. On a computer it also opens as a file, or via <code>node say-it-back/serve.js</code> if the microphone is blocked.</p>
+    </footer>
+  </main>
+
+  <script>
+(function () {
+  'use strict';
+
+  var SPELL_SR = 16000;
+  var MAX_SEC = 10;
+  var PAD_SEC = 0.25;
+  var GOOD_GOAL = 4;
+  var VOICE_GOAL = '3–4';
+  var GOOD_HINTS = [
+    'at an easy, normal pace',
+    'a little slower and more careful',
+    'a little quicker, as if you know it well',
+    'a little quieter, as if reading it to yourself'
+  ];
+  var WRONG = [
+    { id: 'half', say: '“Ilvaren ossa” (stop before ven)' },
+    { id: 'first-word', say: '“Ilvaren” alone' },
+    { id: 'wrong-stress', say: '“IL-va-ren os-SAH VEN” (stress on the wrong parts)' },
+    { id: 'swapped', say: '“Ven ossa ilvaren” (words in the wrong order)' },
+    { id: 'near-miss', say: '“Ilvaren ossa ben”' },
+    { id: 'sounds-like', say: '“Oliver ate a hen”' },
+    { id: 'the-carving', say: '“Say mine back”' },
+    { id: 'mumble', say: 'mumble the rhythm of the spell without real words' },
+    { id: 'hum', say: 'hum the rhythm' },
+    { id: 'sentence', say: 'any ordinary sentence, e.g. “I’m going to the shop later”' },
+    { id: 'cough', say: 'a cough, a clap, or a laugh' }
+  ];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var whoEl = $('who');
+  var wrongWrap = $('wrong-wrap');
+  var wrongSel = $('wrong-name');
+  var wrongPrompt = $('wrong-prompt');
+  var nextHint = $('next-hint');
+  var filePreview = $('file-preview');
+  var statusEl = $('status');
+  var timerEl = $('timer');
+  var meterEl = $('meter');
+  var meterBar = meterEl.querySelector('span');
+  var btnRec = $('btn-rec');
+  var btnStop = $('btn-stop');
+  var btnAll = $('btn-all');
+  var listEl = $('list');
+  var counterEl = $('counter');
+  var banner = $('secure-banner');
+
+  WRONG.forEach(function (w) {
+    var opt = document.createElement('option');
+    opt.value = w.id;
+    opt.textContent = w.id;
+    wrongSel.appendChild(opt);
+  });
+
+  var takes = [];
+  var nextId = 1;
+  var rec = {
+    on: false,
+    holding: false,
+    holdTimer: null,
+    stream: null,
+    ctx: null,
+    src: null,
+    proc: null,
+    anal: null,
+    chunks: [],
+    startedAt: 0,
+    raf: 0,
+    timerIv: 0
+  };
+
+  function kind() {
+    var el = document.querySelector('input[name="kind"]:checked');
+    return el ? el.value : 'good';
+  }
+  function slug(name) {
+    return String(name || '')
+      .toLowerCase()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 32) || 'speaker';
+  }
+  function displayWho() {
+    return (whoEl.value || '').trim() || 'speaker';
+  }
+  function goodCountFor(s) {
+    return takes.filter(function (t) { return t.kind === 'good' && t.slug === s; }).length;
+  }
+  function goodFilename(s, n) { return 'ilvaren-' + s + '-' + n + '.wav'; }
+  function wrongFilename(id) { return id + '.wav'; }
+  function relPath(t, n) {
+    return t.kind === 'good' ? 'good/' + goodFilename(t.slug, n) : 'wrong/' + wrongFilename(t.wrongId);
+  }
+  function goodNumber(take) {
+    var n = 0;
+    for (var i = 0; i < takes.length; i++) {
+      if (takes[i].kind === 'good' && takes[i].slug === take.slug) {
+        n++;
+        if (takes[i] === take) return n;
+      }
+    }
+    return n;
+  }
+  function setStatus(msg, cls) {
+    statusEl.textContent = msg;
+    statusEl.className = cls || '';
+  }
+  function updateHints() {
+    var good = kind() === 'good';
+    wrongWrap.hidden = good;
+    var w = WRONG.filter(function (x) { return x.id === wrongSel.value; })[0];
+    wrongPrompt.textContent = w ? ('Say: ' + w.say + '.') : '';
+    var s = slug(whoEl.value);
+    if (good) {
+      var n = goodCountFor(s);
+      if (n >= GOOD_GOAL) {
+        nextHint.textContent = displayWho() + ' already has ' + n + ' good takes (four is the recommended set). Another is fine if you want a spare.';
+      } else {
+        nextHint.textContent = 'Next good take for ' + displayWho() + ': ' + GOOD_HINTS[n] + '.';
+      }
+      filePreview.textContent = 'Will download as good/' + goodFilename(s, n + 1) + '  ·  16 kHz mono 16-bit PCM WAV';
+    } else if (w) {
+      nextHint.textContent = 'A wrong take sets where “passed” ends. One voice is enough for these.';
+      filePreview.textContent = 'Will download as wrong/' + wrongFilename(w.id) + '  ·  16 kHz mono 16-bit PCM WAV';
+    }
+    var by = {};
+    var wrongN = 0;
+    takes.forEach(function (t) {
+      if (t.kind === 'good') by[t.slug] = (by[t.slug] || 0) + 1;
+      else wrongN++;
+    });
+    var voices = Object.keys(by);
+    var full = voices.filter(function (k) { return by[k] >= GOOD_GOAL; }).length;
+    var mine = by[s] || 0;
+    counterEl.textContent = mine + ' of ' + GOOD_GOAL + ' recommended good takes for ' + displayWho() +
+      '. ' + full + ' of ' + VOICE_GOAL + ' voices with a full set (' + voices.length + ' started). ' +
+      wrongN + ' of ' + WRONG.length + ' wrong-take types recorded.';
+    btnAll.disabled = takes.length === 0;
+  }
+  function renderList() {
+    listEl.innerHTML = '';
+    if (!takes.length) {
+      var empty = document.createElement('li');
+      empty.innerHTML = '<span class="sub">No takes yet.</span>';
+      listEl.appendChild(empty);
+      updateHints();
+      return;
+    }
+    takes.forEach(function (t) {
+      var n = t.kind === 'good' ? goodNumber(t) : 0;
+      var path = relPath(t, n);
+      var li = document.createElement('li');
+      var dur = (t.samples / SPELL_SR).toFixed(2);
+      var sub = (t.kind === 'good' ? t.who + ' · good take ' + n : 'wrong · ' + t.wrongId) +
+        ' · ' + dur + 's' + (t.note ? ' · ' + t.note : '');
+      li.innerHTML = '<div class="row"><div class="meta"><span class="name"></span><span class="sub"></span></div><div class="btns"></div></div>';
+      li.querySelector('.name').textContent = path;
+      li.querySelector('.sub').textContent = sub;
+      var btns = li.querySelector('.btns');
+      var play = document.createElement('button');
+      play.type = 'button';
+      play.textContent = 'Play';
+      play.setAttribute('aria-label', 'Play ' + path);
+      play.addEventListener('click', function () { playTake(t, play); });
+      var dl = document.createElement('button');
+      dl.type = 'button';
+      dl.textContent = 'Download';
+      dl.setAttribute('aria-label', 'Download ' + path);
+      dl.addEventListener('click', function () {
+        var nm = path.split('/').pop();
+        downloadBlob(new Blob([t.wav], { type: 'audio/wav' }), nm).then(function (how) {
+          if (how === 'share') setStatus(afterShare(nm), 'ok');
+        });
+      });
+      var del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'danger';
+      del.textContent = 'Delete';
+      del.setAttribute('aria-label', 'Delete ' + path);
+      del.addEventListener('click', function () { removeTake(t.id); });
+      btns.appendChild(play);
+      btns.appendChild(dl);
+      btns.appendChild(del);
+      listEl.appendChild(li);
+    });
+    updateHints();
+  }
+  function playTake(t, btn) {
+    if (t.audio && !t.audio.paused) {
+      t.audio.pause();
+      t.audio.currentTime = 0;
+      btn.textContent = 'Play';
+      return;
+    }
+    takes.forEach(function (o) {
+      if (o.audio) { o.audio.pause(); o.audio.currentTime = 0; }
+    });
+    Array.prototype.forEach.call(listEl.querySelectorAll('button'), function (b) {
+      if (b.textContent === 'Stop playback') b.textContent = 'Play';
+    });
+    if (!t.audio) t.audio = new Audio(t.url);
+    t.audio.onended = function () { btn.textContent = 'Play'; };
+    t.audio.play();
+    btn.textContent = 'Stop playback';
+  }
+  function removeTake(id) {
+    var i = takes.findIndex(function (t) { return t.id === id; });
+    if (i < 0) return;
+    var t = takes[i];
+    if (t.audio) { t.audio.pause(); t.audio = null; }
+    if (t.url) URL.revokeObjectURL(t.url);
+    takes.splice(i, 1);
+    renderList();
+    setStatus('Take deleted.', '');
+  }
+
+  /* 16-bit PCM WAV, mono, little-endian. tools/spell-prints.js accepts any
+     ffmpeg-readable format and resamples to SPELL_SR (16 kHz) mono float. */
+  function encodeWavPcm16Mono(samples, sampleRate) {
+    var n = samples.length;
+    var dataSize = n * 2;
+    var buf = new ArrayBuffer(44 + dataSize);
+    var view = new DataView(buf);
+    function str(o, s) { for (var i = 0; i < s.length; i++) view.setUint8(o + i, s.charCodeAt(i)); }
+    str(0, 'RIFF');
+    view.setUint32(4, 36 + dataSize, true);
+    str(8, 'WAVE');
+    str(12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    str(36, 'data');
+    view.setUint32(40, dataSize, true);
+    var o = 44;
+    for (var i = 0; i < n; i++, o += 2) {
+      var x = samples[i];
+      if (x > 1) x = 1; else if (x < -1) x = -1;
+      view.setInt16(o, Math.round(x * 32767), true);
+    }
+    return buf;
+  }
+  function resampleTo(x, sr, outSr) {
+    if (sr === outSr) return x instanceof Float32Array ? x : new Float32Array(x);
+    var k = sr / outSr, n = Math.floor(x.length / k), y = new Float32Array(n);
+    for (var i = 0; i < n; i++) {
+      var a = Math.floor(i * k), b = Math.max(a + 1, Math.floor((i + 1) * k)), s = 0, c = 0, j;
+      for (j = a; j < b && j < x.length; j++) { s += x[j]; c++; }
+      y[i] = c ? s / c : 0;
+    }
+    return y;
+  }
+  function trimSilence(samples, sr, padSec) {
+    var win = Math.max(1, Math.floor(sr * 0.02));
+    var rms = [];
+    for (var i = 0; i + win <= samples.length; i += win) {
+      var s = 0, j;
+      for (j = 0; j < win; j++) s += samples[i + j] * samples[i + j];
+      rms.push(Math.sqrt(s / win));
+    }
+    if (!rms.length) return null;
+    var sorted = rms.slice().sort(function (a, b) { return a - b; });
+    var floor = sorted[Math.floor(sorted.length * 0.1)] || 0;
+    var th = Math.max(0.008, floor * 3.5);
+    var a = -1, b = rms.length - 1, k;
+    for (k = 0; k < rms.length; k++) if (rms[k] > th) { a = k; break; }
+    if (a < 0) return null;
+    while (b > a && rms[b] <= th) b--;
+    var pad = Math.floor((padSec || 0) * sr);
+    var start = Math.max(0, a * win - pad);
+    var end = Math.min(samples.length, (b + 1) * win + pad);
+    if (end - start < sr * 0.3) return null;
+    return samples.subarray(start, end);
+  }
+
+  function crc32(u8) {
+    var table = crc32.t;
+    if (!table) {
+      table = crc32.t = new Uint32Array(256);
+      for (var n = 0; n < 256; n++) {
+        var c = n;
+        for (var k = 0; k < 8; k++) c = (c & 1) ? (0xedb88320 ^ (c >>> 1)) : (c >>> 1);
+        table[n] = c >>> 0;
+      }
+    }
+    var crc = 0xffffffff;
+    for (var i = 0; i < u8.length; i++) crc = table[(crc ^ u8[i]) & 255] ^ (crc >>> 8);
+    return (crc ^ 0xffffffff) >>> 0;
+  }
+  function dosDate(d) {
+    return ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  }
+  function dosTime(d) {
+    return (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+  }
+  function zipStore(files) {
+    var locals = [], central = [], offset = 0, now = new Date();
+    var time = dosTime(now), date = dosDate(now);
+    files.forEach(function (f) {
+      var name = new TextEncoder().encode(f.name);
+      var data = f.data instanceof Uint8Array ? f.data : new Uint8Array(f.data);
+      var crc = crc32(data);
+      var loc = new ArrayBuffer(30 + name.length);
+      var lv = new DataView(loc);
+      lv.setUint32(0, 0x04034b50, true);
+      lv.setUint16(4, 20, true);
+      lv.setUint16(8, 0, true);
+      lv.setUint16(10, time, true);
+      lv.setUint16(12, date, true);
+      lv.setUint32(14, crc, true);
+      lv.setUint32(18, data.length, true);
+      lv.setUint32(22, data.length, true);
+      lv.setUint16(26, name.length, true);
+      new Uint8Array(loc).set(name, 30);
+      locals.push(new Uint8Array(loc), data);
+      var cen = new ArrayBuffer(46 + name.length);
+      var cv = new DataView(cen);
+      cv.setUint32(0, 0x02014b50, true);
+      cv.setUint16(4, 20, true);
+      cv.setUint16(6, 20, true);
+      cv.setUint16(10, 0, true);
+      cv.setUint16(12, time, true);
+      cv.setUint16(14, date, true);
+      cv.setUint32(16, crc, true);
+      cv.setUint32(20, data.length, true);
+      cv.setUint32(24, data.length, true);
+      cv.setUint16(28, name.length, true);
+      cv.setUint32(42, offset, true);
+      new Uint8Array(cen).set(name, 46);
+      central.push(new Uint8Array(cen));
+      offset += loc.byteLength + data.length;
+    });
+    var cenSize = central.reduce(function (a, b) { return a + b.length; }, 0);
+    var eocd = new ArrayBuffer(22);
+    var ev = new DataView(eocd);
+    ev.setUint32(0, 0x06054b50, true);
+    ev.setUint16(8, files.length, true);
+    ev.setUint16(10, files.length, true);
+    ev.setUint32(12, cenSize, true);
+    ev.setUint32(16, offset, true);
+    var total = offset + cenSize + 22;
+    var out = new Uint8Array(total), p = 0;
+    function add(u8) { out.set(u8, p); p += u8.length; }
+    locals.forEach(add);
+    central.forEach(add);
+    add(new Uint8Array(eocd));
+    return out;
+  }
+  function isAppleTouch() {
+    var ua = navigator.userAgent || '';
+    return /iP(hone|ad|od)/.test(ua) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+  function canShareFile(file) {
+    try {
+      return !!(file && navigator.share && navigator.canShare && navigator.canShare({ files: [file] }));
+    } catch (e) {
+      return false;
+    }
+  }
+  function anchorDownload(blob, name) {
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+  }
+  /* iOS Safari often ignores <a download>, including for a zip. Use the share
+     sheet there (Save to Files, or send the file). Android and desktop keep
+     the ordinary download. */
+  function downloadBlob(blob, name) {
+    var type = blob.type || 'application/octet-stream';
+    var file = null;
+    try { file = new File([blob], name, { type: type }); } catch (e) {}
+    var needShare = isAppleTouch() || !('download' in document.createElement('a'));
+    if (file && needShare && canShareFile(file)) {
+      return navigator.share({ files: [file], title: name }).then(function () {
+        return 'share';
+      }).catch(function (err) {
+        if (err && err.name === 'AbortError') return 'abort';
+        anchorDownload(blob, name);
+        return 'download';
+      });
+    }
+    anchorDownload(blob, name);
+    return Promise.resolve('download');
+  }
+  function afterShare(name) {
+    return 'Share or save ' + name + '. On an iPhone, pick Save to Files, or send it back to your computer.';
+  }
+  function getUserMediaAudio() {
+    var gum = null;
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      gum = function (c) { return navigator.mediaDevices.getUserMedia(c); };
+    } else {
+      var legacy = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+      if (legacy) {
+        gum = function (c) {
+          return new Promise(function (resolve, reject) {
+            legacy.call(navigator, c, resolve, reject);
+          });
+        };
+      }
+    }
+    if (!gum) return Promise.reject(new Error('no getUserMedia'));
+    /* iOS Safari ignores sampleRate and may reject a strict constraint object.
+       Try the preferred rate, then the same constraints without it, then {audio:true}.
+       Output is always resampled to SPELL_SR below. */
+    var preferred = {
+      audio: {
+        echoCancellation: false,
+        noiseSuppression: false,
+        autoGainControl: false,
+        channelCount: 1,
+        sampleRate: SPELL_SR
+      }
+    };
+    var relaxed = {
+      audio: {
+        echoCancellation: false,
+        noiseSuppression: false,
+        autoGainControl: false,
+        channelCount: 1
+      }
+    };
+    return gum(preferred).catch(function () {
+      return gum(relaxed);
+    }).catch(function () {
+      return gum({ audio: true });
+    });
+  }
+  function insecureMicContext() {
+    var host = location.hostname;
+    var local = host === 'localhost' || host === '127.0.0.1' || host === '[::1]';
+    return location.protocol === 'file:' || (location.protocol === 'http:' && !local);
+  }
+  function openAudioContext() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) throw new Error('no AudioContext');
+    try { return new AC({ sampleRate: SPELL_SR }); } catch (e) { return new AC(); }
+  }
+
+  function setMeter(rms) {
+    var pct = Math.min(100, Math.round(Math.sqrt(rms) * 280));
+    meterBar.style.width = pct + '%';
+    meterEl.classList.toggle('hot', pct > 70);
+    meterEl.setAttribute('aria-valuenow', String(pct));
+  }
+  function tickMeter() {
+    if (!rec.anal) return;
+    var buf = new Uint8Array(rec.anal.fftSize);
+    rec.anal.getByteTimeDomainData(buf);
+    var s = 0, i, v;
+    for (i = 0; i < buf.length; i++) { v = (buf[i] - 128) / 128; s += v * v; }
+    setMeter(Math.sqrt(s / buf.length));
+    rec.raf = requestAnimationFrame(tickMeter);
+  }
+  function clearTimer() {
+    if (rec.timerIv) { clearInterval(rec.timerIv); rec.timerIv = 0; }
+    timerEl.textContent = '';
+  }
+  function stopTracks() {
+    if (rec.raf) { cancelAnimationFrame(rec.raf); rec.raf = 0; }
+    try { if (rec.proc) rec.proc.disconnect(); } catch (e) {}
+    try { if (rec.src) rec.src.disconnect(); } catch (e) {}
+    try { if (rec.anal) rec.anal.disconnect(); } catch (e) {}
+    try { if (rec.mute) rec.mute.disconnect(); } catch (e) {}
+    if (rec.stream) rec.stream.getTracks().forEach(function (t) { t.stop(); });
+    var ctx = rec.ctx;
+    rec.proc = rec.src = rec.anal = rec.mute = rec.stream = rec.ctx = null;
+    if (ctx && ctx.close) ctx.close();
+    setMeter(0);
+  }
+
+  async function startRec() {
+    if (rec.on) return;
+    if (!(whoEl.value || '').trim()) {
+      setStatus('Type a speaker’s name first.', 'err');
+      whoEl.focus();
+      return;
+    }
+    var stream;
+    try {
+      stream = await getUserMediaAudio();
+    } catch (err) {
+      if (insecureMicContext()) banner.hidden = false;
+      else if (!navigator.mediaDevices && !navigator.getUserMedia && !navigator.webkitGetUserMedia) {
+        banner.hidden = false;
+        setStatus('This browser has no microphone access the page can use.', 'err');
+        return;
+      }
+      setStatus('The microphone was not allowed' + (insecureMicContext()
+        ? '. Browsers only allow the mic on HTTPS or localhost (and often block it on file://). On a computer, run node say-it-back/serve.js and open the local address it prints. A plain http:// page from the PC over Wi-Fi is also blocked on a phone.'
+        : '.') + ' ' + (err && err.message ? err.message : ''), 'err');
+      return;
+    }
+    var ctx;
+    try { ctx = openAudioContext(); } catch (e) {
+      stream.getTracks().forEach(function (t) { t.stop(); });
+      setStatus('This browser has no microphone access the page can use.', 'err');
+      return;
+    }
+    if (ctx.state === 'suspended' && ctx.resume) await ctx.resume();
+    var src = ctx.createMediaStreamSource(stream);
+    var anal = ctx.createAnalyser();
+    anal.fftSize = 2048;
+    var proc = ctx.createScriptProcessor(4096, 1, 1);
+    var chunks = [];
+    proc.onaudioprocess = function (e) {
+      chunks.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+    };
+    var mute = ctx.createGain();
+    mute.gain.value = 0;
+    src.connect(anal);
+    src.connect(proc);
+    proc.connect(mute);
+    mute.connect(ctx.destination);
+    rec.on = true;
+    rec.mute = mute;
+    rec.stream = stream;
+    rec.ctx = ctx;
+    rec.src = src;
+    rec.proc = proc;
+    rec.anal = anal;
+    rec.chunks = chunks;
+    rec.startedAt = Date.now();
+    btnRec.setAttribute('aria-pressed', 'true');
+    btnRec.classList.add('recording');
+    btnRec.textContent = 'Recording…';
+    btnStop.disabled = false;
+    setStatus('Listening… say the line, then stop.', '');
+    tickMeter();
+    rec.timerIv = setInterval(function () {
+      var t = (Date.now() - rec.startedAt) / 1000;
+      timerEl.textContent = t.toFixed(1) + 's  (stops on its own at ' + MAX_SEC + 's)';
+      if (t >= MAX_SEC) stopRec();
+    }, 100);
+    try { localStorage.setItem('sayitback-who', whoEl.value); } catch (e) {}
+  }
+
+  function stopRec() {
+    if (!rec.on) return;
+    rec.on = false;
+    rec.holding = false;
+    clearTimer();
+    var chunks = rec.chunks;
+    var sr = rec.ctx ? rec.ctx.sampleRate : 48000;
+    stopTracks();
+    btnRec.setAttribute('aria-pressed', 'false');
+    btnRec.classList.remove('recording');
+    btnRec.textContent = 'Record';
+    btnStop.disabled = true;
+
+    var total = chunks.reduce(function (a, c) { return a + c.length; }, 0);
+    var all = new Float32Array(total);
+    var o = 0;
+    chunks.forEach(function (c) { all.set(c, o); o += c.length; });
+    var at16 = resampleTo(all, sr, SPELL_SR);
+    var trimmed = trimSilence(at16, SPELL_SR, PAD_SEC);
+    if (!trimmed) {
+      setStatus('No voice found in that take (or it was shorter than a third of a second). Try again, a little closer and clearer.', 'err');
+      return;
+    }
+    var wav = encodeWavPcm16Mono(trimmed, SPELL_SR);
+    var k = kind();
+    var s = slug(whoEl.value);
+    var take = {
+      id: nextId++,
+      kind: k,
+      who: displayWho(),
+      slug: s,
+      wrongId: k === 'wrong' ? wrongSel.value : null,
+      note: k === 'good' ? GOOD_HINTS[Math.min(goodCountFor(s), GOOD_HINTS.length - 1)] : '',
+      samples: trimmed.length,
+      wav: wav,
+      url: URL.createObjectURL(new Blob([wav], { type: 'audio/wav' })),
+      audio: null
+    };
+    if (k === 'wrong') {
+      var prev = takes.findIndex(function (t) { return t.kind === 'wrong' && t.wrongId === take.wrongId; });
+      if (prev >= 0) {
+        var old = takes[prev];
+        if (old.audio) old.audio.pause();
+        if (old.url) URL.revokeObjectURL(old.url);
+        takes.splice(prev, 1);
+        take.note = 'replaced the earlier ' + take.wrongId + ' take';
+      }
+    }
+    takes.push(take);
+    renderList();
+    var path = relPath(take, take.kind === 'good' ? goodNumber(take) : 0);
+    var dur = (trimmed.length / SPELL_SR).toFixed(2);
+    setStatus('Saved ' + path + ' (' + dur + 's, silence trimmed, 0.25s pad). Play it back before you keep it.', 'ok');
+  }
+
+  function toggleRec() {
+    if (rec.on) stopRec();
+    else startRec();
+  }
+
+  whoEl.addEventListener('input', updateHints);
+  document.querySelectorAll('input[name="kind"]').forEach(function (el) {
+    el.addEventListener('change', updateHints);
+  });
+  wrongSel.addEventListener('change', updateHints);
+  $('rec-form').addEventListener('submit', function (e) { e.preventDefault(); toggleRec(); });
+  btnRec.addEventListener('click', function (e) {
+    if (rec.ignoreClick) { rec.ignoreClick = false; e.preventDefault(); return; }
+    if (rec.holding) { e.preventDefault(); return; }
+    if (rec.on) stopRec();
+    else startRec();
+  });
+  btnStop.addEventListener('click', function () { stopRec(); });
+  btnRec.addEventListener('pointerdown', function (e) {
+    /* On a phone, Record is tap-to-toggle (there is no spacebar). Hold-to-record
+       is mouse only, so a slightly long tap does not start and then stop. */
+    if (e.button !== 0 || rec.on) return;
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    rec.holdTimer = setTimeout(function () {
+      rec.holding = true;
+      startRec();
+    }, 350);
+  });
+  function endHold() {
+    if (rec.holdTimer) { clearTimeout(rec.holdTimer); rec.holdTimer = null; }
+    if (rec.holding) {
+      rec.holding = false;
+      rec.ignoreClick = true;
+      if (rec.on) stopRec();
+    }
+  }
+  window.addEventListener('pointerup', endHold);
+  window.addEventListener('pointercancel', endHold);
+  document.addEventListener('keydown', function (e) {
+    if (e.code !== 'Space' && e.key !== ' ') return;
+    var t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+    if (e.repeat) return;
+    e.preventDefault();
+    toggleRec();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && rec.on) { e.preventDefault(); stopRec(); }
+  });
+  btnAll.addEventListener('click', function () {
+    if (!takes.length) return;
+    var files = takes.map(function (t) {
+      return { name: relPath(t, t.kind === 'good' ? goodNumber(t) : 0), data: new Uint8Array(t.wav) };
+    });
+    var zip = zipStore(files);
+    var zipName = 'say-it-back-takes.zip';
+    var msg = 'Downloading ' + zipName + ' with ' + files.length + ' take' + (files.length === 1 ? '' : 's') + '. Unzip into say-it-back/ so the good/ and wrong/ folders land next to this page.';
+    downloadBlob(new Blob([zip], { type: 'application/zip' }), zipName).then(function (how) {
+      if (how === 'abort') return;
+      setStatus(how === 'share' ? afterShare(zipName) : msg, 'ok');
+    });
+  });
+
+  try {
+    var saved = localStorage.getItem('sayitback-who');
+    if (saved && !whoEl.value) whoEl.value = saved;
+  } catch (e) {}
+  renderList();
+  if (location.protocol === 'file:') {
+    /* Don’t show the banner until a mic attempt fails; many browsers still ask. */
+  }
+})();
+  </script>
+</body>
+</html>
