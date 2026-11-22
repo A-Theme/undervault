@@ -1,5 +1,5 @@
-const CACHE='undervault-5b29641dd7';
-const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png'];
+const CACHE='undervault-7ac2b1b458';
+const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png','fr/','fr/index.html','fr/manifest.webmanifest','es/','es/index.html','es/manifest.webmanifest','uk/','uk/index.html','uk/manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE.map(u=>new Request(u,{cache:'reload'})))).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{
