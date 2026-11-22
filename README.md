@@ -40,7 +40,7 @@ Every room is written prose. Every command is a word you type, or a button you t
 
 <br>
 
-**[▶ Play now](https://playundervault.com/)** &nbsp;·&nbsp; [Watch the teaser](media/teaser.mp4) &nbsp;·&nbsp; [Read the lore](LORE.md) &nbsp;·&nbsp; [What's new](https://github.com/A-Theme/undervault/releases)
+**[▶ Play now](https://playundervault.com/)** &nbsp;·&nbsp; [Watch the trailer](media/teaser.mp4) &nbsp;·&nbsp; [Read the lore](LORE.md) &nbsp;·&nbsp; [What's new](https://github.com/A-Theme/undervault/releases)
 
 </td>
 </tr>
@@ -48,7 +48,7 @@ Every room is written prose. Every command is a word you type, or a button you t
 
 ## Play
 
-**Book I is free:** the whole first story, floors 1 to 20, seven side dungeons and the endless Abyss. Books II to IV, their dungeons and the raids are the **full game**: CA$6.99 (about US$5) on the website unlocks it everywhere, every browser and the Android app; or buy it inside the Android app for that app alone. The store opens on **Tuesday 24 November 2026** (6 pm Toronto time), and until then every book is free. Every account made before then, and every hero on its own device before then, is a **Founder** and keeps Books I to IV for good: sign in before then to be a Founder on every device.
+**Book I is free:** the whole first story, floors 1 to 20, seven side dungeons and the endless Abyss. Books II to IV, their dungeons and the raids are the **full game**: CA$6.99 (about US$5) on the website unlocks it everywhere, every browser and the Android app; or buy it inside the Android app for that app alone. The store opens on **Tuesday 24 November 2026** (6 pm Toronto time), and until then every book is free. Every account made before then, and every hero on its own device before then, is a **Founder** and keeps Books I to IV for good: sign in before then to be a Founder on every device. Book V, *The Quiet Kingdom*, comes out the same evening, with the full game: twenty floors under Marrowgate, a city where nobody speaks above a whisper, three side challenges and two new raids.
 
 | Where | How |
 |---|---|

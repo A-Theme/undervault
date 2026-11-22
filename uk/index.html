@@ -31,13 +31,14 @@
 #home{position:fixed;inset:0;z-index:100;overflow-y:auto;background:#0b0d15;color:#d9dcea;font:15px/1.65 'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;-webkit-overflow-scrolling:touch}
 html.home-on,html.home-on body{overflow:hidden}
 #home *{box-sizing:border-box}   /* plain divs, not header/footer: the game styles those (header is its flex status bar) */
-#home .hm{max-width:880px;margin:0 auto;padding:max(18px,env(safe-area-inset-top,0px)) 16px max(48px,env(safe-area-inset-bottom,0px))}
+#home [hidden]{display:none!important}
+#home .hm{max-width:920px;margin:0 auto;padding:max(18px,env(safe-area-inset-top,0px)) 16px max(48px,env(safe-area-inset-bottom,0px))}
 #home a{color:#62d6d6}
 #home img,#home video{display:block;max-width:100%;height:auto;image-rendering:pixelated}
-#home .hm-hero{text-align:center;padding:40px 0 6px}
+#home .hm-hero{text-align:center;padding:34px 0 6px}
 #home .hm-banner{margin:0 auto;border-radius:10px;border:1px solid #262d4d;width:100%;max-width:820px}
 #home h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}   /* the banner says it; the heading is for screen readers and search */
-#home .hm-tag{color:#c9cde0;margin:18px auto 18px;max-width:560px;font-size:15.5px}
+#home .hm-tag{color:#c9cde0;margin:18px auto 18px;max-width:580px;font-size:15.5px}
 #home .hm-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 6px}
 #home .hm-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:10px;border:1px solid #eaa94a;background:#eaa94a;color:#1a1206;font:700 15px 'IBM Plex Mono',monospace;cursor:pointer;text-decoration:none}
 #home .hm-btn:hover{background:#ffc066}
@@ -45,16 +46,39 @@ html.home-on,html.home-on body{overflow:hidden}
 #home .hm-btn.ghost:hover{background:#eaa94a1f}
 #home .hm-btn:focus-visible{outline:2px solid #62d6d6;outline-offset:3px}
 #home .hm-free{font-size:12px;color:#8a93b8;margin:6px 0 0}
-#home h2{font-family:'Silkscreen',monospace;font-weight:400;font-size:20px;letter-spacing:.06em;color:#eaa94a;margin:44px 0 12px;text-align:center}
-#home .hm-lede{max-width:640px;margin:0 auto;text-align:center;color:#c9cde0}
+#home h2{font-family:'Silkscreen',monospace;font-weight:400;font-size:20px;letter-spacing:.06em;color:#eaa94a;margin:48px 0 12px;text-align:center}
+#home .hm-lede{max-width:660px;margin:0 auto;text-align:center;color:#c9cde0}
 #home .hm-lede b{color:#f3d36b;font-weight:600}
-#home .hm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+/* the launch: a lantern-lit strip under the banner, with the time left */
+#home .hm-launch{position:relative;margin:22px auto 4px;max-width:720px;padding:16px 18px 14px;border-radius:12px;border:1px solid #eaa94a;text-align:center;
+  background:radial-gradient(ellipse at 50% -40%,#eaa94a40,transparent 70%),#141026;box-shadow:0 0 28px #eaa94a22}
+#home .hm-launch .k{font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:.14em;color:#eaa94a;margin:0 0 4px}
+#home .hm-launch .t{font-family:'Silkscreen',monospace;font-size:22px;line-height:1.25;color:#f6f2e4;margin:0 0 8px;text-shadow:0 0 14px #ffa04a66}
+#home .hm-launch p{margin:0 auto;max-width:600px;font-size:14px;color:#c9cde0}
+#home .hm-launch p b{color:#f3d36b;font-weight:600}
+#home .hm-cd{display:flex;justify-content:center;gap:10px;margin:10px 0 10px}
+#home .hm-cd div{min-width:74px;padding:6px 8px 4px;border-radius:8px;background:#0b0d15;border:1px solid #3a3360}
+#home .hm-cd b{display:block;font-family:'Silkscreen',monospace;font-weight:400;font-size:28px;line-height:1.1;color:#ffd37a}
+#home .hm-cd span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a93b8}
+#home .hm-video{max-width:340px;margin:0 auto;border:1px solid #262d4d;border-radius:10px;box-shadow:0 0 40px #ffa04a18}
+#home .hm-vnote{text-align:center;font-size:12px;color:#8a93b8;margin:8px 0 0}
+/* Book V */
+#home .hm-b5{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:center;background:linear-gradient(180deg,#101a2e,#0d1020);border:1px solid #3c60d2;border-radius:12px;padding:16px;box-shadow:0 0 36px #6096ff1a}
+#home .hm-b5 .hm-pic{background:#0b0d15;border-radius:8px;padding:6px}
+#home .hm-b5 p{margin:0 0 10px;font-size:14px;color:#c9cde0}
+#home .hm-b5 ul{margin:0 0 10px;padding-left:18px;font-size:13.5px;color:#aab2cf}
+#home .hm-b5 li{margin:0 0 4px}
+#home .hm-b5 li b{color:#a0cdff;font-weight:600}
+#home .hm-b5 .st{font-size:13.5px;color:#e6f5ff;background:#3c60d222;border:1px solid #3c60d2;border-radius:8px;padding:8px 10px;margin:0}
+#home .hm-b5 .st b{color:#ffffff}
+@media (max-width:700px){#home .hm-b5{grid-template-columns:1fr}}
+#home .hm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+#home .hm-grid.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr))}
 #home .hm-card{background:#11152a;border:1px solid #262d4d;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
 #home .hm-card b{color:#f3d36b;font-weight:600}
 #home .hm-card p{margin:0;font-size:13.5px;color:#aab2cf}
-#home .hm-card .hm-pic{display:flex;align-items:center;justify-content:center;min-height:120px;background:#0b0d15;border-radius:8px;padding:8px;overflow:hidden}
-#home .hm-card .hm-pic img{max-height:150px;width:auto}
-#home .hm-video{max-width:340px;margin:0 auto;border:1px solid #262d4d;border-radius:10px}
+#home .hm-card .hm-pic{display:flex;align-items:center;justify-content:center;min-height:150px;background:#0b0d15;border-radius:8px;padding:8px;overflow:hidden}
+#home .hm-card .hm-pic img{max-height:170px;width:auto}
 #home .hm-here{display:none;margin:0 auto 14px;max-width:560px;text-align:center;background:#11152a;border:1px solid #eaa94a;border-radius:10px;padding:14px}
 #home .hm-here.on{display:block}
 #home .hm-here b{display:block;color:#f3d36b;margin-bottom:6px}
@@ -65,26 +89,28 @@ html.home-on,html.home-on body{overflow:hidden}
 #home .hm-code{display:flex;gap:6px;align-items:stretch}
 #home .hm-code code{flex:1;min-width:0;overflow-x:auto;white-space:nowrap;background:#0b0d15;border:1px solid #262d4d;border-radius:6px;padding:8px;font-size:12px;color:#86d98a}
 #home .hm-code button{flex:none;border:1px solid #262d4d;background:#1a2040;color:#d9dcea;border-radius:6px;padding:0 10px;font:12px 'IBM Plex Mono',monospace;cursor:pointer}
-#home .hm-soon{font-size:12px;color:#8a93b8}
-#home .hm-books{list-style:none;margin:16px auto 0;padding:0;max-width:640px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#home .hm-books{list-style:none;margin:16px auto 0;padding:0;max-width:660px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 #home .hm-books li{background:#11152a;border:1px solid #262d4d;border-radius:8px;padding:10px 6px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
 #home .hm-books b{font-family:'Silkscreen',monospace;font-weight:400;font-size:18px;color:var(--c,#f3d36b)}
 #home .hm-books span{font-size:12px;line-height:1.3;color:#c9cde0;overflow-wrap:anywhere}
 #home .hm-books i{font-style:normal;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#eaa94a}
-#home .hm-books .next{border-color:#eaa94a}
-#home .hm-books .next b{color:#eaa94a}
+#home .hm-books .next{border-color:#6096ff;background:#3c60d214}
+#home .hm-books .next b{color:#e6f5ff}
+#home .hm-books .next i{color:#a0cdff}
 #home .hm-books .soon{background:transparent;border-style:dashed}
 #home .hm-books .soon b{color:#4a5378}
 #home .hm-books .soon span{color:#6d7699}
-#home .hm-price{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;max-width:640px;margin:0 auto}
+#home .hm-price{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;max-width:820px;margin:0 auto}
 #home .hm-price .hm-card{text-align:center}
+#home .hm-price .fnd{border-color:#eaa94a}
 #home .hm-cost{font-size:26px;color:#f6f2e4;font-weight:600}
-#home .hm-note{max-width:640px;margin:12px auto 0;text-align:center;font-size:13px;color:#8a93b8}
+#home .hm-note{max-width:660px;margin:12px auto 0;text-align:center;font-size:13px;color:#8a93b8}
 #home .hm-foot{margin-top:48px;padding-top:16px;border-top:1px solid #262d4d;text-align:center;font-size:13px;color:#8a93b8}
 #home .hm-foot a{margin:0 7px;display:inline-block;padding:4px 0}
 #home .hm-langs{margin:0 0 8px}
 #home .hm-close{position:sticky;top:0;display:flex;justify-content:flex-end;height:0;z-index:1}
 #home .hm-close button{margin-top:-4px;border:1px solid #262d4d;background:#11152acc;color:#d9dcea;border-radius:8px;padding:6px 12px;font:13px 'IBM Plex Mono',monospace;cursor:pointer}
+@media (max-width:480px){#home .hm-launch .t{font-size:18px}#home .hm-cd div{min-width:64px}#home .hm-cd b{font-size:24px}}
 @media (prefers-reduced-motion:reduce){#home{scroll-behavior:auto}}
 </style>
 <div id="home" role="region" aria-label="Ласкаво просимо до Lanterns of the Undervault">
@@ -93,70 +119,113 @@ html.home-on,html.home-on body{overflow:hidden}
 <div class="hm-hero">
 <img class="hm-banner" src="../media/banner.gif" alt="Дванадцять героїв Lanterns of the Undervault під ліхтарем, що мерехтить" width="960" height="330">
 <h1>Lanterns of the Undervault</h1>
-<p class="hm-tag">Текстове підземелля в дусі старих MUD, з піксельними героями. Друкуй або торкайся — і спускайся на вісімдесят поверхів під містом, збудованим на кришці.</p>
+<p class="hm-tag" data-five="0">Текстове підземелля в дусі старих MUD, з піксельними героями. Друкуй або торкайся — і спускайся на вісімдесят поверхів під містом, збудованим на кришці.</p>
+<p class="hm-tag" data-five="1" hidden>A text dungeon crawler in the spirit of the old MUDs, with pixel-art heroes. Type or tap your way down a hundred floors beneath a city built on a lid.</p>
 <div class="hm-cta">
 <a class="hm-btn" href="./" data-hm="play">▶ Грати безкоштовно</a>
 <a class="hm-btn ghost" href="#hm-install" data-hm="install">Встановити застосунок</a>
 </div>
 <p class="hm-free">Книга I безкоштовна. Без облікового запису, без реклами. Грається в браузері, навіть без інтернету.</p>
+
+<div class="hm-launch" data-launch="before">
+<div class="k">Launch night</div>
+<div class="t">The store opens Tuesday 24 November</div>
+<div class="hm-cd" id="hm-cd" aria-live="off"><div><b data-cd="d">–</b><span>days</span></div><div><b data-cd="h">–</b><span>hours</span></div><div><b data-cd="m">–</b><span>minutes</span></div></div>
+<p>At 6 pm, Toronto time. <b>Play before then and you're a Founder:</b> Books I to IV are yours for good. Book V, <i>The Quiet Kingdom</i>, comes out the same evening.</p>
 </div>
+<div class="hm-launch" data-five="1" hidden>
+<div class="k">Out now</div>
+<div class="t">The store is open, and Book V is here</div>
+<p>Book I is still free. The full game is one purchase: Books II to V, and every book still to come.</p>
+</div>
+<div class="hm-launch" data-launch="after" data-five="0" hidden>
+<div class="k">The store is open</div>
+<div class="t">Book I is free. The story goes on.</div>
+<p>The full game is one purchase: Books II to IV, and every book still to come.</p>
+</div>
+</div>
+
+<h2>Watch the trailer</h2>
+<video class="hm-video" data-launch="before" src="../media/teaser-launch.mp4" poster="../media/teaser-launch-poster.jpg" controls preload="none" playsinline width="1080" height="1920"></video>
+<video class="hm-video" data-launch="after" hidden src="../media/teaser.mp4" poster="../media/teaser-poster.jpg" controls preload="none" playsinline width="1080" height="1920"></video>
+<p class="hm-vnote">Every frame drawn from the game's own art, with its own sounds.</p>
 
 <h2>Останній Ліхтар згасає</h2>
 <p class="hm-lede">Триста років тому Орден Ліхтаря закував щось під Емберфолом, і п'ять Каменів-оберегів тримають печатку. Цієї ночі Останній Ліхтар став синім. Сестра Марен покликала всіх, хто здатен тримати зброю. <b>Ти відгукнувся.</b></p>
 
+<h2>Book V: The Quiet Kingdom</h2>
+<div class="hm-b5">
+<div class="hm-pic"><img src="../media/book5.gif" alt="Book V's five keepers, Mother Quiet, the Unspoken, Old Tongue, Cantor Amsel and the Listener, and its two raids, the Hundred Hushed and the Boy Who Stayed" loading="lazy" width="842" height="420"></div>
+<div>
+<p>After the war, an envoy from Marrowgate waits in the Square, and Captain Varo sails you west. Marrowgate is a city where nobody speaks above a whisper, and under its cathedral is the fourth door. The thing behind it is not hungry, thirsty or cold. It is lonely, and it keeps every sound it hears.</p>
+<ul>
+<li><b>Twenty floors and five keepers</b>, from Mother Quiet on the docks to the Listener under the choir.</li>
+<li><b>The quiet:</b> every sound you make fills a noise bar, and something is listening.</li>
+<li><b>Three factions</b> of Marrowgate ask you to choose, one act at a time.</li>
+<li><b>Three side challenges:</b> the Whisper Wells, the Silent Duel and the Muffled Peal.</li>
+<li><b>Two raids:</b> the Hundred Hushed, and the Boy Who Stayed.</li>
+</ul>
+<p class="st" data-launch="before"><b>Out on Tuesday 24 November</b>, with the store. It comes with the full game; Founders keep Books I to IV.</p>
+<p class="st" data-five="1" hidden><b>Out now.</b> It comes with the full game; Founders keep Books I to IV.</p>
+<p class="st" data-launch="after" data-five="0" hidden><b>On the way.</b> It comes with the full game; Founders keep Books I to IV.</p>
+</div>
+</div>
+
 <h2>Що чекає внизу</h2>
 <div class="hm-grid">
 <div class="hm-card"><div class="hm-pic"><img src="../media/classes.png" alt="Дванадцять класів" loading="lazy" width="765" height="350"></div><b>Дванадцять класів</b><p>Воїн, Маг, Розбійник, Клірик, Слідопит, Некромант, Друїд, Боєць, Демон, Нащадок, Елементаліст і Ворг — кожен зі своїми вміннями, талантами й титулами.</p></div>
-<div class="hm-card"><div class="hm-pic"><img src="../media/bosses.gif" alt="Сюжетні боси" loading="lazy" width="690" height="429"></div><b>Історія у восьми книгах</b><p>Чотири вже тут: вісімдесят поверхів, двадцять сюжетних босів, побічні підземелля чотирьох рівнів і нескінченна Безодня. Кожна книга закінчується вибором, і ще чотири вже на підході.</p></div>
+<div class="hm-card"><div class="hm-pic"><img src="../media/bosses.gif" alt="Сюжетні боси" loading="lazy" width="690" height="429"></div><b>Історія у восьми книгах</b><p data-five="0">Чотири вже тут: вісімдесят поверхів, двадцять сюжетних босів, побічні підземелля чотирьох рівнів і нескінченна Безодня. Кожна книга закінчується вибором, і ще чотири вже на підході.</p><p data-five="1" hidden>Five are here: a hundred floors, twenty-five story bosses, side dungeons at four tiers, and an endless Abyss. Every book ends with a choice, and three more are on the way.</p></div>
+<div class="hm-card"><div class="hm-pic"><img src="../media/boss-warnings.gif" alt="Grisholt and Lily the Sweethang pose by pose: each warning with its answer" loading="lazy" width="900" height="560"></div><b>Bosses that warn you</b><p>Every boss shows you what it is about to do. Defend, Dodge, or break it with a skill or a stun, and watch for the feint that punishes answering without looking.</p></div>
+<div class="hm-card"><div class="hm-pic"><img src="../media/side-challenges.gif" alt="Fifteen side challenges, each in its own picture: from the Lamplighter's Round to the Treaty Table" loading="lazy" width="1072" height="714"></div><b>Side challenges behind the walls</b><p>Some walls open only to your class's own skill. Behind them: chess in a drowned court, a tower defence in the snow, a forge trial, a race up a stair and more, each with four tiers and a prize of its own.</p></div>
 <div class="hm-card"><div class="hm-pic"><img src="../media/chests.png" alt="Скрині — від іржавих до легендарних" loading="lazy" width="1102" height="172"></div><b>Здобич, яку видно</b><p>Кожен меч, посох і обладунок видно на твоєму герої. Легендарні речі, класові комплекти, зачарування і скрині, що відчиняються з розмахом.</p></div>
-<div class="hm-card"><div class="hm-pic"><img src="../media/pets.png" alt="Улюбленці, яких можна приручити" loading="lazy" width="1030" height="506"></div><b>Друзі й улюбленці</b><p>Спілкуйся у Спільній залі, змагайся на тому самому зерні, грай наживо разом або в рейді вчотирьох. Приручай і вирощуй 27 улюбленців. Режим хардкор і щоденне підземелля.</p></div>
+<div class="hm-card"><div class="hm-pic"><img src="../media/pets.png" alt="Улюбленці, яких можна приручити" loading="lazy" width="1030" height="506"></div><b>Друзі й улюбленці</b><p>Play live with friends on the same floor, raid in a party of four, or talk in the Common Room. Tame pets and raise them through ten forms, in five rarities. Hardcore mode and a daily dungeon.</p></div>
 </div>
 
-<h2>Ще чотири книги на підході</h2>
+<h2>The story of the seven doors</h2>
 <p class="hm-lede">Мапа Ардена показує сім дверей у семи королівствах. Троє зачинено. Історія триватиме до останніх, і кожна її книга входить у повну гру.</p>
 <ol class="hm-books">
-<li style="--c:#f3d36b"><b>I</b><span>Останній Ліхтар</span></li>
+<li style="--c:#f3d36b"><b>I</b><span>The Last Lantern</span><i>free</i></li>
 <li style="--c:#d48cff"><b>II</b><span>Голод унизу</span></li>
 <li style="--c:#62d6d6"><b>III</b><span>За Попелястим морем</span></li>
 <li style="--c:#ff8a5c"><b>IV</b><span>Війна Ліхтарів</span></li>
-<li class="next"><b>V</b><span>Тихе королівство</span><i>далі</i></li>
+<li class="next"><b>V</b><span>The Quiet Kingdom</span><i data-launch="before">24 Nov</i><i data-five="1" hidden>new</i><i data-launch="after" data-five="0" hidden>next</i></li>
 <li class="soon"><b>VI</b><span>незабаром</span></li>
 <li class="soon"><b>VII</b><span>незабаром</span></li>
 <li class="soon"><b>VIII</b><span>незабаром</span></li>
 </ol>
 
-<h2>Подивися в русі</h2>
-<video class="hm-video" src="../media/teaser.mp4" poster="../media/teaser-poster.jpg" controls preload="none" playsinline width="1080" height="1920"></video>
+<h2 data-launch="before">Крамниця відкривається 24 листопада</h2>
+<h2 data-launch="after" hidden>Ціна</h2>
+<div class="hm-price">
+<div class="hm-card"><b>Книга I</b><div class="hm-cost">Безкоштовно</div><p>Уся перша історія, її бічні підземелля та Безодня.</p></div>
+<div class="hm-card"><b>Повна гра</b><div class="hm-cost">CA$6.99</div><p data-five="0">Одноразова покупка, не підписка. Книги II–IV вже зараз і кожна наступна книга історії семи дверей. Купи один раз — і гра твоя на кожному пристрої, де ти ввійдеш.</p><p data-five="1" hidden>One-time, not a subscription. Books II to V now, and every book still to come in the story of the seven doors. Buy once and it is yours on every device you sign in on.</p></div>
+<div class="hm-card fnd"><b>Founders</b><div class="hm-cost">Books I–IV</div><p data-launch="before">Play before the store opens and Books I to IV are yours for good. Sign in before then to be a Founder on every device. Book V and the books after it come with the full game.</p><p data-launch="after" hidden>Everyone who played before the store opened keeps Books I to IV for good. Book V and the books after it come with the full game.</p></div>
+</div>
+<p class="hm-note" data-launch="before">Крамниця відкривається у <b>вівторок, 24 листопада</b>, о 18:00 (за Торонто). Доти всі книги безплатні, а кожен акаунт, створений до цього дня, і кожен герой, що був на своєму пристрої до цього дня, зберігає Книги I–IV назавжди. Увійди до того часу, щоб бути Засновником на кожному пристрої. <a href="about.html">Більше про гру й ціни</a>.</p>
+<p class="hm-note" data-launch="after" hidden>Акаунти, створені до відкриття крамниці 24 листопада 2026 року, і герої, що були на своєму пристрої до цього дня, — Засновники й зберігають Книги I–IV назавжди. <a href="about.html">Більше про гру й ціни</a>.</p>
+<p class="hm-note">У застосунку для Android можна також купити розблокування лише для Android через Google Play, за ціною, вказаною там.</p>
 
 <h2 id="hm-install">Встанови гру</h2>
 <p class="hm-note">Повна гра працює на ПК, Mac, Steam Deck, iPhone чи iPad та Android. Увійди — і твої герої та покупка будуть з тобою на кожному пристрої.</p>
 <div class="hm-here" id="hm-here"><b>Встановити на цей пристрій</b><button type="button" class="hm-btn" data-hm="prompt">Встановити застосунок</button></div>
-<div class="hm-grid">
+<div class="hm-grid two">
 <div class="hm-card hm-plat" data-plat="android"><h3>Android</h3><ol><li>Відкрий playundervault.com у <b>Chrome</b>.</li><li>Торкнися меню (⋮), а тоді <b>Установити додаток</b>.</li></ol><p>Або встанови гру з <a href="https://play.google.com/store/apps/details?id=ca.atheme.undervault">Google Play</a>, або завантаж застосунок: <a href="https://github.com/A-Theme/undervault/releases/latest/download/undervault.apk">undervault.apk</a>.</p></div>
 <div class="hm-card hm-plat" data-plat="ios"><h3>iPhone та iPad</h3><ol><li>Відкрий playundervault.com у <b>Safari</b>.</li><li>Торкнися <b>Поширити</b>, а тоді <b>На початковий екран</b>.</li></ol><p>Відкривається на весь екран і працює офлайн, як застосунок.</p></div>
 <div class="hm-card hm-plat" data-plat="desktop"><h3>Windows, Mac і Linux</h3><ol><li>Відкрий playundervault.com у <b>Chrome</b> або <b>Edge</b>.</li><li>Натисни значок встановлення в адресному рядку.</li></ol><p>Або просто грай у будь-якій вкладці. Геймпади теж працюють.</p></div>
 <div class="hm-card hm-plat" data-plat="deck"><h3>Steam Deck</h3><ol><li>Натисни кнопку <b>Steam</b>, потім <b>Живлення</b> → <b>Перейти в режим робочого столу</b>.</li><li>Відкрий меню застосунків унизу ліворуч, потім <b>Система</b> → <b>Konsole</b>.</li><li>Встав це й натисни Enter (<b>Steam + X</b> відкриває клавіатуру):<div class="hm-code"><code>curl -fsSL https://playundervault.com/steamdeck.sh | bash</code><button type="button" data-hm="copy">Копіювати</button></div></li><li>Коли з'явиться <b>Done</b>, двічі клацни <b>Return to Gaming Mode</b> на робочому столі.</li><li>У Бібліотеці відкрий вкладку <b>Не зі Steam</b> і запусти <b>Lanterns of the Undervault</b>.</li></ol><p>Керування Deck працює в грі.</p></div>
 </div>
 
-<h2>Ціна</h2>
-<div class="hm-price">
-<div class="hm-card"><b>Книга I</b><div class="hm-cost">Безкоштовно</div><p>Уся перша історія, її бічні підземелля та Безодня.</p></div>
-<div class="hm-card"><b>Повна гра</b><div class="hm-cost">CA$6.99</div><p>Одноразова покупка, не підписка. Книги II–IV вже зараз і кожна наступна книга історії семи дверей. Купи один раз — і гра твоя на кожному пристрої, де ти ввійдеш.</p></div>
-</div>
-<p class="hm-note" data-launch="before">Крамниця відкривається у <b>вівторок, 24 листопада</b>, о 18:00 (за Торонто). Доти всі книги безплатні, а кожен акаунт, створений до цього дня, і кожен герой, що був на своєму пристрої до цього дня, зберігає Книги I–IV назавжди. Увійди до того часу, щоб бути Засновником на кожному пристрої. <a href="about.html">Більше про гру й ціни</a>.</p>
-<p class="hm-note" data-launch="after" hidden>Акаунти, створені до відкриття крамниці 24 листопада 2026 року, і герої, що були на своєму пристрої до цього дня, — Засновники й зберігають Книги I–IV назавжди. <a href="about.html">Більше про гру й ціни</a>.</p>
-
 <div class="hm-cta" style="margin-top:34px"><a class="hm-btn" href="./" data-hm="play">▶ Грати безкоштовно</a></div>
 
 <div class="hm-foot">
 
-<a href="about.html">Про гру</a><a href="https://github.com/A-Theme/undervault/blob/main/LORE.md">Світ гри (англійською)</a><a href="https://www.instagram.com/undervaultgame/">Instagram</a><a href="terms.html">Умови</a><a href="refund.html">Повернення коштів</a><a href="privacy.html">Конфіденційність</a><a href="mailto:support@playundervault.com">Контакти</a>
+<a href="about.html">About</a><a href="https://github.com/A-Theme/undervault/blob/main/LORE.md">The lore</a><a href="https://play.google.com/store/apps/details?id=ca.atheme.undervault">Google Play</a><a href="https://discord.gg/tyuyfxy9UA">Discord</a><a href="https://www.instagram.com/undervaultgame/">Instagram</a><a href="terms.html">Terms</a><a href="refund.html">Refunds</a><a href="privacy.html">Privacy</a><a href="mailto:support@playundervault.com">Contact</a>
 <p style="margin:10px 0 0">© 2026 A-Theme. Lanterns of the Undervault.</p>
 </div>
 </div>
 </div>
-<script>!function(){var e=document.getElementById("home");if(e){var t=document.documentElement,n=/[?&]home=1/.test(location.search),o=/^https?:$/.test(location.protocol)&&!window.Capacitor&&"localhost"!==location.hostname,a=window.matchMedia&&matchMedia("(display-mode: standalone)").matches||!0===navigator.standalone,i=!1;try{for(var r=0;r<localStorage.length;r++)if(/^undervault-(slot-|save)/.test(localStorage.key(r)||"")){i=!0;break}}catch(e){}var d=navigator.webdriver&&!window.__forceHome;!n&&(!o||location.search||location.hash||a||i||d)?u():h(),window.homeShow=h,window.homeHide=u;var c=navigator.userAgent||"",l=/SteamOS|Steam Deck/i.test(c)?"deck":/Android/i.test(c)?"android":/iPhone|iPad|iPod/.test(c)||/Macintosh/.test(c)&&navigator.maxTouchPoints>1?"ios":"desktop",s=e.querySelector('.hm-plat[data-plat="'+l+'"]');s&&(s.classList.add("mine"),s.parentNode.insertBefore(s,s.parentNode.firstChild));var m=null;window.addEventListener("beforeinstallprompt",function(t){e.hidden||(t.preventDefault(),m=t,document.getElementById("hm-here").classList.add("on"))}),window.addEventListener("appinstalled",function(){document.getElementById("hm-here").classList.remove("on")}),e.addEventListener("click",function(e){var t=e.target.closest("[data-hm]");if(t){var n=t.getAttribute("data-hm");if("play"===n)e.preventDefault(),u();else if("install"===n){e.preventDefault();var o=document.getElementById("hm-install");o&&o.scrollIntoView({behavior:"smooth",block:"start"})}else if("prompt"===n&&m)m.prompt(),m.userChoice.then(function(){m=null,document.getElementById("hm-here").classList.remove("on")});else if("copy"===n){var a=t.parentNode.querySelector("code").textContent;try{navigator.clipboard.writeText(a).then(function(){t.textContent="Скопійовано",setTimeout(function(){t.textContent="Копіювати"},1600)})}catch(e){}}}}),document.addEventListener("keydown",function(t){"Escape"!==t.key||e.hidden||u()}),o&&document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".privacy-link");if(e){var t=document.createElement("a");t.href="./?home=1",t.textContent="Головна",t.addEventListener("click",function(e){e.preventDefault(),h()}),e.insertBefore(document.createTextNode(" · "),e.firstChild),e.insertBefore(t,e.firstChild)}})}function h(){e.hidden=!1,t.classList.add("home-on"),e.scrollTop=0}function u(){if(e.hidden=!0,t.classList.remove("home-on"),n)try{history.replaceState(null,"",location.pathname)}catch(e){}}}();</script>
-<script>!function(){var t=Date.now()>=17955612e5;[].forEach.call(document.querySelectorAll("[data-launch]"),function(a){a.hidden="after"===a.getAttribute("data-launch")!==t})}();</script>
+<script>!function(){var e=document.getElementById("home");if(e){var t=document.documentElement,n=/[?&]home=1/.test(location.search),o=/^https?:$/.test(location.protocol)&&!window.Capacitor&&"localhost"!==location.hostname,a=window.matchMedia&&matchMedia("(display-mode: standalone)").matches||!0===navigator.standalone,i=!1;try{for(var r=0;r<localStorage.length;r++)if(/^undervault-(slot-|save)/.test(localStorage.key(r)||"")){i=!0;break}}catch(e){}var d=navigator.webdriver&&!window.__forceHome;!n&&(!o||location.search||location.hash||a||i||d)?u():m(),window.homeShow=m,window.homeHide=u;var c=navigator.userAgent||"",l=/SteamOS|Steam Deck/i.test(c)?"deck":/Android/i.test(c)?"android":/iPhone|iPad|iPod/.test(c)||/Macintosh/.test(c)&&navigator.maxTouchPoints>1?"ios":"desktop",s=e.querySelector('.hm-plat[data-plat="'+l+'"]');s&&(s.classList.add("mine"),s.parentNode.insertBefore(s,s.parentNode.firstChild));var h=null;window.addEventListener("beforeinstallprompt",function(t){e.hidden||(t.preventDefault(),h=t,document.getElementById("hm-here").classList.add("on"))}),window.addEventListener("appinstalled",function(){document.getElementById("hm-here").classList.remove("on")}),e.addEventListener("click",function(e){var t=e.target.closest("[data-hm]");if(t){var n=t.getAttribute("data-hm");if("play"===n)e.preventDefault(),u();else if("install"===n){e.preventDefault();var o=document.getElementById("hm-install");o&&o.scrollIntoView({behavior:"smooth",block:"start"})}else if("prompt"===n&&h)h.prompt(),h.userChoice.then(function(){h=null,document.getElementById("hm-here").classList.remove("on")});else if("copy"===n){var a=t.parentNode.querySelector("code").textContent;try{navigator.clipboard.writeText(a).then(function(){t.textContent="Скопійовано",setTimeout(function(){t.textContent="Копіювати"},1600)})}catch(e){}}}}),document.addEventListener("keydown",function(t){"Escape"!==t.key||e.hidden||u()}),o&&document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".privacy-link");if(e){var t=document.createElement("a");t.href="./?home=1",t.textContent="Головна",t.addEventListener("click",function(e){e.preventDefault(),m()}),e.insertBefore(document.createTextNode(" · "),e.firstChild),e.insertBefore(t,e.firstChild)}})}function m(){e.hidden=!1,t.classList.add("home-on"),e.scrollTop=0}function u(){if(e.hidden=!0,t.classList.remove("home-on"),n)try{history.replaceState(null,"",location.pathname)}catch(e){}[].forEach.call(e.querySelectorAll("video"),function(e){try{e.pause()}catch(e){}})}}();</script>
+<script>!function(){var t=17955612e5;function e(){var e=Date.now()>=t,a=e&&!1;return[].forEach.call(document.querySelectorAll("[data-launch],[data-five]"),function(t){var n=t.getAttribute("data-launch"),l=t.getAttribute("data-five");t.hidden=!!(null!=n&&"after"===n!==e||null!=l&&"1"===l!==a)}),e}var a=document.getElementById("hm-cd");e()||function n(){var l=t-Date.now();if(l<=0)e();else{if(a){var o=Math.floor(l/6e4),r={d:Math.floor(o/1440),h:Math.floor(o/60)%24,m:o%60};[].forEach.call(a.querySelectorAll("[data-cd]"),function(t){t.textContent=r[t.getAttribute("data-cd")]})}setTimeout(n,Math.min(l,15e3))}}()}();</script>
 
 <title>Lanterns of the Undervault</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
